@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            File
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/materiale-didattico/{{ad_id}}" text="Indietro"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+<ion-content no-padding>
+
+  <ion-card text-wrap *ngIf="!allegato">
+    <ion-card-header text-center text-wrap ng-bind-html="snippet">
+      <ion-label color="primary"><h1>Ops!</h1></ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label text-center text-wrap>
+        Si è verificato un problema durante l'accesso al materiale didattico per questo insegnamento.
+      </ion-label>
+      <ion-label text-center text-wrap>
+        Utilizza il tasto Back in alto per selezionare nuovamente l'elemento da visualizzare.
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card text-wrap *ngIf="allegato">
+
+    <ion-card-title>
+      <ion-label text-center text-wrap>
+        {{ this.pulisciAllegato(allegato.TITOLO) }}
+      </ion-label>
+    </ion-card-title>
+    <ion-card-subtitle text-center text-wrap>
+      {{ allegato.AUTORE }}
+    </ion-card-subtitle>
+    <ion-card-content text-wrap>
+      <ion-label text-wrap>Data: {{ allegato.DATA_INS }}</ion-label>
+      <ion-label text-wrap>File:{{ this.pulisciAllegato(allegato.FILENAME) }}</ion-label>
+      <div *ngIf="allegato.TESTO">
+       Note:<p [innerHtml]="this.pulisciAllegato(allegato.TESTO)"></p>
+      </div>
+
+    </ion-card-content>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <ion-button icon-left color="light" (click)="apriFile()">
+            <ion-icon name="easel" color="primary"></ion-icon>
+            Apri
+          </ion-button>
+        </ion-col>
+        <ion-col text-center>
+          <ion-button icon-left color="danger" (click)="eliminaFile()">
+            <ion-icon name="trash"></ion-icon>
+            Elimina
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+  </ion-card>
+
+</ion-content>

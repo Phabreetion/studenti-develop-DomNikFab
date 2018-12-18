@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+     <!-- <ion-label (click)="today()"><b>{{ viewTitle }}</b></ion-label> -->
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button icon-only>
+       <!-- <ion-icon color="primary" style="font-size: 28px;" name="calendar" (click)="today()"></ion-icon> -->
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content no-padding>
+<!--
+  <calendar [locale]="calendar.locale"
+            [eventSource]="eventSource"
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            [monthviewEventDetailTemplate]="monthView"
+            [noEventsLabel]="calendar.noEventsLabel"
+            (onCurrentDateChanged)="onCurrentDateChanged($event)"
+            (onRangeChanged)="reloadSource(startTime, endTime)"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            (onTimeSelected)="onTimeSelected($event)"
+            step="30">
+  </calendar>
+
+  <ng-template #monthView let-showEventDetail="showEventDetail" let-selectedDate="selectedDate" let-noEventsLabel="noEventsLabel">
+    <ion-list class="event-detail-container" has-bouncing="false" *ngIf="showEventDetail">
+      <ion-item *ngFor="let event of selectedDate?.events" (click)="eventSelected(event)">
+        <ion-grid class=" esame" no-padding>
+          <ion-row>
+            <ion-col size="3" text-wrap><b>Orario</b></ion-col>
+            <ion-col size="9" text-wrap>{{event.startTime|date: 'HH:mm'}} - {{event.endTime|date: 'HH:mm'}}</ion-col>
+          </ion-row>
+          <ion-row *ngIf="event.title">
+            <ion-col size="3" text-wrap><b>Evento</b></ion-col>
+            <ion-col size="9" text-wrap>{{event.title}}</ion-col>
+          </ion-row>
+          <ion-row  *ngIf="event.docente">
+            <ion-col size="3" text-wrap><b>Docente</b></ion-col>
+            <ion-col size="9" text-wrap>{{event.docente}}</ion-col>
+          </ion-row>
+          <ion-row  *ngIf="event.aula">
+            <ion-col size="3" text-wrap><b>Aula</b></ion-col>
+            <ion-col size="9" text-wrap>{{event.aula}}</ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+      <ion-item *ngIf="selectedDate?.events.length==0">
+        <div class="no-events-label">{{noEventsLabel}}</div>
+      </ion-item>
+    </ion-list>
+  </ng-template>
+
+  -->
+</ion-content>
+
+<ion-footer  no-padding>
+  <ion-toolbar no-padding [ngClass]="{connected: globalData.getConnected(), disconnected: !globalData.getConnected()}">
+    <ion-grid  no-padding>
+      <ion-row no-padding style="align-items:center">
+        <ion-col col-2 text-center >
+          <img *ngIf="globalData.getConnected()" class="footer-icon" src="assets/icon/connected.png">
+          <img *ngIf="!globalData.getConnected()" class="footer-icon" src="assets/icon/disconnected.png">
+        </ion-col>
+        <ion-col col-8 text-center >
+          <p ion-text text-center>Aggiornato al: {{dataAggiornamento}}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

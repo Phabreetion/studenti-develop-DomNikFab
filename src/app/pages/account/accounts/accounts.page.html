@@ -1,0 +1,166 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Accounts {{nrAccounts}}
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/preferenze" text="Indietro"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+
+<ion-content>
+  <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="!accounts || accounts?.length == 0 && rinvioAggiornamento" text-center>
+    <ion-row>
+      <ion-col>
+        <ion-img class="progress" src="assets/img/progress.gif"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>un attimo di pazienza</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-item *ngIf="!rinvioAggiornamento && accounts?.length == 0" text-center>
+    <h3>Dati non disponibili</h3>
+  </ion-item>
+
+  <ion-list *ngIf="accounts?.length > 0" >
+    <ion-item-sliding no-padding  *ngFor="let account of accounts">
+
+      <ion-item (click)="onPress(account)" [ngClass]="{'locale' : account.token == tokenLocale}">
+
+        <ion-grid no-padding fixed>
+          <ion-row>
+            <ion-col size="2" align-items-start="true" align-self-center="true">
+              <ion-img class="logo-mini" src="./assets/img/{{this.selezionaIcona(account)}}"></ion-img>
+            </ion-col>
+            <ion-col size="10">
+              <ion-grid no-padding>
+                <ion-row>
+                  <ion-col size="4">Data</ion-col>
+                  <ion-col text-wrap>{{this.timestamp2string(account.ultimo_accesso)}}</ion-col>
+                </ion-row>
+                <ion-row>
+                  <ion-col size="4">Matr.</ion-col>
+                  <ion-col text-wrap>{{account.matricola}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="account.virtual">
+                  <ion-col >Dispositivo virtuale</ion-col>
+                </ion-row>
+                <ion-row *ngIf="account.manufacturer">
+                  <ion-col size="4">Device</ion-col>
+                  <ion-col text-wrap>{{account.manufacturer}} {{account.model}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="account.platform">
+                  <ion-col size="4">S.O.</ion-col>
+                  <ion-col text-wrap>{{account.platform}} {{account.os_version}}</ion-col>
+                </ion-row>
+                <ion-row *ngIf="account.app_version">
+                  <ion-col size="4">Ver. App</ion-col>
+                  <ion-col text-wrap>{{account.app_version}}</ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-item>
+
+
+      <!--<ion-list [hidden]="accounts?.length == 0"  *ngFor="let account of accounts">
+        <ion-item (press)="onPress(account)" [ngClass]="{'locale' : account.token == tokenLocale}">
+          <ion-grid>
+            <ion-row>
+              <ion-col>Ultimo Accesso:</ion-col>
+              <ion-col text-wrap>{{this.timestamp2string(account.ultimo_accesso)}}</ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col>Matricola:</ion-col>
+              <ion-col text-wrap>{{account.matricola}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="!account.virtual">
+              <ion-col>Dispositivo virtuale</ion-col>
+            </ion-row>
+            <ion-row *ngIf="account.manufacturer">
+              <ion-col>Produttore:</ion-col>
+              <ion-col text-wrap>{{account.manufacturer}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="account.model">
+              <ion-col>Modello:</ion-col>
+              <ion-col text-wrap>{{account.model}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="account.platform">
+              <ion-col>SO:</ion-col>
+              <ion-col text-wrap>{{account.platform}} {{account.os_version}}</ion-col>
+            </ion-row>
+            <ion-row *ngIf="account.app_version">
+              <ion-col>Versione App:</ion-col>
+              <ion-col text-wrap>{{account.app_version}}</ion-col>
+            </ion-row>
+          </ion-grid>
+
+        </ion-item>
+      <!--</ion-list>-->
+
+      <ion-item-options side="end" slot="top">
+        <ion-item-option *ngIf="account.token != tokenLocale" (click)="disconnetti(account)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-item-option>
+      </ion-item-options>
+    </ion-item-sliding>
+
+  </ion-list>
+
+</ion-content>
+
+<ion-footer  no-padding>
+  <ion-toolbar>
+    <ion-grid slot="start" no-padding>
+      <ion-row>
+        <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
+          <ion-buttons>
+            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+        <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
+          <ion-spinner></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-label class="testo-footer">
+      Aggiornato al: {{dataAggiornamento}}
+    </ion-label>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

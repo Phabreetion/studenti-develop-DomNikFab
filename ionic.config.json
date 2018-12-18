@@ -1,0 +1,7 @@
+{
+  "name": "studenti.2.0",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

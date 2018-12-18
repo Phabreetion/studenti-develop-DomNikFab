@@ -1,0 +1,162 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title *ngIf='!showSearchBar'>
+            Notifiche ({{nrElementiFiltrati}}/{{nrElementi}})
+          </ion-title>
+          <ion-searchbar *ngIf='showSearchBar'
+                         [@flyInOut]="flyInOutState"
+                         [(ngModel)]="searchTerm"
+                         (click)="setFiltro()"
+                         (ionChange)="setFiltro()"
+                         (ionCancel)="onSearchCancel()"
+                         (ionClear)="onSearchCancel()">
+          </ion-searchbar>
+          <ion-buttons slot="end">
+            <ion-button icon-only (click)="toggleInOut()">
+              <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+
+  <!--
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  -->
+
+  <ion-grid *ngIf="rinvioAggiornamento && !notificheFiltrate" text-center no-padding>
+    <ion-row>
+      <ion-col>
+        <img class="progress" src="assets/img/progress.gif" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>un attimo di pazienza</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row *ngIf="!rinvioAggiornamento && notificheFiltrate?.length == 0">
+      <ion-col>
+        <ion-list>
+          <ion-item text-center>
+            <ion-grid no-padding>
+              <ion-row>
+                <ion-col>
+                  <h2>Nessuna notifica presente</h2>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-img class="logo" src="assets/img/sad.png"></ion-img>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+    <ion-row [hidden]="notificheFiltrate?.length == 0">
+      <ion-col no-padding>
+        <ion-list>
+          <ion-item-sliding *ngFor="let item of notificheFiltrate">
+            <ion-item (click)="showDetails(item)">
+              <ion-grid fixed no-padding>
+                <ion-row>
+                  <ion-col size="1" align-self-center="true">
+                    <ion-icon style="font-size: 1.5em;" name={{icons[item.tipo]}} color={{colors[item.tipo]}}></ion-icon>
+                  </ion-col>
+                  <ion-col size="11">
+                    <ion-grid>
+                      <ion-row>
+                        <ion-col>
+                          <div class="news-date">{{ date2string(item.data) }}</div>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <ion-text color={{colors[item.tipo]}}><b>{{ item.titolo }}</b></ion-text>
+                        </ion-col>
+                      </ion-row>
+                      <ion-row>
+                        <ion-col>
+                          <div class="ellipsis" text-wrap>{{ pulisciTesto(item.messaggio)}}</div>
+                        </ion-col>
+                      </ion-row>
+                    </ion-grid>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+
+            </ion-item>
+
+            <ion-item-options side="end">
+              <ion-item-option (click)="showDetails(item)" color="primary">
+                Mostra
+              </ion-item-option>
+            </ion-item-options>
+          </ion-item-sliding>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content
+            loadingSpinner="bubbles"
+            loadingText="Caricamento dati...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+</ion-content>
+
+<ion-footer no-padding>
+  <ion-toolbar>
+    <ion-grid slot="start" no-padding>
+      <ion-row>
+        <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
+          <ion-buttons>
+            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+        <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
+          <ion-spinner></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-label class="testo-footer">
+      Aggiornato al: {{dataAggiornamento}}
+    </ion-label>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
+

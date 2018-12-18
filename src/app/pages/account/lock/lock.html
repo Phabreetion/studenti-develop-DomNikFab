@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Lock
+          </ion-title>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content padding>
+
+  <!--
+    <ion-grid>
+      <ion-row>
+        <ion-col text-center>
+          <ion-title>Sicuro di voler bloccare il dispositivo?</ion-title>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col text-center>
+          <ion-button icon-left color="light" (click)="logout()">
+            <ion-icon name="log-out" color="primary"></ion-icon>
+            Si
+          </ion-button>
+        </ion-col>
+        <ion-col text-center>
+          <ion-button expand="block" fill="clear" icon-left color="secondary" (click)="continua()">
+            <ion-icon name="back"></ion-icon>
+            No
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+-->
+</ion-content>

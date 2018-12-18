@@ -1,0 +1,69 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Notizia
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/news" text="Indietro"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+
+  <ion-card text-wrap *ngIf="notizia">
+
+    <ion-card-subtitle text-center>
+      {{formatStringDate(notizia.data)}}
+    </ion-card-subtitle>
+
+    <ion-card-header text-wrap ng-bind-html="snippet">
+      <b>{{this.pulisciNews(notizia.messaggio)}}</b>
+    </ion-card-header>
+
+    <ion-card-content text-wrap *ngIf="notizia.contenuto">
+      <p [innerHtml]="this.pulisciNews(notizia.contenuto)"></p>
+    </ion-card-content>
+
+    <ion-card-content *ngIf="!notizia.contenuto">
+      <ion-label text-wrap>
+        News completa disponibile sul portale
+      </ion-label>
+    </ion-card-content>
+
+    <ion-item>
+      <ion-icon name='share-alt' item-start style="color: #266acb"></ion-icon>
+      <ion-label (click)="openWithSystemBrowser()">Vai alla notizia sul Portale</ion-label>
+    </ion-item>
+
+  </ion-card>
+
+  <ion-card text-wrap *ngIf="!notizia">
+    <ion-card-header text-center text-wrap ng-bind-html="snippet">
+      <ion-label color="primary"><h1>Ops!</h1></ion-label>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label text-center text-wrap>
+        Si è verificato un problema durante l'accesso all'archivio notizie.
+      </ion-label>
+      <ion-label text-center text-wrap>
+        Utilizza il tasto Back in alto per selezionare nuovamente l'elemento da visualizzare.
+      </ion-label>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

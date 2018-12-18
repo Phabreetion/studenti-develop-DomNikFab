@@ -1,0 +1,172 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Home
+          </ion-title>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="rinvioAggiornamento && !carriera" text-center>
+    <ion-row>
+      <ion-col>
+        <ion-img class="progress" src="assets/img/progress.gif"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>un attimo di pazienza</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid [hidden]="!carriera">
+    <ion-row (click)="visualizzaDettagli()">
+      <ion-col>
+        <ion-label text-wrap text-center>
+          <h2>{{nome}} {{cognome}} ({{matricola}})</h2>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="!graficoLegacy" size="{{mainColSize()}}">
+        <canvas fixed #lineCanvas (click)="visualizzaStoricoEsami($event)"></canvas>
+      </ion-col>
+
+      <ion-col *ngIf="graficoLegacy" size="{{mainColSize()}}">
+        <ion-img src="{{chart}}" (click)="visualizzaStoricoEsami()" style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"></ion-img>
+      </ion-col>
+
+      <ion-col size="{{mainColSize()}}">
+        <ion-grid>
+          <ion-row>
+            <ion-col no-padding size="6" text-left>
+              <ion-label>Media aritmetica</ion-label>
+            </ion-col>
+            <ion-col no-padding size="6" text-right>
+              <ion-badge item-end>{{media_aritm}}
+                <ion-icon name="add-circle"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col no-padding size="6" text-left>
+              <ion-label>Media ponderata</ion-label>
+            </ion-col>
+            <ion-col no-padding size="6" text-right>
+              <ion-badge item-end>{{media_pond}}
+                <ion-icon name="calculator"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col no-padding size="6" text-left>
+              <ion-label>Base di Laurea</ion-label>
+            </ion-col>
+            <ion-col no-padding size="6" text-right>
+              <ion-badge item-end>{{baselaurea}}
+                <ion-icon name="school"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col no-padding size="5" text-left>
+              <ion-label>Esami</ion-label>
+            </ion-col>
+            <ion-col no-padding size="7" text-right>
+              <ion-badge item-end>{{esami_superati}}
+                <ion-icon name="checkmark-circle"></ion-icon>
+              </ion-badge>
+              <ion-badge item-end>{{esami_da_sostenere}}
+                <ion-icon name="close-circle"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col no-padding size="5" text-left>
+              <ion-label>Crediti</ion-label>
+            </ion-col>
+            <ion-col no-padding size="7" text-right>
+              <ion-badge item-end>{{cfu_sup}}
+                <ion-icon name="checkmark-circle"></ion-icon>
+              </ion-badge>
+              <ion-badge item-end>{{cfu_todo}}
+                <ion-icon name="close-circle"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col no-padding size="5" text-left>
+              <ion-label>Lodi</ion-label>
+            </ion-col>
+            <ion-col no-padding size="7" text-right>
+              <ion-badge item-end>{{lodi}}
+                <ion-icon name="ribbon"></ion-icon>
+              </ion-badge>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-grid *ngIf="graficoLegacy">
+    <ion-row >
+      <ion-col><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <canvas #lineCanvas></canvas>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
+<ion-footer no-padding>
+  <ion-toolbar>
+    <ion-grid slot="start" no-padding>
+      <ion-row>
+        <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
+          <ion-buttons>
+            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+        <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
+          <ion-spinner></ion-spinner>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-label class="testo-footer">
+      Aggiornato al: {{dataAggiornamento}}
+    </ion-label>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

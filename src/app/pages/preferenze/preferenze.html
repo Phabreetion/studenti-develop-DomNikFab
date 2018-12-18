@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Preferenze
+          </ion-title>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content padding id="page3">
+  <form id="preferenzeNotifiche-form1">
+    <ion-item-divider color="light" id="preferenzeNotifiche-list-item-divider1">
+      Attiva Notifiche
+    </ion-item-divider>
+    <ion-item id="preferenzeNotifiche-toggle2">
+      <ion-label>
+        News Dipartimento
+      </ion-label>
+      <ion-toggle name="dipartimento" [(ngModel)]="newsDipartimento"></ion-toggle>
+    </ion-item>
+    <ion-item id="preferenzeNotifiche-toggle3">
+      <ion-label>
+        News Corso di studi
+      </ion-label>
+      <ion-toggle name="cds" [(ngModel)]="newsCds"></ion-toggle>
+    </ion-item>
+    <ion-item id="preferenzeNotifiche-toggle4">
+      <ion-label>
+        News Ateneo
+      </ion-label>
+      <ion-toggle name="ateneo" [(ngModel)]="newsAteneo"></ion-toggle>
+    </ion-item>
+    <ion-item id="preferenzeNotifiche-toggle5">
+      <ion-label>
+        Aggiornamenti Carriera
+      </ion-label>
+      <ion-toggle name="carriera" [(ngModel)]="carriera"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider color="light" id="preferenzeNotifiche-list-item-divider2">
+      Aggiornamento
+    </ion-item-divider>
+    <ion-item id="preferenzeAggiornamento-toggle2">
+      <ion-label>
+        Controlla disponibilità aggiornamenti
+      </ion-label>
+      <ion-toggle name="aggiornamentiApp" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="aggiornamentiApp"></ion-toggle>
+    </ion-item>
+    <ion-item *ngIf="globalData.android" id="preferenzeAggiornamento-toggle3">
+      <ion-label>
+        Usa grafico legacy
+      </ion-label>
+      <ion-toggle name="graficoLegacy" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="graficoLegacy"></ion-toggle>
+    </ion-item>
+    <ion-item id="preferenzeAggiornamento-toggle5">
+      <ion-label>
+        Includi esami fuori dal calcolo media nel grafico
+      </ion-label>
+      <ion-toggle name="includiNoMedia" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="includiNoMedia"></ion-toggle>
+    </ion-item>
+    <ion-item id="preferenzeAggiornamento-toggle4">
+      <ion-label>
+        Mostra avviso di connessione lenta
+      </ion-label>
+      <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
+    </ion-item>
+    <!--
+    <ion-item id="preferenzeAggiornamento-range1">
+      <ion-label>Elementi da caricare</ion-label>
+      <ion-select name="step" [(ngModel)]="step">
+        <ion-select-option value="10">10</ion-select-option>
+        <ion-select-option value="20">20</ion-select-option>
+        <ion-select-option value="50">50</ion-select-option>
+        <ion-select-option value="100">100</ion-select-option>
+        <ion-select-option value="500">500</ion-select-option>
+      </ion-select>
+    </ion-item>
+    -->
+    <div class="spacer" style="height:13PX;" id="preferenzeNotifiche-spacer3"></div>
+
+  </form>
+
+  <ion-button expand="block" fill="outline" (click)="showAccounts()">
+    Mostra account collegati
+  </ion-button>
+</ion-content>
+
+<ion-footer  no-padding>
+  <ion-toolbar>
+    <ion-grid slot="start" no-padding>
+      <ion-row>
+        <ion-col align-self-center="true">
+          <ion-buttons>
+            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+          </ion-buttons>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-label class="testo-footer">
+      ver.{{appVersion}}
+    </ion-label>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

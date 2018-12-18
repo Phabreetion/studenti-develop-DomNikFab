@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "595649663999",
+    "firebase_url": "https://unimol2-ffbae.firebaseio.com",
+    "project_id": "unimol2-ffbae",
+    "storage_bucket": "unimol2-ffbae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595649663999:android:2dd2aac3cbc83d28",
+        "android_client_info": {
+          "package_name": "it.unimol.app.docenti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595649663999-c3f85mq69cu0kbrcn6bi2p554g40idhn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOz6uc-KqcYxruYpbD0x7m_VLmaOlOyi4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595649663999:android:b0a63dff5760c0de",
+        "android_client_info": {
+          "package_name": "it.unimol.app.studenti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595649663999-c3f85mq69cu0kbrcn6bi2p554g40idhn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOz6uc-KqcYxruYpbD0x7m_VLmaOlOyi4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

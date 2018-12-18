@@ -1,0 +1,12 @@
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 3.9em;
+  line-height: 1.3em;
+  text-overflow-mode: ellipsis;
+  text-align: center;
+  padding: 0px 3px;
+  display: block;
+}
+

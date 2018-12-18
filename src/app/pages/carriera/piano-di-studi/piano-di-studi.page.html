@@ -1,0 +1,162 @@
+<ion-header>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label> </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-col no-padding>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>
+                        Piano di Studi
+                    </ion-title>
+                    <ion-buttons slot="end">
+                        <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}" text="Indietro"></ion-back-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+    <!--
+    Lo commmento perchè al momento il refresher impedisce il corretto funzionamento
+    di ion-sliding quando ci troviamo all'inizio della lista!
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+      -->
+
+    <ion-grid *ngIf="rinvioAggiornamento && !anni" text-center>
+        <ion-row>
+            <ion-col>
+                <img class="progress" src="assets/img/progress.gif" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label>un attimo di pazienza</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="anni">
+        <ion-row>
+            <ion-col>
+                <ion-list>
+                    <div *ngFor="let anno of anni; let i=index">
+                        <div *ngIf="anno.length>0">
+                            <ion-item>
+                                <ion-title text-center>{{i+1}}° ANNO</ion-title>
+                            </ion-item>
+
+                            <ion-item-sliding *ngFor="let item of anno">
+                                <!-- (press)="onPress(item)" -->
+                                <ion-item (click)="mostraOpzioni(item)"
+                                          [ngClass]="{'superato' : item.VOTO && item.LODE==0, 'superato-lode' : item.VOTO && item.LODE==1, 'da-sostenere' : !item.VOTO && item.VALUTAZIONE!='G' , 'idoneo' : item.GIUDIZIO}">
+                                    <ion-grid fixed no-padding>
+                                        <ion-row>
+                                            <ion-col size="10">
+                                                <ion-grid>
+                                                    <ion-row class="nome-esame">
+                                                        <ion-col>
+                                                            <div class="nome-esame" text-wrap>{{ item.DESCRIZIONE }}
+                                                                <ion-icon *ngIf="item.SOTTOSCRITTO" name="checkmark-circle-outline"></ion-icon>
+                                                            </div>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                    <ion-row class="dati-esame">
+                                                        <ion-col size="4"  >
+                                                            <div>CFU: {{ item.CFU }}</div>
+                                                        </ion-col>
+                                                        <ion-col *ngIf="item.DATA_ESAME" size="1" >
+                                                            <ion-icon name="calendar"></ion-icon>
+                                                        </ion-col>
+                                                        <ion-col *ngIf="item.DATA_ESAME" size="5" >
+                                                            <div>{{item.DATA_ESAME | slice:0:10}}</div>
+                                                        </ion-col>
+                                                        <ion-col *ngIf="!item.DATA_ESAME" size="1" >
+                                                            <ion-icon name="information-circle"></ion-icon>
+                                                        </ion-col>
+                                                        <ion-col *ngIf="!item.DATA_ESAME" size="5"  >
+                                                            <div>{{item.CODICE}}</div>
+                                                        </ion-col>
+                                                    </ion-row>
+                                                </ion-grid>
+                                            </ion-col>
+
+                                            <ion-col no-padding size="2" *ngIf="item.VOTO || item.VALUTAZIONE=='G'" align-self-center="true">
+                                                <ion-label *ngIf="item.VOTO && item.LODE==0" class="voto">{{item.VOTO | slice:0:3}}</ion-label>
+                                                <ion-label *ngIf="item.VOTO && item.LODE==1" class="voto">30L</ion-label>
+                                                <ion-label *ngIf="!item.VOTO" class="voto">{{item.GIUDIZIO | slice:0:3}}</ion-label>
+                                            </ion-col>
+                                        </ion-row>
+
+                                    </ion-grid>
+                                </ion-item>
+
+                                <ion-item-options side="end" slot="top">
+                                    <ion-item-option *ngIf="item.VOTO || item.GIUDIZIO" (click)="dettagliEsame(item)">
+                                        Dettagli esame
+                                    </ion-item-option>
+                                    <ion-item-option *ngIf="!item.VOTO && !item.GIUDIZIO" (click)="appelliEsame(item)">
+                                        Appelli
+                                    </ion-item-option>
+                                    <ion-item-option color="light" (click)="apriMaterialeDidattico(item.AD_ID)">
+                                        Materiale<br/>Didattico
+                                    </ion-item-option>
+                                </ion-item-options>
+                                <!--
+                                <ion-item-options side="start">
+                                    <ion-item-option color="secondary" *ngIf="!item.SOTTOSCRITTO" (click)="inviaACalendario(item)">
+                                        Aggiungi al<br/>Calendario Lezioni
+                                    </ion-item-option>
+                                    <ion-item-option color="danger" *ngIf="item.SOTTOSCRITTO" (click)="inviaACalendario(item)">
+                                        Rimuovi dal<br/>Calendario Lezioni
+                                    </ion-item-option>
+                                </ion-item-options>
+                                -->
+                            </ion-item-sliding>
+                        </div>
+                    </div>
+                </ion-list>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+<ion-footer  no-padding>
+    <ion-toolbar>
+        <ion-grid slot="start" no-padding>
+            <ion-row>
+                <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
+                    <ion-buttons>
+                        <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+                        <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+                    </ion-buttons>
+                </ion-col>
+                <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
+                    <ion-spinner></ion-spinner>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-label class="testo-footer">
+            Aggiornato al: {{dataAggiornamento}}
+        </ion-label>
+
+        <ion-buttons slot="end">
+            <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

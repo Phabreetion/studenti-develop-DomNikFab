@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Dettagli Utente
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/home" text="Indietro"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        {{ nome }} {{ cognome }}
+      </ion-card-title>
+      <p>
+        Username: <strong>{{ username }}</strong>
+      </p>
+      <p>
+        Matricola: <strong>{{ matricola }}</strong>
+      </p>
+      <p>
+        ID: <strong>{{ matId }}</strong>
+      </p>
+      <br>
+      <p>
+        Dipartimento: <strong>{{ dipId }}</strong>
+        <br><strong>{{ dipartimento }}</strong>
+      </p>
+      <br>
+      <p>
+        Corso di Studi: <strong>{{ cdsId }}</strong>
+        <br><strong>{{ cds }}</strong>
+      </p>
+    </ion-card-content>
+  </ion-card>
+  <ion-button expand="block" (click)="onGoBack()">Chiudi</ion-button>
+
+</ion-content>

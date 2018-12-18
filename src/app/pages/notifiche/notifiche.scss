@@ -1,0 +1,15 @@
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 2em;
+  line-height: 1em;
+  text-overflow-mode: ellipsis;
+  text-overflow-ellipsis: '[...]';
+  padding: 0px 2px;
+}
+.news-date {
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0px;
+}

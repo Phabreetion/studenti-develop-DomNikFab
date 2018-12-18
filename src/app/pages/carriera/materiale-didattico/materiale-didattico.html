@@ -1,0 +1,164 @@
+<ion-header>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label> </ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-col no-padding>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>
+                        Materiale didattico
+                    </ion-title>
+                    <ion-buttons slot="end">
+                        <ion-back-button defaultHref="/carriera" text="Indietro"></ion-back-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid *ngIf="rinvioAggiornamento && !files" text-center>
+        <ion-row>
+            <ion-col>
+                <img class="progress" src="assets/img/progress.gif" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label>un attimo di pazienza</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-list *ngIf="!rinvioAggiornamento && files?.length == 0">
+        <ion-item text-center>
+            <ion-grid>
+                <ion-row>
+                    <ion-col>
+                        <h2>Non è presente materiale per questo insegnamento</h2>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <ion-img class="logo" src="assets/img/sad.png"></ion-img>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="files?.length > 0">
+        <ion-item-sliding *ngFor="let file of files" >
+            <!-- (press)="onPress(item)" -->
+            <!-- <ion-item #item (click)="open(slidingItem,item)" >  -->
+            <ion-item (click)="info(file)">
+                <ion-grid fixed no-padding>
+                    <ion-row>
+                        <ion-col size="2" align-self-center="true">
+                            <ion-img src="assets/img/moodle/{{this.selezionaIcona(file)}}.png"></ion-img>
+                        </ion-col>
+                        <ion-col size="10">
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <div text-wrap>
+                                            <b>{{file.FILENAME}}</b>
+                                            <div *ngIf="file.scaricato == 1"><ion-icon class="overlayClass" name="checkmark-circle"></ion-icon></div>
+                                            <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
+                                        </div>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col>
+                                        <ion-label text-wrap>
+                                            <p [innerHtml]="troncaTesto(this.stripHTML(file.TESTO))"></p>
+                                        </ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+
+            </ion-item>
+            <!-- <ion-item-options side="right" (click)="close(slidingItem)"> -->
+            <ion-item-options side="end">
+
+                <ion-item-option color="primary" (click)="apriFile(file)">
+                    <ion-icon name="easel"></ion-icon>
+                    Visualizza
+                </ion-item-option>
+                <!--
+                <ion-item-option color="primary" (click)="info(file)">
+                    <ion-icon name="information-circle"></ion-icon>
+                    Dettagli
+                </ion-item-option>
+                -->
+                <ion-item-option color="danger" (click)="eliminaFile(file)">
+                    <ion-icon name="trash"></ion-icon>
+                    Rimuovi
+                </ion-item-option>
+
+                <!--
+                <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="danger" (click)="eliminaFile(file)">
+                    <ion-icon style="padding:0;" name="trash"></ion-icon>
+                    <!--Elimina-->
+                <!--
+                </button>
+                <button *ngIf="file.scaricato == 0" class="stileIconeFile" ion-button color="primary" (click)="download(file)">
+                    <ion-icon style="padding:0;" name="md-download" ></ion-icon>
+                    <!--Download-->
+                <!--
+                </button>
+                <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="light" (click)="apriFile(file, file.tipo_file)">
+                    <ion-icon style="padding:0;" name="md-eye" color="primary"></ion-icon>
+                    <!--<font color="dodgerblue">Visualizza</font>-->
+                <!--
+                </button>
+                -->
+
+            </ion-item-options>
+        </ion-item-sliding>
+
+    </ion-list>
+
+</ion-content>
+
+<ion-footer  no-padding>
+    <ion-toolbar>
+        <ion-grid slot="start" no-padding>
+            <ion-row>
+                <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
+                    <ion-buttons>
+                        <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
+                        <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
+                    </ion-buttons>
+                </ion-col>
+                <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
+                    <ion-spinner></ion-spinner>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-label class="testo-footer">
+            Aggiornato al: {{dataAggiornamento}}
+        </ion-label>
+
+        <ion-buttons slot="end" no-padding>
+            <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

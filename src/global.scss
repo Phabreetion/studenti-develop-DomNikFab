@@ -1,0 +1,274 @@
+// http://ionicframework.com/docs/theming/
+@import "~@ionic/angular/css/core.css";
+@import "~@ionic/angular/css/normalize.css";
+@import "~@ionic/angular/css/structure.css";
+@import "~@ionic/angular/css/typography.css";
+
+@import "~@ionic/angular/css/padding.css";
+@import "~@ionic/angular/css/float-elements.css";
+@import "~@ionic/angular/css/text-alignment.css";
+@import "~@ionic/angular/css/text-transformation.css";
+@import "~@ionic/angular/css/flex-utils.css";
+
+.main-menu-title {
+  text-align: right;
+}
+
+.progress {
+  max-width: 200px;
+  margin: auto;
+}
+
+.primoAnno {
+  border-left: 4px solid darkorange;
+  border-right: 4px solid darkorange;
+}
+
+.secondoAnno {
+  border-left: 4px solid #0066ff;
+  border-right: 4px solid #0066ff;
+}
+
+.terzoAnno {
+  border-left: 4px solid forestgreen;
+  border-right: 4px solid forestgreen;
+}
+
+.quartoAnno {
+  border-left: 4px solid #006666;
+  border-right: 4px solid #006666;
+}
+
+.quintoAnno {
+  border-left: 4px solid #f0ad4e;
+  border-right: 4px solid #f0ad4e;
+}
+
+.sestoAnno {
+  border-left: 4px solid peru;
+  border-right: 4px solid peru;
+}
+
+.altriAnni {
+  border-left: 4px solid beige;
+  border-right: 4px solid beige;
+  background-color: #adadad !important;
+}
+
+
+.scelta {
+  border-left: 4px solid #8c8c8c;
+  border-right: 4px solid #8c8c8c;
+}
+
+.pds {
+  border-top: 1px solid lightgrey;
+  border-bottom: 1px solid lightgrey;
+}
+
+.esame{
+  vertical-align: top;
+  text-align: left;
+  font-size: 0.8em;
+}
+
+.testo-footer{
+  vertical-align: center;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.nome-esame{
+  font-size: 1.0em;
+  color: #266acb;
+  font-weight: bold;
+}
+
+.voto {
+  font-size: 1.0em;
+  color: #266acb;
+  font-weight: bold;
+  text-align: right;
+}
+
+.superato {
+  //border-left: 4px solid green;
+  background-color:#A5D6A7;
+}
+
+.superato-lode {
+  //border-left: 4px solid red;
+  background-color:#A5D6A7;
+}
+
+.idoneo {
+  //border-left: 4px solid green;
+  //background-color:#b5fbfc;
+  background-color:#C8E6C9;
+}
+
+.da-sostenere {
+  //border-left: 4px solid red;
+  background-color:#f7f7f7;
+}
+
+.medie ion-col div {
+  background-color: #f0f5ff;
+  border: 1px solid #e6e9ee;
+  border-radius: 1px;
+  padding: 2px;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+.headerMedie ion-col div {
+  background-color: #8db1ff;
+}
+
+.headerMedie div {
+  background-color: #8db1ff;
+}
+
+.logo {
+  max-width: 200px;
+  margin: auto;
+
+}
+
+.logo-mini {
+  max-width: 50px;
+  margin: auto;
+}
+
+
+@media(min-width:200px) {
+  .connected {
+    background-color: #4cae4c;
+  }
+
+  .disconnected {
+    background-color: #FF0000;
+  }
+
+  .dati-esame {
+    font-size: 0.7em;
+  }
+
+  .superato {
+    //border-left: 4px solid green;
+    background-color:#A5D6A7;
+  }
+
+  .superato-lode {
+    //border-left: 4px solid red;
+    background-color:#A5D6A7;
+  }
+
+  .idoneo {
+    //border-left: 4px solid green;
+    //background-color:#b5fbfc;
+    background-color:#C8E6C9;
+  }
+
+  .da-sostenere {
+    //border-left: 4px solid red;
+    background-color:#f7f7f7;
+  }
+
+  .logo {
+    max-width: 180px;
+  }
+
+  .logo-mini {
+    max-width: 50px;
+  }
+}
+
+@media(min-width:320px) {
+
+  .footer-icon {
+    width: 24px;
+    vertical-align: middle;
+  }
+
+  .logo {
+    max-width: 200px;
+  }
+
+  .logo-mini {
+    max-width: 60px;
+  }
+
+  .mic {
+    max-width: 50px;
+    text-align: right;
+    horiz-align: right;
+  }
+
+}
+
+@media(min-width:400px) {
+  .voto{
+    font-size: 1.2em;
+  }
+
+  .dati-esame {
+    font-size: 0.8em;
+  }
+
+  .testo-footer{
+    font-size: 1em;
+  }
+
+  .logo {
+    max-width: 320px;
+  }
+
+  .mic {
+    max-width: 100px;
+  }
+}
+
+@media(min-width:640px) {
+
+  .voto{
+    font-size: 1.4em;
+  }
+
+  .dati-esame {
+    font-size: 1.0em;
+  }
+
+  .logo {
+    max-width: 350px;
+  }
+
+}
+
+/*
+ion-icon {
+  &[class*="unimol-"] {
+    // Instead of using the font-based icons
+    // We're applying SVG masks
+    mask-size: contain;
+    mask-position: 50% 50%;
+    mask-repeat: no-repeat;
+    background: currentColor;
+    width: 1em;
+    height: 1em;
+  }
+  // custom icons
+  &[class*="logo"] {
+    mask-image: url(./assets/img/unimol.svg);
+  }
+  &[class*="unimol-filter"] {
+    mask-image: url(./assets/icon/filter.svg);
+  }
+  &[class*="unimol-connected"] {
+    mask-image: url(./assets/icon/connected.svg);
+  }
+  &[class*="unimol-disconnected"] {
+    mask-image: url(./assets/icon/disconnected.svg);
+  }
+}
+*/
