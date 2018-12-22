@@ -6,6 +6,7 @@ import {GlobalDataService} from '../../services/global-data.service';
 import {HTTP} from '@ionic-native/http/ngx';
 import {NotificheService} from "../../services/notifiche.service";
 import {AccountService} from "../../services/account.service";
+import { AppVersion } from '@ionic-native/app-version/ngx';
 
 @Component({
     selector: 'app-page-preferenze',
@@ -26,13 +27,14 @@ export class PreferenzePage implements OnInit {
     includiNoMedia = false;
     connessioneLenta = true;
     carriera = true;
-    appVersion = '';
+    appVersionNum = '';
     step = 20;
     android = false;
 
     constructor(
         public sync: SyncService,
         public storage: Storage,
+        public appVersionProvider: AppVersion,
         public globalData: GlobalDataService,
         public notificheService: NotificheService,
         public account: AccountService,
@@ -52,10 +54,10 @@ export class PreferenzePage implements OnInit {
                     this.token = value;
                 });
 
-                this.storage.get('appVersion').then((value) => {
-                    this.appVersion = value;
+                //Prende la versione dell'app settata nel file config.xml
+                this.appVersionProvider.getVersionNumber().then((value) => {
+                    this.appVersionNum = value;
                 });
-
 
                 // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO
                 this.storage.get('aggiornamentiApp').then((value) => {

@@ -2,7 +2,7 @@ import { Storage } from '@ionic/storage';
 import {Component, OnInit} from '@angular/core';
 import { NavController, MenuController } from '@ionic/angular';
 import { ViewChild } from '@angular/core';
-import { Slides } from '@ionic/angular';
+//import { Slides } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from "../../../services/account.service";
@@ -15,7 +15,7 @@ import {AccountService} from "../../../services/account.service";
 
 export class TutorialPage implements OnInit {
 
-    @ViewChild(Slides) slidesCtrl: Slides;
+    //@ViewChild(Slides) slidesCtrl: Slides;
 
     currentPage = '/tutorial';
 
@@ -105,7 +105,7 @@ export class TutorialPage implements OnInit {
                 this.showProgress = true;
                 this.progress = 'Aggiornamento dati in corso...';
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -141,7 +141,7 @@ export class TutorialPage implements OnInit {
     }
 
     goToLastSlide() {
-        this.slidesCtrl.slideTo(this.slides.length);
+        //this.slidesCtrl.slideTo(this.slides.length);
     }
 
 }

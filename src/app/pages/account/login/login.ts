@@ -21,7 +21,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     matricola = '';
     cds_id = '';
     dip_id = '';
-    versioneApp = '';
+    appVersionNum = '';
 
     fingerprintIsAvbailable = false;
     fingerprintOptions: FingerprintOptions;
@@ -29,7 +29,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(
         public platform: Platform,
-        public appVersion: AppVersion,
+        public appVersionProvider: AppVersion,
         public fingerprint: FingerprintAIO,
         public sync: SyncService,
         public globalData: GlobalDataService,
@@ -42,31 +42,19 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
+
+        //Prende la versione dell'app settata nel file config.xml
+        this.appVersionProvider.getVersionNumber().then((value) => {
+            this.appVersionNum = value;
+        });
+
         this.account.controllaAccount().then(
             (ok) => {
-                if (this.platform.is('ios') || (this.platform.is('android'))) {
-                    this.appVersion.getVersionNumber().then(
-                        (data) => {
-                            const appVersion = data;
-                            this.storage.set('appVersion', appVersion).then(
-                                () => {
-                                    this.versioneApp = appVersion;
-                                }, (errStorage) => {
-                                    GlobalDataService.log(2, 'Errore nella scrittura dei dati sullo storage!', errStorage);
-                                }
-                            );
-                        });
-                } else {
-                    this.storage.get('appVersion').then((value) => {
-                        this.versioneApp = value;
-                    }, (errStorage) => {
-                        GlobalDataService.log(2, 'Errore nella lettura dei dati dallo storage!', errStorage);
-                    });
-                }
-            }, (err) => {
+
+                },
+            (err) => {
                 this.globalData.goTo(this.currentPage, '/login','root', false);
-            }
-        );
+            });
     }
 
     ngAfterViewInit() {
