@@ -1,12 +1,11 @@
 import {Injectable, NgZone} from '@angular/core';
-// import {Http} from '@angular/http';
-import {HTTP} from '@ionic-native/http/ngx';
 
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {NavController, Platform} from '@ionic/angular';
 
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
 import {mapStackTrace} from 'sourcemapped-stacktrace';
+import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
     providedIn: 'root'
@@ -14,9 +13,6 @@ import {mapStackTrace} from 'sourcemapped-stacktrace';
 export class GlobalDataService {
 
     utente_test = false;
-
-    connessioneInizializzata = false;
-    connessioneInCorso = false;
 
     android = false;
     iPhoneX = false;
@@ -30,7 +26,6 @@ export class GlobalDataService {
     width = 600;
     height = 600;
 
-    connected: boolean = undefined;
     speakEnabled: boolean;
 
     nrNotifiche: number;
@@ -52,9 +47,9 @@ export class GlobalDataService {
     allegato: any;
     ad_id: any;
 
-    // Preferenze
-    connessioneLenta = true;
-
+    faWifi = faWifi;
+    faLink = faLink;
+    faUnlink = faUnlink;
 
     // level 0: VERBOSE
     // level 1: INFO
@@ -180,75 +175,6 @@ export class GlobalDataService {
         return this.height;
     }
 
-    getConnected(): boolean {
-        // console.log(this.connessioneInizializzata);
-
-        if (!this.connessioneInCorso && !this.connessioneInizializzata) {
-            try {
-                this.connessioneInCorso = true;
-                // this.http.get('https://httpbin.org/ip')
-
-                this.http.setHeader('*', 'Content-Type', 'application/json');
-                this.http.setDataSerializer('json');
-
-                this.http.post('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'}, {})
-                    .then(data => {
-                        console.dir(data);
-                        this.connessioneInizializzata = true;
-                        this.connected = true;
-                        this.connessioneInCorso = false;
-                        return this.connected;
-
-                    }, (err) => {
-                        GlobalDataService.log(2, 'Ping fallito!', err);
-                        this.connessioneInizializzata = true;
-                        this.connected = false;
-                        this.connessioneInCorso = false;
-                        return this.connected;
-                    } )
-                    .catch(error => {
-                        GlobalDataService.log(2, 'Ping fallito!', error);
-                        console.dir(error);
-                        this.connessioneInizializzata = true;
-                        this.connected = false;
-                        this.connessioneInCorso = false;
-                        return this.connected;
-                    });
-
-                // this.http.get('https://service.unimol.it/studenti/api/ultimaVersione.php')
-                //    // .pipe(map(res => res.json()))
-                //     .subscribe(
-                //         (data) => {
-                //             // console.dir(data);
-                //             this.connessione Inizializzata = true;
-                //             this.connected = true;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         },
-                //         (err) => {
-                //             // console.dir(err);
-                //             this.connessioneInizializzata = true;
-                //             this.connected = false;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         }
-                //     );
-            } catch (e) {
-                console.dir(e);
-                this.connessioneInCorso = false;
-            }
-
-        } else {
-            return this.connected;
-        }
-    }
-
-
-    setConnected(status: boolean) {
-        this.connessioneInizializzata = false;
-        this.connected = status;
-    }
-
     // isSpeakEnabled(): boolean {
     //     return false; // Disabilitato fino al rilascio
     //     // return this.speakEnabled;
@@ -256,42 +182,6 @@ export class GlobalDataService {
 
     setSpeakEnabled(spk: boolean) {
         this.speakEnabled = spk;
-    }
-
-    checkConnection() {
-        this.getConnected();
-        // this.http.get('https://httpbin.org/ip', {}, {})
-        //     .then(
-        //         (data) => {
-        //             this.setConnected(true);
-        //             console.dir(data);
-        //         },
-        //         (err) => {
-        //             this.setConnected(false);
-        //             console.dir(err);
-        //         })
-    }
-
-    testNetworkStartup() {
-        this.http.get('https://httpbin.org/ip', {}, {})
-            .then(data => {
-                // console.log('OK');
-                // console.dir(data);
-                GlobalDataService.log(1, 'Ping', data);
-                return true;
-            }, (err) => {
-                GlobalDataService.log(2, 'Ping fallito!', err);
-                return false;
-            })
-            .catch(error => {
-                GlobalDataService.log(2, 'Ping fallito!', error);
-                return false;
-            });
-        // return this.http.get('https://httpbin.org/ip')
-        //     .pipe(
-        //         map(
-        //     res => { res.json(); },
-        //     err => { console.dir(err); }));
     }
 
     isLandscape() {
@@ -305,7 +195,7 @@ export class GlobalDataService {
         if (zone) {
             this.ngZone.run(() => {
 
-                switch(direction) {
+                switch (direction) {
                     case 'forward': {
                         this.srcPage = fromPage;
 
@@ -318,7 +208,7 @@ export class GlobalDataService {
                                     'Errore nella chiamata al NavController ',
                                     errNavigate);
                             }));
-
+                        break;
                     }
                     case 'backward': {
                         this.navCtrl.navigateBack(toPage).then(
@@ -330,7 +220,7 @@ export class GlobalDataService {
                                     'Errore nella chiamata al NavController ',
                                     errNavigate);
                             }));
-
+                        break;
                     }
                     default : {
                         this.navCtrl.navigateRoot(toPage).then(
@@ -347,7 +237,7 @@ export class GlobalDataService {
             });
 
         } else {
-            switch(direction) {
+            switch (direction) {
                 case 'forward': {
                     this.srcPage = fromPage;
                     this.navCtrl.navigateForward(toPage).then(
@@ -359,7 +249,7 @@ export class GlobalDataService {
                                 'Errore nella chiamata al NavController ',
                                 errNavigate);
                         }));
-
+                    break;
                 }
                 case 'backward': {
                     this.navCtrl.navigateBack(toPage).then(
@@ -371,7 +261,7 @@ export class GlobalDataService {
                                 'Errore nella chiamata al NavController ',
                                 errNavigate);
                         }));
-
+                    break;
                 }
                 default : {
                     this.navCtrl.navigateRoot(toPage).then(
@@ -390,7 +280,6 @@ export class GlobalDataService {
 
     constructor(
         private navCtrl: NavController,
-        private http: HTTP,
         private platform: Platform,
         private screenOrientation: ScreenOrientation,
         private ngZone: NgZone) { }

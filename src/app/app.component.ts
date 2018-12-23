@@ -4,7 +4,6 @@ import {
     ActionSheetController,
     AlertController,
     IonRouterOutlet, MenuController,
-    NavController,
     Platform
 } from '@ionic/angular';
 
@@ -20,15 +19,16 @@ import { Storage} from '@ionic/storage';
 import { SyncService} from './services/sync.service';
 import { GlobalDataService} from './services/global-data.service';
 import { DBService} from './services/db-service';
-import { AccountService} from "./services/account.service";
-import { Router} from "@angular/router";
-import { Toast } from "@ionic-native/toast/ngx";
-import {Device} from "@ionic-native/device/ngx";
-// import {Push, PushObject, PushOptions} from "@ionic-native/push/ngx";
-// import {Firebase} from "@ionic-native/firebase/ngx";
-// import {FirebaseMessaging} from "@ionic-native/firebase-messaging/ngx";
+import { AccountService} from './services/account.service';
+import { Router} from '@angular/router';
+import { Toast } from '@ionic-native/toast/ngx';
+import {Device} from '@ionic-native/device/ngx';
+import {HttpService} from './services/http.service';
+// import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
+// import {Firebase} from '@ionic-native/firebase/ngx';
+// import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
 
-// import {isCombinedNodeFlagSet} from "tslint";
+// import {isCombinedNodeFlagSet} from 'tslint';
 
 @Component({
     selector: 'app-root',
@@ -138,6 +138,7 @@ export class AppComponent {
         public storage: Storage,
         public db: DBService,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public account: AccountService
         //    private firebaseMessaging: FirebaseMessaging,
@@ -162,12 +163,14 @@ export class AppComponent {
 
             this.splashScreen.hide();
             this.globalData.landscape = false;
+
+            this.http.setHttpType();
+
             try {
                 // console.log('Apro il db SQLite');
                 this.db.openDb();
             } catch (e) {
-                console.log('Errore nella creazione del db SQLite');
-                console.dir(e);
+                GlobalDataService.log(2, 'Errore nella creazione del db SQLite', e);
             }
 
             if (this.screenOrientation.type.startsWith('landscape')) {
@@ -176,13 +179,7 @@ export class AppComponent {
 
             this.screenOrientation.onChange().subscribe(
                 () => {
-                    if (this.screenOrientation.type.startsWith('landscape')) {
-                        // console.log('LANDSCAPE');
-                        this.globalData.landscape = true;
-                    } else {
-                        // console.log('PORTRAIT');
-                        this.globalData.landscape = false;
-                    }
+                    this.globalData.landscape = this.screenOrientation.type.startsWith('landscape');
                 }
             );
 
@@ -195,8 +192,7 @@ export class AppComponent {
                 // }
 
                 this.appVersion.getVersionNumber().then(
-                    (data) => {
-                        const appVersion = data;
+                    (appVersion) => {
                         this.storage.set('appVersion', appVersion);
                     });
             } else {
@@ -240,11 +236,12 @@ export class AppComponent {
             //
             // });
 
-            this.globalData.checkConnection();
+            this.http.checkConnection();
 
             // watch network for a disconnect
             this.network.onDisconnect().subscribe(() => {
-                this.globalData.setConnected(false);
+                console.log('Rilevata Disconnessione');
+                this.http.setConnected(false);
                 // Forza l'aggiornamento del DOM
                 // this.ngZone.run(() => {
                 // });
@@ -252,7 +249,8 @@ export class AppComponent {
 
             // watch network for a connection
             this.network.onConnect().subscribe(() => {
-                this.globalData.setConnected(true);
+                console.log('Rilevata Connessione');
+                this.http.setConnected(true);
                 // this.ngZone.run(() => {
                 // });
             });
@@ -459,21 +457,21 @@ export class AppComponent {
                         switch (titolo) {
                             case 'News di Ateneo' : {
                                 this.globalData.sezioneNews = 'ateneo';
-                                this.globalData.goTo(this.globalData.srcPage, '/news','forward', false);
+                                this.globalData.goTo(this.globalData.srcPage, '/news', 'forward', false);
                                 break;
                             }
                             case 'News di Dipartimento' : {
                                 this.globalData.sezioneNews = 'dipartimento';
-                                this.globalData.goTo(this.globalData.srcPage, '/news','forward', false);
+                                this.globalData.goTo(this.globalData.srcPage, '/news', 'forward', false);
                                 break;
                             }
                             case 'News del Corso' : {
                                 this.globalData.sezioneNews = 'cds';
-                                this.globalData.goTo(this.globalData.srcPage, '/news','forward', false);
+                                this.globalData.goTo(this.globalData.srcPage, '/news', 'forward', false);
                                 break;
                             }
                             case 'Verbalizzazione esame' : {
-                                this.globalData.goTo(this.globalData.srcPage, '/carriera','forward', false);
+                                this.globalData.goTo(this.globalData.srcPage, '/carriera', 'forward', false);
                                 break;
                             }
                         }
@@ -526,12 +524,13 @@ export class AppComponent {
                         `Premi ancora per uscire.`,
                         '2000',
                         'center')
-                        .subscribe(toast => {
+                        .subscribe(() => {
                             // console.log(JSON.stringify(toast));
                         });
                     this.lastTimeBackPress = new Date().getTime();
                 }
             } else {
+                this.globalData.goTo('/home', '/home', 'root', false);
                // console.log(this.router.url);
             }
         });

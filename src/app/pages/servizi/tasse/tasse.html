@@ -131,23 +131,15 @@
 
 <ion-footer  no-padding>
     <ion-toolbar>
-        <ion-grid slot="start" no-padding>
-            <ion-row>
-                <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
-                    <ion-buttons>
-                        <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
-                        <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
-                    </ion-buttons>
-                </ion-col>
-                <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
-                    <ion-spinner></ion-spinner>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-buttons slot="start">
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+            <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+            <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+        </ion-buttons>
 
-        <ion-label class="testo-footer">
+        <div class="testo-footer">
             Aggiornato al: {{dataAggiornamento}}
-        </ion-label>
+        </div>
 
         <ion-buttons slot="end" no-padding>
             <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>

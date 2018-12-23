@@ -77,6 +77,12 @@
       </ion-label>
       <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
     </ion-item>
+    <ion-item id="preferenzeAggiornamento-toggle6">
+      <ion-label>
+        Usa chiamate HTTP native
+      </ion-label>
+      <ion-toggle name="httpNativo" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="httpNativo"></ion-toggle>
+    </ion-item>
     <!--
     <ion-item id="preferenzeAggiornamento-range1">
       <ion-label>Elementi da caricare</ion-label>
@@ -100,20 +106,14 @@
 
 <ion-footer  no-padding>
   <ion-toolbar>
-    <ion-grid slot="start" no-padding>
-      <ion-row>
-        <ion-col align-self-center="true">
-          <ion-buttons>
-            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
-            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-buttons slot="start">
+      <fa-icon [hidden]="!http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+      <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+    </ion-buttons>
 
-    <ion-label class="testo-footer">
+    <div class="testo-footer">
       ver. {{appVersionNum}}
-    </ion-label>
+    </div>
 
     <ion-buttons slot="end" no-padding>
       <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>

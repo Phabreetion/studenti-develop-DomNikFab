@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CarrieraPage } from './carriera.page';
-import {LibrettoPage} from '../libretto/libretto.page';
-import {PianoDiStudiPage} from '../piano-di-studi/piano-di-studi.page';
-import {ListaEsamiPage} from '../lista-esami/lista-esami.page';
 
 const routes: Routes = [
     {
@@ -12,24 +9,36 @@ const routes: Routes = [
         children: [
             {
                 path: 'libretto',
-                outlet: 'libretto',
-                component: LibrettoPage
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../libretto/libretto.module#LibrettoPageModule'
+                    }
+                ]
             },
             {
                 path: 'piano-di-studi',
-                outlet: 'piano-di-studi',
-                component: PianoDiStudiPage
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../piano-di-studi/piano-di-studi.module#PianoDiStudiPageModule'
+                    }
+                ]
             },
             {
                 path: 'lista-esami',
-                outlet: 'lista-esami',
-                component: ListaEsamiPage
+                children: [
+                    {
+                        path: '',
+                        loadChildren: '../lista-esami/lista-esami.module#ListaEsamiPageModule'
+                    }
+                ]
             }
         ]
     },
     {
         path: '',
-        redirectTo: '/carriera/tab/(piano-di-studi:piano-di-studi)',
+        redirectTo: '/carriera/tab/piano-di-studi',
         pathMatch: 'full'
     }
 ];

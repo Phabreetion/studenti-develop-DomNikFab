@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {GlobalDataService} from "./global-data.service";
-import {Storage} from "@ionic/storage";
-import {HTTP} from "@ionic-native/http/ngx";
-import {FCM} from "@ionic-native/fcm/ngx";
-import {Platform} from "@ionic/angular";
+import {GlobalDataService} from './global-data.service';
+import {Storage} from '@ionic/storage';
+import {FCM} from '@ionic-native/fcm/ngx';
+import {Platform} from '@ionic/angular';
+import {HttpService} from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class NotificheService {
 
   constructor(
       private storage: Storage,
-      private http: HTTP,
+      public services: HttpService,
       private fcm: FCM,
       private platform: Platform,
   ) { }
@@ -44,7 +44,7 @@ export class NotificheService {
             this.fcm.getToken().then((token) => {
                 GlobalDataService.log(1, 'Token notifiche ' + token, null);
 
-                //nthis.sottoscrivi('testbeta');
+                // this.sottoscrivi('testbeta');
 
                 let topic: string;
 

@@ -1,15 +1,15 @@
 import {Injectable, NgZone} from '@angular/core';
 import {AlertController, LoadingController, Platform, ToastController} from '@ionic/angular';
-import {Md5} from 'ts-md5';
+// import {Md5} from 'ts-md5';
 import {Storage} from '@ionic/storage';
 import {AppVersion} from '@ionic-native/app-version/ngx';
 import {Device} from '@ionic-native/device/ngx';
-import {HTTP} from '@ionic-native/http/ngx';
-import {FCM} from '@ionic-native/fcm/ngx';
+// import {FCM} from '@ionic-native/fcm/ngx';
 
 import 'rxjs/add/operator/map';
 import {GlobalDataService} from './global-data.service';
-import {NotificheService} from "./notifiche.service";
+import {NotificheService} from './notifiche.service';
+import {HttpService} from './http.service';
 // import {timeout} from 'rxjs/operators';
 
 /*
@@ -38,6 +38,7 @@ ID SERVIZI
 @Injectable({
     providedIn: 'root'
 })
+
 export class SyncService {
 
      schema = 'https://';
@@ -87,7 +88,7 @@ export class SyncService {
     }
 
     constructor(public storage: Storage,
-                public http: HTTP,
+                public services: HttpService,
                 public device: Device,
                 public platform: Platform,
                 public appVersion: AppVersion,
@@ -98,8 +99,8 @@ export class SyncService {
                 public loadingCtrl: LoadingController,
                 public ngZone: NgZone,
                 public globalData: GlobalDataService ) {
-        this.http.setHeader('*', 'Content-Type', 'application/json');
-        this.http.setDataSerializer('json');
+        // this.http.setHeader('*', 'Content-Type', 'application/json');
+        // this.http.setDataSerializer('json');
     }
 
     getTimeout() {
@@ -254,19 +255,9 @@ export class SyncService {
                                 id_servizio: id
                             };
 
-                            // const httpOptions = {
-                            //     headers: new HttpHeaders({
-                            //         'Content-Type':  'application/json',
-                            //     }),
-                            //     observe: 'response' as 'response',
-                            //     responseType: 'json' as 'json'
-                            // };
 
-                            this.http.post(url, body, {})
-                                .then(response => {
-                                    GlobalDataService.log(0, url, response);
-
-                                    const dati = JSON.parse(response.data);
+                            this.services.getJSON(url, body).then(
+                                (dati) => {
 
                                     // Salvo i json nello storage
                                     if (dati) {
@@ -281,9 +272,8 @@ export class SyncService {
 
                                     this.loading[id] = false;
                                     resolve(dati);
-                                }, (rej) => {
-                                    GlobalDataService.log(2, 'Rejected', rej);
-
+                                },
+                                (rej) => {
                                     this.loading[id] = false;
                                     if (rej.error) {
                                         const errore = JSON.parse(rej.error);
@@ -310,21 +300,33 @@ export class SyncService {
 
                                                     // TODO: Gestire cambio password da ESSE3
                                                     this.ngZone.run(() => {
-                                                        // Aggiorniamo la validità del token
-                                                        this.http.post(url, bodyCheckToken, {})
-                                                            .then(response => {
-                                                                    GlobalDataService.log(0, url, response);
-                                                                    this.getJsonLista(id).then(
-                                                                        (res) => {
-                                                                            GlobalDataService.log(0, 'getJsonLista', res);
-                                                                        }, (err) => {
-                                                                            GlobalDataService.log(2, 'getJsonLista reject', err);
-                                                                        }
-                                                                    );
-                                                                },
-                                                                (err) => {
-                                                                    GlobalDataService.log(2, url, err);
-                                                                });
+                                                        this.services.post(url, bodyCheckToken).then(
+                                                            () => {
+                                                                this.getJsonLista(id).then(
+                                                                    (res) => {
+                                                                        GlobalDataService.log(0, 'getJsonLista', res);
+                                                                    }, (err) => {
+                                                                        GlobalDataService.log(2, 'getJsonLista reject', err);
+                                                                    }
+                                                                );
+                                                            }
+                                                        );
+
+                                                        // // Aggiorniamo la validità del token
+                                                        // this.http.post(url, bodyCheckToken, {})
+                                                        //     .then(response => {
+                                                        //             GlobalDataService.log(0, url, response);
+                                                        //             this.getJsonLista(id).then(
+                                                        //                 (res) => {
+                                                        //                     GlobalDataService.log(0, 'getJsonLista', res);
+                                                        //                 }, (err) => {
+                                                        //                     GlobalDataService.log(2, 'getJsonLista reject', err);
+                                                        //                 }
+                                                        //             );
+                                                        //         },
+                                                        //         (err) => {
+                                                        //             GlobalDataService.log(2, url, err);
+                                                        //         });
                                                     });
                                                 }, (err) => {
                                                     GlobalDataService.log(2, 'Credenziali non accessibili', err);
@@ -335,16 +337,101 @@ export class SyncService {
                                                 message: errore.msg,
                                                 duration: 3000
                                             }).then(
-                                                (toast) => { toast.present(); },
-                                                (err) => { GlobalDataService.log(2, 'Toast fallito', err); });
+                                                (toast) => {
+                                                    toast.present();
+                                                },
+                                                (err) => {
+                                                    GlobalDataService.log(2, 'Toast fallito', err);
+                                                });
                                         }
                                     }
+                                }
+                            ).catch(() => { this.loading[id] = false; });
 
-                                })
-                                .catch(exception => {
-                                    this.loading[id] = false;
-                                    GlobalDataService.log(2, 'Catch', exception);
-                                });
+                            //
+                            // this.http.post(url, body, {})
+                            //     .then(response => {
+                            //         GlobalDataService.log(0, url, response);
+                            //
+                            //         const dati = JSON.parse(response.data);
+                            //
+                            //         // Salvo i json nello storage
+                            //         if (dati) {
+                            //             this.storage.set(id.toString(), dati).then(
+                            //                 () => {
+                            //                 }, (storageErr) => {
+                            //                     GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                            //                 }
+                            //             );
+                            //             // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
+                            //         }
+                            //
+                            //         this.loading[id] = false;
+                            //         resolve(dati);
+                            //     }, (rej) => {
+                            //         GlobalDataService.log(2, 'Rejected', rej);
+                            //
+                            //         this.loading[id] = false;
+                            //         if (rej.error) {
+                            //             const errore = JSON.parse(rej.error);
+                            //             const stato = rej.status;
+                            //             const codice = errore.codice;
+                            //
+                            //             if (stato === 401 && codice === -2) {
+                            //                 GlobalDataService.log(1, 'Token scaduto', null);
+                            //
+                            //                 let storedUsername = this.storage.get('username');
+                            //                 let storedPassword = this.storage.get('password');
+                            //
+                            //                 Promise.all([storedUsername, storedPassword]).then(
+                            //                     data => {
+                            //                         storedUsername = data[0];
+                            //                         storedPassword = data[1];
+                            //
+                            //                         url = this.urlCheckToken;
+                            //                         const bodyCheckToken = {
+                            //                             token: this.token,
+                            //                             username: storedUsername,
+                            //                             password: storedPassword
+                            //                         };
+                            //
+                            //                         // TODO: Gestire cambio password da ESSE3
+                            //                         this.ngZone.run(() => {
+                            //                             // Aggiorniamo la validità del token
+                            //                             this.http.post(url, bodyCheckToken, {})
+                            //                                 .then(response => {
+                            //                                         GlobalDataService.log(0, url, response);
+                            //                                         this.getJsonLista(id).then(
+                            //                                             (res) => {
+                            //                                                 GlobalDataService.log(0, 'getJsonLista', res);
+                            //                                             }, (err) => {
+                            //                                                 GlobalDataService.log(2, 'getJsonLista reject', err);
+                            //                                             }
+                            //                                         );
+                            //                                     },
+                            //                                     (err) => {
+                            //                                         GlobalDataService.log(2, url, err);
+                            //                                     });
+                            //                         });
+                            //                     }, (err) => {
+                            //                         GlobalDataService.log(2, 'Credenziali non accessibili', err);
+                            //                     });
+                            //
+                            //             } else {
+                            //                 this.toastCtrl.create({
+                            //                     message: errore.msg,
+                            //                     duration: 3000
+                            //                 }).then(
+                            //                     (toast) => { toast.present(); },
+                            //                     (err) => { GlobalDataService.log(2, 'Toast fallito', err); });
+                            //             }
+                            //         }
+                            //
+                            //     })
+                            //     .catch(exception => {
+                            //         this.loading[id] = false;
+                            //         GlobalDataService.log(2, 'Catch', exception);
+                            //     });
                         }, (err) => {
                             // Nessun uuid - probabile versione web
                             this.storage.set('uuid', 'uuid').then(
@@ -399,15 +486,25 @@ export class SyncService {
                 tokenNotifiche: tokenNotifiche
             };
 
-            this.http.post(url, body, {}).then(
-                (response) => {
+            this.services.post(url, body).then(
+                () => {
                     // SALVA LE PREFERENZE IN LOCALE
-                    GlobalDataService.log(0, url, response);
                     this.notificheService.aggiornaSottoscrizioni();
                 },
                 (err) => {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
-                });
+                }
+            );
+            //
+            // this.http.post(url, body, {}).then(
+            //     (response) => {
+            //         // SALVA LE PREFERENZE IN LOCALE
+            //         GlobalDataService.log(0, url, response);
+            //         this.notificheService.aggiornaSottoscrizioni();
+            //     },
+            //     (err) => {
+            //         GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
+            //     });
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
@@ -464,7 +561,7 @@ export class SyncService {
                                         isVirtual: this.device.isVirtual,
                                         uuid: this.device.uuid
                                     };
-                                    this.http.post(url, body, {}).then(
+                                    this.services.post(url, body).then(
                                         (response) => {
                                             this.storage.set('lastDeviceUpdate', tsOggi).then(
                                                 () => {
@@ -472,7 +569,7 @@ export class SyncService {
                                                     GlobalDataService.log(2, 'Errore in local storage', storageErr);
                                                 }
                                             );
-                                            GlobalDataService.log(0, 'I dati del device sono stati aggiornati.', response.data);
+                                            GlobalDataService.log(0, 'I dati del device sono stati aggiornati.', response);
                                             resolve(response);
                                         },
                                         (err) => {
@@ -512,20 +609,21 @@ export class SyncService {
                         token: this.token
                     };
 
-                    this.http.post(urlControllaMessaggi, body, {}).then(
+                    this.services.post(urlControllaMessaggi, body).then(
                         (response) => {
-                            if (response != null) {
-                                const messaggio: string = response.data;
+                            if (response) {
+                             const messaggio: string = response.toString();
+
                                 if ((messaggio === '') || (messaggio === 'NULL')) {
                                     GlobalDataService.log(0, 'Nessun nuovo messaggio', null);
                                     resolve('');
                                     return;
                                 } else {
-                                    GlobalDataService.log(0, 'Messaggio ricevuto', response);
+                                    GlobalDataService.log(0, 'Messaggio ricevuto', messaggio);
 
                                     const urlReimpostaMessaggi = this.getUrlReimpostaMessaggi();
 
-                                    this.http.post(urlReimpostaMessaggi, body, {}).then(
+                                    this.services.post(urlReimpostaMessaggi, body).then(
 
                                         () => {
                                             // const testo = String.fromCodePoint(0x1F354);
@@ -537,7 +635,7 @@ export class SyncService {
                                             }).then((alert) => { alert.present(); },
                                                 (err) => { GlobalDataService.log(2, urlReimpostaMessaggi, err); });
 
-                                            resolve(messaggio);
+                                            resolve(response);
                                         },
                                         (err) => {
                                             GlobalDataService.log(2, 'Non è possibile reimpostare i messaggi ora', err);
@@ -605,16 +703,15 @@ export class SyncService {
                                     //     headers: { 'Content-Type': 'application/json' }
                                     // };
 
-                                    this.http.setHeader('*', 'Content-Type', 'application/json');
-                                    this.http.setDataSerializer('json');
+                                    // this.http.setHeader('*', 'Content-Type', 'application/json');
+                                    // this.http.setDataSerializer('json');
 
-                                    this.http.post(urlUltimaVersione, body, {})
-                                        .then(data => {
+                                    this.services.post(urlUltimaVersione, body)
+                                        .then(
+                                            (ultimaVersione) => {
 
-                                            if (data != null) {
-                                                const ultimaVersione: string = data.data;
-
-                                                GlobalDataService.log(1, 'Ultima versione', data.data);
+                                            if (ultimaVersione != null) {
+                                                GlobalDataService.log(1, 'Ultima versione', ultimaVersione);
 
                                                 this.appVersion.getVersionNumber().then(
                                                     (appVersion) => {
@@ -810,7 +907,7 @@ export class SyncService {
                             };
 
                             GlobalDataService.log(0, 'url: ' + url, null);
-                            this.http.post(url, body, {}).then(
+                            this.services.post(url, body).then(
                                 (data) => {
                                     resolve(data);
                                 },

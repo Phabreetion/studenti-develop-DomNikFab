@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import { isNumeric } from 'rxjs/util/isNumeric';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {NavController, ToastController} from "@ionic/angular";
-import {AccountService} from "../../../services/account.service";
+import {ToastController} from '@ionic/angular';
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-medie',
@@ -39,6 +40,7 @@ export class MediePage implements OnInit {
 
     constructor(
         public sync: SyncService,
+        public http: HttpService,
         private toastCtrl: ToastController,
         public globalData: GlobalDataService,
         public account: AccountService) {
@@ -50,10 +52,10 @@ export class MediePage implements OnInit {
 
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -76,7 +78,7 @@ export class MediePage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,

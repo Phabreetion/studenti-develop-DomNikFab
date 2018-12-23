@@ -3,6 +3,7 @@ import { AlertController, NavParams, ToastController } from '@ionic/angular';
 // import * as moment from 'moment';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
+import {HttpService} from '../../../services/http.service';
 
 /**
  * Generated class for the CalendarioPage page.
@@ -36,6 +37,7 @@ export class CalendarioPage implements OnInit {
     constructor(
         public navParams: NavParams,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public toastCtrl: ToastController,
         public alertCtrl: AlertController) {
@@ -43,7 +45,7 @@ export class CalendarioPage implements OnInit {
 
 
     ngOnInit() {
-        this.globalData.getConnected();
+        this.http.getConnected();
         // this.aggiorna(false, true);
     }
 

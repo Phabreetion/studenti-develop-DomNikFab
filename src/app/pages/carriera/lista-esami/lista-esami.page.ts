@@ -1,9 +1,10 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {ActionSheetController, NavController} from '@ionic/angular';
+import {ActionSheetController} from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-lista-esami',
@@ -12,7 +13,7 @@ import {AccountService} from "../../../services/account.service";
 
 export class ListaEsamiPage implements OnInit {
 
-    currentPage = '/carriera/tab/(lista-esami:lista-esami)';
+    currentPage = '/carriera/tab/lista-esami';
     idServizio = 2;
     srcPage: string;
 
@@ -29,6 +30,7 @@ export class ListaEsamiPage implements OnInit {
         private ngZone: NgZone,
         private actionSheetCtrl: ActionSheetController,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public account: AccountService) {
     }
@@ -41,10 +43,10 @@ export class ListaEsamiPage implements OnInit {
                 if (this.srcPage === this.globalData.srcPage) {
                     this.srcPage = null;
                 }
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -63,7 +65,7 @@ export class ListaEsamiPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -123,7 +125,7 @@ export class ListaEsamiPage implements OnInit {
     }
 
     cercaAppello(item, ins) {
-        this.globalData.goTo(this.currentPage, 'appelli/' + ins.p09_ad_gen_cod,'forward', false);
+        this.globalData.goTo(this.currentPage, 'appelli/' + ins.p09_ad_gen_cod, 'forward', false);
     }
 
     selezionaTab() {
@@ -135,14 +137,14 @@ export class ListaEsamiPage implements OnInit {
                     icon: 'school',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(piano-di-studi:piano-di-studi)','forward', false);
+                            '/carriera/tab/piano-di-studi', 'forward', false);
                     }
                 }, {
                     text: 'Libretto',
                     icon: 'list-box',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(libretto:libretto)','forward', false);
+                            '/carriera/tab/libretto', 'forward', false);
                     }
                 }, {
                     text: 'Chiudi',

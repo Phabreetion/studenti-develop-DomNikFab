@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-import {DBService} from '../../../../services/db-service';
 import {GlobalDataService} from '../../../../services/global-data.service';
+import {DBService} from '../../../../services/db-service';
 
 
 @Component({
@@ -32,7 +31,7 @@ export class AllegatoPage implements OnInit {
     }
 
     onGoBack() {
-        this.globalData.goTo(this.currentPage, '/materiale-didattico' + this.ad_id,'backward', false);
+        this.globalData.goTo(this.currentPage, '/materiale-didattico' + this.ad_id, 'backward', false);
     }
 
     formatStringDate(stringDate): string {

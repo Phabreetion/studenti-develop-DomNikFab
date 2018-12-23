@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {GlobalDataService} from "./global-data.service";
-import {SyncService} from "./sync.service";
-import {Storage} from "@ionic/storage";
-import {HTTP} from "@ionic-native/http/ngx";
+import {GlobalDataService} from './global-data.service';
+import {SyncService} from './sync.service';
+import {Storage} from '@ionic/storage';
+import {HttpService} from './http.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class Esse3Service {
 
     constructor(
         public storage: Storage,
-        public http: HTTP,
+        public services: HttpService,
         public sync: SyncService,
 
     ) { }
@@ -44,9 +44,8 @@ export class Esse3Service {
                         body = {
                             token: token,
                         };
-                        this.http.post(url, body, {}).then(
-                            (response) => {
-                                const json = JSON.parse(response.data);
+                        this.services.getJSON(url, body).then(
+                            (json) => {
                                 const sid = json['sid'];
                                 resolve(sid);
                             },
@@ -79,7 +78,7 @@ export class Esse3Service {
                 // this.http.post(url, body)
                 //     .pipe(timeout(this.getTimeout()))
                 //     .subscribe(
-                this.http.post(url, body, {}).then(
+                this.services.post(url, body).then(
                     (data) => {
                         resolve(data);
                     },
@@ -113,7 +112,7 @@ export class Esse3Service {
                     // this.http.post(url, body)
                     //     .pipe(timeout(this.getTimeout()))
                     //     .subscribe(
-                    this.http.post(url, body, {}).then(
+                    this.services.post(url, body).then(
                         (data) => {
                             resolve(data);
                         },
@@ -143,9 +142,8 @@ export class Esse3Service {
                             // this.http.post(url, body)
                             //     .toPromise()
                             //     .then(
-                            this.http.post(url, body, {}).then(
-                                (response) => {
-                                    const json = JSON.parse(response.data);
+                            this.services.getJSON(url, body).then(
+                                (json) => {
                                     const sid = json['sid'];
                                     queryString = queryString + 'sid=' + sid;
                                     GlobalDataService.log(0, queryString, null);

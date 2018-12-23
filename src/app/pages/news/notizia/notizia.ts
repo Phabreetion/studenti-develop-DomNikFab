@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
-
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
-import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-notizia',
@@ -36,18 +33,19 @@ export class NotiziaPage implements OnInit {
 
     constructor(
         public inAppBrowser: InAppBrowser,
+        public http: HttpService,
         public globalData: GlobalDataService) {}
 
 
     ngOnInit() {
         this.notizia = this.globalData.notizia;
-        this.globalData.getConnected();
+        this.http.getConnected();
         // if (this.notizia.contenuto == '')
         //   this.notizia.contenuto = this.notizia.descrizione;
     }
 
     onGoBack()  {
-        this.globalData.goTo(this.currentPage, this.globalData.srcPage,'backward', false);
+        this.globalData.goTo(this.currentPage, this.globalData.srcPage, 'backward', false);
     }
 
     formatStringDate(stringDate): string {
@@ -60,7 +58,7 @@ export class NotiziaPage implements OnInit {
 
     ionViewDidLoad() {
         this.notizia = this.globalData.notizia;
-        this.globalData.getConnected();
+        this.http.getConnected();
     }
 
 

@@ -36,14 +36,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { NotiziaPageModule} from './pages/news/notizia/notizia.module';
 import { DettagliUtentePageModule } from './pages/home/dettagli-utente/dettagli-utente.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {FCM} from "@ionic-native/fcm/ngx";
-import {EsamePageModule} from "./pages/carriera/esame/esame.module";
-import {Toast} from "@ionic-native/toast/ngx";
+import {FCM} from '@ionic-native/fcm/ngx';
+import {EsamePageModule} from './pages/carriera/esame/esame.module';
+import {Toast} from '@ionic-native/toast/ngx';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
 // import 'hammerjs';
-
 
 @NgModule({
     declarations: [AppComponent],
@@ -52,15 +52,14 @@ import {Toast} from "@ionic-native/toast/ngx";
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        // BrowserAnimationsModule,
         IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
         AppRoutingModule,
-        // ComponentsModule,
         DettagliUtentePageModule,
         NotiziaPageModule,
         EsamePageModule,
-       // HttpModule
+        HttpClientModule,
+        FontAwesomeModule
     ],
     providers: [
         AndroidPermissions,
@@ -92,4 +91,5 @@ import {Toast} from "@ionic-native/toast/ngx";
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

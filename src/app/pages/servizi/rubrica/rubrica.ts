@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController, NavController, ToastController} from '@ionic/angular';
-import { Storage } from '@ionic/storage';
-import { trigger, state, style, animate, transition} from '@angular/animations';
+import {AlertController, ToastController} from '@ionic/angular';
+import {Storage } from '@ionic/storage';
+import {trigger, state, style, animate, transition} from '@angular/animations';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
-
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-rubrica',
@@ -52,6 +52,7 @@ export class RubricaPage implements OnInit {
         private toastCtrl: ToastController,
         public storage: Storage,
         public sync: SyncService,
+        public http: HttpService,
         public alertCtrl: AlertController,
         public globalData: GlobalDataService,
         public account: AccountService) {
@@ -62,7 +63,7 @@ export class RubricaPage implements OnInit {
 
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.storage.get('step').then((value) => {
                     if (value != null) {
                         this.step = parseInt(value, 10);
@@ -75,7 +76,7 @@ export class RubricaPage implements OnInit {
                     this.showSearchBar = true;
                 }
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -190,7 +191,7 @@ export class RubricaPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -271,7 +272,7 @@ export class RubricaPage implements OnInit {
 
     showDetails(contatto) {
         this.globalData.contatto = contatto;
-        this.globalData.goTo(this.currentPage, '/contatto','forward', false);
+        this.globalData.goTo(this.currentPage, '/contatto', 'forward', false);
     }
 
     // getItems(ev: any) {

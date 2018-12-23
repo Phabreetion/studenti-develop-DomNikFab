@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, NavController} from '@ionic/angular';
+import {LoadingController} from '@ionic/angular';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
-import {Esse3Service} from "../../../services/esse3.service";
+import {AccountService} from '../../../services/account.service';
+import {Esse3Service} from '../../../services/esse3.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-servizi-online',
@@ -35,6 +36,7 @@ export class ServiziOnlinPage implements OnInit {
 
     constructor(
         public sync: SyncService,
+        public http: HttpService,
         public loadingCtrl: LoadingController,
         public inAppBrowser: InAppBrowser,
         public globalData: GlobalDataService,
@@ -47,9 +49,9 @@ export class ServiziOnlinPage implements OnInit {
 
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController, ToastController} from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 import { trigger, state, style, animate, transition} from '@angular/animations';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
-import {AccountService} from "../../services/account.service";
+import {AccountService} from '../../services/account.service';
+import {HttpService} from '../../services/http.service';
 
 @Component({
     selector: 'app-page-news',
@@ -29,12 +30,12 @@ export class NewsPage implements OnInit {
 
     sezioni: string;
     // private newsList: any;
-    ateneoNews = new Array();
-    ateneoNewsFiltrate = new Array();
-    dipartimentoNews = new Array();
-    dipartimentoNewsFiltrate = new Array();
-    corsoNews = new Array();
-    corsoNewsFiltrate = new Array();
+    ateneoNews = [];
+    ateneoNewsFiltrate = [];
+    dipartimentoNews = [];
+    dipartimentoNewsFiltrate = [];
+    corsoNews = [];
+    corsoNewsFiltrate = [];
     searchTerm = '';
 
     nrNewsAteneo = '';
@@ -68,6 +69,7 @@ export class NewsPage implements OnInit {
 
     constructor(
         public sync: SyncService,
+        public http: HttpService,
         public toastCtrl: ToastController,
         public globalData: GlobalDataService,
         public account: AccountService) {
@@ -85,10 +87,10 @@ export class NewsPage implements OnInit {
         this.account.controllaAccount().then(
             (ok) => {
                 this.showSearchBar = false;
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -248,7 +250,7 @@ export class NewsPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -318,7 +320,7 @@ export class NewsPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -387,7 +389,7 @@ export class NewsPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -449,7 +451,7 @@ export class NewsPage implements OnInit {
 
     showDetails(newsItem) {
         this.globalData.notizia = newsItem;
-        this.globalData.goTo(this.currentPage, '/notizia','forward', false);
+        this.globalData.goTo(this.currentPage, '/notizia', 'forward', false);
     }
 
     toggleInOut() {

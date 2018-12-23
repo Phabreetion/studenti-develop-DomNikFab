@@ -70,20 +70,14 @@
 
 <ion-footer  no-padding>
   <ion-toolbar>
-    <ion-grid slot="start" no-padding>
-      <ion-row>
-        <ion-col align-self-center="true">
-          <ion-buttons>
-            <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
-            <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
-          </ion-buttons>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+    <ion-buttons slot="start">
+      <fa-icon [hidden]="!http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+      <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+    </ion-buttons>
 
-    <ion-label class="testo-footer">
-      ver. {{appVersionNum}}
-    </ion-label>
+    <div class="testo-footer">
+      ver. {{appVersionNum? appVersionNum: '2.0.w'}}
+    </div>
 
     <ion-buttons slot="end" no-padding>
       <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>

@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {LoadingController, NavController} from '@ionic/angular';
+import {LoadingController} from '@ionic/angular';
 import {isArray} from 'rxjs/internal/util/isArray';
 import {SyncService} from '../../../../services/sync.service';
 import {GlobalDataService} from '../../../../services/global-data.service';
-import {AccountService} from "../../../../services/account.service";
-
+import {AccountService} from '../../../../services/account.service';
 
 @Component({
     selector: 'app-page-carriere',
@@ -46,22 +45,22 @@ export class CarrierePage implements OnInit {
                         } else {
                             switch (risultato) {
                                 case 'unlocked' : {
-                                    this.globalData.goTo(this.currentPage, '/home','root', false);
+                                    this.globalData.goTo(this.currentPage, '/home', 'root', false);
                                     break;
                                 }
                                 case 'logged': {
-                                    this.globalData.goTo(this.currentPage, '/tutorial','root', false);
+                                    this.globalData.goTo(this.currentPage, '/tutorial', 'root', false);
                                     break;
                                 }
                                 default: {
-                                    this.globalData.goTo(this.currentPage, '/login','root', false);
+                                    this.globalData.goTo(this.currentPage, '/login', 'root', false);
                                 }
                             }
                         }
                     },
                     (err) => {
                         loading.dismiss();
-                        this.globalData.goTo(this.currentPage, '/login','root', false);
+                        this.globalData.goTo(this.currentPage, '/login', 'root', false);
                     }).catch(
                     () => {
                         loading.dismiss();
@@ -73,6 +72,6 @@ export class CarrierePage implements OnInit {
     }
 
     disconnetti() {
-        this.globalData.goTo(this.currentPage, '/disconnetti','root', false);
+        this.globalData.goTo(this.currentPage, '/disconnetti', 'root', false);
     }
 }

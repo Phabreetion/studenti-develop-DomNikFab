@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { ListaEsamiPage } from './lista-esami.page';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
+        FontAwesomeModule,
         RouterModule.forChild([
             {
                 path: '',

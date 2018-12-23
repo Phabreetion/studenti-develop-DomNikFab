@@ -50,9 +50,9 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="anni">
+    <ion-grid no-padding *ngIf="anni">
         <ion-row>
-            <ion-col>
+            <ion-col no-padding>
                 <ion-list>
                     <div *ngFor="let anno of anni; let i=index">
                         <div *ngIf="anno.length>0">
@@ -62,10 +62,9 @@
 
                             <ion-item-sliding *ngFor="let item of anno">
                                 <!-- (press)="onPress(item)" -->
-                                <ion-item (click)="mostraOpzioni(item)"
-                                          [ngClass]="{'superato' : item.VOTO && item.LODE==0, 'superato-lode' : item.VOTO && item.LODE==1, 'da-sostenere' : !item.VOTO && item.VALUTAZIONE!='G' , 'idoneo' : item.GIUDIZIO}">
-                                    <ion-grid fixed no-padding>
-                                        <ion-row>
+                                <ion-item (click)="mostraOpzioni(item)">
+                                    <ion-grid fixed no-padding >
+                                        <ion-row [ngClass]="{'superato' : item.VOTO && item.LODE==0, 'superato-lode' : item.VOTO && item.LODE==1, 'da-sostenere' : !item.VOTO && item.VALUTAZIONE!='G' , 'idoneo' : item.GIUDIZIO}">
                                             <ion-col size="10">
                                                 <ion-grid>
                                                     <ion-row class="nome-esame">
@@ -95,10 +94,10 @@
                                                 </ion-grid>
                                             </ion-col>
 
-                                            <ion-col no-padding size="2" *ngIf="item.VOTO || item.VALUTAZIONE=='G'" align-self-center="true">
-                                                <ion-label *ngIf="item.VOTO && item.LODE==0" class="voto">{{item.VOTO | slice:0:3}}</ion-label>
-                                                <ion-label *ngIf="item.VOTO && item.LODE==1" class="voto">30L</ion-label>
-                                                <ion-label *ngIf="!item.VOTO" class="voto">{{item.GIUDIZIO | slice:0:3}}</ion-label>
+                                            <ion-col size="2" *ngIf="item.VOTO || item.VALUTAZIONE=='G'" align-self-center="true">
+                                                <div *ngIf="item.VOTO && item.LODE==0" class="voto">{{item.VOTO | slice:0:3}}</div>
+                                                <div *ngIf="item.VOTO && item.LODE==1" class="voto">30L</div>
+                                                <div *ngIf="!item.VOTO" class="voto">{{item.GIUDIZIO | slice:0:3}}</div>
                                             </ion-col>
                                         </ion-row>
 
@@ -135,25 +134,17 @@
     </ion-grid>
 </ion-content>
 
-<ion-footer  no-padding>
+<ion-footer>
     <ion-toolbar>
-        <ion-grid slot="start" no-padding>
-            <ion-row>
-                <ion-col *ngIf="!isLoading() || !globalData.getConnected()" align-self-center="true">
-                    <ion-buttons>
-                        <ion-icon [hidden]="!globalData.getConnected()" src="assets/icon/connected.svg" color="primary"></ion-icon>
-                        <ion-icon [hidden]="globalData.getConnected()" src="assets/icon/disconnected.svg"  color="primary"></ion-icon>
-                    </ion-buttons>
-                </ion-col>
-                <ion-col *ngIf="isLoading() && globalData.getConnected()" align-self-center="true" no-padding>
-                    <ion-spinner></ion-spinner>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+        <ion-buttons slot="start">
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+            <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+            <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+        </ion-buttons>
 
-        <ion-label class="testo-footer">
+        <div class="testo-footer">
             Aggiornato al: {{dataAggiornamento}}
-        </ion-label>
+        </div>
 
         <ion-buttons slot="end">
             <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController, ToastController} from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import {ToastController} from '@ionic/angular';
+import {Storage } from '@ionic/storage';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-questionari',
@@ -29,6 +30,7 @@ export class QuestionariPage implements OnInit {
     constructor(
         private toastCtrl: ToastController,
         public sync: SyncService,
+        public http: HttpService,
         public storage: Storage,
         public globalData: GlobalDataService,
         public account: AccountService) {
@@ -38,10 +40,10 @@ export class QuestionariPage implements OnInit {
         this.globalData.srcPage = '/questionari';
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -60,7 +62,7 @@ export class QuestionariPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,

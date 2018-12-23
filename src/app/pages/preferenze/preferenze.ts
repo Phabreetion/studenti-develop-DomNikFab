@@ -1,12 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import { Storage } from '@ionic/storage';
-import {AlertController, NavController} from '@ionic/angular';
+import {AlertController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
-import {HTTP} from '@ionic-native/http/ngx';
-import {NotificheService} from "../../services/notifiche.service";
-import {AccountService} from "../../services/account.service";
-import { AppVersion } from '@ionic-native/app-version/ngx';
+import {NotificheService} from '../../services/notifiche.service';
+import {AccountService} from '../../services/account.service';
+import {HttpService} from '../../services/http.service';
+import {AppVersion} from '@ionic-native/app-version/ngx';
 
 @Component({
     selector: 'app-page-preferenze',
@@ -26,6 +26,7 @@ export class PreferenzePage implements OnInit {
     graficoLegacy = true;
     includiNoMedia = false;
     connessioneLenta = true;
+    httpNativo = true;
     carriera = true;
     appVersionNum = '';
     step = 20;
@@ -33,13 +34,13 @@ export class PreferenzePage implements OnInit {
 
     constructor(
         public sync: SyncService,
+        public http: HttpService,
         public storage: Storage,
         public appVersionProvider: AppVersion,
         public globalData: GlobalDataService,
         public notificheService: NotificheService,
         public account: AccountService,
-        public alertCtrl: AlertController,
-        public nativeHTTP: HTTP) {
+        public alertCtrl: AlertController) {
     }
 
     // CONTROLLA TUTTE LE IMPOSTAZIONI PRIMA DEL CARICAMENTO DELLA PAGINA
@@ -47,14 +48,14 @@ export class PreferenzePage implements OnInit {
         this.globalData.srcPage = '/preferenze';
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.android = this.globalData.android;
 
                 this.storage.get('token').then((value) => {
                     this.token = value;
                 });
 
-                //Prende la versione dell'app settata nel file config.xml
+                // Prende la versione dell'app settata nel file config.xml
                 this.appVersionProvider.getVersionNumber().then((value) => {
                     this.appVersionNum = value;
                 });
@@ -92,6 +93,15 @@ export class PreferenzePage implements OnInit {
                         this.connessioneLenta = value;
                     } else {
                         this.connessioneLenta = true;
+                    }
+                });
+
+                // Consente di scegliere tra chiamate http con plugin nativo o tramite Angular
+                this.storage.get('httpNativo').then((value) => {
+                    if (value != null) {
+                        this.httpNativo = value;
+                    } else {
+                        this.httpNativo = true;
                     }
                 });
 
@@ -149,7 +159,7 @@ export class PreferenzePage implements OnInit {
                     }
                 });
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -177,17 +187,17 @@ export class PreferenzePage implements OnInit {
         this.salvaPreferenzeLocali();
 
         const url = this.sync.getUrlPreferenzeNotifiche();
-        const jPref = JSON.stringify({
-            'token': this.token,
-            'preferenze': {
-                'news': {
-                    'dipartimento': this.newsDipartimento,
-                    'cds': this.newsCds,
-                    'ateneo': this.newsAteneo
-                },
-                'carriera': this.carriera
-            }
-        });
+        // const jPref = JSON.stringify({
+        //     'token': this.token,
+        //     'preferenze': {
+        //         'news': {
+        //             'dipartimento': this.newsDipartimento,
+        //             'cds': this.newsCds,
+        //             'ateneo': this.newsAteneo
+        //         },
+        //         'carriera': this.carriera
+        //     }
+        // });
 
         const body = {
             token: this.token,
@@ -201,10 +211,7 @@ export class PreferenzePage implements OnInit {
             },
         };
 
-        this.nativeHTTP.setHeader('*', 'Content-Type', 'application/json');
-        this.nativeHTTP.setDataSerializer('json');
-
-        this.nativeHTTP.post(url, body, {}).then(data => {
+        this.http.post(url, body).then(data => {
             // SALVA LE PREFERENZE IN LOCALE
             this.storage.set('newsDipartimento', this.newsDipartimento);
             this.storage.set('newsCds', this.newsCds);
@@ -266,9 +273,11 @@ export class PreferenzePage implements OnInit {
         this.storage.set('graficoLegacy', this.graficoLegacy);
         this.storage.set('includiNoMedia', this.includiNoMedia);
         this.storage.set('connessioneLenta', this.connessioneLenta);
+        this.storage.set('httpNativo', this.httpNativo);
+        this.http.httpNativo = this.httpNativo;
     }
 
     showAccounts() {
-        this.globalData.goTo(this.currentPage, '/accounts','forward', false);
+        this.globalData.goTo(this.currentPage, '/accounts', 'forward', false);
     }
 }

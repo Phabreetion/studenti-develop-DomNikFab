@@ -1,11 +1,9 @@
-import { Storage } from '@ionic/storage';
+import {Storage} from '@ionic/storage';
 import {Component, OnInit} from '@angular/core';
-import { NavController, MenuController } from '@ionic/angular';
-import { ViewChild } from '@angular/core';
-//import { Slides } from '@ionic/angular';
+import {MenuController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
 
 @Component({
     selector: 'app-page-tutorial',
@@ -15,7 +13,6 @@ import {AccountService} from "../../../services/account.service";
 
 export class TutorialPage implements OnInit {
 
-    //@ViewChild(Slides) slidesCtrl: Slides;
 
     currentPage = '/tutorial';
 
@@ -115,33 +112,33 @@ export class TutorialPage implements OnInit {
         this.storage.get('progress').then((val) => {
             this.progress = val;
             if (this.time > 0) {
-                this.timer.subscribe(x => this.progressChange());
+                this.timer.subscribe(() => this.progressChange());
             }
         });
     }
 
-    tickerFunc(tick) {
-        this.ticks = tick;
-        this.storage.get('progress').then((val) => {
-            this.progress = val;
-        });
-
-        if (this.ticks > this.time) {
-            this.show = true;
-            this.sub.unsubscribe();
-        }
-    }
+    // tickerFunc(tick) {
+    //     this.ticks = tick;
+    //     this.storage.get('progress').then((val) => {
+    //         this.progress = val;
+    //     });
+    //
+    //     if (this.ticks > this.time) {
+    //         this.show = true;
+    //         this.sub.unsubscribe();
+    //     }
+    // }
 
     scaricaTutto() {
         this.sync.sincronizza();
     }
 
     doContinua() {
-        this.globalData.goTo(this.currentPage, '/home','root', false);
+        this.globalData.goTo(this.currentPage, '/home', 'root', false);
     }
 
-    goToLastSlide() {
-        //this.slidesCtrl.slideTo(this.slides.length);
-    }
+    // goToLastSlide() {
+    //     this.slidesCtrl.slideTo(this.slides.length);
+    // }
 
 }

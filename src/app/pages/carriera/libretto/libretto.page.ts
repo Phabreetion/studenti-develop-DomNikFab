@@ -1,8 +1,9 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {ActionSheetController, NavController, ToastController} from '@ionic/angular';
+import {ActionSheetController, ToastController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-libretto',
@@ -10,11 +11,11 @@ import {AccountService} from "../../../services/account.service";
 })
 export class LibrettoPage implements OnInit {
 
-    currentPage = '/carriera/tab/(libretto:libretto)';
+    currentPage = '/carriera/tab/libretto';
     idServizio = 4;
     srcPage: string;
 
-    libretto = new Array();
+    libretto = [];
     dataAggiornamento: string;
     aggiornamentoVerificato = false;
     rinvioAggiornamento = false;
@@ -26,6 +27,7 @@ export class LibrettoPage implements OnInit {
         public actionSheetCtrl: ActionSheetController,
         public ngZone: NgZone,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public account: AccountService) {
     }
@@ -38,10 +40,10 @@ export class LibrettoPage implements OnInit {
                 if (this.srcPage === this.globalData.srcPage) {
                     this.srcPage = null;
                 }
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -58,7 +60,7 @@ export class LibrettoPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -121,7 +123,7 @@ export class LibrettoPage implements OnInit {
     }
 
     cercaAppello(item, ins) {
-        this.globalData.goTo(this.currentPage, '/appelli/' + ins.codice,'forward', false);
+        this.globalData.goTo(this.currentPage, '/appelli/' + ins.codice, 'forward', false);
     }
 
 
@@ -134,14 +136,14 @@ export class LibrettoPage implements OnInit {
                     icon: 'school',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(piano-di-studi:piano-di-studi)','forward', false);
+                            '/carriera/tab/piano-di-studi', 'forward', false);
                     }
                 }, {
                     text: 'Esami di sostenere',
                     icon: 'list-box',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(lista-esami:lista-esami)','forward', false);
+                            '/carriera/tab/lista-esami', 'forward', false);
                     }
                 }, {
                     text: 'Chiudi',

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {NavController, ToastController} from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import {ToastController} from '@ionic/angular';
+import {Storage } from '@ionic/storage';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-tasse',
@@ -29,6 +30,7 @@ export class TassePage implements OnInit {
     constructor(
         private toastCtrl: ToastController,
         public sync: SyncService,
+        public http: HttpService,
         public storage: Storage,
         public globalData: GlobalDataService,
         public account: AccountService) {
@@ -42,10 +44,10 @@ export class TassePage implements OnInit {
                 if (this.sezioni == null) {
                     this.sezioni = 'da-pagare';
                 }
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -64,7 +66,7 @@ export class TassePage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -147,10 +149,13 @@ export class TassePage implements OnInit {
     }
 
     getDescription(item) {
-        if (item.DESCRIZIONE)
+        if (item.DESCRIZIONE) {
             return item.DESCRIZIONE;
-        if (item.IMPORTO.startsWith('-'))
+        }
+        if (item.IMPORTO.startsWith('-')) {
             return 'RIMBORSO';
-        else return 'TASSA';
+        } else {
+            return 'TASSA';
+        }
     }
 }

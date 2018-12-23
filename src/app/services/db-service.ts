@@ -8,7 +8,7 @@ import {ToastsService} from './toasts.service';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {GlobalDataService} from './global-data.service';
-import {SyncService} from "./sync.service";
+import {SyncService} from './sync.service';
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +22,7 @@ export class DBService {
         location: 'default'
     };
 
-    urlAllegatoTest: string = this.sync.schema + this.sync.ip + this.sync.dir + '/test_json/test.pdf'
+    urlAllegatoTest: string = this.sync.schema + this.sync.ip + this.sync.dir + '/test_json/test.pdf';
 
     private browser: any;
     options: InAppBrowserOptions = {

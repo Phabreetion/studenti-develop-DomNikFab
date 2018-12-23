@@ -1,11 +1,12 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import { NavController, LoadingController, ToastController, AlertController } from '@ionic/angular';
+import {LoadingController, ToastController, AlertController } from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
-import {Esse3Service} from "../../../services/esse3.service";
-import {cursorTo} from "readline";
+import {AccountService} from '../../../services/account.service';
+import {Esse3Service} from '../../../services/esse3.service';
+import {HttpService} from '../../../services/http.service';
+// import {cursorTo} from "readline";
 
 @Component({
     selector: 'app-page-appelli',
@@ -38,6 +39,7 @@ export class AppelliPage implements OnChanges, OnInit {
     constructor(
         private route: ActivatedRoute,
         private sync: SyncService,
+        public http: HttpService,
         private toastCtrl: ToastController,
         private alertCtrl: AlertController,
         private loadingCtrl: LoadingController,
@@ -63,12 +65,12 @@ export class AppelliPage implements OnChanges, OnInit {
 
         this.account.controllaAccount().then(
             (ok) => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
 
                 this.insegnamento = this.route.snapshot.paramMap.get('id');
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -88,7 +90,7 @@ export class AppelliPage implements OnChanges, OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -146,7 +148,7 @@ export class AppelliPage implements OnChanges, OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -231,7 +233,7 @@ export class AppelliPage implements OnChanges, OnInit {
     }
 
     onGoBack()  {
-        this.globalData.goTo(this.currentPage, '/libretto','backward', false);
+        this.globalData.goTo(this.currentPage, '/libretto', 'backward', false);
     }
 
     prenotaAppello(item, appello) {
@@ -282,7 +284,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                                     message: 'Prenotazione inviata! Verifica nella scheda delle ' +
                                                     'prenotazioni l\'esito del\'operazione!',
                                                     duration: 3000
-                                                }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                                }).then(
+                                                    (toast) => {toast.present(); },
+                                                    (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
                                                 setTimeout(() => {
                                                     this.aggiorna(true, true);
                                                 }, 1000);
@@ -292,7 +296,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                                 this.toastCtrl.create({
                                                     message: 'Errore: ' + data['_body'],
                                                     duration: 4000
-                                                }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                                }).then(
+                                                    (toast) => {toast.present(); },
+                                                    (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
                                             }
                                         },
                                         (err) => {
@@ -302,7 +308,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                                 message: 'Si è verificato un problema durante l\'invio della prenotazione. ' +
                                                 'Riprova più tardi.',
                                                 duration: 3000
-                                            }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                            }).then(
+                                                (toast) => {toast.present(); },
+                                                (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
                                         });
 
                                 });
@@ -368,7 +376,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                             this.toastCtrl.create({
                                                 message: 'Cancellazione inviata! Verifica sempre se l\'invio ha avuto successo!',
                                                 duration: 3000
-                                            }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                            }).then(
+                                                (toast) => {toast.present(); },
+                                                (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
 
                                             setTimeout(() => {
                                                 this.aggiorna(true, true);
@@ -379,7 +389,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                             this.toastCtrl.create({
                                                 message: 'Errore: ' + data['_body'],
                                                 duration: 4000
-                                            }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                            }).then(
+                                                (toast) => {toast.present(); },
+                                                (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
                                             this.aggiorna(false, true);
                                         }
                                     },
@@ -390,7 +402,9 @@ export class AppelliPage implements OnChanges, OnInit {
                                         this.toastCtrl.create({
                                             message: 'Si è verificato un problema durante l\'invio della prenotazione. Riprova più tardi.',
                                             duration: 3000
-                                        }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                                        }).then(
+                                            (toast) => {toast.present(); },
+                                            (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
                                     });
                             });
                         }

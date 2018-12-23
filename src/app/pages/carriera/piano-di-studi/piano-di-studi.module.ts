@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import {PianoDiStudiPage} from './piano-di-studi.page';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -11,6 +12,7 @@ import {PianoDiStudiPage} from './piano-di-studi.page';
         CommonModule,
         FormsModule,
         IonicModule,
+        FontAwesomeModule,
         RouterModule.forChild([
             {
                 path: '',

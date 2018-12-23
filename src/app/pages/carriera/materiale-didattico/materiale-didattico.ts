@@ -7,7 +7,8 @@ import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {DBService} from '../../../services/db-service';
 import {ActivatedRoute} from '@angular/router';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -53,6 +54,7 @@ export class MaterialeDidatticoPage implements OnInit {
         private toastCtrl: ToastController,
         public route: ActivatedRoute,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public modalCtrl: ModalController,
         public actionSheetCtrl: ActionSheetController,
@@ -67,10 +69,10 @@ export class MaterialeDidatticoPage implements OnInit {
                 this.ad = this.route.snapshot.paramMap.get('id');
                 this.currentPage = '/materiale-didattico/' + this.ad;
                 // this.ad = this.navParams.get('ad');
-                this.globalData.checkConnection();
+                this.http.checkConnection();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -94,7 +96,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -212,7 +214,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
         this.globalData.allegato = item;
         this.globalData.srcPage = '/materiale-didattico';
-        this.globalData.goTo('/materiale-didattico', '/allegato','forward', false);
+        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
     }
 
     download(item) {

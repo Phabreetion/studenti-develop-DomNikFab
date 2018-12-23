@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import {GlobalDataService} from "./global-data.service";
-import {Md5} from "ts-md5";
-import {LoadingController, ToastController} from "@ionic/angular";
-import {Storage} from "@ionic/storage";
-import {NotificheService} from "./notifiche.service";
-import {SyncService} from "./sync.service";
-import {HTTP} from "@ionic-native/http/ngx";
+import {GlobalDataService} from './global-data.service';
+import {Md5} from 'ts-md5';
+import {LoadingController, ToastController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
+import {NotificheService} from './notifiche.service';
+import {SyncService} from './sync.service';
+import {HttpService} from './http.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,11 +15,11 @@ export class AccountService {
     logged: boolean;
     baseurl = this.sync.baseurl;
     urlRegistra: string = this.baseurl + 'registra.php';
-    urlDisconnetti: string = this.baseurl + 'disconnetti.php'
+    urlDisconnetti: string = this.baseurl + 'disconnetti.php';
 
     constructor(
         public storage: Storage,
-        public http: HTTP,
+        public services: HttpService,
         public toastCtrl: ToastController,
         public loadingCtrl: LoadingController,
         public sync: SyncService,
@@ -34,7 +34,7 @@ export class AccountService {
         return this.urlRegistra;
     }
 
-    controllaAccount(){
+    controllaAccount() {
         return new Promise((resolve, reject) => {
             this.storage.get('logged').then(
                 (logged) => {
@@ -209,9 +209,8 @@ export class AccountService {
                             // this.http.post(url, body)
                             //     .pipe(timeout(this.getTimeout()))
                             //     .subscribe(
-                            this.http.post(url, body, {}).then(
-                                (response) => {
-                                    const esitoRegistrazione = JSON.parse(response.data);
+                            this.services.getJSON(url, body).then(
+                                (esitoRegistrazione) => {
                                     GlobalDataService.log(0, 'Esito Registrazione', esitoRegistrazione);
 
                                     // const cod = esitoRegistrazione.json();
@@ -330,10 +329,10 @@ export class AccountService {
             }).then((loading) => {
                 loading.present();
 
-                this.http.post(this.getUrlDisconnetti(), {token: token}, {}).then(
+                this.services.post(this.getUrlDisconnetti(), {token: token}).then(
                     (response) => {
                         loading.dismiss();
-                        if (response.data) {
+                        if (response) {
                             this.toastCtrl.create({
                                 message: 'Il dispositivo è stato disconnesso.',
                                 duration: 5000

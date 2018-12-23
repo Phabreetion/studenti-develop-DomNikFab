@@ -1,11 +1,11 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {NavController, LoadingController, AlertController} from '@ionic/angular';
-import { Storage } from '@ionic/storage';
+import {Component, OnInit} from '@angular/core';
+import {LoadingController, AlertController, ToastController} from '@ionic/angular';
+import {Storage } from '@ionic/storage';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {HTTP} from '@ionic-native/http/ngx';
-import {NotificheService} from "../../../services/notifiche.service";
-import {AccountService} from "../../../services/account.service";
+import {NotificheService} from '../../../services/notifiche.service';
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 
 
@@ -20,13 +20,14 @@ export class DisconnettiPage implements OnInit {
     tokenNotifiche: string;
 
     constructor(
-        public http: HTTP,
         public sync: SyncService,
         public globalData: GlobalDataService,
+        public http: HttpService,
         public notificheService: NotificheService,
         public account: AccountService,
-        private loadingCtrl: LoadingController,
-        private alertCtrl: AlertController,
+        public loadingCtrl: LoadingController,
+        public alertCtrl: AlertController,
+        public toastCtrl: ToastController,
         public storage: Storage) {
     }
 
@@ -76,18 +77,23 @@ export class DisconnettiPage implements OnInit {
 
                 loading.present();
 
-                this.http.post(this.url, body, {}).then(
+                this.http.post(this.url, body).then(
                     (response) => {
                         loading.dismiss();
-                        if (response.data) {
+                        if (response) {
                             this.notificheService.rimuoviSottoscrizioni();
                             this.storage.clear();
                             this.storage.set('logged', false);
                             this.storage.set('tokenNotifiche', this.tokenNotifiche);
-                            this.globalData.goTo(this.globalData.srcPage, '/login','root', false);
-
+                            this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
+                            this.toastCtrl.create({
+                                message: response.toString(),
+                                duration: 3000
+                            }).then(
+                                (toast) => {toast.present(); },
+                                (errToast) => { GlobalDataService.log(2, 'Errore Toast', errToast); });
                         } else {
-                            this.globalData.goTo(this.globalData.srcPage, '/home','root', false);
+                            this.globalData.goTo(this.globalData.srcPage, '/home', 'root', false);
                         }
                     }, (reject) => {
                         GlobalDataService.log(
@@ -106,9 +112,9 @@ export class DisconnettiPage implements OnInit {
         this.storage.set('logged', true);
 
         if ( this.globalData.srcPage ) {
-            this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage,'root', false);
+            this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'root', false);
         } else {
-            this.globalData.goTo('/home', '/home','root', false);
+            this.globalData.goTo('/home', '/home', 'root', false);
 
         }
     }
@@ -129,7 +135,7 @@ export class DisconnettiPage implements OnInit {
                             this.storage.set('tokenNotifiche', this.tokenNotifiche);
                             this.notificheService.rimuoviSottoscrizioni().then(
                                 () => {
-                                    this.globalData.goTo('/login', '/login','root', false);
+                                    this.globalData.goTo('/login', '/login', 'root', false);
 
                                 }
                             );
@@ -138,7 +144,7 @@ export class DisconnettiPage implements OnInit {
                 {
                     text: 'Annulla',
                     handler: () => {
-                        this.globalData.goTo('/home', '/home','root', false);
+                        this.globalData.goTo('/home', '/home', 'root', false);
                     }
                 }
             ]

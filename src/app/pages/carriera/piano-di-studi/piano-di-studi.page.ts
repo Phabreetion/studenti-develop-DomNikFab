@@ -1,8 +1,9 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {ActionSheetController, NavController, ToastController} from '@ionic/angular';
+import {ActionSheetController, ToastController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-piano-di-studi',
@@ -11,7 +12,7 @@ import {AccountService} from "../../../services/account.service";
 })
 export class PianoDiStudiPage implements OnInit {
 
-    currentPage = '/carriera/tab/(piano-di-studi:piano-di-studi)';
+    currentPage = '/carriera/tab/piano-di-studi';
     idServizio = 12;
 
     srcPage: string;
@@ -70,6 +71,7 @@ export class PianoDiStudiPage implements OnInit {
     constructor(
         public ngZone: NgZone,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public toastCtrl: ToastController,
         public actionSheetCtrl: ActionSheetController,
@@ -85,10 +87,10 @@ export class PianoDiStudiPage implements OnInit {
                 if (this.srcPage === this.globalData.srcPage) {
                     this.srcPage = null;
                 }
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
 
@@ -154,7 +156,7 @@ export class PianoDiStudiPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -243,7 +245,7 @@ export class PianoDiStudiPage implements OnInit {
                     text: 'Appelli',
                     icon: 'book',
                     handler: () => {
-                        this.globalData.goTo(this.currentPage, '/appelli/' + item.CODICE,'forward', false);
+                        this.globalData.goTo(this.currentPage, '/appelli/' + item.CODICE, 'forward', false);
                     }
                 }, {
                     text: etichettaSottoscrizione,
@@ -364,14 +366,14 @@ export class PianoDiStudiPage implements OnInit {
                     icon: 'list-box',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(libretto:libretto)','forward', false);
+                            '/carriera/tab/libretto', 'forward', false);
                     }
                 }, {
                     text: 'Esami da sostenere',
                     icon: 'list',
                     handler: () => {
                         this.globalData.goTo(this.currentPage,
-                            '/carriera/tab/(lista-esami:lista-esami)','forward', false);
+                            '/carriera/tab/lista-esami', 'forward', false);
                     }
                 }, {
                     text: 'Chiudi',
@@ -389,18 +391,18 @@ export class PianoDiStudiPage implements OnInit {
 
     appelliEsame(esame) {
         this.globalData.goTo(this.currentPage,
-            '/appelli/' + esame.CODICE,'forward', false);
+            '/appelli/' + esame.CODICE, 'forward', false);
     }
 
     dettagliEsame(esame) {
         // console.dir(esame);
         this.globalData.esame = esame;
-        this.globalData.goTo(this.currentPage, '/esame','forward', false);
+        this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
     }
 
     apriMaterialeDidattico(ad_id) {
         this.globalData.ad_id = ad_id;
-        this.globalData.goTo(this.currentPage, '/materiale-didattico/' + ad_id,'forward', false);
+        this.globalData.goTo(this.currentPage, '/materiale-didattico/' + ad_id, 'forward', false);
     }
 
     inviaACalendario(item) {

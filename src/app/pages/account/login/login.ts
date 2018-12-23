@@ -1,12 +1,13 @@
-import {AfterViewInit, Component, NgZone, OnDestroy, OnInit} from '@angular/core';
-import { NavController, LoadingController, ToastController, Platform} from '@ionic/angular';
+import {AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
+import { LoadingController, ToastController, Platform} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { FingerprintAIO, FingerprintOptions } from '@ionic-native/fingerprint-aio/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { isArray } from 'rxjs/internal/util/isArray';
 import { SyncService } from '../../../services/sync.service';
 import { GlobalDataService } from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-login',
@@ -32,6 +33,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
         public appVersionProvider: AppVersion,
         public fingerprint: FingerprintAIO,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public loadingCtrl: LoadingController,
         public toastCtrl: ToastController,
@@ -42,18 +44,16 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     ngOnInit() {
-
-        //Prende la versione dell'app settata nel file config.xml
+        // Prende la versione dell'app settata nel file config.xml
         this.appVersionProvider.getVersionNumber().then((value) => {
             this.appVersionNum = value;
         });
 
         this.account.controllaAccount().then(
             (ok) => {
-
                 },
             (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             });
     }
 
@@ -148,7 +148,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                                 (errToast) => { GlobalDataService.log(2, 'Errore Toast', errToast); });
                             this.storage.set('logged', true).then(
                                 () => {
-                                    this.globalData.goTo(this.currentPage, '/home','root', false);
+                                    this.globalData.goTo(this.currentPage, '/home', 'root', false);
                                 }, (errStorage) => {
                                     GlobalDataService.log(2, 'Errore nella scrittura dei dati sullo storage!', errStorage);
                                 });
@@ -180,27 +180,23 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                     loading.dismiss().then(
                         () => {
                             if (isArray(risultato)) {
-                                if (this.username === 'test') {
-                                    this.globalData.utente_test = true;
-                                } else {
-                                    this.globalData.utente_test = false;
-                                }
+                                this.globalData.utente_test = this.username === 'test';
                                 this.globalData.username = this.username;
                                 this.globalData.password = this.password;
                                 this.globalData.carriere = risultato;
-                                this.globalData.goTo(this.currentPage, '/carriere','root', false);
+                                this.globalData.goTo(this.currentPage, '/carriere', 'root', false);
                             } else {
                                 switch (risultato) {
                                     case 'unlocked' : {
-                                        this.globalData.goTo(this.currentPage, '/home','root', false);
+                                        this.globalData.goTo(this.currentPage, '/home', 'root', false);
                                         break;
                                     }
                                     case 'logged': {
-                                        this.globalData.goTo(this.currentPage, '/tutorial','root', false);
+                                        this.globalData.goTo(this.currentPage, '/tutorial', 'root', false);
                                         break;
                                     }
                                     default: {
-                                        this.globalData.goTo(this.currentPage, '/login','root', false);
+                                        this.globalData.goTo(this.currentPage, '/login', 'root', false);
                                         break;
                                     }
                                 }

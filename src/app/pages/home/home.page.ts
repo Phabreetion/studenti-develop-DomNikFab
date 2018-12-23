@@ -1,11 +1,13 @@
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {NavController, Platform, ToastController} from '@ionic/angular';
-import { Chart } from 'chart.js';
+import {Platform, ToastController} from '@ionic/angular';
+import {Chart} from 'chart.js';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
-import {NotificheService} from "../../services/notifiche.service";
-import {AccountService} from "../../services/account.service";
+import {NotificheService} from '../../services/notifiche.service';
+import {AccountService} from '../../services/account.service';
+import {HttpService} from '../../services/http.service';
+
 
 @Component({
     selector: 'app-page-home',
@@ -13,8 +15,6 @@ import {AccountService} from "../../services/account.service";
     styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-    // @ViewChild('barCanvas') barCanvas;
-    // @ViewChild('doughnutCanvas') doughnutCanvas;
     @ViewChild('lineCanvas') lineCanvas;
     @ViewChild('chartContainer') chartContainer;
 
@@ -25,8 +25,6 @@ export class HomePage implements OnInit {
     idServizioPds = 12; // Piano di studi
 
     lineChart: any;
-    // jsoncarriera: any;
-    // storico: Array<any>;
 
     ultimoDato = '';
     media_aritm: any;
@@ -47,6 +45,7 @@ export class HomePage implements OnInit {
     colorePunti = [];
     carriera: any;
     elementiGrafico = [];
+    inizializzato = false;
     nome: string;
     cognome: string;
     matricola: number;
@@ -68,6 +67,7 @@ export class HomePage implements OnInit {
         public toastCtrl: ToastController,
         // private speechRecognition: SpeechRecognition,
         public sync: SyncService,
+        public http: HttpService,
         public storage: Storage,
         public platform: Platform,
         public globalData: GlobalDataService,
@@ -82,7 +82,7 @@ export class HomePage implements OnInit {
             (token) => {
                 if (!token) {
                     GlobalDataService.log(2, 'Nessun Token', this.token);
-                    this.globalData.goTo(this.currentPage, '/login','root', false);
+                    this.globalData.goTo(this.currentPage, '/login', 'root', false);
                     return;
                 } else {
                     // Aggiorniamo lo stati di log dell'utente
@@ -97,7 +97,7 @@ export class HomePage implements OnInit {
                             this.sync.controllaMessaggi();
 
                             // Controlliamo so stato della connessione
-                            this.globalData.checkConnection();
+                            this.http.checkConnection();
 
                             // srcPage lo azzeriamo perchè siamo già sulla home page
                             this.globalData.srcPage = '';
@@ -112,19 +112,19 @@ export class HomePage implements OnInit {
                                 1,
                                 'Not Logged in ',
                                 err);
-                            this.globalData.goTo(this.currentPage, '/login','root', false);
+                            this.globalData.goTo(this.currentPage, '/login', 'root', false);
                         }
                     );
 
                 }
             }, (err) => {
                 GlobalDataService.log(0, 'Accidenti', err);
-                this.globalData.goTo(this.currentPage,'/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         ).catch(
             (exception) => {
                 GlobalDataService.log( 2, 'Eccezione get token', exception);
-                this.globalData.goTo(this.currentPage,'/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -185,14 +185,14 @@ export class HomePage implements OnInit {
         this.storage.get('connessioneLenta').then(
             (connessioneLenta) => {
                 if ((connessioneLenta != null) && (connessioneLenta)) {
-                    this.globalData.connessioneLenta = connessioneLenta;
+                    this.http.connessioneLenta = connessioneLenta;
                     GlobalDataService.log(1, 'Uso grafico legacy', null);
                 } else {
-                    this.globalData.connessioneLenta = false;
+                    this.http.connessioneLenta = false;
                     GlobalDataService.log(1, 'Uso grafico legacy', null);
                 }
             }, () => {
-                this.globalData.connessioneLenta = false;
+                this.http.connessioneLenta = false;
                 GlobalDataService.log(1, 'Uso grafico legacy', null);
             });
     }
@@ -240,7 +240,7 @@ export class HomePage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -274,30 +274,6 @@ export class HomePage implements OnInit {
                 this.controllaAggiornamento();
             }, 1000);
         });
-
-
-
-
-        //
-        // this.sync.getJson(this.idServizio, sync).then(
-        //     (data) => {
-        //         if (this.ultimoDato !== JSON.stringify(data[0])) {
-        //             this.ultimoDato = JSON.stringify(data[0]);
-        //             this.setCarriera(data);
-        //             setTimeout(() => {
-        //                 this.controllaAggiornamento();
-        //             }, 1000);
-        //         }
-        //         this.dataAggiornamento = SyncService.dataAggiornamento(data);
-        //     },
-        //     (err) => {
-        //         GlobalDataService.log(2, 'Errore in aggiorna', err);
-        //     }).catch(ex => {
-        //     GlobalDataService.log(2, 'Eccezione in aggiorna', ex);
-        //     setTimeout(() => {
-        //         this.controllaAggiornamento();
-        //     }, 1000);
-        // });
     }
 
     controllaAggiornamento() {
@@ -337,6 +313,8 @@ export class HomePage implements OnInit {
             return this.aggiorna(false, true);
         }
 
+        this.inizializzato = true;
+
         // Ottimizziamo il refresh ignorandolo in caso di dati non modificati
         // TODO: si potrebbe ottimizzare il contronto tra array con qualcosa di più efficiente dello stringify
         // if (JSON.stringify(this.jsoncarriera) === JSON.stringify(carriera[0])) {
@@ -366,10 +344,12 @@ export class HomePage implements OnInit {
         this.cfu_todo = 0;
 
         this.carriera.sort(function (a, b) {
-            if (a.DATA_ESTESA < b.DATA_ESTESA)
+            if (a.DATA_ESTESA < b.DATA_ESTESA) {
                 return -1 ;
-            if (a.DATA_ESTESA > b.DATA_ESTESA)
+            }
+            if (a.DATA_ESTESA > b.DATA_ESTESA) {
                 return 1 ;
+            }
             return 0;
         });
 
@@ -380,7 +360,7 @@ export class HomePage implements OnInit {
         let ultima_media = 0;
         for (let i = 0; i < this.carriera.length; i++) {
             this.esami_tot++;
-            // console.dir(this.storico[i]);
+            // console.dir(this.carriera[i]);
             switch (this.carriera[i]['VOTO']) {
                 case '30 e lode': {
                     voto_tmp = 30;
@@ -418,7 +398,7 @@ export class HomePage implements OnInit {
                     cfu_tmp = 1; // per non azzerare la media totale
                 }
 
-                if (this.carriera[i]['NO_MEDIA']==0){
+                if (this.carriera[i]['NO_MEDIA'] === '0') {
                     cfu_tot_media += cfu_tmp;
                     somma_aritmetica += voto_tmp;
                     somma_pesata += voto_tmp * cfu_tmp;
@@ -444,10 +424,12 @@ export class HomePage implements OnInit {
                 }
 
                 this.esami_superati++;
-                if (this.carriera[i]['LODE'] == 1)
+                if (this.carriera[i]['LODE'] === '1') {
                     this.lodi++;
+                }
+
             } else {
-                if (this.carriera[i]['GIUDIZIO']){
+                if (this.carriera[i]['GIUDIZIO']) {
                     this.esami_superati++;
                     if (cfu_tmp > 0) {
                         this.cfu_sup += cfu_tmp;
@@ -482,17 +464,19 @@ export class HomePage implements OnInit {
         this.esami_da_sostenere = this.esami_tot - this.esami_superati;
         this.cfu_todo = this.cfu_tot - this.cfu_sup;
 
-        if (this.esami_superati > 0)
+        if (this.esami_superati > 0) {
             this.media_aritm = (somma_aritmetica / esami_per_media).toFixed(2);
-        else
+        } else {
             this.media_aritm = 0;
+        }
 
         // La media ponderata è data dal prodotto tra voto e cfu diviso per il totale dei cfu sostenuti
         // usiamo la variabile $cfu_per_media in cui non compaiono gli esami in sovrannumero
-        if (this.cfu_sup > 0)
+        if (this.cfu_sup > 0) {
             this.media_pond = ( somma_pesata / cfu_tot_media).toFixed(2);
-        else
+        } else {
             this.media_pond = this.media_aritm;
+        }
 
         // Il voto di base per la laurea è calcolato come gli 11/3 della media ponderata (arrotondata?)
         this.baselaurea = (this.media_pond * 11 / 3).toFixed(0);
@@ -517,7 +501,7 @@ export class HomePage implements OnInit {
                         borderDashOffset: 0.0,
                         borderJoinStyle: 'miter',
                         pointBorderColor: 'rgba(77, 148, 255, 1)',
-                        //pointBackgroundColor: 'rgba(51, 133, 255, 1)',
+                        // pointBackgroundColor: 'rgba(51, 133, 255, 1)',
                         pointBackgroundColor: this.colorePunti,
                         pointBorderWidth: 1,
                         pointHoverRadius: 5,
@@ -583,7 +567,7 @@ export class HomePage implements OnInit {
                         label: function(tooltipItem, data) {
                             const item = data['items'][tooltipItem['index']];
                             if (item['VOTO']) {
-                                if (item['LODE'] == 1) {
+                                if (item['LODE'] === '1') {
                                     return '30 e lode';
                                 } else {
                                     return item['VOTO'];
@@ -596,7 +580,7 @@ export class HomePage implements OnInit {
                         },
                         afterLabel: function(tooltipItem, data) {
                             const item = data['items'][tooltipItem['index']];
-                            let dati = [];
+                            const dati = [];
                             let i = 0;
                             if (item['CFU']) {
                                 dati[i] = 'CFU: ' + item['CFU'];
@@ -610,11 +594,11 @@ export class HomePage implements OnInit {
                                 dati[i] = 'Docente: Prof. ' + item['NOME'] + ' ' + item['COGNOME'];
                                 i++;
                             }
-                            if (item['SOVRANNUMERARIA'] == 1) {
+                            if (item['SOVRANNUMERARIA'] === '1') {
                                 dati[i] = 'Esame in sovrannumero';
                                 i++;
                             }
-                            if (item['NO_MEDIA'] == 1) {
+                            if (item['NO_MEDIA'] === '1') {
                                 dati[i] = 'Esame escluso dal calcolo della media';
                                 // i++;
                             }
@@ -625,7 +609,7 @@ export class HomePage implements OnInit {
             }
         });
 
-        console.dir(this.lineChart);
+        // console.dir(this.lineChart);
 
         if (this.graficoLegacy) {
             setTimeout(() => {
@@ -634,214 +618,18 @@ export class HomePage implements OnInit {
         }
     }
 
-    /* DA RIMUOVERE
-
-    // Imposta i dati del model utilizzando i dati della carrriera passati in input
-    setCarrieraOLD(carriera: any) {
-        if (!carriera || !carriera[0]) {
-            return this.aggiorna(false, true);
-        }
-
-        // Ottimizziamo il refresh ignorandolo in caso di dati non modificati
-        // TODO: si potrebbe ottimizzare il contronto tra array con qualcosa di più efficiente dello stringify
-        // if (JSON.stringify(this.jsoncarriera) === JSON.stringify(carriera[0])) {
-        //     // Niente di nuovo!
-        //     return;
-        // }
-
-        this.carriera = carriera;
-        this.jsoncarriera = carriera[0];
-        this.dataAggiornamento = SyncService.dataAggiornamento(carriera);
-
-        this.media_aritm = this.jsoncarriera['media_aritm'];
-        this.media_pond = this.jsoncarriera['media_pond'];
-        this.cfu_tot = this.jsoncarriera['cfu_tot'];
-        this.cfu_sup = this.jsoncarriera['cfu_sup'];
-        this.cfu_todo = this.jsoncarriera['cfu_todo'];
-        if (this.cfu_todo < 0 ) {
-            this.cfu_todo = 0;
-        }
-
-        if (!this.jsoncarriera['base_laurea']) {
-            this.jsoncarriera['base_laurea'] = 0;
-        }
-
-        if (!this.storico) {
-            this.storico = [];
-        }
-
-        this.baselaurea = this.jsoncarriera['base_laurea'].toFixed(0);
-        this.storico = this.jsoncarriera['storico_esami'];
-
-
-        this.descrizioni = [];
-        this.descrizioni_medie = [];
-        this.voti = [];
-        this.medie = [];
-        this.esami_superati = 0;
-        // this.esami_tot = this.storico.length;
-        this.esami_tot = this.jsoncarriera['nr_esami'];
-        this.lodi = this.jsoncarriera['lodi'];
-
-        // Andamento media ponderata
-        let esami_tmp = 0;
-        let voto_tmp = 0, media_tmp = 0, somma_tmp = 0;
-        let cfu_tmp = 0, cfu_totali = 0;
-        for (let i = 0; i < this.storico.length; i++) {
-            switch (this.storico[i]['voto']) {
-                case '30 e lode': {
-                    voto_tmp = 30;
-                    break;
-                }
-                case '18':
-                case '19':
-                case '20':
-                case '21':
-                case '22':
-                case '23':
-                case '24':
-                case '25':
-                case '26':
-                case '27':
-                case '28':
-                case '29':
-                case '30': {
-                    voto_tmp = Number(this.storico[i]['voto']);
-                    break;
-                }
-                default : {
-                    voto_tmp = 0;
-                    break;
-                }
-            }
-
-            if ((voto_tmp >= 18) && (voto_tmp <= 30)) {
-                cfu_tmp = Number(this.storico[i]['peso']);
-                if (cfu_tmp < 1) {
-                    cfu_tmp = 1;
-                }
-                somma_tmp += voto_tmp * cfu_tmp;
-                cfu_totali += cfu_tmp;
-                media_tmp = somma_tmp / cfu_totali ;
-                this.medie[esami_tmp] = Math.round(media_tmp * 100) / 100;
-                this.descrizioni_medie[esami_tmp] = 'Media ponderata';
-                this.voti[esami_tmp] = voto_tmp;
-                this.descrizioni[esami_tmp] = this.storico[i]['descrizione'];
-                esami_tmp++;
-                this.esami_superati++;
-            } else {
-                this.esami_superati++;
-            }
-            GlobalDataService.log(0,
-                'Esami: ' + esami_tmp +
-                ' CFU: ' + cfu_tmp +
-                ' CFU totali: ' + cfu_totali +
-                'Somma: ' + somma_tmp +
-                ' Media: ' + media_tmp, null);
-        }
-
-        this.esami_da_sostenere = this.esami_tot - this.esami_superati;
-
-        this.lineChart = new Chart(this.lineCanvas.nativeElement, {
-
-            type: 'line',
-            data: {
-                labels: this.descrizioni,
-                datasets: [
-                    {
-                        label: 'Voto',
-                        fill: true,
-                        lineTension: 0.1,
-                        // backgroundColor: 'rgba(75,192,192,0.4)',
-                        backgroundColor: 'rgba(77, 148, 255, 0.4)',
-                        borderColor: 'rgba(51, 133, 255, 1)',
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(77, 148, 255, 1)',
-                        pointBackgroundColor: 'rgba(51, 133, 255, 1)',
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: 'rgba(77, 148, 255, 1)',
-                        pointHoverBorderColor: 'rgba(51, 133, 255, 1)',
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 3,
-                        pointHitRadius: 10,
-                        data: this.voti,
-                        spanGaps: true,
-                        cubicInterpolationMode: 'monotone'
-                    },
-                    {
-                        label: 'Media',
-                        fill: false,
-                        lineTension: 0.1,
-                        // backgroundColor: 'rgba(75,192,192,0.4)',
-                        backgroundColor: 'rgba(255, 0, 0, 0.4)',
-                        borderColor: 'rgba(255, 51, 51, 1)',
-                        borderCapStyle: 'butt',
-                        borderDash: [],
-                        borderDashOffset: 0.0,
-                        borderJoinStyle: 'miter',
-                        pointBorderColor: 'rgba(255, 0, 0, 1)',
-                        pointBackgroundColor: 'rgba(255, 51, 51, 1)',
-                        pointBorderWidth: 1,
-                        pointHoverRadius: 5,
-                        pointHoverBackgroundColor: 'rgba(255, 0, 0, 1)',
-                        pointHoverBorderColor: 'rgba(255, 51, 51, 1)',
-                        pointHoverBorderWidth: 2,
-                        pointRadius: 3,
-                        pointHitRadius: 10,
-                        data: this.medie,
-                        spanGaps: true,
-                        cubicInterpolationMode: 'monotone'
-                    }
-                ]
-            },
-            options: {
-                animation: {duration: 0},
-                legend: {
-                    display: true,
-                },
-                scales: {
-                    xAxes: [{
-                        display: false
-                    }],
-                    yAxes: [{
-                        display: true,
-                        ticks: {
-                            stepSize: 2,
-                            min: 18,
-                            max: 30
-                        }
-                    }]
-                }
-            }
-        });
-
-        if (!this.graficoLegacy) {
-            return;
-        } else {
-            setTimeout(() => {
-                this.chart = this.lineChart.toBase64Image();
-            }, 500);
-        }
-    }
-
-*/
-
     visualizzaStoricoEsami($event) {
         const element = this.lineChart.lastActive[0];
         const labelClicked = !element && $event && $event.offsetY && $event.offsetY < 30;
 
         // console.dir(element);
         if (!element && !labelClicked) {
-            this.globalData.goTo(this.currentPage,'/carriera','forward', false);
+            this.globalData.goTo(this.currentPage, '/carriera', 'forward', false);
         }
     }
 
     visualizzaDettagli() {
-        this.globalData.goTo(this.currentPage,'/dettagli-utente','forward', false);
+        this.globalData.goTo(this.currentPage, '/dettagli-utente', 'forward', false);
     }
 
     mainColSize() {
@@ -855,7 +643,7 @@ export class HomePage implements OnInit {
     dettagliEsame(esame) {
         // console.dir(esame);
         this.globalData.esame = esame;
-        this.globalData.goTo(this.currentPage, '/esame','forward', false);
+        this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
     }
 
 

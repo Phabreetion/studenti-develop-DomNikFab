@@ -1,14 +1,14 @@
 // http://ionicframework.com/docs/theming/
-@import "~@ionic/angular/css/core.css";
-@import "~@ionic/angular/css/normalize.css";
-@import "~@ionic/angular/css/structure.css";
-@import "~@ionic/angular/css/typography.css";
+@import '~@ionic/angular/css/core.css';
+@import '~@ionic/angular/css/normalize.css';
+@import '~@ionic/angular/css/structure.css';
+@import '~@ionic/angular/css/typography.css';
 
-@import "~@ionic/angular/css/padding.css";
-@import "~@ionic/angular/css/float-elements.css";
-@import "~@ionic/angular/css/text-alignment.css";
-@import "~@ionic/angular/css/text-transformation.css";
-@import "~@ionic/angular/css/flex-utils.css";
+@import '~@ionic/angular/css/padding.css';
+@import '~@ionic/angular/css/float-elements.css';
+@import '~@ionic/angular/css/text-alignment.css';
+@import '~@ionic/angular/css/text-transformation.css';
+@import '~@ionic/angular/css/flex-utils.css';
 
 .main-menu-title {
   text-align: right;
@@ -152,27 +152,6 @@
 
   .dati-esame {
     font-size: 0.7em;
-  }
-
-  .superato {
-    //border-left: 4px solid green;
-    background-color:#A5D6A7;
-  }
-
-  .superato-lode {
-    //border-left: 4px solid red;
-    background-color:#A5D6A7;
-  }
-
-  .idoneo {
-    //border-left: 4px solid green;
-    //background-color:#b5fbfc;
-    background-color:#C8E6C9;
-  }
-
-  .da-sostenere {
-    //border-left: 4px solid red;
-    background-color:#f7f7f7;
   }
 
   .logo {

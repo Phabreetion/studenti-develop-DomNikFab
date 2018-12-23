@@ -7,7 +7,7 @@
      <!-- <ion-label (click)="today()"><b>{{ viewTitle }}</b></ion-label> -->
     </ion-title>
     <ion-buttons slot="end">
-      <ion-button icon-only>
+      <ion-button>
        <!-- <ion-icon color="primary" style="font-size: 28px;" name="calendar" (click)="today()"></ion-icon> -->
       </ion-button>
     </ion-buttons>
@@ -61,19 +61,3 @@
 
   -->
 </ion-content>
-
-<ion-footer  no-padding>
-  <ion-toolbar no-padding [ngClass]="{connected: globalData.getConnected(), disconnected: !globalData.getConnected()}">
-    <ion-grid  no-padding>
-      <ion-row no-padding style="align-items:center">
-        <ion-col col-2 text-center >
-          <img *ngIf="globalData.getConnected()" class="footer-icon" src="assets/icon/connected.png">
-          <img *ngIf="!globalData.getConnected()" class="footer-icon" src="assets/icon/disconnected.png">
-        </ion-col>
-        <ion-col col-8 text-center >
-          <p ion-text text-center>Aggiornato al: {{dataAggiornamento}}</p>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
-</ion-footer>

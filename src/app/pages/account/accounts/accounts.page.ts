@@ -1,11 +1,12 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {ActionSheetController, LoadingController, NavController, ToastController} from '@ionic/angular';
+import {ActionSheetController, LoadingController, ToastController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 // import {Http} from '@angular/http';
 
 import {Storage} from '@ionic/storage';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-page-accounts',
@@ -28,7 +29,7 @@ export class AccountsPage implements OnInit {
     constructor(
         public toastCtrl: ToastController,
         public ngZone: NgZone,
-        // public http: Http,
+        public http: HttpService,
         public storage: Storage,
         public sync: SyncService,
         public loadingCtrl: LoadingController,
@@ -47,10 +48,10 @@ export class AccountsPage implements OnInit {
                 }, (err) => {
                     //
                 });
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -76,7 +77,7 @@ export class AccountsPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -209,7 +210,7 @@ export class AccountsPage implements OnInit {
         } else {
             this.account.disconnetti(item.token).then(
                 () => {
-                    this.globalData.goTo(this.currentPage, '/preferenze','back', false);
+                    this.globalData.goTo(this.currentPage, '/preferenze', 'back', false);
                 }, (err) => {
                     this.aggiorna(true, true);
                     GlobalDataService.log(2, 'Disconnessione fallita!', err);

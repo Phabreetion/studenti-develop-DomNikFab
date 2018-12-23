@@ -1,10 +1,11 @@
-import {Component, NgZone, OnInit} from '@angular/core';
-import {AlertController, ModalController, NavController, ToastController} from '@ionic/angular';
+import {Component, OnInit} from '@angular/core';
+import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import { trigger, state, style, animate, transition} from '@angular/animations';
 import {Storage} from '@ionic/storage';
 import {GlobalDataService} from '../../services/global-data.service';
 import {SyncService} from '../../services/sync.service';
-import {AccountService} from "../../services/account.service";
+import {AccountService} from '../../services/account.service';
+import {HttpService} from '../../services/http.service';
 
 @Component({
     selector: 'app-page-notifiche',
@@ -50,7 +51,7 @@ export class NotifichePage implements OnInit {
 
     constructor(
         private toastCtrl: ToastController,
-        private ngZone: NgZone,
+        public http: HttpService,
         public storage: Storage,
         public globalData: GlobalDataService,
         public account: AccountService,
@@ -62,7 +63,7 @@ export class NotifichePage implements OnInit {
     ngOnInit() {
         this.globalData.srcPage = '/notifiche';
         this.account.controllaAccount().then(
-            (ok) => {
+            () => {
                 this.storage.get('step').then((value) => {
                     if (value != null) {
                         this.step = parseInt(value, 10);
@@ -71,8 +72,8 @@ export class NotifichePage implements OnInit {
                 });
                 this.notificheFiltrate = [];
                 this.aggiorna(false, true);
-            }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', false);
+            }, () => {
+                this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
@@ -205,7 +206,7 @@ export class NotifichePage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
@@ -264,8 +265,7 @@ export class NotifichePage implements OnInit {
 
     pulisciTesto(testo) {
         try {
-            const testoPulito = decodeURIComponent(escape(testo));
-            return testoPulito;
+            return decodeURIComponent(escape(testo));
         } catch (e) {
             return testo;
         }
@@ -279,16 +279,15 @@ export class NotifichePage implements OnInit {
             case 1:
             case 2:
             case 3: {
-                const notizia = {
+                this.globalData.notizia = {
                     'data' : notifica.data,
                     'titolo' : notifica.titolo,
                     'contenuto' : notifica.messaggio,
                     'link' : notifica.chiave,
                     'notifica' : 'true'
                 };
-                this.globalData.notizia = notizia;
                 this.globalData.srcPage = '/notifiche';
-                this.globalData.goTo(this.currentPage, '/notizia','forward', false);
+                this.globalData.goTo(this.currentPage, '/notizia', 'forward', false);
                 break;
             }
             case 4: {
@@ -298,7 +297,7 @@ export class NotifichePage implements OnInit {
                     buttons: [{
                         text: 'Visualizza',
                         handler: () => {
-                            this.globalData.goTo(this.currentPage, '/appelli','forward', false);
+                            this.globalData.goTo(this.currentPage, '/appelli', 'forward', false);
                         }
                     }, {
                         text: 'Chiudi',
@@ -314,7 +313,7 @@ export class NotifichePage implements OnInit {
                     buttons: [{
                         text: 'Visualizza',
                         handler: () => {
-                            this.globalData.goTo(this.currentPage, '/carriera','forward', false);
+                            this.globalData.goTo(this.currentPage, '/carriera', 'forward', false);
                         }
                     }, {
                         text: 'Chiudi',

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {GlobalDataService} from "../../../services/global-data.service";
-import {NavController} from "@ionic/angular";
+import {GlobalDataService} from '../../../services/global-data.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-esame',
@@ -13,17 +13,18 @@ export class EsamePage implements OnInit {
     esame: any;
 
     constructor(
-        public globalData: GlobalDataService) {
+        public globalData: GlobalDataService,
+        public http: HttpService) {
     }
 
     ngOnInit() {
         this.srcPage = this.globalData.srcPage;
         this.esame = this.globalData.esame;
-        this.globalData.getConnected();
+        this.http.getConnected();
     }
 
     onGoBack()  {
-        this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage,'backward', false);
+        this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'backward', false);
 
     }
 

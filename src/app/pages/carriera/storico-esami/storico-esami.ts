@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {ToastController,} from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {AccountService} from "../../../services/account.service";
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class StoricoEsamiPage implements OnInit {
     constructor(
         private toastCtrl: ToastController,
         public sync: SyncService,
+        public http: HttpService,
         public globalData: GlobalDataService,
         public account: AccountService) {
     }
@@ -34,10 +36,10 @@ export class StoricoEsamiPage implements OnInit {
 
         this.account.controllaAccount().then(
             () => {
-                this.globalData.getConnected();
+                this.http.getConnected();
                 this.aggiorna(false, true);
             }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login','root', err);
+                this.globalData.goTo(this.currentPage, '/login', 'root', err);
             }
         );
     }
@@ -67,7 +69,7 @@ export class StoricoEsamiPage implements OnInit {
                 }, 2000);
                 return;
             } else {
-                if (this.globalData.connessioneLenta) {
+                if (this.http.connessioneLenta) {
                     this.toastCtrl.create({
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
