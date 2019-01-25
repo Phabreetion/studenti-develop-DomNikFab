@@ -499,6 +499,7 @@ export class AppComponent {
     // active hardware back button
     backButtonEvent() {
         this.platform.backButton.subscribe(async () => {
+
             // close action sheet
             try {
                 const element = await this.actionSheetCtrl.getTop();
@@ -516,12 +517,12 @@ export class AppComponent {
             } catch (error) { }
 
             if (this.router.url === '/home') {
-                if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+                if ((new Date().getTime() - this.lastTimeBackPress) < this.timePeriodToExit) {
                     // this.platform.exitApp(); // Exit from app
                     navigator['app'].exitApp(); // work for ionic 4
                 } else {
                     this.toast.show(
-                        `Premi ancora per uscire.`,
+                        'Premi ancora per uscire.',
                         '2000',
                         'center')
                         .subscribe(() => {
@@ -530,6 +531,13 @@ export class AppComponent {
                     this.lastTimeBackPress = new Date().getTime();
                 }
             } else {
+                // this.toast.show(
+                //     this.router.url,
+                //     '2000',
+                //     'center')
+                //     .subscribe(() => {
+                //         // console.log(JSON.stringify(toast));
+                //     });
                 this.globalData.goTo('/home', '/home', 'root', false);
                // console.log(this.router.url);
             }

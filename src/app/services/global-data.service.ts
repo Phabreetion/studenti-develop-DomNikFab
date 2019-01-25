@@ -191,7 +191,8 @@ export class GlobalDataService {
 
 
     goTo(fromPage, toPage, direction, zone) {
-        zone = true;
+        // zone = true;
+
         if (zone) {
             this.ngZone.run(() => {
 
@@ -223,6 +224,7 @@ export class GlobalDataService {
                         break;
                     }
                     default : {
+                        this.srcPage = toPage; // Navigate Root
                         this.navCtrl.navigateRoot(toPage).then(
                             () => {
                             },
@@ -264,6 +266,7 @@ export class GlobalDataService {
                     break;
                 }
                 default : {
+                    this.srcPage = toPage; // Navigate Root
                     this.navCtrl.navigateRoot(toPage).then(
                         () => {
                         },

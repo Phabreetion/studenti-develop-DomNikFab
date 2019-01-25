@@ -31,8 +31,8 @@
 
   <ion-grid *ngIf="!accounts || accounts?.length == 0 && rinvioAggiornamento" text-center>
     <ion-row>
-      <ion-col>
-        <ion-img class="progress" src="assets/img/progress.gif"></ion-img>
+      <ion-col text-center>
+        <img class="progress" src="assets/img/progress.gif" />
       </ion-col>
     </ion-row>
     <ion-row>
@@ -59,7 +59,7 @@
         <ion-grid no-padding fixed>
           <ion-row>
             <ion-col size="2" align-items-start="true" align-self-center="true">
-              <ion-img class="logo-mini" src="./assets/img/{{this.selezionaIcona(account)}}"></ion-img>
+              <img class="logo-mini" src="./assets/img/{{this.selezionaIcona(account)}}" />
             </ion-col>
             <ion-col size="10">
               <ion-grid no-padding>
