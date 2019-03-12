@@ -277,6 +277,7 @@ export class AppelliPage implements OnChanges, OnInit {
                                             // console.dir(data);
                                             this.aggiorna(false, true);
 
+                                            // TODO
                                             if (data['_body'] === 'success') {
                                                 this.aggiorna(true, true);
                                                 loading.dismiss();

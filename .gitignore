@@ -6,6 +6,9 @@
 /app/**/*.js
 /app/**/*.js.map
 
+*.apk
+it.unimol.app.studenti
+
 # dependencies
 /node_modules
 /bower_components

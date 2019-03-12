@@ -54,7 +54,7 @@ export class HttpService {
                 } else {
                     // se è supportato il plugin nativo lo impostiamo come default
                     this.checkNative().then((enabled) => {
-                        this.httpNativo = !!enabled;
+                        this.httpNativo = !!enabled; // TODO: !! -> !
                     });
                 }
             });
