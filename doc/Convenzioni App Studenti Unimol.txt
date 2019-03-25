@@ -56,7 +56,7 @@ OBBLIGATORIO:
 
 *** BRANCHES TUTORIAL ***
 git branch -a -> mostra tutti i branch evidenziando quello in cui ci trova.
-git checkout -b nomebranch -> crea un branch locale corrispondente a quello remoto (i branch remoti si chiamano origin/nomebranch, quelli locali solo 'nomebranch'. All’atto della push, vengono mergiati, ma va fatto una tantum)
+git checkout -b nomebranch -> crea un branch locale corrispondente a quello remoto (i branch remoti si chiamano origin/nomebranch, quelli locali solo nomebranch. All’atto della push, vengono mergiati, ma va fatto una tantum)
 git chechout nomebranch -> switcha sul branch desiderato, quindi sul proprio branch o su develop.
 
 *** PUSHARE NEL PROPRIO BRANCH ***
@@ -65,7 +65,7 @@ git pull
 git add nomefile (aggiungere SOLO i file modificati, altrimenti associa il commit e relativo messaggio a tutti i file)
 git commit -m “messaggio di commit” (sostituire un messaggio di commit che sia esplicativo delle modifiche effettuate)
 git push
-Una volta controllato di essere nel proprio branch, fare git merge develop, autenticarsi (se richiesto) e dopo rieffettuare git push sia nel proprio branch che in develop.
+Una volta controllato di essere nel proprio branch, fare git merge develop, autenticarsi (se richiesto) e dopo, se necessario, rieffettuare git push sia nel proprio branch che in develop.
 
 *** SVOLGERE LE OPERAZIONI ***
 - Aprire un terminale pulito, andare nella cartella del progetto allineato con il repository remoto con il comando cd + path, eseguire le operazioni nella cartella.
