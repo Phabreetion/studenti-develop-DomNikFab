@@ -5,7 +5,7 @@ Di seguito, sono raggruppate le convenzioni stabilite per le varie fasi del prog
 *** Software da utilizzare ***
 - LaTeX per il RAD, utilizzando il template condiviso sul repository remoto nel quale ogni gruppo potrà aggiungere la sua parte man mano che giunge ad uno stato consistente.
 - Visual Paradigm Online per modellare i diagrammi.
-- Adobe Xd versione (17.0.12) per i mockups e di conseguenza gli Activity Diagrams. Gli screen mockups saranno modellati in base al sistema Android. Per usare il sistema Adobe bisogna scaricare il pacchetto di risorse apposite dalla sezione "Resource".
+- Adobe Xd (Creative Cloud - versione 17.0.12) per i mockups e di conseguenza gli Activity Diagrams. Gli screen mockups saranno modellati in base al sistema Android. Per usare il sistema Adobe bisogna scaricare il pacchetto di risorse apposite dalla sezione "Resource".
 
 *** Struttura del RAD completo + spiegazioni ***
 - Utilizzare un editor per LaTeX come TeXStudio e scaricare eventuali pacchetti mancanti.
