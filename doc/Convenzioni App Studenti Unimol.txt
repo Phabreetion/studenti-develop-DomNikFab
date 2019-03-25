@@ -5,7 +5,7 @@ Di seguito, sono raggruppate le convenzioni stabilite per le varie fasi del prog
 *** Software da utilizzare ***
 - LaTeX per il RAD, utilizzando il template condiviso sul repository remoto nel quale ogni gruppo potrà aggiungere la sua parte man mano che giunge ad uno stato consistente.
 - Visual Paradigm Online per modellare i diagrammi.
-- AdobeXd/Pencil per i mockups e di conseguenza gli Activity Diagrams. //TO DO: decidere quale dei due tool utilizzare.
+- Adobe Xd versione (17.0.12) per i mockups e di conseguenza gli Activity Diagrams. Gli screen mockups saranno modellati in base al sistema Android. Per usare il sistema Adobe bisogna scaricare il pacchetto di risorse apposite dalla sezione "Resource".
 
 *** Struttura del RAD completo + spiegazioni ***
 - Utilizzare un editor per LaTeX come TeXStudio e scaricare eventuali pacchetti mancanti.
@@ -52,11 +52,11 @@ OBBLIGATORIO:
 - FARE ALMENO UN PULL AL GIORNO DALLA CARTELLA GENERALE DEL PROGETTO, SIA NEL PROPRIO BRANCH CHE NEL BRANCH DEVELOP PER RESTARE ALLINEATI.
 - FARE SEMPRE UNA PULL PRIMA DI FARE UNA PUSH.
 - Ogni gruppo ha un suo branch e lavora in quello.
-- Pushare sempre nel proprio branch, poi fare una merge request di unione del proprio branch con il branch develop, solo quando il branch è in uno stato consistente e privo di errori. La merge request sarà approvata da un mantainer di develop (c’è n’è uno in ogni gruppo).
+- Pushare sempre nel proprio branch, poi fare una merge di unione del proprio branch con il branch develop, solo quando il branch è in uno stato consistente e privo di errori.
 
 *** BRANCHES TUTORIAL ***
 git branch -a -> mostra tutti i branch evidenziando quello in cui ci trova.
-git checkout -b nomebranch -> crea un branch locale corrispondente a quello remoto (i branch remoti si chiamano origin/nomebranch, quelli locali solo nomebranch. All’atto della push, vengono mergiati, ma va fatto una tantum)
+git checkout -b nomebranch -> crea un branch locale corrispondente a quello remoto (i branch remoti si chiamano origin/nomebranch, quelli locali solo 'nomebranch'. All’atto della push, vengono mergiati, ma va fatto una tantum)
 git chechout nomebranch -> switcha sul branch desiderato, quindi sul proprio branch o su develop.
 
 *** PUSHARE NEL PROPRIO BRANCH ***
@@ -65,9 +65,9 @@ git pull
 git add nomefile (aggiungere SOLO i file modificati, altrimenti associa il commit e relativo messaggio a tutti i file)
 git commit -m “messaggio di commit” (sostituire un messaggio di commit che sia esplicativo delle modifiche effettuate)
 git push
-Solo quando il branch è in uno stato consistente e privo di errori, andare su GitLab. Cliccare sulla sezione “merge request” a sinistra, poi new merge request, scegliere come branch source il proprio branch e come branch target “develop”. Creare la merge request, aspettare che un manteiner la approvi.
+Una volta controllato di essere nel proprio branch, fare git merge develop, autenticarsi (se richiesto) e dopo rieffettuare git push sia nel proprio branch che in develop.
 
 *** SVOLGERE LE OPERAZIONI ***
 - Aprire un terminale pulito, andare nella cartella del progetto allineato con il repository remoto con il comando cd + path, eseguire le operazioni nella cartella.
 - Se si utilizza un IDE in cui si ha il progetto configurato, controllare di essere sul branch corretto (es. in basso a destra "git: nomebranch" su WebStorm o PhpStorm), aprire un terminale nel progetto (es. in WebStorm e PhpStorm "view" -> "tool windows" -> "terminal") e dare i comandi di cui sopra.
-- Se si utilizza un IDE della JetBrains, controllare di essere sul branch corretto (es. in basso a destra "git: nomebranch" su WebStorm o PhpStorm), in alto cliccare su "VCS", e poi PRIMA UPDATE PROJECT (pull) e POI commit. Update project aggiorna tutto il progetto allineandolo con il repository remoto, commit serve per fare commit and push. Commit: mostra i file modificati e - cliccandoci sopra - evidenzia un diff tra versione remota e versione locale. In basso a destra ha una freccia accanto a “commit” su cui c’è scritto “commit & push”. Dopo aver fatto tutto ciò si può andare su GitLab a fare la merge request se necessario.
+- Se si utilizza un IDE della JetBrains, controllare di essere sul branch corretto (es. in basso a destra "git: nomebranch" su WebStorm o PhpStorm), in alto cliccare su "VCS", e poi PRIMA UPDATE PROJECT (pull) e POI commit. Update project aggiorna tutto il progetto allineandolo con il repository remoto, commit serve per fare commit and push. Commit: mostra i file modificati e - cliccandoci sopra - evidenzia un diff tra versione remota e versione locale. In basso a destra ha una freccia accanto a “commit” su cui c’è scritto “commit & push”. Dopo aver fatto tutto ciò si può andare su GitLab a fare la merge se necessario.
