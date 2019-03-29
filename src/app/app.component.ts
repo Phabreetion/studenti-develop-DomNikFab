@@ -41,27 +41,38 @@ export class AppComponent {
         {
             title: 'Home',
             url: '/home',
-            icon: 'home'
+            icon: 'home',
+            role: 'student'
+        },
+        {
+            title: 'Home',
+            url: '/home-docente',
+            icon: 'home',
+            role: 'teacher'
         },
         {
             title: 'Carriera',
             url: '/carriera',
-            icon: 'book'
+            icon: 'book',
+            role: 'student'
         },
         {
             title: 'Appelli',
             url: '/appelli',
-            icon: 'bookmark'
+            icon: 'bookmark',
+            role: 'student'
         },
         {
             title: 'Previsione Media',
             url: '/medie',
-            icon: 'calculator'
+            icon: 'calculator',
+            role: 'student'
         },
         {
             title: 'News',
             url: '/news',
-            icon: 'information-circle'
+            icon: 'information-circle',
+            role: 'all'
         },
         // {
         //     title: 'Calendario',
@@ -71,42 +82,50 @@ export class AppComponent {
         {
             title: 'Notifiche',
             url: '/notifiche',
-            icon: 'megaphone'
+            icon: 'megaphone',
+            role: 'all'
         },
         {
             title: 'Rubrica',
             url: '/rubrica',
-            icon: 'contacts'
+            icon: 'contacts',
+            role: 'all'
         },
         {
             title: 'Questionari',
             url: '/questionari',
-            icon: 'create'
+            icon: 'create',
+            role: 'student'
         },
         {
             title: 'Tasse',
             url: '/tasse',
-            icon: 'pricetag'
+            icon: 'pricetag',
+            role: 'student'
         },
         {
             title: 'Servizi Online',
             url: '/servizi-online',
-            icon: 'cog'
+            icon: 'cog',
+            role: 'student'
         },
         {
             title: 'Impostazioni',
             url: '/preferenze',
-            icon: 'options'
+            icon: 'options',
+            role: 'student'
         },
         {
             title: 'Blocca',
             url: '/lock',
-            icon: 'lock'
+            icon: 'lock',
+            role: 'all'
         },
         {
             title: 'Disconnetti',
             url: '/disconnetti',
-            icon: 'log-out'
+            icon: 'log-out',
+            role: 'all'
         }
     ];
 
@@ -194,6 +213,8 @@ export class AppComponent {
                 this.appVersion.getVersionNumber().then(
                     (appVersion) => {
                         this.storage.set('appVersion', appVersion);
+                    }, (err) => {
+                        GlobalDataService.log(2, 'ERROR in getVersionNumber', err);
                     });
             } else {
                 this.storage.set('uuid', 'virtual');
@@ -296,6 +317,8 @@ export class AppComponent {
             //         }
             //     );
             // }
+        }, (err) => {
+            GlobalDataService.log(2, 'Reject in platform.ready', err);
         }).catch(err => {
             console.log('Eccezione nel recupero delle notifiche: ' + err);
         });
@@ -371,17 +394,21 @@ export class AppComponent {
              */
 
             try {
-                this.fcm.getToken().then(token => {
+                this.fcm.getToken().then(
+                    (token) => {
                     // console.log('FCM GETTOKEN = ' + token);
                     if (token != null) {
                         this.sync.aggiornaTokenNotifiche(token);
                     }
-                }).catch(err => {
-                    GlobalDataService.log(2, 'FCM: Eccezione in getToken', err);
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject in getToken', err);
+                }).catch((ex) => {
+                    GlobalDataService.log(2, 'FCM: Eccezione in getToken', ex);
 
                 });
 
-                this.fcm.onNotification().subscribe(data => {
+                this.fcm.onNotification().subscribe(
+                    (data) => {
                     GlobalDataService.log(1, 'FCM: ricevuta una notifica', data);
 
                     this.mostraNotifica(data);
@@ -394,13 +421,18 @@ export class AppComponent {
                     //     // Notifica con app in primo piano
                     //     this.mostraNotifica(data);
                     // }
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject onNotification', err);
                 });
 
-                this.fcm.onTokenRefresh().subscribe(token => {
+                this.fcm.onTokenRefresh().subscribe(
+                    (token) => {
                     // console.log('FCM TOKEN AGGIORNATO = ' + token);
                     if (token != null) {
                         this.sync.aggiornaTokenNotifiche(token);
                     }
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject onTokenRefresh', err);
                 });
 
                 this.fcm.subscribeToTopic('testbeta').then(
@@ -435,15 +467,15 @@ export class AppComponent {
             GlobalDataService.log(1, 'FCM: uso dati dal JSON', dati);
 
             titolo = dati.title;
-            messaggio = decodeURIComponent(escape(dati.message));
+            messaggio = decodeURIComponent(encodeURI(dati.message));
         } else if (data.aps) {
             GlobalDataService.log(1, 'FCM: uso data.aps.title', data.aps);
             titolo = data.aps.alert.title;
-            messaggio = decodeURIComponent(escape(data.aps.alert.body));
+            messaggio = decodeURIComponent(encodeURI(data.aps.alert.body));
         } else if (data.title) {
             GlobalDataService.log(1, 'FCM: uso data.title', data);
             titolo = data.title;
-            messaggio = decodeURIComponent(escape(data.body));
+            messaggio = decodeURIComponent(encodeURI(data.body));
         }
 
         if (titolo) {
@@ -538,7 +570,7 @@ export class AppComponent {
                 //     .subscribe(() => {
                 //         // console.log(JSON.stringify(toast));
                 //     });
-                this.globalData.goTo('/home', '/home', 'root', false);
+                this.globalData.goHome();
                // console.log(this.router.url);
             }
         });

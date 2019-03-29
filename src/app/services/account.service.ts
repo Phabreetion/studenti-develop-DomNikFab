@@ -23,6 +23,7 @@ export class AccountService {
         public toastCtrl: ToastController,
         public loadingCtrl: LoadingController,
         public sync: SyncService,
+        public globalData: GlobalDataService,
         public notificheService: NotificheService,
     ) { }
 
@@ -57,41 +58,78 @@ export class AccountService {
 
 
     salvaDatiLogin(username, password, tokenNotifiche, carriera) {
+
+        const userRole = carriera['user_role'];
+        this.globalData.userRole = userRole;
+
+        const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
         const cognome = GlobalDataService.toTitleCase(carriera['cognome']);
-
-
-
         const promiseTokenNotifiche = this.storage.set('tokenNotifiche', tokenNotifiche);
         const promiseUsername = this.storage.set('username', username);
         const promisePassword = this.storage.set('password', Md5.hashStr(password));
         const promiseToken = this.storage.set('token', carriera['token']);
-        const promiseMatId = this.storage.set('matid', carriera['mat_id']);
-        const promiseMatricola = this.storage.set('matricola', carriera['matricola']);
-        const promiseCdsId = this.storage.set('cdsID', carriera['cds_id']);
-        const promiseDipId = this.storage.set('dipID', carriera['dip_id']);
-        const promiseCds = this.storage.set('nome_cds', carriera['nome_cds']);
-        const promiseDip = this.storage.set('nome_dip', carriera['nome_dip']);
         const promiseNome = this.storage.set('nome', nome);
         const promiseCognome = this.storage.set('cognome', cognome);
-        const promiseSesso = this.storage.set('sesso', carriera['sesso']);
-        const promiseLogged = this.storage.set('logged', true);
+        const promiseDipId = this.storage.set('dipID', carriera['dip_id']);
+        const promiseDip = this.storage.set('nome_dip', carriera['nome_dip']);
+        const promiseUserRole = this.storage.set('user_role', userRole);
 
-        Promise.all([promiseTokenNotifiche, promiseUsername, promisePassword,
-            promiseToken, promiseMatId, promiseMatId, promiseMatricola, promiseCdsId, promiseDipId,
-            promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged]).then(
-            (datiStorage) => {
-                // TEST ONLY
-                // this.storage.set('nome', 'Mario');
-                // this.storage.set('cognome', 'Rossi');
-                // this.storage.set('username', 'm.rossi');
-                // this.storage.set('matricola', 123456);
+        switch (userRole) {
+            case 'student': {
+                const promiseMatId = this.storage.set('matid', carriera['mat_id']);
+                const promiseMatricola = this.storage.set('matricola', carriera['matricola']);
+                const promiseCdsId = this.storage.set('cdsID', carriera['cds_id']);
+                const promiseCds = this.storage.set('nome_cds', carriera['nome_cds']);
+                const promiseSesso = this.storage.set('sesso', carriera['sesso']);
 
-                GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
-                this.notificheService.aggiornaSottoscrizioni();
-            }, (storageErr) => {
-                GlobalDataService.log(2, 'Errore in local storage', storageErr);
-            });
+                Promise.all([promiseUserRole, promiseTokenNotifiche, promiseUsername, promisePassword,
+                    promiseToken, promiseMatId, promiseMatId, promiseMatricola, promiseCdsId, promiseDipId,
+                    promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged]).then(
+                    (datiStorage) => {
+                        // TEST ONLY
+                        // this.storage.set('nome', 'Mario');
+                        // this.storage.set('cognome', 'Rossi');
+                        // this.storage.set('username', 'm.rossi');
+                        // this.storage.set('matricola', 123456);
+
+                        GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
+                        this.notificheService.aggiornaSottoscrizioni();
+                    }, (storageErr) => {
+                        GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                    });
+                break;
+            }
+            case 'teacher': {
+
+
+                const promiseId = this.storage.set('id', carriera['id']);
+                const promiseIdDocente = this.storage.set('id_docente', carriera['id_docente']);
+                const promiseRuolo = this.storage.set('ruolo', carriera['ruolo']);
+                const promiseEmail = this.storage.set('email', carriera['email']);
+
+                Promise.all([promiseTokenNotifiche, promiseUsername, promisePassword,
+                    promiseToken, promiseDipId, promiseDip, promiseNome, promiseCognome,
+                    promiseId, promiseIdDocente, promiseRuolo, promiseEmail, promiseLogged]).then(
+                    (datiStorage) => {
+                        // TEST ONLY
+                        // this.storage.set('nome', 'Mario');
+                        // this.storage.set('cognome', 'Rossi');
+                        // this.storage.set('username', 'm.rossi');
+                        // this.storage.set('matricola', 123456);
+
+                        GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
+                        this.notificheService.aggiornaSottoscrizioni();
+                    }, (storageErr) => {
+                        GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                    });
+                break;
+            }
+        }
+
+
+
+
     }
 
     /**
@@ -106,19 +144,30 @@ export class AccountService {
         return new Promise((resolve, reject) => {
             const url = this.urlRegistra;
 
-            let storedUsername = this.storage.get('username');
-            let storedPassword = this.storage.get('password');
-            let storedMatricola = this.storage.get('matricola');
-            let storedNome = this.storage.get('nome');
-            let storedCognome = this.storage.get('cognome');
+            const storedUsernamePromise = this.storage.get('username');
+            const storedPasswordPromise = this.storage.get('password');
+            const storedMatricolaPromise = this.storage.get('matricola');
+            const storedIdDocentePromise = this.storage.get('id_docente');
+            const storedNomePromise = this.storage.get('nome');
+            const storedCognomePromise = this.storage.get('cognome');
             const hashedPassword = Md5.hashStr(password).toString();
 
-            Promise.all([storedUsername, storedPassword, storedMatricola, storedNome, storedCognome]).then(data => {
-                storedUsername = data[0];
-                storedPassword = data[1];
-                storedMatricola = data[2];
-                storedNome = data[3];
-                storedCognome = data[4];
+            Promise.all([storedUsernamePromise, storedPasswordPromise, storedMatricolaPromise, storedIdDocentePromise, storedNomePromise, storedCognomePromise]).then(data => {
+                const storedUsername = data[0];
+                const storedPassword = data[1];
+                let storedMatricola = data[2];
+                let storedIdDocente = data[3];
+                const storedNome = data[4];
+                const storedCognome = data[5];
+
+                if (!storedMatricola) {
+                    storedMatricola = '';
+                }
+
+                if (!storedIdDocente) {
+                    storedIdDocente = '';
+                }
+
 
                 // Se è presente un utente, allora ha effettuato il Logout bloccando il dispositivo
                 if ((storedUsername) && (storedPassword)) {
@@ -138,7 +187,9 @@ export class AccountService {
                             });
                     } else if (hashedPassword === storedPassword.toString() &&
                         ( (matricola === '' && storedMatricola.toString() === '')
-                            || ( matricola = storedMatricola.toString()))) {
+                            || ( matricola = storedIdDocente.toString()))
+                            || (matricola === '' && storedIdDocente.toString() === '')
+                        || ( matricola = storedIdDocente.toString())) {
                         // Utente e password coincidono con quelle dell'ultmo utente registrato
                         this.storage.get('sesso').then(
                             (sesso) => {

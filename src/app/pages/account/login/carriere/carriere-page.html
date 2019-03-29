@@ -29,12 +29,18 @@
 
   <ion-card *ngFor="let carriera of carriere"
             (click)="seleziona(carriera)">
-    <ion-card-content
+    <ion-card-content *ngIf="carriera.user_role=='student'"
             [ngClass]="{'carriera-attiva' : carriera.sta_stu_cod == 'A', 'carriera-cessata' : carriera.sta_stu_cod == 'X'}">
       <ion-card-subtitle>{{ carriera.cds_nome }}</ion-card-subtitle>
-      <ion-label text-wrap>Matricola: <b>{{ carriera.matricola }}</b></ion-label>
-      <ion-label text-wrap>Stato: <b>{{ carriera.sta_stu_cod }} ({{ carriera.stato }})</b></ion-label>
-      <ion-label text-wrap>Anno: <b>{{ carriera.AA_ISCR_ID }}</b></ion-label>
+      <ion-label text-wrap>Matricola: <b>{{ carriera.matricola }}</b></ion-label><br/>
+      <ion-label text-wrap>Stato: <b>{{ carriera.sta_stu_cod }} ({{ carriera.stato }})</b></ion-label><br/>
+      <ion-label text-wrap>Anno: <b>{{ carriera.AA_ISCR_ID }}</b></ion-label><br/>
+      <ion-label text-wrap>Dipartimento: <b>{{ carriera.dip_nome}}</b></ion-label>
+    </ion-card-content>
+    <ion-card-content *ngIf="carriera.user_role=='teacher'"
+                      [ngClass]="{'carriera-attiva' : carriera.sta_stu_cod == 'A', 'carriera-cessata' : carriera.sta_stu_cod == 'X'}">
+      <ion-card-subtitle>Prof. {{ carriera.nome }} {{ carriera.cognome }}</ion-card-subtitle>
+      <ion-label text-wrap>Stato: <b>{{ carriera.sta_stu_cod }} ({{ carriera.stato }})</b></ion-label><br/>
       <ion-label text-wrap>Dipartimento: <b>{{ carriera.dip_nome}}</b></ion-label>
     </ion-card-content>
   </ion-card>

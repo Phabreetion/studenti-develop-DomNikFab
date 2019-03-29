@@ -6,13 +6,23 @@ import {NavController, Platform} from '@ionic/angular';
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
 import {mapStackTrace} from 'sourcemapped-stacktrace';
 import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
+import {Storage} from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalDataService {
 
+    schema = 'https://';
+    ip = 'service.unimol.it';
+    dir = '/app_2_1';
+    apiurl =  this.dir + '/api/';
+    baseurl: string = this.schema + this.ip + this.apiurl;
+
+
     utente_test = false;
+
+    userRole = 'student';
 
     android = false;
     iPhoneX = false;
@@ -190,6 +200,16 @@ export class GlobalDataService {
     }
 
 
+    goHome(fromPage = '/home') {
+        if (this.userRole === 'student') {
+            return this.goTo(fromPage, '/home', 'root', false);
+        } else if (this.userRole === 'teacher') {
+            return this.goTo(fromPage, '/home-docente', 'root', false);
+        } else {
+            return this.goTo(fromPage, '/login', 'root', false);
+        }
+    }
+
     goTo(fromPage, toPage, direction, zone) {
         // zone = true;
 
@@ -284,6 +304,17 @@ export class GlobalDataService {
     constructor(
         private navCtrl: NavController,
         private platform: Platform,
+        private storage: Storage,
         private screenOrientation: ScreenOrientation,
-        private ngZone: NgZone) { }
+        private ngZone: NgZone) {
+
+        this.storage.get('user_role').then(
+            (value) => {
+                if (value != null) {
+                    this.userRole = value;
+                } else {
+                    this.userRole = 'student';
+                }
+            });
+    }
 }
