@@ -63,6 +63,12 @@ export class AppComponent {
             role: 'student'
         },
         {
+            title: 'Appelli',
+            url: '/appelli-docente',
+            icon: 'bookmark',
+            role: 'teacher'
+        },
+        {
             title: 'Previsione Media',
             url: '/medie',
             icon: 'calculator',

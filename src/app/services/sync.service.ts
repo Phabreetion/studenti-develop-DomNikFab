@@ -54,6 +54,7 @@ export class SyncService {
     urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
     urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
     urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
+    urlDettaglioAppello: string = this.baseurl + 'dettaglioAppello.php';
 
     private user = 'username';
     private mat_id = 'matid';
@@ -161,6 +162,9 @@ export class SyncService {
         return this.uuid;
     }
 
+    getUrlDettaglioAppello() {
+        return this.urlDettaglioAppello;
+    }
 
     sincronizza() {
         let elencoServizi = [];
@@ -170,7 +174,7 @@ export class SyncService {
                 elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
                 break;
             case 'teacher':
-                elencoServizi = [ 7, 13, 14, 16, 19 ];
+                elencoServizi = [ 7, 13, 14, 16, 19, 102];
                 break;
             default:
                 elencoServizi = [ 7, 19 ];

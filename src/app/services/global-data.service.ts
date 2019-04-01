@@ -61,6 +61,14 @@ export class GlobalDataService {
     faLink = faLink;
     faUnlink = faUnlink;
 
+
+    appello: any;
+    nrAppelliAperti: number;
+    nrAppelli: number;
+    testoAppelliAperti: string;
+    testoAppelli: string;
+    testoTesisti: string;
+
     // level 0: VERBOSE
     // level 1: INFO
     // level 2: ERROR
@@ -172,6 +180,13 @@ export class GlobalDataService {
         const dayParts = day.split(daySeparator);
         const hourParts = hour.split(hourSeparator);
         const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        return this.timestamp2string(mydate.getTime() / 1000);
+    }
+
+    static formatStringDateNoTime(stringDate, daySeparator): string {
+        const day = stringDate.slice(0, 10);
+        const dayParts = day.split(daySeparator);
+        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
