@@ -1,5 +1,18 @@
 *** Convenzioni per App Studenti Unimol ***
 
+*** NUOVE CONVENZIONI 2/04/19 ***
+- Dev'essere creato un nuovo caso d'uso getJSON che si interfaccia con Esse3 e Aule Unimol. Deve anche essere creato, inoltre, un caso d'uso aggiorna per l'aggiornamento forzato.
+- Le eccezioni di 'connessione assente' e 'Esse3 e Sync remoto non disponibile' vanno modellate SOLO nel caso d'uso getJSON().
+- I sequence saranno modellati come: ATTORE Studente, BOUNDARY Funzionalità, CONTROL Funzionalità control, ENTITY Storage, CONTROL Sync Locale, ENTITY Dati Funzionalità.
+- Nelle tabelle dei casi d'uso, saranno presenti solo 2 colonne: Studente e Sistema. Nella colonna Sistema sarà specificato che questo richiama il caso d'uso "getJSON" per prelevare i dati
+e poi lo restituisce allo studente.
+- Chiameremo il Sync locale quello che si interfaccia con lo storage il Sincronizzatore. Il Sync sarà chiamato Sync remoto, ed è un attore totalmente esterno che si interfaccia con Esse3
+e Aule Unimol.
+- Nei Sequence Studente fa partire la chiamata con un'azione; poi Funzionalità chiama Funzionalità Control; poi si chiama ngOnInit->aggiorna->getToken tutte su Carriera Control; dopo get token viene
+restituito; poi da Funzionalità Control parte getJSON(id) fino a Sync Locale [getJSON è proprio un caso d'uso da fare]; poi create; ritorna a Sync locale; poi ritorna a Funzionalità
+Control. -> GUARDARE LA FOTO FATTA A LEZIONE.
+
+
 Di seguito, sono raggruppate le convenzioni stabilite per le varie fasi del progetto, divise per software da utilizzare, struttura del template, terminologia del RAD e casi d’uso, Git.
 Il documento non deve sembrare scritto a più mani, quindi cerchiamo di renderlo quanto più uniforme è possibile, soprattutto rispettando le convenzioni che seguono.
 
