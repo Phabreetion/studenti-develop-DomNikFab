@@ -1,0 +1,50 @@
+** Checklist per le ispezioni **
+Questo documento fornisce tutte le proprietà da soddisfare da parte del RAD, tabelle, diagrammi e mockup.
+
+*Prerequisiti comuni a tutte le sezioni:
+- Utilizzare nomi consistenti tra descrizione, nome caso d’uso, descrizione, tabella e diagramma.
+- Scrivere i nomi propri di istituzioni e attori ("Università degli Studi del Molise", "Esse3", "Aule Unimol", "Studente", “Sync”) in corsivo e con le lettere iniziali maiuscole.
+- I nomi comuni tutti con la minuscola ("appelli", "corsi", ecc.), a meno che non siano all’inizio delle frasi.
+- Piano di Studio e non "Piano di studi".
+- Scrivere in corsivo tutti i termini in inglese (storage).
+- Si usa “login” con l’articolo determinativo maschile “il”.
+- Ove si faccia riferimento all’app come descrizione nel documento, essa deve essere denominata e scritta in modo tale: “app Studenti Unimol”, con la parola "app" in minuscolo mentre le restanti con le maiuscole e in corsivo.
+- Omettere il corsivo a parole specifiche e tecniche come json, app, CFU.
+- Le propedeuticità non possono essere gestite.
+- Sostituire “esame/i” con “corso/i”, dov’è necessario, quindi eccetto per gli appelli.
+- Scrivere in terza persona del proprio team: è più elegante per un documento ufficiale.
+- Il sistema MOSTRA un output, mentre l’utente VISUALIZZA qualcosa. Attenzione ai verbi da usare.
+- Si fa riferimento al database in locale con la parola storage (in corsivo).
+
+*Documento testuale (terminologia e convenzioni):
+- Il nome della funzionalità e, quindi, anche dei casi d’uso dev’essere costituito da azione + sostantivo, (ad esempio "Gestione appelli").
+- Il documento deve essere scritto con il tempo dei verbi al futuro.
+
+*Tabelle:
+- Punto a fine frase nelle celle.
+- Il tempo dei verbi deve essere al presente.
+- La precondizione iniziale è “Lo studente ha effettuato il login”. Per questo, nelle tabelle viene inserita la prossima precondizione dello studente, quindi: "Lo studente accede alla sezione X". Se non accede a nessuna sezione, questa cella sarà vuota.
+- Per tutti i casi d’uso (ove prevista una risposta da Esse3) specificare che il sistema salva in locale una copia dei dati ricevuti, nella descrizione e nella tabella. Di conseguenza gestire le eccezioni di connettività assente e copia presente in locale e connettività assente e copia non presente.
+- Per specificare gli attori, si usa la dicitura “Inizializzato da X. Partecipa X”.
+- Per ogni caso d’uso specificare l’eccezione "Esse3 non risponde" e rimuovere differenti formulazioni di questa eccezione attualmente presenti: usate una formulazione identica in tutti gli UC.
+- Per ogni UC sostituire “esame/i” con “corso/i”, dov’è necessario, quindi eccetto per gli appelli.
+- La condizione d’uscita non è quando lo studente esce da una sezione, ma il risultato finale del caso d’uso, come ad esempio “lo studente che visualizza i corsi del piano di studi”. È lo stato del sistema quando l'esecuzione del caso d'uso è terminata.
+- Per ogni caso d’uso mettere, quando Esse3 restituisce la risposta, una frase che sia uguale per tutte le tabelle e in cui cambino solo i dati che restituisce, ad esempio “elabora la richiesta ed invia i dati relativi a X". Stessa cosa per il successo dell’operazione, scegliete una frase uguale per tutte le tabelle, ad esempio “Conferma il successo dell’operazione”.
+- Evitare dettagli implementativi nelle azioni delle tabelle (ad esempio evitare le parole “clicca”, “fa un tap” o descrivere dettagli grafici come i colori dei pulsanti, ecc.); sostituire con “Accede alla sezione”, “Seleziona”, “Apre”, "Applica i filtri" scegliendo la modalità più adeguata tra queste tre elencate, poiché la documentazione si pone a un livello di astrazione superiore rispetto all'implementazione e il documento viene stilato quando ancora non si mettono le mani sul codice con lo scopo di fornire una rappresentazione di alto livello del sistema.
+- Controllare bene tutti i numeri delle eccezioni. Nello specifico l’eccezione “Esse3 non risponde” deve essere messa in corrispondenza della risposta di Esse3, non dell’invio della richiesta da parte dello studente, perché - per i meccanismi di Javascript - ci si accorge che Esse3 non ha risposto solo nel momento in cui si riceve una risposta “false”.
+
+*Diagrammi:
+- I casi d’uso devono essere realizzati con Visual Paradigm online ed esportati in pdf.
+- Non bisogna creare un ovale per il salvataggio in locale nei casi d'uso. Negli ovali vanno messi solo i casi d’uso e le eccezioni, non i singoli step del flusso degli eventi.
+- Nel diagramma, indicare il sistema (la scatola nera che racchiude tutti i casi d'uso) con l'etichetta "App Studenti Unimol" con la lettera iniziale di "app" maiuscola in quanto si trova a inizio frase.
+- Gli ovali rappresentano i casi d’uso, quindi non potete metterci dentro cose che non siano casi d’uso o eccezioni.
+- Un’associazione collega gli attori ai casi d’uso. Un attore si può associare solo a casi d’uso, classi e componenti. Un caso d’uso non si può associare ad altri casi d’uso riguardanti lo stesso argomento.
+- Un caso d’uso specifica un insieme di azioni che producono un risultato osservabile per uno o più attori. Si tratta di un’unità coerente di funzionamento che il sistema fornisce ad uno o più utenti. La descrizione all’interno dovrebbe essere basata su un verbo o su un sostantivo esprimente un avvenimento e non deve essere una frase molto lunga, ma un insieme di parole che richiamano sinteticamente ciò che fa il sistema in quella circostanza.
+- Nei diagrammi riportare i nomi esatti dei casi d’uso così come specificati in descrizione e tabella. Per ogni caso d’uso deve esserci consistenza assoluta tra nome, descrizione, tabella e diagramma.
+- Da tutti i diagrammi rimuovere le maiuscole superflue a nomi comuni che non le richiedono. (Es. “appello”, “prenotati”, “prenotabili”)
+- Si modellano come eccezioni, quindi con extend, le eccezioni effettive dichiarate nelle tabelle dei casi d’uso.
+- Se un numero significativo di casi d'uso ha eccezioni comuni, mettere tutti i casi d’uso in un rettangolo (in UML chiamato "package") da cui escono i collegamenti alle relative eccezioni comuni a tutti quei casi d’uso.
+- Nei Sequence, il service è il sincronizzatore e sarà identificato come Sync. Questo permette di restituire le copie in locale e aggiornarle quando sono incoerenti con i dati sul Portale.
+- Nei Sequence, dato che non è presente in Visual Paradigm la freccia dei messaggi asincroni, si userà la freccia normale con la punta piena con la dicitura "async" su di essa.
+- Nei Sequence saranno usati gli elementi grafici tipici di UML per modellare gli oggetti Entity, Boundary e Control. Il Service del sincronizzatore sarà un oggetto Control chiamato "Sync".
+- I mockups devono essere costruiti tramite Adobe Xd  - versione 17.0.12 - e nella grafica Android.

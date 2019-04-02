@@ -3,7 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
+    { path: 'home', loadChildren: './pages/home-studente/home.module#HomePageModule'},
+    { path: 'home-docente', loadChildren: './pages/home-docente/home-docente.module#HomeDocentePageModule'},
     { path: 'accounts', loadChildren: './pages/account/accounts/accounts.module#AccountsPageModule' },
     { path: 'allegato', loadChildren: './pages/carriera/materiale-didattico/allegato/allegato.module#AllegatoPageModule' },
     { path: 'appelli', loadChildren: './pages/carriera/appelli/appelli.module#AppelliPageModule'},
@@ -12,7 +13,7 @@ const routes: Routes = [
     { path: 'carriera', loadChildren: './pages/carriera/tabs-carriera/carriera.module#CarrieraPageModule' },
     { path: 'carriere', loadChildren: './pages/account/login/carriere/carriere.module#CarrierePageModule' },
     { path: 'contatto', loadChildren: './pages/servizi/rubrica/contatto/contatto.module#ContattoPageModule' },
-    { path: 'dettagli-utente', loadChildren: './pages/home/dettagli-utente/dettagli-utente.module#DettagliUtentePageModule'},
+    { path: 'dettagli-studente', loadChildren: './pages/home-studente/dettagli-studente/dettagli-studente.module#DettagliUtentePageModule'},
     { path: 'disconnetti', loadChildren: './pages/account/disconnetti/disconnetti.module#DisconnettiPageModule' },
     { path: 'esame', loadChildren: './pages/carriera/esame/esame.module#EsamePageModule' },
     { path: 'libretto', loadChildren: './pages/carriera/libretto/libretto.module#LibrettoPageModule' },
