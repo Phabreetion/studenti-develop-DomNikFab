@@ -1,7 +1,23 @@
 *** Convenzioni per App Studenti Unimol ***
-
 Di seguito, sono raggruppate le convenzioni stabilite per le varie fasi del progetto, divise per software da utilizzare, struttura del template, terminologia del RAD e casi d’uso, Git.
 Il documento non deve sembrare scritto a più mani, quindi cerchiamo di renderlo quanto più uniforme è possibile, soprattutto rispettando le convenzioni che seguono.
+
+*** NUOVE CONVENZIONI 2/04/19 ***
+-Un solo gruppo tra tutti i team dev'essere creato un nuovo caso d'uso getJSON che si interfaccia con Esse3 e Aule Unimol. Deve anche essere creato un caso d'uso "aggiorna" per
+l'aggiornamento forzato.
+-Le eccezioni di 'connessione assente' e 'Esse3 e Sync remoto non disponibile' vanno modellate SOLO nel caso d'uso getJSON().
+-Nei sequence, le chiamate saranno getToken() per prendere il token e getJSON(id) per ricevere i dati dal Sync Locale.
+-Nelle tabelle dei casi d'uso, saranno presenti solo 2 colonne: Studente e Sistema. Nella colonna Sistema sarà specificato che questo richiama il caso d'uso "getJSON" per prelevare i dati
+e che poi li restituisce allo studente.
+-Nei diagrammi dei casi d'uso sarà inserito l'ovale "getJSON" collegato con "include" all'ovale che richiede di prelevare i dati. Prpbabilmente se nel diagramma c'è getJSON, non ci sarà
+l'attore Sync e viceversa.
+-I sequence saranno modellati come: ATTORE Studente, BOUNDARY Funzionalità, CONTROL Funzionalità control, ENTITY Storage, CONTROL Sync Locale, ENTITY Dati Funzionalità.
+-Chiameremo "Sync locale" quello che si interfaccia con lo storage e il Sincronizzatore. Il Sync sarà chiamato "Sync remoto", ed è un attore totalmente esterno che a sua volta
+si interfaccia con Esse3 e Aule Unimol.
+- Tutte le chiamate sono async. Inserire la dicitura tra parentesi angolari prima dell'azione.
+-Nei Sequence Studente fa partire la chiamata con un'azione; poi Funzionalità chiama Funzionalità Control; poi si chiama ngOnInit->aggiorna->getToken tutte su Carriera Control; dopo get token viene
+restituito; poi da Funzionalità Control parte getJSON(id) fino a Sync Locale [getJSON è proprio un caso d'uso da fare]; poi create; ritorna a Sync locale; poi ritorna a Funzionalità
+Control. -> GUARDARE FOTO FATTA A LEZIONE E ATTENERSI AL FLUSSO
 
 *** Software da utilizzare ***
 - LaTeX per il RAD, utilizzando il template condiviso sul repository remoto nel quale ogni gruppo potrà aggiungere la sua parte man mano che giunge ad uno stato consistente.
