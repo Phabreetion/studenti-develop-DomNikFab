@@ -59,6 +59,11 @@ export class AppComponent {
             icon: 'calculator'
         },
         {
+            title: 'Orario',
+            url: '/orario',
+            icon: 'calendar'
+        },
+        {
             title: 'News',
             url: '/news',
             icon: 'information-circle'
