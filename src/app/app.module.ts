@@ -34,7 +34,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { Transfer} from '@ionic-native/transfer';
 
 import { NotiziaPageModule} from './pages/news/notizia/notizia.module';
-import { DettagliUtentePageModule } from './pages/home/dettagli-utente/dettagli-utente.module';
+import { DettagliUtentePageModule } from './pages/home-studente/dettagli-studente/dettagli-studente.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {EsamePageModule} from './pages/carriera/esame/esame.module';

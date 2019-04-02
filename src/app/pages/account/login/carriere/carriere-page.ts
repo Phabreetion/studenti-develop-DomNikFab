@@ -19,7 +19,6 @@ export class CarrierePage implements OnInit {
     password: string;
 
     constructor(
-        public providers: SyncService,
         public globalData: GlobalDataService,
         public account: AccountService,
         public loadingCtrl: LoadingController) {
@@ -36,36 +35,71 @@ export class CarrierePage implements OnInit {
             loading => {
                 loading.present();
 
-                this.account.login(this.username, this.password, item.matricola, item.cds_id, item.dip_id).then(
-                    (risultato) => {
-                        loading.dismiss();
+                if (item.user_role === 'student') {
+                    this.account.login(this.username, this.password, item.matricola, item.cds_id, item.dip_id).then(
+                        (risultato) => {
+                            loading.dismiss();
 
-                        if (isArray(risultato)) {
-                            this.carriere = risultato;
-                        } else {
-                            switch (risultato) {
-                                case 'unlocked' : {
-                                    this.globalData.goTo(this.currentPage, '/home', 'root', false);
-                                    break;
-                                }
-                                case 'logged': {
-                                    this.globalData.goTo(this.currentPage, '/tutorial', 'root', false);
-                                    break;
-                                }
-                                default: {
-                                    this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                            if (isArray(risultato)) {
+                                this.carriere = risultato;
+                            } else {
+                                switch (risultato) {
+                                    case 'unlocked' : {
+                                        this.globalData.goHome(this.currentPage);
+                                        break;
+                                    }
+                                    case 'logged': {
+                                        this.globalData.goTo(this.currentPage, '/tutorial', 'root', false);
+                                        break;
+                                    }
+                                    default: {
+                                        this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                                    }
                                 }
                             }
+                        },
+                        () => {
+                            loading.dismiss();
+                            this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                        }).catch(
+                        () => {
+                            loading.dismiss();
                         }
-                    },
-                    (err) => {
-                        loading.dismiss();
-                        this.globalData.goTo(this.currentPage, '/login', 'root', false);
-                    }).catch(
-                    () => {
-                        loading.dismiss();
-                    }
-                );
+                    );
+                } else {
+                    this.account.login(this.username, this.password, item.id_docente, null, null ).then(
+                        (risultato) => {
+                            loading.dismiss();
+
+                            if (isArray(risultato)) {
+                                this.carriere = risultato;
+                            } else {
+                                switch (risultato) {
+                                    case 'unlocked' : {
+                                        this.globalData.goHome(this.currentPage);
+                                        break;
+                                    }
+                                    case 'logged': {
+                                        this.globalData.goTo(this.currentPage, '/tutorial', 'root', false);
+                                        break;
+                                    }
+                                    default: {
+                                        this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                                    }
+                                }
+                            }
+                        },
+                        (err) => {
+                            loading.dismiss();
+                            this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                        }).catch(
+                        () => {
+                            loading.dismiss();
+                        }
+                    );
+                }
+
+
             }
         );
 

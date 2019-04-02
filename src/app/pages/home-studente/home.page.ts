@@ -76,6 +76,12 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
+
+        if (this.globalData.userRole !== 'student') {
+            this.globalData.goHome();
+            return;
+        }
+
         this.globalData.srcPage = '/home';
 
         this.storage.get('token').then(
@@ -629,7 +635,7 @@ export class HomePage implements OnInit {
     }
 
     visualizzaDettagli() {
-        this.globalData.goTo(this.currentPage, '/dettagli-utente', 'forward', false);
+        this.globalData.goTo(this.currentPage, '/dettagli-studente', 'forward', false);
     }
 
     mainColSize() {
