@@ -12,7 +12,7 @@ Il documento non deve sembrare scritto a più mani, quindi cerchiamo di renderlo
 - Chiameremo "Sync locale" quello che si interfaccia con lo storage e il Sincronizzatore. Il Sync sarà chiamato "Sync remoto", ed è un attore totalmente esterno che a sua volta si interfaccia con Esse3 e Aule Unimol.
 - Tutte le chiamate sono async. Inserire la dicitura tra parentesi angolari prima dell'azione.
 - Nei Sequence definire con nome fedele al codice solo per i metodi più importanti di inzializzazione e di aggiornamento dati.
-- Nei Sequence Studente fa partire la chiamata con un'azione; poi Funzionalità chiama Funzionalità Control; poi si chiama ngOnInit()->aggiorna()->getToken() tutte su Carriera Control; dopo get token viene restituito; poi da Funzionalità Control parte getJSON(id) fino a Sync Locale [getJSON è proprio un caso d'uso da fare]; poi create; ritorna a Sync locale; poi ritorna a Funzionalità Control. -> GUARDARE FOTO FATTA A LEZIONE E ATTENERSI AL FLUSSO
+- Nei Sequence Studente fa partire la chiamata con un'azione; poi Funzionalità chiama Funzionalità Control; poi da Funzionalità Control parte getJSON(id) fino a Sync Locale [getJSON è proprio un caso d'uso da fare]; poi create; ritorna a Sync locale; poi ritorna a Funzionalità Control. -> GUARDARE FOTO FATTA A LEZIONE E ATTENERSI AL FLUSSO
 
 *** Software da utilizzare ***
 - LaTeX per il RAD, utilizzando il template condiviso sul repository remoto nel quale ogni gruppo potrà aggiungere la sua parte man mano che giunge ad uno stato consistente.
