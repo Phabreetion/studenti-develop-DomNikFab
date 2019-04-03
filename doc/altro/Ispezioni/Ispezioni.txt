@@ -24,14 +24,12 @@ Questo documento fornisce tutte le proprietà da soddisfare da parte del RAD, ta
 - Punto a fine frase nelle celle.
 - Il tempo dei verbi deve essere al presente.
 - La precondizione iniziale è “Lo studente ha effettuato il login”. Per questo, nelle tabelle viene inserita la prossima precondizione dello studente, quindi: "Lo studente accede alla sezione X". Se non accede a nessuna sezione, questa cella sarà vuota.
-- Per tutti i casi d’uso (ove prevista una risposta da Esse3) specificare che il sistema salva in locale una copia dei dati ricevuti, nella descrizione e nella tabella. Di conseguenza gestire le eccezioni di connettività assente e copia presente in locale e connettività assente e copia non presente.
 - Per specificare gli attori, si usa la dicitura “Inizializzato da X. Partecipa X”.
-- Per ogni caso d’uso specificare l’eccezione "Esse3 non risponde" e rimuovere differenti formulazioni di questa eccezione attualmente presenti: usate una formulazione identica in tutti gli UC.
 - Per ogni UC sostituire “esame/i” con “corso/i”, dov’è necessario, quindi eccetto per gli appelli.
 - La condizione d’uscita non è quando lo studente esce da una sezione, ma il risultato finale del caso d’uso, come ad esempio “lo studente che visualizza i corsi del piano di studi”. È lo stato del sistema quando l'esecuzione del caso d'uso è terminata.
-- Per ogni caso d’uso mettere, quando Esse3 restituisce la risposta, una frase che sia uguale per tutte le tabelle e in cui cambino solo i dati che restituisce, ad esempio “elabora la richiesta ed invia i dati relativi a X". Stessa cosa per il successo dell’operazione, scegliete una frase uguale per tutte le tabelle, ad esempio “Conferma il successo dell’operazione”.
+- Per ogni caso d’uso mettere, quando il sistema restituisce la risposta, una frase che sia uguale per tutte le tabelle e in cui cambino solo i dati che restituisce, ad esempio “elabora la richiesta ed invia i dati relativi a X". Stessa cosa per il successo dell’operazione, scegliete una frase uguale per tutte le tabelle, ad esempio “Conferma il successo dell’operazione”.
 - Evitare dettagli implementativi nelle azioni delle tabelle (ad esempio evitare le parole “clicca”, “fa un tap” o descrivere dettagli grafici come i colori dei pulsanti, ecc.); sostituire con “Accede alla sezione”, “Seleziona”, “Apre”, "Applica i filtri" scegliendo la modalità più adeguata tra queste tre elencate, poiché la documentazione si pone a un livello di astrazione superiore rispetto all'implementazione e il documento viene stilato quando ancora non si mettono le mani sul codice con lo scopo di fornire una rappresentazione di alto livello del sistema.
-- Controllare bene tutti i numeri delle eccezioni. Nello specifico l’eccezione “Esse3 non risponde” deve essere messa in corrispondenza della risposta di Esse3, non dell’invio della richiesta da parte dello studente, perché - per i meccanismi di Javascript - ci si accorge che Esse3 non ha risposto solo nel momento in cui si riceve una risposta “false”.
+- Controllare bene tutti i numeri delle eccezioni. L’eccezione deve essere messa in corrispondenza.
 
 *Diagrammi:
 - I casi d’uso devono essere realizzati con Visual Paradigm online ed esportati in pdf.
@@ -44,7 +42,7 @@ Questo documento fornisce tutte le proprietà da soddisfare da parte del RAD, ta
 - Da tutti i diagrammi rimuovere le maiuscole superflue a nomi comuni che non le richiedono. (Es. “appello”, “prenotati”, “prenotabili”)
 - Si modellano come eccezioni, quindi con extend, le eccezioni effettive dichiarate nelle tabelle dei casi d’uso.
 - Se un numero significativo di casi d'uso ha eccezioni comuni, mettere tutti i casi d’uso in un rettangolo (in UML chiamato "package") da cui escono i collegamenti alle relative eccezioni comuni a tutti quei casi d’uso.
-- Nei Sequence, il service è il sincronizzatore e sarà identificato come Sync. Questo permette di restituire le copie in locale e aggiornarle quando sono incoerenti con i dati sul Portale.
+- Nei Sequence, il sincronizzatore sarà identificato come Sync Remoto ed è l'unico che si interfaccia con Esse3, Aule Unimol e altri attori esterni. Invece il Sync locale restituisce le copie in locale e le aggiorna quando sono incoerenti con i dati effettivi sul Portale.
 - Nei Sequence, dato che non è presente in Visual Paradigm la freccia dei messaggi asincroni, si userà la freccia normale con la punta piena con la dicitura "async" su di essa.
-- Nei Sequence saranno usati gli elementi grafici tipici di UML per modellare gli oggetti Entity, Boundary e Control. Il Service del sincronizzatore sarà un oggetto Control chiamato "Sync".
+- Nei Sequence saranno usati gli elementi grafici tipici di UML per modellare gli oggetti Entity, Boundary e Control. Il Sync Remoto è un attore, mentre il Sync locale è un Control.
 - I mockups devono essere costruiti tramite Adobe Xd  - versione 17.0.12 - e nella grafica Android.
