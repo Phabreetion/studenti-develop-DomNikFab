@@ -3,21 +3,22 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
-import { DettagliUtentePage } from './dettagli-utente';
+import { FiltroPage} from './filtro.page';
+import { FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         IonicModule,
+        FontAwesomeModule,
         RouterModule.forChild([
             {
                 path: '',
-                component: DettagliUtentePage
+                component: FiltroPage
             }
         ])
     ],
-    declarations: [DettagliUtentePage]
+    declarations: [FiltroPage]
 })
-export class DettagliUtentePageModule {}
+export class FiltroPageModule {}
