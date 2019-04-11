@@ -21,8 +21,7 @@ const routes: Routes = [
     { path: 'libretto', loadChildren: './pages/carriera/libretto/libretto.module#LibrettoPageModule' },
     { path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     { path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
-    { path: 'materiale-didattico/:id',
-        loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule' },
+    { path: 'materiale-didattico/:id', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule' },
     { path: 'medie', loadChildren: './pages/carriera/medie/medie.module#MediePageModule' },
     { path: 'news', loadChildren: './pages/news/news.module#NewsPageModule' },
     { path: 'notifiche', loadChildren: './pages/notifiche/notifiche.module#NotifichePageModule' },
@@ -33,7 +32,9 @@ const routes: Routes = [
     { path: 'servizi-online', loadChildren: './pages/servizi/servizi-online/servizi-online.module#ServiziOnlinePageModule' },
     { path: 'storico-esami', loadChildren: './pages/carriera/storico-esami/storico-esami.module#StoricoEsamiPageModule' },
     { path: 'tasse', loadChildren: './pages/servizi/tasse/tasse.module#TassePageModule' },
-    { path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule' }
+    { path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule' },
+  { path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule' }
+
     ];
 
 @NgModule({
