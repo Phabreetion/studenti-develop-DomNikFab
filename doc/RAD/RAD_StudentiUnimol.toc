@@ -55,55 +55,55 @@
 \contentsline {paragraph}{Sostituire con gli pseudorequisiti e vincoli da rispettare \\}{8}{section*.25}
 \contentsline {chapter}{\numberline {8}Modello del sistema - gruppo 1}{9}{chapter.8}
 \contentsline {section}{\numberline {8.1}Attori}{9}{section.8.1}
-\contentsline {section}{\numberline {8.2}Casi d'uso}{9}{section.8.2}
+\contentsline {section}{\numberline {8.2}Scenari}{9}{section.8.2}
+\contentsline {section}{\numberline {8.3}Casi d'uso}{9}{section.8.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{9}{section*.26}
-\contentsline {section}{\numberline {8.3}Diagramma dei casi d'uso}{10}{section.8.3}
-\contentsline {section}{\numberline {8.4}Scenari}{11}{section.8.4}
+\contentsline {section}{\numberline {8.4}Diagramma dei casi d'uso}{10}{section.8.4}
 \contentsline {section}{\numberline {8.5}Diagramma di sequenza}{11}{section.8.5}
 \contentsline {section}{\numberline {8.6}Diagramma delle attivit\IeC {\`a}}{12}{section.8.6}
 \contentsline {section}{\numberline {8.7}Screen mockups}{13}{section.8.7}
 \contentsline {chapter}{\numberline {9}Modello del sistema - gruppo 2}{15}{chapter.9}
 \contentsline {section}{\numberline {9.1}Attori}{15}{section.9.1}
-\contentsline {section}{\numberline {9.2}Casi d'uso}{15}{section.9.2}
+\contentsline {section}{\numberline {9.2}Scenari}{15}{section.9.2}
+\contentsline {section}{\numberline {9.3}Casi d'uso}{15}{section.9.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{15}{section*.32}
-\contentsline {section}{\numberline {9.3}Diagramma dei casi d'uso}{16}{section.9.3}
-\contentsline {section}{\numberline {9.4}Scenari}{17}{section.9.4}
+\contentsline {section}{\numberline {9.4}Diagramma dei casi d'uso}{16}{section.9.4}
 \contentsline {section}{\numberline {9.5}Diagramma di sequenza}{17}{section.9.5}
 \contentsline {section}{\numberline {9.6}Diagramma delle attivit\IeC {\`a}}{18}{section.9.6}
 \contentsline {section}{\numberline {9.7}Screen mockups}{19}{section.9.7}
 \contentsline {chapter}{\numberline {10}Modello del sistema - gruppo 3}{21}{chapter.10}
 \contentsline {section}{\numberline {10.1}Attori}{21}{section.10.1}
-\contentsline {section}{\numberline {10.2}Casi d'uso}{21}{section.10.2}
+\contentsline {section}{\numberline {10.2}Scenari}{21}{section.10.2}
+\contentsline {section}{\numberline {10.3}Casi d'uso}{21}{section.10.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{21}{section*.38}
-\contentsline {section}{\numberline {10.3}Diagramma dei casi d'uso}{22}{section.10.3}
-\contentsline {section}{\numberline {10.4}Scenari}{23}{section.10.4}
+\contentsline {section}{\numberline {10.4}Diagramma dei casi d'uso}{22}{section.10.4}
 \contentsline {section}{\numberline {10.5}Diagramma di sequenza}{23}{section.10.5}
 \contentsline {section}{\numberline {10.6}Diagramma delle attivit\IeC {\`a}}{24}{section.10.6}
 \contentsline {section}{\numberline {10.7}Screen mockups}{25}{section.10.7}
 \contentsline {chapter}{\numberline {11}Modello del sistema - gruppo 4}{27}{chapter.11}
 \contentsline {section}{\numberline {11.1}Attori}{27}{section.11.1}
-\contentsline {section}{\numberline {11.2}Casi d'uso}{27}{section.11.2}
+\contentsline {section}{\numberline {11.2}Scenari}{27}{section.11.2}
+\contentsline {section}{\numberline {11.3}Casi d'uso}{27}{section.11.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{27}{section*.44}
-\contentsline {section}{\numberline {11.3}Diagramma dei casi d'uso}{28}{section.11.3}
-\contentsline {section}{\numberline {11.4}Scenari}{29}{section.11.4}
+\contentsline {section}{\numberline {11.4}Diagramma dei casi d'uso}{28}{section.11.4}
 \contentsline {section}{\numberline {11.5}Diagramma di sequenza}{29}{section.11.5}
 \contentsline {section}{\numberline {11.6}Diagramma delle attivit\IeC {\`a}}{30}{section.11.6}
 \contentsline {section}{\numberline {11.7}Screen mockups}{31}{section.11.7}
 \contentsline {chapter}{\numberline {12}Modello del sistema - gruppo 5}{33}{chapter.12}
 \contentsline {section}{\numberline {12.1}Attori}{33}{section.12.1}
-\contentsline {section}{\numberline {12.2}Casi d'uso}{33}{section.12.2}
+\contentsline {section}{\numberline {12.2}Scenari}{33}{section.12.2}
+\contentsline {section}{\numberline {12.3}Casi d'uso}{33}{section.12.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{33}{section*.50}
-\contentsline {section}{\numberline {12.3}Diagramma dei casi d'uso}{34}{section.12.3}
-\contentsline {section}{\numberline {12.4}Scenari}{35}{section.12.4}
+\contentsline {section}{\numberline {12.4}Diagramma dei casi d'uso}{34}{section.12.4}
 \contentsline {section}{\numberline {12.5}Diagramma di sequenza}{35}{section.12.5}
 \contentsline {section}{\numberline {12.6}Diagramma delle attivit\IeC {\`a}}{36}{section.12.6}
 \contentsline {section}{\numberline {12.7}Screen mockups}{37}{section.12.7}
 \contentsline {chapter}{\numberline {13}Modello del sistema - gruppo 6}{39}{chapter.13}
 \contentsline {section}{\numberline {13.1}Attori}{39}{section.13.1}
-\contentsline {section}{\numberline {13.2}Casi d'uso}{39}{section.13.2}
+\contentsline {section}{\numberline {13.2}Scenari}{39}{section.13.2}
+\contentsline {section}{\numberline {13.3}Casi d'uso}{39}{section.13.3}
 \contentsline {paragraph}{Caso d'uso 1 (sostituire con nome caso d'uso) \\}{39}{section*.56}
-\contentsline {section}{\numberline {13.3}Diagramma dei casi d'uso}{40}{section.13.3}
-\contentsline {section}{\numberline {13.4}Scenari}{41}{section.13.4}
+\contentsline {section}{\numberline {13.4}Diagramma dei casi d'uso}{40}{section.13.4}
 \contentsline {section}{\numberline {13.5}Diagramma di sequenza}{41}{section.13.5}
 \contentsline {section}{\numberline {13.6}Diagramma delle attivit\IeC {\`a}}{42}{section.13.6}
 \contentsline {section}{\numberline {13.7}Screen mockups}{43}{section.13.7}
@@ -115,3 +115,4 @@
 \contentsline {subsection}{\numberline {14.1.4}Tabella cinque attori}{45}{subsection.14.1.4}
 \contentsline {section}{\numberline {14.2}Immagini (sia raster che vettoriali)}{50}{section.14.2}
 \contentsline {section}{\numberline {14.3}Punti interrogativi al posto degli indici}{51}{section.14.3}
+\contentsline {section}{\numberline {14.4}Riferimenti incrociati}{51}{section.14.4}
