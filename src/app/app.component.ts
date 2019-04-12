@@ -75,6 +75,11 @@ export class AppComponent {
             role: 'student'
         },
         {
+            title: 'Orario',
+            url: '/orario',
+            icon: 'calendar'
+        },
+        {
             title: 'News',
             url: '/news',
             icon: 'information-circle',
