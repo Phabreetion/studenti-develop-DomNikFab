@@ -1,0 +1,39 @@
+Per scaricare i dati dal repo remoto senza però integrarli nei branch:
+
+$ git fetch
+
+Per scaricare i dati dal repo remoto ed integrarli nel branch (è l'equivalente di "git fetch" seguito da "git merge"):
+
+$ git pull
+
+Per vedere su quale branch ci si trova, se il branch è aggiornato col repo remoto (attenzione! Per verificare che sia aggiornato bisogna prima fare 'git fetch') e se sono stati modificati dei file:
+
+$ git status
+
+Per spostarsi su un altro branch:
+
+$ git checkout nome_branch
+
+Per scartare le modifiche fatte ad un file:
+
+git checkout -- nome_file
+
+Per scartare tutte le modifiche (attenzione! Verificare se ci sono dei file che si vuole mantenere):
+
+$ git checkout .
+
+Per aggiungere dei file alla staging area, in preparazione di un commit (guarda prima l'output di "git status" per vedere quali file sono stati modificati):
+
+$ git add file_1 file_2
+
+Per aggiungere tutti i file (attenzione! Fai prima "git status" per vedere se i file modificati devono essere aggiunti tutti o se invece vuoi aggiungerne solo alcuni):
+
+$ git add *
+
+Inserisci messaggio di commit (attenzione! Se vuoi mettere delle virgolette all'interno, usa gli apici singoli: '' , o viceversa usa gli apici singoli all'esterno del messaggio e gli apici doppi all'interno)
+
+$ git commit -m "Qui faccio una breve descrizione delle modifiche introdotte alla sezione 'alpha'"
+
+Carica il commit sul repo remoto:
+
+$ git push
