@@ -13,7 +13,197 @@ Descrivere gli attori che partecipano ai seguenti caso d'uso.
 %Per quanto riguarda la funzionalità chat \ref{nome-label} l'attore %studente ha in aggiunta le seguenti caratteristiche: ...
 
 \section{Scenari}
-Inserire qui gli scenari che sono un'istanza dei casi d'uso: gli scenari danno dei valori al flusso degli eventi dei casi d'uso. Esempio di caso d'uso "visualizza libretto": l'utente Antonio - che ha effettuato il login con username "Antonio" e password "antonioilmigliore" - accede alla sezione "libretto" e visualizza gli esami sostenuti Programmazione e Inglese con le votazioni rispettive di 25 e 30.
+\subsection{Chat Studenti}
+\paragraph{CUS1 - Visualizza canale}
+
+\begin{itemize}
+
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, Studente di Informatica, vuole visualizzare il canale di discussione relativo ad uno specifico corso. Apre l’app Studenti Unimol e dal \textit{menù} seleziona la voce \textit{“chat”}. A questo punto visualizza la lista delle \textit{chat}, ne apre una e gli viene mostrato il canale di discussione di \textit{default.\\}
+
+\item \textit{Scenario 2 - più canali di discussione presenti nella chat:\\}
+\textit{Tonino}, Studente di Informatica, vuole visualizzare il canale di discussione relativo ad uno specifico corso. Apre l’app \textit{Studenti Unimol} e dal \textit{menù} seleziona la voce \textit{“chat”}. A questo punto visualizza la lista delle \textit{chat}, ne apre una e gli viene mostrato il canale di discussione di default.Tonino seleziona un altro canale di discussione tramite l’apposito pulsante.\\
+
+\item \textit{Scenario 3 - Nessuna risposta dal server:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole visualizzare il canale di discussione relativo ad uno specifico corso. Apre l’app Studenti Unimol e a seguito di una delle seguenti azioni:\\
+1. Seleziona la voce \textit{“chat”} dell’app Studenti Unimol;\\
+3. Seleziona la chat desiderata;\\
+5. Seleziona un canale di discussione alternativo;\\
+il sistema riscontra problemi nel gestire la richiesta, pertanto mostra un messaggio di errore.\\
+
+\item \textit{Scenario 4 - Connessione assente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole visualizzare il canale di discussione relativo ad uno specifico corso. Apre l’app Studenti Unimol e a seguito di una delle seguenti azioni:\\
+1. Seleziona la  voce \textit{“chat”} dell’app Studenti Unimol;\\
+3. Seleziona la chat desiderata;\\
+5. Seleziona un canale di discussione alternativo;\\
+Tonino riscontra problemi di connessione pertanto il sistema mostra l’ultima copia presente in locale.\\
+
+\item \textit{Scenario 5 - Copia non presente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole visualizzare il canale di discussione relativo ad uno specifico corso. Apre l’app Studenti Unimol e a seguito di una delle seguenti azioni:
+1. Seleziona la voce \textit{“chat”} dell’app Studenti Unimol;\\
+3. Seleziona la chat desiderata;\\
+5. Seleziona un canale di discussione alternativo;\\
+Tonino riscontra problemi di connessione, il sistema non avendo una copia presente in locale mostra un messaggio di errore.\\
+\end{itemize}
+
+
+\paragraph{CUS2 - Invio messaggio\\}
+\begin{itemize}
+
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, {Studente} di Informatica, vuole chiedere ad altri studenti alcune informazioni relative alle lezioni della settimana seguente. Nella sezione \textit{chat} sceglie il canale di discussione relativo al suo anno di corso e digita nella casella di testo il messaggio che invia.\\
+
+\item \textit{Scenario 2 - Connessione assente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole chiedere ad altri studenti alcune informazioni relative alle lezioni della settimana seguente. Nella sezione \textit{chat} sceglie il canale di discussione relativo al suo anno di corso e digita nella casella di testo il messaggio che invia. Non avendo connessione, il messaggio viene messo in coda ed inviato successivamente quando sarà disponibile la connessione.\\
+
+\item \textit{Scenario 3 - Nessuna risposta dal server:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole chiedere ad altri studenti alcune informazioni relative alle lezioni della settimana seguente. Nella sezione \textit{chat} sceglie il canale di discussione relativo al suo anno di corso e digita nella casella di testo il messaggio che invia. Il sistema riscontra problemi nel gestire la richiesta, pertanto mostra un messaggio di errore.\\
+\end{itemize}
+
+
+\paragraph{CUS3 - Invio allegato\\}
+\begin{itemize}
+
+\item \textit{Scenario 1:\\}
+\textit{Tonino},\textit{Studente} di Informatica, vuole condividere il RAD di esempio fornito dal Prof. Fausto Fasano con gli altri studenti del corso, pertanto seleziona il pulsante per scegliere l’allegato e seleziona il RAD dall’elenco dei file presenti sul dispositivo. Il sistema reputa idoneo il \textit{file} selezionato e lo invia.\\
+
+\item \textit{Scenario 2 - Nessuna risposta dal server:\\}
+\textit{Tonino},\textit{Studente} di Informatica, vuole condividere il RAD di esempio fornito dal Prof. Fausto Fasano con gli altri studenti del corso, pertanto seleziona il pulsante per scegliere l’allegato e seleziona il RAD dall’elenco dei file presenti sul dispositivo. Il sistema però e a seguito di una delle seguenti azioni;\\
+2. Mostra l’elenco dei \textit{file} presenti sul dispositivo dell’utente;\\
+4. Controlla se l’allegato è idoneo all’invio nel canale di comunicazione e mostra un messaggio di conferma;
+riscontra problemi nel gestire la richiesta pertanto visualizza un messaggio di errore.\\
+
+\item \textit{Scenario 3 - Il file non é idoneo:\\}
+\textit{Tonino},\textit{Studente} di Informatica, vuole condividere il RAD di esempio fornito dal Prof. Fausto Fasano con gli altri studenti del corso, pertanto seleziona il pulsante per scegliere l’allegato e seleziona il RAD dall’elenco dei \textit{file} presenti sul dispositivo. Il sistema non reputa idoneo il \textit{file} selezionato pertanto annulla l’invio e visualizza un messaggio di errore.\\
+
+\item \textit{Scenario 4 - Connessione assente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, vuole condividere il RAD di esempio fornito dal Prof. Fausto Fasano con gli altri studenti del corso, pertanto seleziona il pulsante per scegliere l’allegato e seleziona il RAD dall’elenco dei file presenti sul dispositivo. \textit{Tonino} però riscontra problemi con la connessione pertanto l’allegato viene messo in coda ed inviato successivamente quando sarà disponibile la connessione.
+\end{itemize}
+
+\paragraph{CUS4 - Rispondi a singolo messaggio\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, Studente di Informatica, desidera rispondere al messaggio di un membro del canale che sta visualizzando per chiedere ulteriori informazioni riguardo un argomento, seleziona quindi il messaggio e sceglie l’opzione di risposta al messaggio pertanto il sistema visualizza il messaggio evidenziato.
+\end{itemize}
+
+\paragraph{CUS5 - Scarica  allegato\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, \textit{Studente} frequentante il primo anno di Informatica desidera scaricare un’immagine dal canale di comunicazione dedicato a matematica. Accede alla funzionalità di download ed il sistema scarica il \textit{file} richiesto sul dispositivo di \textit{Tonino}.\\
+
+\item \textit{Scenario 2 - Connessione assente:\\}
+\textit{Tonino}, \textit{Studente} frequentante il primo anno di Informatica desidera scaricare un’immagine dal canale di comunicazione dedicato a matematica. \textit{Tonino} seleziona l’opzione per scaricare l’immagine ma riscontra problemi con la connessione pertanto il sistema impedisce il download dell’immagine e visualizza un messaggio di errore.\\
+
+\item \textit{Scenario 3 - Lo studente nega il download dell'allegato:\\}
+\textit{Tonino}, \textit{Studente} frequentante il primo anno di Informatica desidera scaricare un’immagine dal canale di comunicazione dedicato a matematica. \textit{Tonino} seleziona l’opzione per scaricare l’immagine ma avendo selezionato un’immagine sbagliata annulla i download pertanto il \textit{file} non viene salvato sul dispositivo.\\
+\end{itemize}
+
+\paragraph{CUS6 - Segnalazione messaggio:\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, dopo aver visualizzato la \textit{chat}, seleziona con un tap il messaggio che intende segnalare poichè ritiene che il contenuto sia moralmente inadatto.\textit{Tonino} accede alla sezione \textit{menú} del canale di discussione e seleziona l'opzione \textit{"segnala"}.\textit{Tonino} conferma l'invio della seganlazione e Il sistema visualizza un messaggio di conferma.\\
+
+\item \textit{Scenario 2 - Connessione assente:\\}
+\textit{Tonino}, dopo aver visualizzato la \textit{chat}, seleziona con un tap il messaggio che intende segnalare poichè ritiene che il contenuto sia moralmente inadatto.\textit{Tonino} accede alla sezione \textit{menú} del canale di discussione e seleziona l'opzione \textit{"segnala"}. il sistema mostra un messaggio che comunica a \textit{Tonino} che il suo dispositivo non risulta essere connesso ad una rete internet e non consente la segnalazione.\\
+
+\item \textit{Scenario 3 - Nessuna risposta dal server:\\}
+\textit{Tonino}, dopo aver visualizzato la \textit{chat}, seleziona con un tap il messaggio che intende segnalare poichè ritiene che il contenuto sia moralmente inadatto.\textit{Tonino} accede alla sezione \textit{menú} del canale di discussione e seleziona l'opzione \textit{"segnala"}. il sistema mostra un messaggio di errore a \textit{Tonino}.
+\end{itemize}
+
+\paragraph{CUS7 - Ricerca testo nella chat\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, ha intenzione di cercare un vecchio messaggio. Accede alla sezione \textit{menù} del canale di discussione e seleziona il pulsante di ricerca e digita il testo da cercare nella casella di testo. 
+Può, quindi, visualizzare tutti i messaggi che contengono il testo cercato e scorrerli finchè non trova quello desiderato.\\
+
+\item \textit{Scenario 2 - Nessuna risposta dal server:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, ha intenzione di cercare un vecchio messaggio e a seguito di una delle seguenti azioni:\\
+2.Accede alla sezione \textit{“menù”} del canale di discussione;\\
+4. Seleziona il pulsante di ricerca;\\
+6. Digita il testo da cercare;\\
+il sistema riscontra problemi nel gestire la richiesta, pertanto mostra un messaggio di errore.\\
+
+\item \textit{Scenario 3 - Il testo cercato non é presente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, ha intenzione di cercare un vecchio messaggio. Accede alla sezione \textit{menù} del canale di discussione e seleziona il pulsante di ricerca e digita il testo da cercare nella casella di testo.Non essendo presente il testo cercato nei vecchi messaggi, l’utente visualizza un avviso che lo informa che la ricerca non ha portato risultati.\\
+
+\end{itemize}
+
+
+\paragraph{CUS8 - Tag membro in messaggio\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino},ha intenzione di inviare un messaggio richiamando l’attenzione di una determinata persona, per fare questo, utilizza la chiocciola (@) e poi scrive il nome della persona, a \textit{Tonino} appare una lista di nomi da cui può selezionare quello desiderato che viene visualizzato nella casella di testo.\\
+
+\item \textit{Scenario 2 - Lo studente digita il nome errato:\\}
+\textit{Tonino},ha intenzione di inviare un messaggio richiamando l’attenzione di una determinata persona, per fare questo, utilizza la chiocciola (@) e poi scrive il nome della persona, a \textit{Tonino} non appare la lista dei nomi poiché ha digitato un nome sbagliato o che non è presente in quel determinato canale di discussione.\\
+
+\end{itemize}
+
+
+\paragraph{CUS9 - Gestisci notifiche chat\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole disattivare lo stato delle notifiche del canale per non ricevere più avvisi, quindi accede alla sezione \textit{“menú”}, e seleziona la voce per disattivare le notifiche del canale.\\
+
+\item \textit{Scenario 2 - Connessione assente:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole disattivare lo stato delle notifiche del canale per non ricevere più avvisi, quindi accede alla sezione menú, e seleziona la voce per disattivare le notifiche del canale. Purtroppo però \textit{Tonino} ha problemi con la connessione pertanto l’operazione viene annullata e viene mostrato un messaggio di errore.\\
+
+\item \textit{Scenario 3 - Nessuna risposta del server:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole disattivare lo stato delle notifiche del canale per non ricevere più avvisi, quindi accede alla sezione menú, e seleziona la voce per disattivare le notifiche del canale. Purtroppo però il sistema riscontra dei problemi nell’eseguire la richiesta pertanto annulla l’operazione e viene mostrato un messaggio di errore.\\
+
+\end{itemize}
+
+
+\paragraph{CUS10 - Selezione emoji\\}
+
+ \textit{Scenario 1:\\}
+\textit{Tonino}, che ha aperto la chat di un canale di discussione, clicca sull’icona \textit{emoji} ed il sistema mostra una finestra con varie emoji che può scegliere, seleziona quelle che desidera e vengono mostrate nella casella di testo.
+
+\paragraph{CUS11 - Visualizza elenco membri chat\\}
+\begin{itemize}
+\item \textit{Scenario 1:\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole visualizzarne i membri. Seleziona il nome del canale e visualizza l’elenco dei partecipanti e il loro numero.\\
+
+\item \textit{Scenario 2 - Connessione assente\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole visualizzarne i membri. Seleziona il nome del canale ma riscontra problemi con la connessione pertanto il sistema mostra l’ultima copia presente in locale.\\
+
+\item \textit{Scenario 3 - Nessuna risposta dal server\\}
+
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole visualizzarne i membri. Seleziona il nome del canale ma il sistema riscontra problemi nel gestire la richiesta, pertanto mostra un messaggio di errore.\\
+
+\item \textit{Scenario 4 - Copia non presente\\}
+\textit{Tonino}, \textit{Studente} di Informatica, si trova in un canale di discussione e vuole visualizzarne i membri. Seleziona il nome del canale ma riscontra problemi di connessione, il sistema non avendo una copia presente in locale mostra un messaggio di errore.\\
+
+\end{itemize}
+\subsection{Chat Docenti}
+\paragraph{CUD1 - Creazione canale\\}
+\paragraph{CUD2 - Cancellazione canale\\}
+\paragraph{CUD3 - Aggiungi membro ad un canale\\}
+\paragraph{CUD4 - Rimuovi membro da un canale\\}
+\paragraph{CUD5 - Blocca studente\\}
+\paragraph{CUD6 - Sblocca studente\\}
+\paragraph{CUP1 - Login \\}
+\paragraph{CUP2 - Logout\\}
+\paragraph{CUP3 - Ricerca chat\\}
+\paragraph{CUP4 - Visualizza lista chat\\}
+\paragraph{CUP5 - Abilita chat\\}
+\paragraph{CUP6 - Disabilita chat\\}
+\paragraph{CUP7 - Visualizza canale\\}
+\paragraph{CUP8 - Aggiungi Canale\\}
+\paragraph{CUP9 - Cancella Canale\\}
+\paragraph{CUP10 - Visualizza lista utenti\\}
+\paragraph{CUP11 - Aggiungi un utente ad un canale\\}
+\paragraph{CUP12 - Rimuovere un utente da un canale \\}
+\paragraph{CUP13 - Silenziare un utente in un canale\\}
+\paragraph{CUP14 - Reintegra un utente in un canale\\}
+\paragraph{CUP15 - Modificare i permessi di un utente in un canale \\}
+\paragraph{CUP16 - Nascondi messaggio\\}
+\paragraph{CUP17 - Reintegra messaggio\\}
+\paragraph{CUP18 - Invio Notifiche \\}
+\paragraph{CUP19 - Gestione messaggi inopportuni\\}
+\paragraph{CUE1 - Connessione assente\\}
+\paragraph{CUE2 - Nessuna risposta dal sistema \\}
+
 
 \section{Casi d'uso}
 Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
