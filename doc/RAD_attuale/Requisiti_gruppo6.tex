@@ -5,6 +5,52 @@
 
 %%% Il gruppo 3 scriverà qui i suoi requisiti funzionali e non funzionali %%%
 
+\section{TODO: BOZZA SCOPE CHAT DA INSERIRE IN DOMINIO DEL PROBLEMA}\newline
+In aggiunta a quanto detto in precedenza, è prevista anche l'implementazione di una nuova funzionalità nell’App UNIMOL che prevede la chat sia tra studenti che tra studenti e professori.
+Le chat vengono create automaticamente in base agli studenti iscritti al relativo anno di corso e ai singoli corsi, ma verrà abilitata per il relativo utente nel momento in cui farà il login dell’app.
+Le chat verranno resettate di anno in anno e i corsi relativi agli anni precedenti e “terminati” verranno disabilitate (es. fatto l’esame).\newline
+La chat si compone di 4 componenti principali:
+\begin{enumerate}
+\item \textit{Parte per Studenti}: integrata con l’app degli studenti.
+\item \textit{Parte per Docenti}: integrata nell’app dei docenti
+\item \textit{Pannello di amministrazione}: per gestire le varie chat e le utenze.
+\item \textit{Server con chat e integrazione con i servizi esistenti dell’app UNIMOL.}
+\end{itemize}
+\newline
+\paragraph{1. Parte Studenti:\newline}
+Ogni studente avrà a disposizione all’interno dell’App Studenti UNIMOL una chat relativa all’anno del corso di studio(in cui non sarà possibile condividere materiale) con tutti gli studenti iscritti allo stesso anno di corso. Inoltre, sarà presente una chat per ogni singolo corso facente parte del piano di studi e avente la chat abilitata.
+La chat sarà accessibile sia dalla sezione apposita del menù, sia dai link diretti nella sezione carriera relativi alla chat di ogni singolo corso.
+In dettaglio lo studente potrà:
+\begin{itemize}
+\item  Mandare messaggi e file all’interno della chat dell’anno di corso,
+\item Mandare messaggi testuali nelle chat dei singoli corsi in cui il Prof sarà amministratore.
+\end{itemize}
+
+\paragraph{2. Parte Docenti:\newline}
+Nell’App docenti, ogni docente è amministratore di una chat di gruppo riferita ad ogni suo corso. La chat viene creata automaticamente ma deve essere abilitata dal docente per ogni corso poichè risulterà disabilitata di \textit{default}.\newline
+In dettaglio il docente potrà:
+\begin{itemize}
+\item Abilitare o disabilitare le chat, 
+\item Creare e rimuovere canali, 
+\item Inserire/rimuovere/silenziare gli studenti dai canali,
+\item Mandare messaggi e allegati.
+\end{itemize} 
+
+\paragraph{3. Pannello di amministrazione:\newline}
+Il pannello di amministrazione è concepito per gestire le chat e gli utenti, supportare i docenti e gestire i messaggi inopportuni. Principalmente dal pannello si potranno attivare e disattivare chat, gestire i canali di cui si compongono le chat, aggiungere e rimuovere utenti ai canali, silenziare utenti e revisionare i messaggi segnalati.
+
+\paragraph{4. Server di chat:\newline}
+Il server di chat si interfaccerà con i servizi esistenti per prendere le informazioni relative agli studenti e ai corsi di studio, inoltre gestirà tutto il traffico dei messaggi tra l'App degli studenti e l'App dei docenti.\newline
+Il server di chat fornisce:
+\begin{itemize}
+\item Filtro per parole offensive e inappropriate.
+\item Supporto a chat testuale, condivisione di allegati e emoji.
+\item Servizio di notifiche push.
+\item Fornire ai docenti i servizi necessari per amministrare le varie chat fruibili dall’App Docenti.
+\item Gestione degli utenti
+\item Gestione dei canali
+\end{itemize}
+
 \section{Requisiti funzionali}
 
 \subsection{App studenti}
