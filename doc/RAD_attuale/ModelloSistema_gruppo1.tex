@@ -387,6 +387,139 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo
 
 \paragraph{Il filtraggio non restituisce alcun risultato.}
  Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver scelto di filtrare gli appelli disponibili in base al parametro selezionato, non riceve risultati dal sistema. Il sistema mostra il messaggio “Nessun appello è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+ 
+ %%%%%%%%%%%%%%%%%% 8.4.10  Ordina appelli disponibili con memorizzazione
+ %%%%%%%%%%%%%%%%
+ 
+\subsection{Ordina appelli disponibili con memorizzazione}
+\paragraph{Ordinamento alfabetico.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento alfabetico degli appelli. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> G. Parlato \\
+	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> G. Capobianco \\
+	\hspace{1cm} • Fisica \> 06/04/2019 \> G. M. Piacentino  \\
+	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> F. Fasano \\
+\end{tabbing}
+
+\paragraph{Ordinamento per data.}
+ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per data. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+ 
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> F. Fasano \\
+	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> G. Capobianco \\
+	\hspace{1cm} • Fisica \> 06/04/2019 \> G. M. Piacentino  \\
+	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> G. Parlato \\
+\end{tabbing} 
+
+\paragraph{Ordinamento per docente.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per cognome del docente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> G. Capobianco \\
+	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> F. Fasano \\
+	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> G. Parlato \\	
+	\hspace{1cm} • Fisica \> 06/04/2019 \> G. M. Piacentino  \\
+\end{tabbing} 
+
+\paragraph{Memorizza ordinamento.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento per data, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina gli appelli disponibili sulla base dell'ultimo ordinamento memorizzato.
+
+\paragraph{Nessuna memorizzazione.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”.
+
+ %%%%%%%%%%%%%%%%%% 8.4.11  Prenota appello %%%%%%%%%%%%%%%%
+
+\subsection{Prenota appello}
+\paragraph{Prenotazione effettuata con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema effettua la prenotazione all’appello e mostra il messaggio “La prenotazione è stata confermata”.
+
+\paragraph{Prenotazione fallita.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema prova ad effettuare la prenotazione ma l’operazione non ha successo, per cui mostra il messaggio di errore “Impossibile effettuare la prenotazione”.
+
+ %%%%%%%%%%%%%%%%%% 8.4.12 Cancella prenotazione %%%%%%%%%%%%%%%%
+
+\subsection{Cancella prenotazione}
+\paragraph{Cancellazione della prenotazione effettuata con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} e lo seleziona dalla lista. Il sistema annulla la prenotazione all’appello e mostra il messaggio “La prenotazione è stata annullata con successo”.
+
+\paragraph{Cancellazione della prenotazione effettuata con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} previsto e lo seleziona dalla lista. Il sistema prova a cancellare la prenotazione, ma l’operazione non ha successo, per cui il sistema mostra il messaggio di errore “Impossibile annullare la prenotazione”.
+
+%%%%%%%%%%%%%%%%%% 8.4.13  Visualizza elenco file %%%%%%%%%%%%%%%%
+\subsection{Visualizza elenco file}
+\paragraph{Visualizzazione elenco file avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista dei corsi, seleziona il corso di \textit{Informatica giuridica} e chiede di visualizzarne il materiale didattico. Il sistema mostra allo studente i seguenti file: 
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------File---------------------------\kill
+	%Scrivere da qui
+	\hspace{1cm} • Interventi in aula.pdf  \\
+	\hspace{1cm} • Link utili.pdf  \\
+	\hspace{1cm} • Programma di dettaglio.pdf  \\	
+	\hspace{1cm} • Slides.pdf  \\
+\end{tabbing} 
+
+\paragraph{Nessun file.}
+ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista dei corsi, seleziona il corso di Evoluzione del calcolo automatico  e chiede di visualizzarne il materiale didattico. Il sistema cerca i file di \textit{Evoluzione del calcolo automatico}, ma non trova nessun file, quindi mostra il messaggio “Nessun file disponibile”
+ 
+%%%%%%%%%%%%%%%%%% 8.4.14  Ricerca file %%%%%%%%%%%%%%%%
+\subsection{Ricerca file}
+\paragraph{Ricerca avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della  facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di Informatica giuridica, inserisce la parola chiave \textbf{“Slides”}. Il sistema trova il file e mostra i risultati:   
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------File---------------------------\kill
+	%Scrivere da qui
+	\hspace{1cm} • Slides.pdf  \\
+\end{tabbing} 
+
+\paragraph{La ricerca non restituisce risultati.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di Informatica giuridica, inserisce la parola chiave “Sliders”. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun file trovato”.
+
+%%%%%%%%%%%%%%%%%% 8.4.15  Visualizza dettagli file %%%%%%%%%%%%%%%%
+\subsection{ Visualizza dettagli file}
+\paragraph{Visualizzazione dettagli file avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di \textit{Informatica giuridica}, seleziona il file \textit{Slides.pdf}. Il sistema elabora la richiesta e mostra allo studente i seguenti dettagli relativi al file selezionato:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Info---------------------------\= infoRegistrate\kill
+	%Scrivere da qui
+	\hspace{1cm} • \textbf{Nome file} \> Slides.pdf  \\
+	\hspace{1cm} • \textbf{Docente/i} \> Troncarelli Barbara  \\
+	\hspace{1cm} • \textbf{Data} \> 10/02/2019  \\
+	\hspace{1cm} • \textbf{Note} \> In allegato il materiale didat...  \\
+\end{tabbing} 
+
+%%%%%%%%%%%%%%%%%% 8.4.16  Apri file  %%%%%%%%%%%%%%%%
+\subsection{ Apri file}
+\paragraph{Apertura del file avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, sceglie di aprirlo dalla schermata che ne mostra i dettagli. Il sistema cerca il file all'interno dello \textit{storage}, mostrando il suo contenuto allo studente.
+
+\paragraph{File non presente nello \textbf{storage}.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, sceglie di aprirlo dalla schermata che ne mostra i dettagli. Il sistema cerca il file all'interno dello storage e, non trovandolo, mostra il messaggio “Il file non è presente sul dispositivo. Vuoi scaricarlo ora?”. Giuseppe conferma, il sistema scarica il file e successivamente lo apre.
+
+%%%%%%%%%%%%%%%%%% 8.4.17  Rimuovi file  %%%%%%%%%%%%%%%%
+\subsection{Rimuovi file}
+\paragraph{Rimozione del file avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno dello \textit{storage} e lo rimuove, successivamente mostra il messaggio “File rimosso con successo”.
+	
+\paragraph{File non presente nello \textbf{storage}.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
+
+
 
 
 \section{Casi d'uso}
