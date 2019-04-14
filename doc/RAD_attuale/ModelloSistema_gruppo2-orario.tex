@@ -6,43 +6,133 @@
 %%% Il gruppo 2 scriverà il suo modello del sistema. Esso dovrà includere: attori, casi d'uso (descrizione e tabella), scenari, diagrammi dei casi d'uso, diagrammi di sequenza, diagramma delle attività, screen mockups della funzionalità %%%
 
 \section{Attori}
-Descrivere gli attori che partecipano ai seguenti caso d'uso.
+Studente: colui che, regolarmente iscritto ad un corso di studi universitario, potrà eseguire le operazioni di visualizzazione e modifica dell’orario.
+
 
 \section{Scenari}
-Inserire qui gli scenari che sono un'istanza dei casi d'uso: gli scenari danno dei valori al flusso degli eventi dei casi d'uso. Esempio di caso d'uso "visualizza libretto": l'utente Antonio - che ha effettuato il login con username "Antonio" e password "antonioilmigliore" - accede alla sezione "libretto" e visualizza gli esami sostenuti Programmazione e Inglese con le votazioni rispettive di 25 e 30.
+
+\subsection{Gestione primo avvio}
+
+Giulio, dopo aver selezionato la sezione “orario” dalla voce del menu, potrà spuntare, da una lista di corsi, quelli che vuole seguire. Confermerà la selezione premendo l’apposito tasto “OK”. Da questo momento in poi Giulio potrà visualizzare l’orario costituito dai corsi scelti. 
+
+\subsection{Modifica orario}
+
+Giulio modificherà l’orario del proprio anno accademico spuntando la lista dei corsi che vuole seguire. Una volta confermata la modifica, lo studente visualizzerà l’orario aggiornato. 
+
+\subsection{Visualizza orario}
+
+Dopo il primo avvio dell’orario, selezionando la sezione “orario” dalla voce del menu, Giulio visualizzerà l’orario. 
 
 \section{Casi d'uso}
-Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
 
-\paragraph{Caso d'uso 1 (sostituire con nome caso d'uso) \\} 
-Lorem ipsum dolor sit amet... (sostituire con descrizione caso d'uso)
+\subsection{Gestione primo avvio} 
+
+Questo caso d’uso mostra come gli utenti che accedono alla sezione "orario" per la prima volta come si devono comportare. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-gestione-primo-avvio}.
 
 \begin{table}
 %\normalsize % Dimensione testo normale
 \small % Dimensione testo piccola
 %\footnotesize % Dimensione testo piccolissima
 %\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
-%\label{} % Etichetta per riferimenti incrociati
+\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
+\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
-	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Login}} \\
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
 	\hline
-	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.} \\
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
 	\hline
-	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'utente ha cliccato sul bottone di login.} \\
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
 	\hline
 	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
 	\hline
-	\textbf{} & \textbf{1} & \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il login, e-mail e password dell'utente \\
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
 	\hline
-	\textbf{} & \textbf{2} & Inserisce i dati e sottomette la richiesta & \textbf{} \\
+	\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
 	\hline
-	\textbf{} & \textbf{3} & \textbf{} & Controlla che siano stati inseriti entrambi i campi e avvia le operazioni di visualizzazione \\
+	\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
 	\hline
-	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
+	\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
 	\hline
-	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema completa la login e dà accesso all'app o, in caso contrario, visualizza un messaggio di errore se non sono stati inseriti tutti i dati obbligatori, se le credenziali non sono corrette o se si verifica un insuccesso dell'operazione.} \\
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con 		lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup 		con i dettagli dei due corsi.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsection{Modifica orario} 
+
+La funzionalità permette agli utenti di modificare l'orario da loro struttarato.
+
+Vedi Tabella~\vref{tab:tab-caso-duso-modifica-orario}.
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
+\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
+	\hline
+	\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsection{Visualizza orario} 
+
+Questo caso d’uso mostra come gli utenti, che hanno già fatto l'accesso alla sezione "orario" almeno una volta, potranno visualizzare i corsi. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-modifica-orario}.
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
+\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
 	\hline
 \end{tabular}
 \end{table}
@@ -53,7 +143,7 @@ Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs,
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/useCaseEsempio.png}
+	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/useCaseEsempio}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
@@ -62,9 +152,11 @@ Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs,
 
 Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
 
+\subsection{Diagramam di sequenza - Gestione primo avvio} % Didascalia tabella
+
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/SequenceDgEsempio.png}
+	\includegraphics[height=3in,width=5in]{imgs/gruppo2/sequence-orario-primo-avvio.pdf}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
@@ -75,7 +167,7 @@ Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs,
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/ActivityDgEsempio.png}
+	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/ActivityDgEsempio}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
