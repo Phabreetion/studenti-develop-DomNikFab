@@ -27,40 +27,70 @@ All’apertura del periodo di pagamento di un importo di tasse universitarie, ta
 
 \subsection{Sospensione lezione}
 
-
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in occasione della sospensione della lezione di “Ingegneria del Software” del Prof. Fausto Fasano prevista per il giorno 19/03/2019.
 
 \section{Casi d'uso}
-Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
 
-\paragraph{Caso d'uso 1 (sostituire con nome caso d'uso) \\} 
-Lorem ipsum dolor sit amet... (sostituire con descrizione caso d'uso)
+\subsection{Apertura finestra di prenotazione all’appello d’esame}
+
+Vedi Tabella~\vref{tab:caso-duso-apertura-finestra-esame}.
 
 \begin{table}
 %\normalsize % Dimensione testo normale
 \small % Dimensione testo piccola
 %\footnotesize % Dimensione testo piccolissima
 %\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
-%\label{} % Etichetta per riferimenti incrociati
+\caption{Tabella caso d'uso - Apertura finestra di prenotazione all'appello d'esame} % Didascalia tabella
+\label{tab:caso-duso-apertura-finestra-esame} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
-	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Login}} \\
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Apertura finestra di prenotazione appello d’esame.}} \\
 	\hline
-	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.} \\
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
 	\hline
-	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'utente ha cliccato sul bottone di login.} \\
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
 	\hline
-	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
 	\hline
-	\textbf{} & \textbf{1} & \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il login, e-mail e password dell'utente \\
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
 	\hline
-	\textbf{} & \textbf{2} & Inserisce i dati e sottomette la richiesta & \textbf{} \\
+	\textbf{} & \textbf{2} & Visualizza la notifica. & \textbf{} \\
 	\hline
-	\textbf{} & \textbf{3} & \textbf{} & Controlla che siano stati inseriti entrambi i campi e avvia le operazioni di visualizzazione \\
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
 	\hline
-	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
 	\hline
-	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema completa la login e dà accesso all'app o, in caso contrario, visualizza un messaggio di errore se non sono stati inseriti tutti i dati obbligatori, se le credenziali non sono corrette o se si verifica un insuccesso dell'operazione.} \\
+\end{tabular}
+\end{table}
+
+\subsection{Chiusura finestra di prenotazione all’appello d’esame.}
+
+Vedi Tabella~\vref{tab:caso-duso-chiusura-finestra-esame}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Chiusura finestra di prenotazione all'appello d'esame} % Didascalia tabella
+\label{tab:caso-duso-chiusura-finestra-esame} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Chiusura finestra di prenotazione all'appello d'esame}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
+	\hline
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
+	\hline
+	\textbf{} & \textbf{2} & Riceve la notifica. & \textbf{} \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
 	\hline
 \end{tabular}
 \end{table}
