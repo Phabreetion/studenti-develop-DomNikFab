@@ -37,3 +37,7 @@ $ git commit -m "Qui faccio una breve descrizione delle modifiche introdotte all
 Carica il commit sul repo remoto:
 
 $ git push
+
+Quando si fa il "git checkout" su un altro branch, i file ignorati tramite ".gitignore" (in particolare i file ausiliari di LaTeX, come ad esempio i file con estensione ".aux") vengono ignorati da LaTeX, quindi con il checkout tali file non cambiano. Siccome spesso si desidera che questi file vengano cancellati dopo il checkout (perché, essendo file ausiliari, vengono ricreati dall'applicazione a momento di compilazione), li si può cancellare con:
+
+$ git clean -fdx
