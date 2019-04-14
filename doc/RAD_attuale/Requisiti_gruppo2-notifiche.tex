@@ -3,20 +3,133 @@
 \chapter{Analisi dei requisiti - gruppo 2 - notifiche}
 \label{ref:requisiti2-notifiche}
 
-%%% Il gruppo 2 scriverà qui i suoi requisiti funzionali e non funzionali %%%
+Gestione delle notifiche push relative ad eventi a cui lo studente potrebbe essere interessato (Verbalizzazione di un esame, Nuova notizia). 
+
+Le notifiche push saranno mostrate sul dispositivo dell’utente con l’app in esecuzione in background nel momento in cui c’è un cambiamento nel sistema che richiede una notifica.  
+
+Gli eventi che generano una notifica sono: notifica per apertura e chiusura dell'opzione di prenotazione agli appelli, notifica di una nuova tassa da pagare, notifica verbalizzazione esame, notifiche di notizie da parte del Corso di Studi, del Dipartimento o dell’Ateneo, notifiche riguardanti le lezioni come un’eventuale sospensione o rinvio della stessa.
 
 \section{Requisiti funzionali}
 
-\paragraph{Requisito 1 (sostituire con nome requisito) \\} 
-Lorem ipsum dolor sit amet...
+Lo studente, in presenza di connettività, riceverà notifiche da parte dell’applicazione relative a contenuti di proprio interesse, come ad esempio la verbalizzazione di un esame, l’apertura e la chiusura della finestra temporale di prenotazione ad un esame, la pubblicazione all’interno del portale di una nuova notizia d’Ateneo, Dipartimento o Corso di Studi.
+
+\subsection{Notifiche push} 
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Notifiche push} % Didascalia tabella
+\label{tab:gruppo-2-notifiche-push} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth} |}
+	\hline
+	\textbf{Notifiche per il singolo utente} & \textbf{Notifiche di gruppo} \\
+	\hline
+	Notifica verbalizzazione esame. & Notifiche per notizie dall'Ateneo. \\
+	\hline
+	Notifiche appelli:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Apertura finestra temporale di prenotazione all'esame;
+	\item Chiusura finestra temporale di prenotazione all'esame.
+	\end{itemize} &
+	Notifiche per notizie dal Dipartimento. \\
+	\hline
+	Avviso tasse. & Notifiche per notizie dal Corso di Studi. \\
+	\hline
+	& Notifiche lezioni:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Sospensione lezioni;
+	\item Rinvio lezioni.
+	\end{itemize} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsection{Notifiche per singolo utente}
+
+Le notifiche push per il singolo utente sono rapportate al singolo studente per mezzo di codice identificativo univoco (cfr. matricola).
+
+\subsubsection{Verbalizzazione esame}
+
+Al momento della verbalizzazione di un esame sostenuto, l’utente riceverà una notifica relativa all’avvenuto aggiornamento della propria carriera.
+
+\subsubsection{Apertura finestra prenotazione esame}
+
+Il sistema invia una notifica push allo studente in concomitanza con l’apertura della finestra temporale di prenotazione inerente agli esami ancora da sostenere e presenti all’interno della propria carriera.
+
+\subsubsection{Chiusura finestra prenotazione esame}
+
+Il sistema invia una notifica push allo studente in concomitanza con l’approssimarsi della chiusura della finestra d’apertura riguardo agli esami ancora da sostenere e presenti all’interno della propria carriera.
+
+\subsubsection{Avviso tasse}
+
+Al momento della resa disponibilità di nuove tasse, verrà segnalato all’utente per mezzo di una notifica push.
+
+\subsection{Notifiche di gruppo}
+
+Per notifiche di gruppo si intendono quelle inviate a tutti gli studenti appartenenti ad una medesima categoria, ad esempio Ateneo, Dipartimento, Corso di Studi.
+
+\subsubsection{Rinvio delle lezioni}
+
+In caso di rinvio di una lezione l’utente riceverà una notifica push.
+
+\subsubsection{Sospensione lezioni}
+
+In caso di sospensione di una lezione l’utente riceverà una notifica push.
+
+\subsubsection{Notizie dall'Ateneo}
+
+Al momento della pubblicazione di una nuova notizia riguardante l’Ateneo, tutti gli studenti riceveranno una notifica inerente ad essa.
+
+\subsubsection{Notizie dal Dipartimento}
+
+Al momento della pubblicazione di una nuova notizia riguardante il Dipartimento afferente al Corso di Studi di appartenenza dello Studente, egli riceverà una notifica inerente a tale notizia.
+
+\subsubsection{Notizie dal Corso di Studi}
+
+Al momento della pubblicazione di una nuova notizia riguardante il Corso di studi di appartenenza, l’utente riceverà una notifica inerente ad essa.
+
+%=== Requisiti non funzionali =================================
 
 \section{Requisiti non funzionali}
 
-\paragraph{Requisito 1 (sostituire con nome requisito) \\} 
-Lorem ipsum dolor sit amet...
+\subsection{Prestazioni del sistema}
+
+Il sistema non richiede un particolare livello di prestazioni, esso deve ridurre al minimo i tempi di risposta e deve essere in grado di gestire più richieste da parte di diversi utenti contemporaneamente.
+
+\subsection{Gestione degli errori e tolleranza ai guasti}
+
+Ogni volta che un’operazione dell’utente sul sistema presenta un insuccesso, si invia all’utente una notifica con un messaggio di errore dando la possibilità di riprovare ad effettuare l’operazione. In caso contrario il sistema notifica il successo dell’operazione.
+
+\subsection{Sicurezza}
+
+Per quel che riguarda la sicurezza dei dati che il sistema tratta, essa viene garantita attraverso un sistema di autenticazione tramite password. Ciascun utente del sistema accede alle funzionalità solo dopo aver inserito le proprie credenziali (login e password).
+
+\subsection{Legali}
+
+Il sistema deve essere realizzato nel rispetto della privacy degli utenti.
+
+\subsection{Usabilità}
+
+Il sistema è stato progettato con un’interfaccia semplice ed intuitiva per rendere l’utilizzo fruibile a qualsiasi utente.
+
+\subsection{Performance}
+
+Il sistema è stato progettato per influire il meno possibile sull’hardware rimandando l’esecuzione di alcune funzionalità al server.
+
+\subsection{Interazione con sistemi esterni}
+
+Il sistema si interfaccia con il sistema esterno Esse3 per quanto riguarda la gestione delle anagrafiche e della carriera dello studente.
+
+\subsection{Affidabilità}
+
+Gran parte delle operazioni eseguibili sul sistema devono essere disponibili anche senza connessione Internet. Per ottenere questo risultato ci si basa su file locali che vengono aggiornati periodicamente e ad ogni login. Il sistema richiede tuttavia il collegamento Internet per alcune funzionalità che richiedono l’invio o la ricezione di dati per essere completate con successo.
+
+%=== Pseudorequisiti e vincoli =================================
 
 \section{Pseudorequisiti e vincoli}
-\paragraph{Sostituire con gli pseudorequisiti e vincoli da rispettare \\}
-Lorem ipsum dolor sit amet...
+
+Non sono stati rilevati pseudorequisiti e vincoli.
 
 \clearpage
