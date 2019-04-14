@@ -62,6 +62,44 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo
 \paragraph{La ricerca non restituisce risultati.} 
 Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun corso trovato”.
 
+%%%%%%%%%%%%%%%%%% 8.4.3 Filtra corsi con memorizzazione   %%%%%%%%%%%%%%%%
+\subsection{Filtra corsi con memorizzazione }
+\paragraph{Filtra per anno.} 
+Filtra per anno. Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli esami del \textbf{secondo anno}. Il sistema mostra:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+	\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+	\hspace{1cm} • Ingegneria del Software\> N/D \> \\
+	\hspace{1cm} • Storia della matematica \> 30L \> 04/02/2019 \\
+\end{tabbing}
+
+\paragraph{Filtra esami superati.} 
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli\textbf{ esami superati}. Il sistema mostra:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
+	\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
+	\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
+	\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+	\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+	\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+\end{tabbing}
+
+\paragraph{Memorizza filtro.}
+ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema. Alla successiva apertura dell’app, il sistema filtra di default i corsi per “esami da sostenere”.
+ 
+\paragraph{Nessuna memorizzazione.}Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di non memorizzare le opzioni inserite. Il sistema applica il filtro selezionato fino alla chiusura del sistema. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti i corsi del piano di studio.
+
+\paragraph{Il filtraggio non restituisce alcun risultato.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, applica il filtro “esami da sostenere” che non restituisce alcun risultato. Il sistema mostra allo studente il messaggio di errore “Nessun esame è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+
 
 
 
