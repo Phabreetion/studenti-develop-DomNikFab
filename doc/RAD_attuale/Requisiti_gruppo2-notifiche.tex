@@ -3,12 +3,48 @@
 \chapter{Analisi dei requisiti - gruppo 2 - notifiche}
 \label{ref:requisiti2-notifiche}
 
-%%% Il gruppo 2 scriverà qui i suoi requisiti funzionali e non funzionali %%%
+Gestione delle notifiche push relative ad eventi a cui lo studente potrebbe essere interessato (Verbalizzazione di un esame, Nuova notizia). 
+
+Le notifiche push saranno mostrate sul dispositivo dell’utente con l’app in esecuzione in background nel momento in cui c’è un cambiamento nel sistema che richiede una notifica.  
+
+Gli eventi che generano una notifica sono: notifica per apertura e chiusura dell'opzione di prenotazione agli appelli, notifica di una nuova tassa da pagare, notifica verbalizzazione esame, notifiche di notizie da parte del Corso di Studi, del Dipartimento o dell’Ateneo, notifiche riguardanti le lezioni come un’eventuale sospensione o rinvio della stessa.
 
 \section{Requisiti funzionali}
 
-\paragraph{Requisito 1 (sostituire con nome requisito) \\} 
-Lorem ipsum dolor sit amet...
+Lo studente, in presenza di connettività, riceverà notifiche da parte dell’applicazione relative a contenuti di proprio interesse, come ad esempio la verbalizzazione di un esame, l’apertura e la chiusura della finestra temporale di prenotazione ad un esame, la pubblicazione all’interno del portale di una nuova notizia d’Ateneo, Dipartimento o Corso di Studi.
+
+\subsection{Notifiche push \\} 
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Notifiche push} % Didascalia tabella
+\label{tab:gruppo-2-notifiche-push} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth} |}
+	\hline
+	\textbf{Notifiche per il singolo utente} & \textbf{Notifiche di gruppo} \\
+	\hline
+	Notifica verbalizzazione esame. & Notifiche per notizie dall'Ateneo. \\
+	\hline
+	Notifiche appelli:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Apertura finestra temporale di prenotazione all'esame;
+	\item Chiusura finestra temporale di prenotazione all'esame.
+	\end{itemize} &
+	Notifiche per notizie dal Dipartimento. \\
+	\hline
+	Avviso tasse. & Notifiche per notizie dal Corso di Studi. \\
+	\hline
+	& Notifiche lezioni:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Sospensione lezioni;
+	\item Rinvio lezioni.
+	\end{itemize} \\
+	\hline
+\end{tabular}
+\end{table}
 
 \section{Requisiti non funzionali}
 
