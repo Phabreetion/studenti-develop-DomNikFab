@@ -38,6 +38,6 @@ Carica il commit sul repo remoto:
 
 $ git push
 
-Quando si fa il "git checkout" su un altro branch, i file ignorati tramite ".gitignore" (in particolare i file ausiliari di LaTeX, come ad esempio i file con estensione ".aux") vengono ignorati da LaTeX, quindi con il checkout tali file non cambiano. Siccome spesso si desidera che questi file vengano cancellati dopo il checkout (perché, essendo file ausiliari, vengono ricreati dall'applicazione a momento di compilazione), li si può cancellare con:
+Quando si fa il "git checkout" su un altro branch, i file ignorati tramite ".gitignore" (in particolare i file ausiliari di LaTeX, come ad esempio i file con estensione ".aux") vengono ignorati da LaTeX, quindi con il checkout tali file non cambiano. Siccome spesso si desidera che questi file vengano cancellati dopo il checkout (perché, essendo file ausiliari, vengono ricreati dall'applicazione a momento di compilazione), li si può cancellare con il seguente comando. Attenzione! se ci sono file o directory untracked che si vogliono salvare, aggiungerle prima alla staging area con "git add", in modo che quando si fa "git status" siano trackate e appaiano in verde. Questo perché il seguente comando cancella i file untracked oltre che quelli esclusi con .gitignore. Il comando è:
 
 $ git clean -fdx
