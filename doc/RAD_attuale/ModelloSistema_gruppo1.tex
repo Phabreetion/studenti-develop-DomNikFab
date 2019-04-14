@@ -521,44 +521,609 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo
 
 
 
-
+\newpage
 \section{Casi d'uso}
 \subsection{Visualizza corsi}
-Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
-
-\paragraph{Caso d'uso 1 (sostituire con nome caso d'uso) \\} 
-Lorem ipsum dolor sit amet (sostituire con descrizione caso d'uso)
+Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente.
+\begin{table} [tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza corsi}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Piano di studio.}} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Visualizza l’ultima copia dei corsi salvata nello \textit{storage.} & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio per la visualizzazione dei corsi. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Ottiene i corsi del piano di studio aggiornati e li mostra a video. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi aggiornati del piano di studio.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Ricerca corsi}
+Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i corsi trovati.
 
 \begin{table}[tb]
-%\normalsize % Dimensione testo normale
-\small % Dimensione testo piccola
-%\footnotesize % Dimensione testo piccolissima
-%\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
-%\label{} % Etichetta per riferimenti incrociati
-\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
-	\hline
-	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Login}} \\
-	\hline
-	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.} \\
-	\hline
-	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'utente ha cliccato sul bottone di login.} \\
-	\hline
-	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
-	\hline
-	\textbf{} & \textbf{1} & \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il login, e-mail e password dell'utente \\
-	\hline
-	\textbf{} & \textbf{2} & Inserisce i dati e sottomette la richiesta & \textbf{} \\
-	\hline
-	\textbf{} & \textbf{3} & \textbf{} & Controlla che siano stati inseriti entrambi i campi e avvia le operazioni di visualizzazione \\
-	\hline
-	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
-	\hline
-	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema completa la login e dà accesso all'app o, in caso contrario, visualizza un messaggio di errore se non sono stati inseriti tutti i dati obbligatori, se le credenziali non sono corrette o se si verifica un insuccesso dell'operazione.} \\
-	\hline
-\end{tabular}
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca corsi}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi che corrispondono alle parole chiave. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi trovati.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Filtra corsi con memorizzazione}
+Questo caso d’uso consentirà allo studente di filtrare i corsi in base ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà la lista di corsi filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage} per visualizzare i dati filtrati ad ogni nuovo accesso alla sezione.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra corsi con memorizzazione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce uno o più filtri. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Filtra l’elenco dei corsi. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi filtrati. \\
+		\hline
+		\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{5} &  \textbf{} & Memorizza i filtri nello \textit{storage}.\\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{4.1} Nessuna memorizzazione.\newline \textbf{5.1} Nessun risultato.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi filtrati ed eventualmente salva i filtri. } \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Ordina corsi con memorizzazione}
+Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un criterio di ordinamento. Il sistema, dopo aver ordinato l’elenco, mostrerà la lista di corsi ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina corsi con memorizzazione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Ordina l’elenco dei corsi. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi ordinati. \\
+		\hline
+		\textbf{} & \textbf{4} & Sceglie di salvare il criterio di ordinamento selezionato. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{5} &  \textbf{} & Memorizza nello \textit{storage} il criterio di ordinamento.\\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{3.1} Nessuna memorizzazione.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi ordinati ed eventualmente salva il criterio di ordinamento.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Visualizza dettagli corso }
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un corso e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del corso selezionato. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi al corso selezionato. Il sistema mostrerà allo studente i dettagli del corso selezionato.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli corso}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona un corso di cui visualizzare i dettagli. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra i dettagli relativi al corso selezionato. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al corso selezionato.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Visualizza appelli disponibili}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli disponibili afferenti ai corsi del suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili. Il sistema mostrerà allo studente gli appelli disponibili.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli disponibili}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Appelli}.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli disponibili salvata nello \textit{storage}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli disponibili aggiornati e li mostra a video. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello disponibile.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili aggiornati.} \\
+		\hline
+	\end{tabular}
 \end{table}
 
+\newpage
+\subsection{Visualizza appelli prenotati}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai quali si è prenotato per sostenere degli esami e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli prenotati. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli prenotati. Il sistema mostrerà allo studente gli appelli prenotati.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli prenotati}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli prenotati salvata nello \textit{storage}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli prenotati aggiornati e li mostra a video. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello prenotato.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli pronotati aggiornati.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\newpage
+\subsection{Ricerca appelli disponibili }
+Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà gli appelli trovati.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca appelli disponibili}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli disponibili.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili che corrispondono alle parole chiave. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili trovati.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\newpage
+\subsection{Filtra appelli disponibili con memorizzazione }
+Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibili in base di ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà gli appelli disponibili filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage}.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra appelli disponibili con memorizzazione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce i filtri. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} &Filtra l’elenco degli appelli disponibili. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili filtrati. \\
+		\hline
+		\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{5} & \textbf{} & Memorizza i filtri nello storage. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.\newline \textbf{4.1} Nessuna memorizzazione.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili filtrati ed eventualmente salva i filtri.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+\subsection{Ordina appelli disponibili con memorizzazione }
+Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibili in base ad un criterio di ordinamento, dopodiché il sistema mostrerà gli appelli disponibili ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}.
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\caption{} % Didascalia tabella
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina appelli disponibili con memorizzazione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} &Ordina l’elenco degli appelli disponibili. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili ordinati. \\
+		\hline
+		\textbf{} & \textbf{4} & Sceglie di salvare i criteri di ordinamento & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{5} & \textbf{} & Memorizza il criterio di ordinamento. \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{4.1} Nessuna memorizzazione.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili ordinati  ed eventualmente salva i criterio di ordinamento.} \\
+		\hline
+	\end{tabular}
+\end{table}
+\newpage
+
+\subsection{ Prenota appello }
+Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sistema inoltra la richiesta di prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta prenotazione, includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati, dopodiché il sistema mostrerà allo studente la conferma della prenotazione.
+
+
+\begin{table}[tb]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	
+	\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Prenota appello}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+		\hline
+		\textbf{} & \textbf{1}& Seleziona l’appello a cui prenotarsi.  & \textbf{} & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+		\hline
+			\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli. & \textbf{}\\
+		\hline
+			\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della prenotazione. & \textbf{}\\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Prenotazione fallita.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la conferma della prenotazione e l’appello tra gli appelli prenotati.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+\newpage
+	
+	\subsection{ Cancella prenotazione  }
+Questo caso d’uso consentirà allo studente di cancellare la prenotazione di un appello. Il sistema inoltra la richiesta di cancellazione della prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta cancellazione, il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati. Il sistema mostrerà allo studente la conferma dell’avvenuta cancellazione.
+	
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		
+		\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Cancella prenotazione}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli prenotati.} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+			\hline
+			\textbf{} & \textbf{1}& Seleziona la prenotazione da cancellare.  & \textbf{} & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+			\hline
+			\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. & \textbf{}\\
+			\hline
+			\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della cancellazione. & \textbf{}\\
+			\hline
+			\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Cancellazione fallita.} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la cancellazione della prenotazione, mentra l’appello cancellato torna tra gli appelli disponibili.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+\newpage
+	
+	\subsection{Visualizza elenco file}
+Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei file afferenti ad un corso. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista di file, il quale elaborerà la richiesta e restituirà i dati relativi ai file. Il sistema mostrerà allo studente l’elenco dei file.
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		%\caption{} % Didascalia tabella
+		%\label{} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza elenco file}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+			\hline
+			\textbf{} & \textbf{1} & Visualizza l’ultima copia dei file salvata nello \textit{storage}. & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+			\hline
+			\textbf{} & \textbf{3} & \textbf{} & Mostra allo studente l’elenco dei file. \\
+			\hline
+			\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun file.} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco aggiornato dei file.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\newpage	
+	
+	\subsection{Ricerca file}
+Questo caso d’uso consentirà allo studente di ricercare i file utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i file trovati.
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		%\caption{} % Didascalia tabella
+		%\label{} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca file}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+			\hline
+			\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+			\hline
+			\textbf{} & \textbf{3} & \textbf{} & Mostra i file che corrispondono alle parole chiave. \\
+			\hline
+			\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i file trovati.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\newpage
+		\subsection{Visualizza dettagli file}
+	Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un file. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del file selezionato, il quale elaborerà la richiesta e restituirà i dati relativi al file selezionato. Il sistema mostrerà allo studente i dettagli del file selezionato.
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		%\caption{} % Didascalia tabella
+		%\label{} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli file}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file di un corso.} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+			\hline
+			\textbf{} & \textbf{1} & Seleziona un file di cui visualizzare i dettagli. & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Mostra i dettagli relativi al file selezionato. \\
+			\hline
+		
+			\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al file selezionato.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\newpage
+		\subsection{Apri file}
+Questo caso d’uso consentirà allo studente di aprire un file. Il sistema ricercherà il file nello \textit{storage} per poi aprirlo. Nel caso in cui il file non fosse presente, il sistema sfrutta i servizi forniti dal \textit{DBService} che procederà con il download nello \textit{storage} dell’app e successivamente aprirà il file selezionato.
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		%\caption{} % Didascalia tabella
+		%\label{} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Apri file}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+			\hline
+			\textbf{} & \textbf{1} & Seleziona il file da aprire. & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Apre il file. \\
+			\hline
+			\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage: si interfaccia con \textit{DBService} per scaricarlo.} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente apre il file selezionato.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\newpage
+			\subsection{Rimuovi  file}
+	Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo nello \textit{storage} e rimuovendolo. Nel caso in cui il file non fosse presente, il sistema mostrerà allo studente un messaggio d’errore. Il sistema eliminerà il file selezionato.
+	
+	\begin{table}[tb]
+		%\normalsize % Dimensione testo normale
+		\small % Dimensione testo piccola
+		%\footnotesize % Dimensione testo piccolissima
+		%\scriptsize % Dimensione del testo ulteriormente più piccola
+		%\caption{} % Didascalia tabella
+		%\label{} % Etichetta per riferimenti incrociati
+		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+			\hline
+			\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Rimuovi  file}} \\
+			\hline
+			\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+			\hline
+			\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+			\hline
+			\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+			\hline
+			\textbf{} & \textbf{1} & Seleziona il file da eliminare. & \textbf{} \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+			\hline
+			\textbf{} & \textbf{2} & \textbf{} & Rimuove il file. \\
+			\hline
+			\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage} \\
+			\hline
+			\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente rimuove il file selezionato.} \\
+			\hline
+		\end{tabular}
+	\end{table}
+	\newpage
+	
+	
+	
+	
 \section{Diagramma dei casi d'uso}
 
 Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
