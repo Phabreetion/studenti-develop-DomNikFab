@@ -423,18 +423,30 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, deci
 	
 \end{tabbing} 
 
-\paragraph{Ordinamento per docente.}
-Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per cognome del docente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
-
+\paragraph{Ordinamento per CFU crescente.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU crescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
 \begin{tabbing}
 	%La prima righa non viene stampata, serve solo per la spaziatura
-	\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+	\hspace{1cm}-----------------Esame--------------- \= --Data--- \= -------------Docente---------- \= -----CFU-----\kill
 	%Scrivere da qui
-	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
-	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
-	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\	
-	\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\
+	\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\	
+\end{tabbing}
+
+\paragraph{Ordinamento per CFU decrescente.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU decrescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame------------------ \= --Data--- \= -----------Docente------------- \= -----CFU----- \kill
+	%Scrivere da qui
+	\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\
+	\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+	\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+	\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\	
 \end{tabbing} 
+
 
 \paragraph{Memorizza ordinamento.}
 Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento per data, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina gli appelli disponibili sulla base dell'ultimo ordinamento memorizzato.
