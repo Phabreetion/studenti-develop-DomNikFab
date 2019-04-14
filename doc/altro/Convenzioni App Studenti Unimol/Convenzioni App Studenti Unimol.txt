@@ -1,0 +1,93 @@
+﻿*** Convenzioni per App Studenti Unimol ***
+Di seguito, sono raggruppate le convenzioni stabilite per le varie fasi del progetto, divise per software da utilizzare, struttura del template, terminologia del RAD e casi d’uso, Git.
+Il documento non deve sembrare scritto a più mani, quindi cerchiamo di renderlo quanto più uniforme è possibile, soprattutto rispettando le convenzioni che seguono.
+
+*** NUOVE CONVENZIONI 2/04/19 ***
+- Un solo gruppo tra tutti i team dev'essere creato un nuovo caso d'uso getJSON che si interfaccia con Esse3 e Aule Unimol. Deve anche essere creato un caso d'uso "aggiorna" per l'aggiornamento forzato.
+- Le eccezioni di 'connessione assente' e 'Esse3 e Sync remoto non disponibile' vanno modellate SOLO nel caso d'uso getJSON().
+- Nei sequence, le chiamate saranno getToken() per prendere il token e getJSON(id) per ricevere i dati dal Sync Locale.
+- Nelle tabelle dei casi d'uso, saranno presenti solo 2 colonne: Studente e Sistema. Nella colonna Sistema sarà specificato che questo richiama il caso d'uso "getJSON" per prelevare i dati e che poi li restituisce allo studente.
+- Nei diagrammi dei casi d'uso sarà inserito l'ovale "getJSON" collegato con "include" all'ovale che richiede di prelevare i dati. Prpbabilmente se nel diagramma c'è getJSON, non ci sarà l'attore Sync e viceversa.
+- I sequence saranno modellati come: ATTORE Studente, BOUNDARY Funzionalità, CONTROL Funzionalità control, ENTITY Storage, CONTROL Sync Locale, ENTITY Dati Funzionalità.
+- Chiameremo "Sync locale" quello che si interfaccia con lo storage e il Sincronizzatore. Il Sync sarà chiamato "Sync remoto", ed è un attore totalmente esterno che a sua volta si interfaccia con Esse3 e Aule Unimol.
+- Tutte le chiamate sono async. Inserire la dicitura tra parentesi angolari prima dell'azione.
+- Nei Sequence definire con nome fedele al codice solo per i metodi più importanti di inzializzazione e di aggiornamento dati.
+- Nei Sequence Studente fa partire la chiamata con un'azione; poi Funzionalità chiama Funzionalità Control; poi da Funzionalità Control parte getJSON(id) fino a Sync Locale [getJSON è proprio un caso d'uso da fare]; poi create; ritorna a Sync locale; poi ritorna a Funzionalità Control. -> GUARDARE FOTO FATTA A LEZIONE E ATTENERSI AL FLUSSO
+
+*** Software da utilizzare ***
+- LaTeX per il RAD, utilizzando il template condiviso sul repository remoto nel quale ogni gruppo potrà aggiungere la sua parte man mano che giunge ad uno stato consistente.
+- Visual Paradigm Online per modellare i diagrammi.
+- Adobe Xd (Creative Cloud - versione 17.0.12) per i mockups e di conseguenza gli Activity Diagrams. Gli screen mockups saranno modellati in base al sistema Android. Per usare il sistema Adobe bisogna scaricare il pacchetto di risorse apposite dalla sezione "Resource".
+
+*** Struttura del RAD completo + spiegazioni ***
+- Utilizzare un editor per LaTeX come TeXStudio e scaricare eventuali pacchetti mancanti.
+- Compilare ogni singolo file per vederlo aggiornato all'atto della compilazione del file main che si chiama "RAD_StudentiUnimol.tex". In TeXStudio il comando "compila e visualizza" è una freccia verde. Prima di fare la push dei propri file, compilarli e compilare anche il file main "RAD_StudentiUnimol.tex" in modo che produca un PDF aggiornato "RAD_StudentiUnimol.pdf" cosicché se qualcuno apre solo il PDF ne veda l'ultima versione.
+- I file "dominioProblema.tex", "frontespizio.tex", "RAD_StudentiUnimol.tex", "Template_comandi.tex" sono comuni a tutti i gruppi. In particolare nel file "dominioProblema.tex" sarà fatta un'introduzione al RAD: chi vuole può iniziare a lavorarci (per ora è in uno stato embrionale, sono stati iniziati alcuni paragrafi, ma probabilmente alcuni manager alla fine scriveranno quella parte comune ai vari gruppi. Il file "frontespizio.tex" è il semplice frontespizio del RAD. Il file "RAD_StudentiUnimol.tex" è il file main, senza aprire e compilare il quale non si può compilare il progetto nell'editor LaTeX; esso contiene una serie di costanti per definire proprietà come font, ma non serve modificarle. Il file "Template_comandi.tex" contiene una serie di spiegazioni e materiale utile su tabelle, immagini e indici: potete prendere da lì gli scheletri che vi servono, copiarli e incollarli nei vostri singoli file e avvalorarli.
+- Ogni gruppo lavora sui file in cui compare il suo nome e tali file alla fine saranno riuniti dai manager in un unico file copiando le parti dei singoli gruppi. Ad esempio il gruppo 1 modellerà il suo modello di sistema nel file "ModelloSistema_gruppo1.tex", lo ricompilerà di volta in volta, poi ricompilerà il file main chiamato "RAD_StudentiUnimol.tex" e pusherà il suo lavoro. Solo alla fine i manager realizzeranno un unico file chiamato "ModelloSistema.tex" in cui inseriranno i contributi dei singoli gruppi. Lo stesso vale per i file dei requisiti.
+- Ogni gruppo è chiamato a determinare attori e requisiti non funzionali + vincoli nel suo singolo file di modello di sistema. Queste parti saranno descritte all'inizio del file "modello di sistema" prendendo spunto dalla descrizioni dei singoli gruppi e rielaborandole.
+- Raggruppare i requisiti in gruppi identificati da una sottosezione. Ad esempio:
+	<Titolo sottosezione>
+	Messaggi
+	-Visualizza messaggi: <desc> <tabella> <diagramma del caso d'uso> 
+	-Invia messaggi: <desc> <tabella> <diagramma del caso d'uso> 
+- I casi d'uso di una singola funzionalità possono essere raggruppati all'interno di un unico diagramma: in tal caso ci saranno alcuni casi d'uso che prevederanno solo descrizione e tabella e alla fine dei casi d'uso comuni ad una funzionalità ci sarà un singolo diagramma che li racchiude tutti.
+- Il documento deve essere scritto con il tempo dei verbi al futuro per quanto riguarda i requisiti. Nelle tabelle dei casi d'uso va usato il presente.
+- Scrivere in terza persona del proprio team: è più elegante per un documento ufficiale.
+
+*** Terminologia e convenzioni del documento RAD ***
+- Ove si faccia riferimento all’app come descrizione nel documento, essa deve essere denominata e scritta in modo tale: “app Studenti Unimol”, con la parola "app" in minuscolo mentre le restanti con le maiuscole e in corsivo.
+- Per quanto riguarda gli attori, l’utente finale è chiamato “Studente”, il sistema da interrogare per ricevere risposte è “Esse3”. L’altro servizio, necessario per la gestione delle aule, sarà indicato come “Aule Unimol”. Eventuali attori saranno indicati con lettera maiuscola e corsivo in tutto il documento, tranne che nei diagrammi dove è omessa la dicitura in corsivo per i nomi degli attori.
+- Per tutti i nomi relativamente importanti, è previsto il corsivo e la lettera maiuscola. Allo stesso modo per le parole appartenenti ad altre lingue. Seguono Esse3, Università degli Studi del Molise, storage, ecc.
+- Le sigle formalmente accettate nella documentazione sono quelle strettamente legate al contesto universitario: CFU, app, ecc.
+- L’insieme dei corsi di un Corso di Laurea è indicato come “Piano di studio”. Ci si riferisce ai corsi frequentati con il termine “esami” solo se il contesto applicato è quello degli appelli e della sessione d’esame, altrimenti essi saranno etichettati come “corsi”.
+- Utilizzare nomi consistenti e compatti tra requisiti, nome casi d’uso (che dev’essere costituito da azione + sostantivo, come, ad esempio, "Gestione appelli"), descrizione, tabelle e diagrammi.
+- Si usa “login” con l’articolo determinativo maschile “il”.
+- I nomi comuni vanno tutti con le lettere minuscole, a meno che non si presentino all’inizio della frase.
+- Si modellano come eccezioni solo quelle effettivamente inserite nelle tabelle dei casi d’uso.
+- Gli activity diagrams verranno modellati usando gli screen mockups.
+- Il sincronizzatore viene indicato con la parola Sync in corsivo e con l'iniziale maiuscola.
+- Si fa riferimento al database in locale con la parola storage (in corsivo).
+
+*** Caratteristiche casi d’uso ***
+- Per specificare gli attori, si usa la dicitura “Inizializzato da X. Partecipa X”.
+- La precondizione è sempre “Lo studente ha effettuato il login”. Se non esistono altre differenti precondizioni, questa sarà posta all’inizio del relativo capitolo e omessa dalle tabelle per evitare la ridondanza. Si può scrivere un paragrafo iniziale, quindi, in cui si specifica "La precondizione comune a tutti i requisiti che seguono è che gli studenti abbiano effettuato il login sull'applicazione." Nella tabella, nella cella delle precondizioni verrà inserita l'azione successiva: "Lo studente accede alla sezione X.", altrimenti sarà vuota se non ci sono altre precondizioni.
+- Evitare dettagli implementativi nelle azioni delle tabelle (ad esempio evitare le parole “clicca”, “fa un tap” o descrivere dettagli grafici come i colori dei pulsanti, ecc.); sostituire con “Accede alla sezione”, “Seleziona”, “Apre” scegliendo la modalità più adeguata tra queste tre elencate, poiché la documentazione si pone a un livello di astrazione superiore rispetto all'implementazione e il documento viene stilato quando ancora non si mettono le mani sul codice con lo scopo di fornire una rappresentazione di alto livello del sistema.
+- Nelle tabelle, evitare di ripetere il nome degli attori durante il flusso degli eventi.
+- In tutte le tabelle in cui è presente Esse3, specificare che il sistema salva in locale una copia dei dati ricevuti, nella descrizione e nella tabella. Di conseguenza, gestire le eccezioni di connettività assente e copia presente in locale e connettività assente e copia non presente.
+- Il sistema MOSTRA un output, mentre l’utente VISUALIZZA qualcosa. Attenzione ai verbi da usare.
+- Per ogni caso d’uso specificare l’eccezione “Esse3 non risponde”, se tale attore è presente nel caso d’uso, utilizzando tutti questa dicitura per rendere consistente il documento.
+- Per ogni caso d’uso, quando Esse3 compie l’azione di restituire i dati, allora la dicitura sarà: “Elabora la richiesta e invia i dati relativi a x (esempio: agli appelli)”. Stessa cosa per il successo dell’operazione, ad esempio “Conferma il successo dell’operazione”.
+- Punto a fine frase, anche nelle tabelle.
+- La condizione d’uscita è il risultato finale del caso d’uso, quindi il comportamento atteso dopo lo svolgimento del flusso degli eventi e non riguarda i comportamenti eccezionali. Es.: “Lo studente visualizza tutti i corsi del piano di studio”.
+- Nel diagramma, indicare il sistema (la scatola nera che racchiude tutti i casi d'uso) con l'etichetta "App Studenti Unimol"  con la lettera iniziale di "app" maiuscola in quanto si trova a inizio frase. .
+
+*** Caratteristiche Sequence Diagrams ***
+- Nei Sequence saranno usati gli elementi grafici tipici di UML per modellare gli oggetti Entity, Boundary e Control. Il Service del sincronizzatore sarà un oggetto Control chiamato "Sync".
+- Nei Sequence, il service è il sincronizzatore e sarà identificato come Sync. Questo permette di restituire le copie in locale e aggiornarle quando sono incoerenti con i dati sul Portale.
+- Nei Sequence, dato che non è presente in Visual Paradigm la freccia dei messaggi asincroni, si userà la freccia normale con la punta piena con la dicitura "async" su di essa.
+
+*** Convenzioni Git ***
+
+OBBLIGATORIO:
+- FARE ALMENO UN PULL AL GIORNO DALLA CARTELLA GENERALE DEL PROGETTO, SIA NEL PROPRIO BRANCH CHE NEL BRANCH DEVELOP PER RESTARE ALLINEATI.
+- FARE SEMPRE UNA PULL PRIMA DI FARE UNA PUSH.
+- Ogni gruppo ha un suo branch e lavora in quello.
+- Pushare sempre nel proprio branch, poi fare una merge di unione del proprio branch con il branch develop, solo quando il branch è in uno stato consistente e privo di errori.
+
+*** BRANCHES TUTORIAL ***
+git branch -a -> mostra tutti i branch evidenziando quello in cui ci trova.
+git checkout -b nomebranch -> crea un branch locale corrispondente a quello remoto (i branch remoti si chiamano origin/nomebranch, quelli locali solo nomebranch. All’atto della push, vengono mergiati, ma va fatto una tantum)
+git chechout nomebranch -> switcha sul branch desiderato, quindi sul proprio branch o su develop.
+
+*** PUSHARE NEL PROPRIO BRANCH ***
+git checkout miobranch
+git pull
+git add nomefile (aggiungere SOLO i file modificati, altrimenti associa il commit e relativo messaggio a tutti i file)
+git commit -m “messaggio di commit” (sostituire un messaggio di commit che sia esplicativo delle modifiche effettuate)
+git push
+Una volta controllato di essere nel proprio branch, fare git merge develop, autenticarsi (se richiesto) e dopo, se necessario, rieffettuare git push sia nel proprio branch che in develop.
+
+*** SVOLGERE LE OPERAZIONI ***
+- Aprire un terminale pulito, andare nella cartella del progetto allineato con il repository remoto con il comando cd + path, eseguire le operazioni nella cartella.
+- Se si utilizza un IDE in cui si ha il progetto configurato, controllare di essere sul branch corretto (es. in basso a destra "git: nomebranch" su WebStorm o PhpStorm), aprire un terminale nel progetto (es. in WebStorm e PhpStorm "view" -> "tool windows" -> "terminal") e dare i comandi di cui sopra.
+- Se si utilizza un IDE della JetBrains, controllare di essere sul branch corretto (es. in basso a destra "git: nomebranch" su WebStorm o PhpStorm), in alto cliccare su "VCS", e poi PRIMA UPDATE PROJECT (pull) e POI commit. Update project aggiorna tutto il progetto allineandolo con il repository remoto, commit serve per fare commit and push. Commit: mostra i file modificati e - cliccandoci sopra - evidenzia un diff tra versione remota e versione locale. In basso a destra ha una freccia accanto a “commit” su cui c’è scritto “commit & push”. Dopo aver fatto tutto ciò si può andare su GitLab a fare la merge se necessario.
