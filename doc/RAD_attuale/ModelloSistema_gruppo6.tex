@@ -596,52 +596,442 @@ Seleziona il messaggio e visualizza tutte le icone che permettono una modifica a
 \textit{Pasquale} ripete da capo l’operazione per verificare che vi sia stato effettivamente un errore e non ci siano dunque messaggi inopportuni nel canale.\\
 \end{itemize}
 
-\paragraph{CUE1 - Connessione assente\\}
-
-\paragraph{CUE2 - Nessuna risposta dal sistema \\}
-
-
 
 \section{Casi d'uso}
-Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
 
-\paragraph{Caso d'uso 1 (sostituire con nome caso d'uso) \\} 
-
-%%%%%%%%%%%%%% METTERE LABEL AI NOSTRI CASI D'USO
-%\label{nome-label}
-
-Lorem ipsum dolor sit amet... (sostituire con descrizione caso d'uso)
-
+\newpage
 \begin{table}
-%\normalsize % Dimensione testo normale
-\small % Dimensione testo piccola
-%\footnotesize % Dimensione testo piccolissima
-%\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
-%\label{} % Etichetta per riferimenti incrociati
-\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
-	\hline
-	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Login}} \\
-	\hline
-	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.} \\
-	\hline
-	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'utente ha cliccato sul bottone di login.} \\
-	\hline
-	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
-	\hline
-	\textbf{} & \textbf{1} & \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il login, e-mail e password dell'utente \\
-	\hline
-	\textbf{} & \textbf{2} & Inserisce i dati e sottomette la richiesta & \textbf{} \\
-	\hline
-	\textbf{} & \textbf{3} & \textbf{} & Controlla che siano stati inseriti entrambi i campi e avvia le operazioni di visualizzazione \\
-	\hline
-	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
-	\hline
-	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema completa la login e dà accesso all'app o, in caso contrario, visualizza un messaggio di errore se non sono stati inseriti tutti i dati obbligatori, se le credenziali non sono corrette o se si verifica un insuccesso dell'operazione.} \\
-	\hline
-\end{tabular}
+	\small % Dimensione testo piccola
+	\label{CUS1 - Visualizza canale}
+	\caption{CUS1 - Visualizza canale}
+	
+	Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS 1 - Visualizza canale}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona la voce \emph{“chat”} dal \emph{menù} dell’\emph{app Studenti Unimol}.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Mostra l’\emph{home-chat} con le relative \emph{chat}; \\
+		\hline
+		\textbf{} & \textbf{2} & Seleziona la \emph{chat} desiderata; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra il canale di discussione di \emph{default} della \emph{chat}; \\
+		\hline
+		\textbf{} & \textbf{4} & Seleziona un canale di discussione alternativo; \\
+		\hline
+		\textbf{} & \textbf{5} & \textbf{} & Mostra il canale di discussione selezionato; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 - 3.1 - 5.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore; \newline1.2 - 3.2 - 5.2  Connessione assente: il sistema restituisce l’ultima copia salvata in locale; \newline 1.3 - 3.3 - 5.3 Copia non presente: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il canale correttamente.} \\
+		\hline
+	\end{tabular}
 \end{table}
 
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS2 - Invio messaggio}
+	\caption{CUS2 - Invio messaggio}
+	
+	Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggio selezionando l’apposito spazio dedito alla scrittura. Una volta digitato il testo del messaggio e selezionato il pulsante di invio, il sistema lo mostra nel canale di discussione. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS2 - Invio messaggio}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona il canale di discussione in cui vuole inviare il messaggio.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona la casella di testo, digita il messaggio ed invia; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Riceve il messaggio e lo mostra nella \emph{chat}; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: il messaggio viene messo in coda e inviato quando sarà disponibile la connessione; \newline2.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il messaggio nel canale della \emph{chat}.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS3 - Invio allegato}
+	\caption{CUS3 - Invio allegato}
+	
+	Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di discussione, similmente ad un messaggio. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS3 - Invio Allegato}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona il pulsante di scelta allegato; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra l’elenco dei \emph{file} presenti sul dispositivo dell’utente; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona il \emph{file} da allegare; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Controlla se l’allegato è idoneo all’invio nel canale di comunicazione e mostra un messaggio di conferma; \\
+		\hline
+		\textbf{} & \textbf{5} & Invia l’allegato; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Conferma l’invio dell’allegato; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1 - 4.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore; \newline 3.1 Il \emph{file} non è idoneo: viene visualizzato un messaggio di errore; \newline 4.2 Connessione assente: l’allegato viene messo in coda e inviato quando sarà disponibile la connessione;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema mostra l’allegato nel canale di comunicazione.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS4 - Rispondi a singolo messaggio}
+	\caption{CUS4 - Rispondi a singolo messaggio}
+	
+	Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona il singolo messaggio a cui desidera rispondere. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS4 - Rispondi a singolo messaggio}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona il canale di discussione che contiene il messaggio a cui vuole rispondere.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona un messaggio; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menú}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona l’opzione di risposta a messaggio; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Evidenzia il messaggio a cui si vuole rispondere; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{} } \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il messaggio evidenziato.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS5 - Scarica allegato}
+	\caption{CUS5 - Scarica allegato}
+	
+	Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canale di discussione. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS5 - Scarica allegato}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Selezione il messaggio dove è presente l’allegato; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra l’opzione di scaricare l’allegato associato al messaggio selezionato; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona l’opzione per scaricare l’allegato; & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1  Connessione assente: viene visualizzato un messaggio di errore; \newline3.1 Lo \emph{Studente} nega il \emph{download} dell’allegato: l’allegato non viene salvato sul dispositivo;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema salva il file sul dispositivo.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS6 - Segnalazione messaggio}
+	\caption{CUS6 - Segnalazione messaggio}
+	
+	Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messaggio che desidera segnalare. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS6 - Segnalazione messaggio}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona il canale di discussione che contiene il messaggio che vuole segnalare.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona un messaggio; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menú}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona l’opzione “Segnala”; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Chiede conferma di invio segnalazione; \\
+		\hline
+		\textbf{} & \textbf{5} & Conferma invio segnalazione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Conferma l’avvenuta segnalazione;  \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Connessione assente: viene visualizzato un messaggio di errore; \newline4.1 - 6.1 Nessuna risposta dal \emph{server}: verrà visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema conferma il successo dell’operazione.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS7 - Ricerca testo nella chat}
+	\caption{CUS7 - Ricerca testo nella chat}
+	
+	Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca” nel \emph{menù} interno del canale di discussione, digitando il testo da cercare in un’apposita casella di testo. Il sistema mostra tutti i messaggi che contengono il testo partendo dal più recente. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS7 - Ricerca testo nella chat}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{“menù”} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menú}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona il pulsante di ricerca; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} &  Mostra la casella di testo di ricerca; \\
+		\hline
+		\textbf{} & \textbf{5} & Digita il testo da cercare; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Evidenzia il testo cercato nei messaggi, mostrando prima il più recente;\\
+		\hline
+		\textbf{} & \textbf{7} & Scorre i messaggi fino a trovare quello ricercato; & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1 - 4.1 - 6.1  Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore; \newline6.2 Il testo cercato non è presente: viene visualizzato un messaggio di notifica;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema evidenzia i messaggi che contengono il testo cercato.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS8 - Tag membro in messaggio}
+	\caption{CUS8 - Tag membro in messaggio}
+	
+	Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di richiamare l’attenzione di uno specifico membro durante la digitazione di un messaggio. Lo studente digita il nome del membro preceduto da un carattere speciale (@). Il membro selezionato viene avvisato tramite una notifica diretta. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS8 - Tag membro in messaggio}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona la  casella di testo quindi digita il nome di un membro preceduto dal carattere speciale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra la lista di utenti che corrispondono al nome inserito; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona il membro da taggare; & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Lo  \emph{Studente} digita il nome errato: il testo digitato viene inserito come messaggio di testo;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema mostra il messaggio contenente il  \emph{tag} all’interno della casella di testo.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS9 - Gestisci notifiche chat}
+	\caption{CUS9 - Gestisci notifiche chat}
+	
+	Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibilitá di accedere al \emph{menù} e gestire le notifiche ovvero di attivarle o disattivarle in base alle sue preferenze. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS9 - Gestisci notifiche chat}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{menú} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menú}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona il pulsante per attivare/disattivare le notifiche della \emph{chat}; & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1  Connessione assente: viene visualizzato un messaggio di errore; \newline 3.2  Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema cambia lo stato delle notifiche della \emph{chat}.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS10 - Selezione emoji}
+	\caption{CUS10 - Selezione \emph{emoji}}
+	
+	Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di scegliere una o piú \emph{emoji} tra quelle disponibili. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS10 - Selezione \emph{emoji}}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona l’icona \emph{emoji}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra una finestra con le \emph{emoji} disponibili; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona una o piú \emph{emoji}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Il sistema inserisce l’\emph{emoji} nel messaggio; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{} } \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il messaggio contenente le \emph{emoji} selezionate.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUS11 - Visualizza elenco membri chat}
+	\caption{CUS11 - Visualizza elenco membri chat}
+	
+	Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussione e l’elenco contenente l’\emph{username} degli stessi. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale dell’elenco dei partecipanti al canale qualora essa sia presente. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS11 - Visualizza elenco membri chat}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona il nome del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il numero dei membri del canale di discussione e l’elenco dei loro nomi; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore; \newline2.2 Connessione assente: il sistema restituisce l’ultima copia salvata in locale; \newline2.3 Copia non presente: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza l’elenco dei membri del canale di discussione.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUE1 - Connessione assente}
+	\caption{CUE2 - Connessione assente}
+	
+	Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete ma quest’ultima non è disponibile pertanto visualizza un messaggio d’errore. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUE1 - Connessione assente}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Sistema}, partecipa \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Mostra un messaggio d’errore; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{} } \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il messaggio d’errore.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUE2 - Nessuna risposta dal sistema}
+	\caption{CUE2 - Nessuna risposta dal sistema}
+	
+	Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistema, ma quest’ultimo non è in grado di soddisfare la richiesta pertanto visualizza un messaggio d’errore. \\
+
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUE2 - Nessuna risposta dal sistema}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Sistema}, partecipa \textbf{\emph{Studente}.}} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il Sistema riceve un messaggio di errore.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Studente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Riscontra un errore e lo inoltra allo \emph{Studente}; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{} } \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \emph{Studente} visualizza il messaggio d’errore.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
 \section{Diagramma dei casi d'uso}
 
 %Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
@@ -967,9 +1357,6 @@ Lorem ipsum dolor sit amet... (sostituire con descrizione caso d'uso)
 	\caption{CUE2 - Nessuna risposta dal server}
 	\label{fig:seq-cue2}
 \end{figure}
-
-
-
 
 
 \section{Diagramma delle attività}
