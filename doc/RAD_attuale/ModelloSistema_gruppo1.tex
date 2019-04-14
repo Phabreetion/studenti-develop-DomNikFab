@@ -23,6 +23,8 @@ Studente regolarmente iscritto all’\textit{Università degli Studi Del Molise}
 \end{center}
 
 \section{Scenari}
+
+%%%%%%%%%%%%%%%%%% 8.4.1 Visualizza corsi %%%%%%%%%%%%%%%%
 \subsection{Visualizza corsi}
 \paragraph{Visualizzazione avvenuta con successo.} 
 Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, accede alla sezione \textit{Piano di studio} per visualizzare i corsi del piano di studio. Nello specifico, per ogni corso il sistema mostra il nome e, se superato, il voto e la data di verbalizzazione:
@@ -30,6 +32,7 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, acce
 \begin{tabbing}
 	%La prima righa non viene stampata, serve solo per la spaziatura
 	\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+	%Scrivere da qui
 	\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
 	\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
 	\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
@@ -43,6 +46,21 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, acce
 	\hspace{1cm} • Programmazione mobile \> N/D \>\\
 \end{tabbing}
 
+%%%%%%%%%%%%%%%%%% 8.4.2 Ricerca corsi %%%%%%%%%%%%%%%%
+\subsection{Ricerca corsi}
+\paragraph{Ricerca avvenuta con successo.} 
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova i corsi e mostra i risultati:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+	\hspace{1cm} • Storia della matematica \> N/D \>\\
+\end{tabbing}
+
+\paragraph{La ricerca non restituisce risultati.} 
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun corso trovato”.
 
 
 
