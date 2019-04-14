@@ -309,6 +309,7 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceg
 %%%%%%%%%%%%%%%%%% 8.4.7  Visualizza appelli prenotati
 %%%%%%%%%%%%%%%%
 \subsection{Visualizza appelli prenotati}
+\paragraph{Visualizzazione avvenuta con successo.}
 Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema mostra i dati relativi agli appelli prenotati: 
 
  \begin{tabbing}
@@ -318,7 +319,74 @@ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visu
 	\hspace{1cm} • Fisica \> 01/03/2019 \> Orale \\
 \end{tabbing}
 
+\paragraph{Nessun appello prenotato.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema non restituisce alcun appello prenotato e mostra il messaggio di errore “Nessun appello prenotato”. 
 
+%%%%%%%%%%%%%%%%%% 8.4.8  Visualizza appelli prenotati
+%%%%%%%%%%%%%%%%
+
+\subsection{Ricerca appelli disponibili}
+\paragraph{Ricerca avvenuta con successo.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova gli appelli disponibili e mostra i risultati:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------esame---------------------------\=--Data---\kill
+	%Scrivere da qui
+	\hspace{1cm} • Matematica  \> 16/02/2019  \\
+	\hspace{1cm} • Storia della Matematica \> 18/01/2019 \\
+\end{tabbing}
+
+\paragraph{La ricerca non restituisce risultati.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun appello trovato”.
+
+%%%%%%%%%%%%%%%%%% 8.4.9  Filtra appelli disponibili con memorizzazione
+%%%%%%%%%%%%%%%%
+
+\subsection{Filtra appelli disponibili con memorizzazione}
+\paragraph{Filtra per tipologia d’esame: scritto.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli esami per tipologia \textbf{“scritto”}. Il sistema mostra:  
+
+ \begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+	%Scrivere da qui
+	\hspace{1cm} • Calcolo numerico  \> 26/03/2019 \> Scritto \\
+	\hspace{1cm} • Ingegneria del Software \> 01/04/2019 \> Scritto-Orale  \\
+\end{tabbing}
+
+\paragraph{Filtra per tipologia d’esame: orale.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli appelli per tipologia di esame \textbf{“orale”}. Il sistema mostra:
+
+ \begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+	%Scrivere da qui
+	\hspace{1cm} • Informatica giuridica  \> 10/04/2019\> Orale \\
+	\hspace{1cm} • Matematica\> 18/04/2019 \> Orale-Scritto  \\
+\end{tabbing}
+
+\paragraph{Filtra per anno.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare in base all'anno in cui è previsto il corso e sceglie di filtrare gli appelli per visualizzare solo quelli afferenti al \textbf{secondo anno}. Il sistema mostra:
+
+\begin{tabbing}
+	%La prima righa non viene stampata, serve solo per la spaziatura
+	\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+	%Scrivere da qui
+	\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+	\hspace{1cm} • Calcolo numerico \> 18 \> 26/06/2019 \\
+	\hspace{1cm} • Fisica \> 28 \> 29/06/2019 \\
+	\hspace{1cm} • Ingegneria del Software \> N/D \> 7/06/2019  \\
+\end{tabbing}
+
+\paragraph{Memorizza filtro.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato il filtro “anno”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema . Alla successiva apertura dell’app, il sistema filtra di default gli appelli per “anno”.
+
+\paragraph{Nessuna memorizzzazione.}
+Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un filtro, sceglie di non memorizzare le opzioni inserite. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti gli appelli disponibili.
+
+\paragraph{Il filtraggio non restituisce alcun risultato.}
+ Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver scelto di filtrare gli appelli disponibili in base al parametro selezionato, non riceve risultati dal sistema. Il sistema mostra il messaggio “Nessun appello è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
 
 
 \section{Casi d'uso}
