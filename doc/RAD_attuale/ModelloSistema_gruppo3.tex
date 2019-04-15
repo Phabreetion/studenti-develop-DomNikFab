@@ -17,15 +17,15 @@ Inserire qui gli scenari che sono un'istanza dei casi d'uso: gli scenari danno d
 \begin{comment}
 Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
 \end{comment}
-\paragraph{Simulazione della media\\} 
+\subsection{Simulazione della media} 
 Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito opportunamente i voti, restituirà la simulazione della media e la salverà in locale.
 
-\begin{table}[tb]
+\begin{table}[H]
 %\normalsize % Dimensione testo normale
 \small % Dimensione testo piccola
 %\footnotesize % Dimensione testo piccolissima
 %\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
+\caption{Simulazione della media} % Didascalia tabella
 %\label{} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
@@ -51,16 +51,16 @@ Il sistema all’apertura della sezione “previsione” mostrerà la carriera d
 	\hline
 \end{tabular}
 \end{table}
-\clearpage
-\paragraph{Simulazione della media con valori non validi o vuoti\\} 
+
+\subsection{Simulazione della media con valori non validi o vuoti} 
 Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito dei valori non validi oppure vuoti, restituirà un messaggio di errore allo studente.
-\clearpage
-\begin{table}[tb]
+
+\begin{table}[H]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
 	%\scriptsize % Dimensione del testo ulteriormente più piccola
-	%\caption{} % Didascalia tabella
+	\caption{Simulazione della media con valori non validi o vuoti} % Didascalia tabella
 	%\label{} % Etichetta per riferimenti incrociati
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -86,16 +86,14 @@ Il sistema all’apertura della sezione “previsione” mostrerà la carriera d
 \end{table}
 
 \subsection{Esami da conseguire terminati}
-\paragraph{} 
 Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e segnalerà che lo studente ha terminato gli esami da conseguire.
 
-\clearpage
-\begin{table}[tb]
+\begin{table}[H]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
 	%\scriptsize % Dimensione del testo ulteriormente più piccola
-	%\caption{} % Didascalia tabella
+	\caption{Esami da conseguire terminati} % Didascalia tabella
 	%\label{} % Etichetta per riferimenti incrociati
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -115,18 +113,17 @@ Il sistema all’apertura della sezione “previsione” mostrerà la carriera d
 		\hline
 	\end{tabular}
 \end{table}
-\clearpage
 
 \subsection{Mancata connessione}
-\paragraph{} 
+
 Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l’impossibilità di connessione con il sincronizzatore.
-\clearpage
-\begin{table}[tb]
+
+\begin{table}[H]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
 	%\scriptsize % Dimensione del testo ulteriormente più piccola
-	%\caption{} % Didascalia tabella
+	\caption{Mancata connessione} % Didascalia tabella
 	%\label{} % Etichetta per riferimenti incrociati
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -153,9 +150,9 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
 \end{comment}
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/usecasemedia.png}
+	\includegraphics[height=4in]{imgs/gruppo3/usecasemedia.png}
 	\caption{caso d'uso media}
 	\label{fig:prova}
 \end{figure}
@@ -164,50 +161,25 @@ Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs,
 \begin{comment}
 Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
 \end{comment}
-\begin{figure}
+\begin{figure}[H]
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/sequencesimulazionemedia.png}
+	\includegraphics[height=3in]{imgs/gruppo3/sequencesimulazionemedia.png}
 	\caption{sequence simulazione media}
 	\label{fig:prova}
 \end{figure}
-\begin{figure}
+\begin{figure}[H]
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/valorinonvalidi.png}
-	\caption{sequence simulazione media con valori non validi o vuoti}
+	\includegraphics[height=3in]{imgs/gruppo3/valorinonvalidi.png}
+	\caption{Sequence simulazione media con valori non validi o vuoti}
 	\label{fig:prova}
 \end{figure}
 \section{Diagrammi delle attività}
 \begin{comment}
 Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
 \end{comment}
-\begin{figure}
+\begin{figure}[H]
 	\centering
-	\includegraphics[height=5in]{imgs/file-comuni-ai-gruppi/activitydiagramgen.jpeg}
+	\includegraphics[height=5in]{imgs/gruppo3/activitydiagramgen.jpeg}
 	\caption{Diagramma di attività}
 	\label{fig:prova}
 \end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[height=6in]{imgs/file-comuni-ai-gruppi/mockupmenu.png}
-	\caption{Mockup Menù}
-	\label{fig:prova}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[height=6in]{imgs/file-comuni-ai-gruppi/mockupselezionaesami.png}
-	\caption{Mockup Seleziona esami}
-	\label{fig:prova}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[height=6in]{imgs/file-comuni-ai-gruppi/mockupmedia.png}
-	\caption{Mockup Media}
-	\label{fig:prova}
-\end{figure}
-\begin{figure}
-	\centering
-	\includegraphics[height=6in]{imgs/file-comuni-ai-gruppi/mockupesamiterminati.png}
-	\caption{Mockup Esami terminati}
-	\label{fig:prova}
-\end{figure}
-\clearpage
