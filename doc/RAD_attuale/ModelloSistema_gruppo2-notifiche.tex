@@ -27,75 +27,145 @@ All’apertura del periodo di pagamento di un importo di tasse universitarie, ta
 
 \subsection{Sospensione lezione}
 
-
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in occasione della sospensione della lezione di “Ingegneria del Software” del Prof. Fausto Fasano prevista per il giorno 19/03/2019.
 
 \section{Casi d'uso}
-Per ogni caso d'uso inserire descrizione e tabella. Se il tuo caso d'uso prevede più attori di quelli che sono nella tabella sottostante di esempio, aggiungi una colonna nella sezione flusso degli eventi!
 
-\paragraph{Caso d'uso 1 (sostituire con nome caso d'uso) \\} 
-Lorem ipsum dolor sit amet... (sostituire con descrizione caso d'uso)
+\subsection{Gestione notifiche}
+
+Il caso d'uso \emph{Gestione notifiche} è identico per tutte le notifiche, ciò che cambia è unicamente il contenuto della modifica. Vedi Tabella~\vref{tab:caso-duso-gestione-notifiche}.
 
 \begin{table}
 %\normalsize % Dimensione testo normale
 \small % Dimensione testo piccola
 %\footnotesize % Dimensione testo piccolissima
 %\scriptsize % Dimensione del testo ulteriormente più piccola
-%\caption{} % Didascalia tabella
-%\label{} % Etichetta per riferimenti incrociati
+\caption{Tabella caso d'uso - Gestione notifiche} % Didascalia tabella
+\label{tab:caso-duso-gestione-notifiche} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
-	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Login}} \\
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione notifiche}} \\
 	\hline
-	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.} \\
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
 	\hline
-	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'utente ha cliccato sul bottone di login.} \\
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
 	\hline
-	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
 	\hline
-	\textbf{} & \textbf{1} & \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il login, e-mail e password dell'utente \\
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
 	\hline
-	\textbf{} & \textbf{2} & Inserisce i dati e sottomette la richiesta & \textbf{} \\
+	\textbf{} & \textbf{2} & Riceve la notifica. & \textbf{} \\
 	\hline
-	\textbf{} & \textbf{3} & \textbf{} & Controlla che siano stati inseriti entrambi i campi e avvia le operazioni di visualizzazione \\
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
 	\hline
-	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
-	\hline
-	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema completa la login e dà accesso all'app o, in caso contrario, visualizza un messaggio di errore se non sono stati inseriti tutti i dati obbligatori, se le credenziali non sono corrette o se si verifica un insuccesso dell'operazione.} \\
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
 	\hline
 \end{tabular}
 \end{table}
 
 \section{Diagrammi dei casi d'uso}
 
-Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
+Vedi Figura~\vref{fig:diagr-casi-duso-notifiche}.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/useCaseEsempio.png}
-	\caption{Inserire descrizione}
-	\label{fig:prova}
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-notifiche}
+	\caption{Diagramma casi d'uso - Notifiche}
+	\label{fig:diagr-casi-duso-notifiche}
 \end{figure}
 
 \section{Diagrammi di sequenza}
 
-Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
+Diagramma di sequenza: Vedi Figura~\vref{fig:seq-diagr-notifiche}.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/SequenceDgEsempio.png}
-	\caption{Inserire descrizione}
-	\label{fig:prova}
+	\includegraphics[width=0.85\textwidth]{imgs/gruppo2/sequence-notifiche}
+	\caption{Sequence diagram - Notifiche}
+	\label{fig:seq-diagr-notifiche}
 \end{figure}
 
 \section{Diagrammi delle attività}
 
-Inserire immagine del diagramma. Le immagini vanno caricate nella cartella imgs, va inserito il path corrispondente (nomefile.estensione) dopo il tag includegraphics e va cambiata la descrizione dell'immagine (caption) con un'etichetta opportuna. Sostituire l'immagine file-comuni-ai-gruppi/useCaseEsempio.png con quella desiderata.
+Diagrammma per "Verbalizzazione esame": vedi Figura~\vref{fig:activity-notifiche-verbalizzazione-esame}.
+
+Diagrammma per "Apertura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-apertura-finestra-esame}.
+
+Diagrammma per "Chiusura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-chiusura-finestra-esame}.
+
+Diagrammma per "Avviso tasse": vedi Figura~\vref{fig:activity-notifiche-avviso-tasse}.
+
+Diagrammma per "Rinvio delle lezioni": vedi Figura~\vref{fig:activity-notifiche-rinvio-lezioni}.
+
+Diagrammma per "Sospensione lezioni": vedi Figura~\vref{fig:activity-notifiche-sospensione-lezioni}.
+
+Diagrammma per "Notizie dall'Ateneo": vedi Figura~\vref{fig:activity-notifiche-notizie-ateneo}.
+
+Diagrammma per "Notizie dal Dipartimento": vedi Figura~\vref{fig:activity-notifiche-notizie-dipartimento}.
+
+Diagrammma per "Notizie dal Corso di Studi": vedi Figura~\vref{fig:activity-notifiche-notizie-corso-di-studi}.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/ActivityDgEsempio.png}
-	\caption{Inserire descrizione}
-	\label{fig:prova}
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-verbalizzazione-esame}
+	\caption{Activity - Verbalizzazione esame}
+	\label{fig:activity-notifiche-verbalizzazione-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-apertura-prenotazione-esame}
+	\caption{Activity - Apertura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-apertura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-chiusura-prenotazione-esame}
+	\caption{Activity - Chiusura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-chiusura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-avviso-tasse}
+	\caption{Activity - Avviso tasse}
+	\label{fig:activity-notifiche-avviso-tasse}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-rinvio-lezioni}
+	\caption{Activity - Rinvio delle lezioni}
+	\label{fig:activity-notifiche-rinvio-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-sospensione-lezioni}
+	\caption{Activity - Sospensione lezioni}
+	\label{fig:activity-notifiche-sospensione-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-ateneo}
+	\caption{Activity - Notizie dall'Ateneo}
+	\label{fig:activity-notifiche-notizie-ateneo}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-dipartimento}
+	\caption{Activity - Notizie dal Dipartimento}
+	\label{fig:activity-notifiche-notizie-dipartimento}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-corso-di-studi}
+	\caption{Activity - Notizie dal Corso di Studi}
+	\label{fig:activity-notifiche-notizie-corso-di-studi}
 \end{figure}
 
 \clearpage
