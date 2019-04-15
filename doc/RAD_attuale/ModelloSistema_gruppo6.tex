@@ -6,7 +6,29 @@
 %%% Il gruppo 6 scriverà il suo modello del sistema. Esso dovrà includere: attori, casi d'uso (descrizione e tabella), scenari, diagrammi dei casi d'uso, diagrammi di sequenza, diagramma delle attività, screen mockups della funzionalità %%%
 
 \section{Attori}
-Descrivere gli attori che partecipano ai seguenti caso d'uso.
+\emph{\textbf{Studente:}} è un iscritto all’\emph{Università degli Studi del Molise} e possiede le credenziali di accesso al portale \emph{“Esse3“} in qualità di \emph{Studente}. Lo\emph{Studente} utilizzerà la funzione chat per facilitare la comunicazione ufficiale con i \emph{docenti} relativi ai corsi dell’anno di appartenenza, potrà inoltre comunicare con gli altri studenti appartenenti al suo stesso anno di corso.\\
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\textwidth]{imgs/gruppo6/Attori/Studente.png}
+	\caption{Attore: Studente}
+	\label{fig:Attore: Studente}	
+\end{figure}
+
+\emph{\textbf{Docente:}} è un professore dell’\emph{Università degli Studi del Molise}avente le credenziali di accesso al portale \emph{“Esse3”} in qualità di \emph{Docente} universitario. Il \emph{Docente} utilizzerà la funzione \emph{chat} per comunicare in via ufficiosa con tutti gli \emph{studenti} iscritti ad un corso da lui tenuto, in modo rapido e semplice. Potrà inoltre amministrare le \emph{chat} secondo le sue preferenze, ovvero, creerà o rimuoverà dei canali e aggiungerà o rimuoverà i membri come meglio crede.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\textwidth]{imgs/gruppo6/Attori/Docente.png}
+	\caption{Attore: Docente}
+	\label{fig:Attore: Docente}	
+\end{figure}
+
+
+
+\emph{\textbf{Amministratore:} è un Amministratore dell’Università degli Studi del Molise}, al quale sono assegnate le credenziali per poter effettuare l’accesso al pannello amministrazione.\emph{L’Amministratore} avrà il compito di gestire, mediante tale pannello, le \emph{chat} degli studenti e le \emph{chat} dei corsi dove potrà coordinare i relativi canali e gli utenti in essi presenti.
+Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la segnalazione dei messaggi inopportuni all’interno delle \emph{chat}.
 
 %%%%%%%%%%%%%%%PER QUANTO RIGUARDA IL NOSTRO ATTORE STUDENTE, VERRà INTEGRATO CON QUELLO DI TUTTI FACENDO UNA REF AD UNA LABEL
 %N.B.:
@@ -1282,6 +1304,759 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 		\hline
 	\end{tabular}
 \end{table}
+
+
+\newpage
+
+\begin{table}[tb] 
+\small % Dimensione testo piccola
+\label{CUP1-Login}
+\caption{\textbf{CUP1 - \emph{Login}}}
+
+
+L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’accesso avviene mediante l’inserimento di una \emph{username} e \emph{password}. Il \emph{login} dovrà verificare in modo sicuro l’identità di chi sta effettuando l’accesso.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP1 - \emph{Login}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} ha raggiunto la schermata di \emph{login}.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce \emph{login}; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2} &  \textbf{} & Propone una schermata per l'inserimento dei dati necessari per il \emph{login}, \emph{username} e \emph{password} dell'\emph{Amministratore};\\
+	\hline
+	\textbf{} & \textbf{3} & Inserisce i dati e sottomette la richiesta; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Controlla che siano stati inseriti i campi e avvia le operazioni di visualizzazione;\\
+	\hline
+		
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: non viene visualizzata la schermata di \emph{login};
+	\newline 2.1 - 4.1 Errore di sistema: non viene effettuato il \emph{login};
+	\newline 3.1 Uno o entrambi i campi sono vuoti: non viene effettutato il \emph{login} e viene evidenziato il campo vuoto con un messaggio di errore;\newline 3.2 Le credenziali inserite non sono valide (una o entrambe): non viene effettuato il \emph{login} e viene visualizzato un messaggio che notifica l'errore di inserimento delle credenziali;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la schermata \emph{home}.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP2-Logout}
+\caption{\textbf{CUP2 - \emph{Logout}}}
+L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo sicuro.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP2 - \emph{Logout}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} ha effettuato il \emph{login}.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce \emph{logout}; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2} &  \textbf{} & Chiude la sessione disconnettendo l'\emph{Amministratore};\\
+	\hline
+\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: non viene effettuato il \emph{logout};
+	\newline 2.1 Chiusura della sessione non corretta: non viene effettuato il \emph{logout};} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la schermata di \emph{login}.} \\
+	\hline
+\end{tabular}
+\end{table}
+ 
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP3- Ricerca chat}
+\caption{\textbf{CUP3 - Ricerca \emph{chat}}}
+
+L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visualizza una schermata relativa alla ricerca, all’interno della quale è possibile cercare una specifica \emph{chat} o un gruppo di \emph{chat}. Tale ricerca, può essere effettuata mediante l’inserimento del nome della \emph{chat} da ricercare, o attraverso l’utilizzo di filtri.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP3 - Ricerca \emph{chat}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la schermata per effettuare una ricerca;} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce "Ricerca"; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2} &  \textbf{} & Chiede il testo da cercare;\\
+	\hline
+	\textbf{} & \textbf{3} & Inserisce il testo da cercare; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Effettua la ricerca e mostra la \emph{chat} desiderata;\\
+	\hline
+	\textbf{} & \textbf{1.1} & Seleziona il filtro "Dipartimento"; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2.1} &  \textbf{} & Mostra i dipartimenti;\\
+	\hline
+	\textbf{} & \textbf{3.1} & Seleziona un dipartimento e procede col selezionare il secondo filtro “Corsi di laurea”;  & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4.1} &  \textbf{} & Mostra i corsi di laurea del  dipartimento precedentemente selezionato;\\
+	\hline
+	\textbf{} & \textbf{5.1} & Seleziona un corso di laurea e procede col selezionare il terzo filtro “Anno corso”; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{6.1} &  \textbf{} & Mostra la coorte degli anni che individuano un anno accademico di un corso di laurea; \\
+\hline
+\textbf{} & \textbf{7.1} & Seleziona la coorte di un anno accademico e procede con la ricerca;  & \textbf{}  \\
+	\hline
+		
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;
+	\newline 2.1 - 2.1.1 - 4.1.1 - 6.1.1 Errore di sistema: viene visualizzato un messaggio di errore;
+	\newline 4.1 \emph{Chat} non trovata: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza correttamente la \emph{chat} ricercata, o l'elenco delle \emph{chat} inerenti ai filtri applicati.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP4 - Visualizza lista chat}
+\caption{\textbf{CUP4 - Visualizza lista \emph{chat}}}
+L'\emph{Amministratore} vuole selezionare una tipologia di \emph{chat} da visualizzare.
+E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{chat} dei corsi, queste ultime suddivise a loro volta in \emph{chat} attive e non attive. La suddivisione garantisce una corretta caratterizzazione e organizzazione delle \emph{chat}.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP4 - Visualizza lista \emph{chat}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} effettua il \emph{login} e si trova nella schermata principale.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona come categoria di \emph{chat} da visualizzare le \emph{chat} degli studenti; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2} & Effettua la ricerca come da caso d'uso CUP3 Ricerca \emph{chat}; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{3} &  \textbf{} & Mostra l'elenco delle \emph{chat} degli studenti;\\
+	\hline
+	\textbf{} & \textbf{1.1} & Seleziona come categoria di \emph{chat} da visualizzare le chat relative ai corsi; & \textbf{}  \\
+	\hline
+		\textbf{} & \textbf{2.1} & Effettua la ricerca come da caso d'uso CUP3 Ricerca \emph{chat}; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{3.1} &  \textbf{} & Mostra la schermata con l'elenco delle \emph{chat} attive;\\
+	\hline
+	\textbf{} & \textbf{1.1.1} & Seleziona la schermata con l'elenco delle \emph{chat} non attive; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{3.1.1} &  \textbf{} & Mostra l'elenco delle \emph{chat} non attive; \\
+
+	\hline
+		
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: non viene visualizzata la lista delle \emph{chat};
+	\newline 3.1 - 3.1.1 - 3.1.1.1 Errore di sistema: viene visualizzato un messaggio di errore;
+} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la lista delle \emph{chat} ricercate.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP5-Abilita chat}
+\caption{\textbf{CUP5 - Abilita \emph{chat}}}
+
+
+L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non attive e a seguito di una richiesta abilita una specifica \emph{chat}.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP5 - Abilita \emph{chat}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona la categoria corsi, all’interno della quale visualizza le \emph{chat} abilitate.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona una \emph{chat} e accede alla sezione abilita \emph{chat}; & \textbf{}  \\
+	\hline
+	\textbf{} & \textbf{2} &  \textbf{} & Mostra un pannello in cui chiede conferma per abilitare la \emph{chat} selezionata;\\
+	\hline
+	\textbf{} & \textbf{3} & Conferma l'abilitazione della \emph{chat}; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Abilita la \emph{chat} e inserisce la \emph{chat} attivata all'interno dell'elenco delle \emph{chat} abilitate;\\
+	\hline
+		
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;
+	\newline 2.1 - 4.1 Errore di sistema: viene visualizzato un messaggio di errore;
+	} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la schermata \emph{chat} attive.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[tb]
+
+
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP6-Disabilita chat}
+
+\caption{\textbf{CUP6 - Disabilita \emph{chat}}}
+
+L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive e a seguito di una richiesta disabilita una specifica \emph{chat}.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP6 - Disabilita \emph{chat}}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona la categoria corsi, all'interno della quale visualizza le \emph{chat} abilitate.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona una \emph{chat} e seleziona la voce disabilita \emph{chat};& \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra un pannello in cui chiede conferma per disabilitare la \emph{chat} selezionata; \\
+	\hline
+\textbf{} & \textbf{3} & Conferma la disabilitazione della \emph{chat};& \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Disabilita la \emph{chat} e inserisce la \emph{chat} disattivata all'interno dell'elenco delle \emph{chat} non abilitate; \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 - 4.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la schermata \emph{chat} non attive.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP7- Visualizza canale}
+
+\caption{\textbf{CUP7 - Visualizza canale}}
+L'\emph{Amministratore} seleziona una specifica chat da visualizzare.
+In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opportuno canale, ne visualizza i messaggi in esso contenuti.\\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP7 - Visualizza canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona una specifica categoria.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la \emph{chat} da visualizzare; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra la relativa \emph{chat} e i canali in essa contenuti; \\
+	\hline
+\textbf{} & \textbf{3} & Seleziona uno specifico canale;& \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Mostra la conversazione inerente al canale selezionato; \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 - 4.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza il canale selezionato.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[tb]
+
+\small % Dimensione testo piccola
+
+\label{CUP8-Aggiungi canale}
+\caption{\textbf{CUP8 - Aggiungi canale}}
+L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{chat} al fine di rendere la conversazione quanto più organizzata possibile e di suddividere eventuali moduli e partizionamenti di un corso. Ha quindi la possibilità di aggiungere utenti al canale della \emph{chat} e di scegliere il nome del nuovo canale.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP8 - Aggiungi canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona una \emph{chat} attiva.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce "Gestione canali"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{2} &  \textbf{} & Mostra le opzioni per i canali;\\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona la voce "Crea nuovo canale"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Mostra le opzioni per il nuovo canale;\\
+	\hline
+	
+	\textbf{} & \textbf{5} & Inserisce il nome del canale e procede; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{6} &  \textbf{} & Mostra la schermata per procedere all'inserimento degli utenti del canale;\\
+	\hline
+	\textbf{} & \textbf{7} &Inserisce gli utenti che ne fanno parte e procedere selezionando la voce "Aggiungi utenti"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{8} &  \textbf{} & Mostra la schermata per confermare la creazione del canale;\\
+	\hline
+	\textbf{} & \textbf{9} & Procede selezionando "Crea canale"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{10} &  \textbf{} & Crea e mostra il canale all'interno della \emph{chat};\\
+	\hline		
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizato un messaggio di errore;
+	\newline 2.1 - 4.1 - 6.1 - 8.1 Errore di sistema: viene visualizzato un messaggio di errore;
+	\newline 6.1 Il canale non viene creato: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza un messaggio di conferma della creazione del nuovo canale.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP9-Cancella canale}
+\caption{\textbf{CUP9 - Cancella canale}}
+L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga richiesta l’eliminazione.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP9 - Cancella canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} sleziona una \emph{chat} attiva.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce "Gestione canali"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{2} &  \textbf{} & Mostra le opzioni per i canali;\\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona la voce "Elimina canale"; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Mostra lista dei canali della \emph{chat};\\
+	\hline
+	
+	\textbf{} & \textbf{5} & Seleziona il canale da eliminare e procede all'eliminazione; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{6} &  \textbf{} & Il sistema elimina il canale selezionato;\\
+	\hline
+			
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizato un messaggio di errore;
+	\newline 2.1 - 4.1 - 6.1  Errore di sistema: viene visualizzato un messaggio di errore;
+	\newline 4.1 Non ci sono canali nella \emph{chat}: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza un messaggio di conferma della rimozione del canale.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP10 - Visualizza lista utenti}
+\caption{\textbf{CUP10 - Visualizza lista utenti}}
+L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'interno di un canale.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP10 - Visualizza lista utenti}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona un canale di discussione.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce "Visualizza utenti";& \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra il numero e la lista degli utenti presenti nel canale distinguendo gli utenti \emph{Amministratori} dai semplici utenti del canale; \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza la lista utenti.} \\
+	\hline
+\end{tabular}
+\end{table} 
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+
+\label{CUP11 - Aggiungi un utente ad un canale}
+
+\caption{\textbf{CUP11 - Aggiungi un utente ad un canale}}
+
+L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP11 - Aggiungi un utente ad un canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona un canale di una \emph{chat} e visualizza la lista degli utenti del canale.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce “Aggiungi membro”; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra la schermata per aggiungere il membro; \\
+	\hline
+\textbf{} & \textbf{3}& Inserisce l’identificativo dell’utente da aggiungere;& \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Aggiunge l’utente;\\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 - 4.1 Errore di sistema: viene visualizzato un messaggio di errore;\newline 3.1 Identificativo non trovato: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza l’utente nella lista utenti.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP12 - Rimuovere un utente da un canale}
+\caption{\textbf{CUP12 - Rimuovere un utente da un canale}}
+L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP12 - Rimuovere un utente da un canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  seleziona un canale di discussione di una chat e visualizza la lista degli utenti del canale.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona l’utente nella lista e seleziona la voce “Rimuovi membro”; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Rimuove l’utente dal canale;  \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza un messaggio di conferma rimozione.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP13 - Silenziare utente in un canale}
+
+\caption{\textbf{CUP13 - Silenziare utente in un canale}}
+
+L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio offensivo in una \emph{chat}. Silenziando l'utente, quest'ultimo non avrà la possibilità di inviare messaggi all'interno della \emph{chat}.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP13 - Silenziare utente in un canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona il canale di discussione dove vuole silenziare un utente e visualizza il messaggio offensivo o la lista degli utenti del canale. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona il messaggio offensivo; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{2} &  \textbf{} & Mostra il pulsante per silenziare l’utente; \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona il comando “silenzia”; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4} &  \textbf{} & Silenzia l’utente; \\
+	\hline
+		\textbf{} & \textbf{1.1} & Seleziona un utente del canale; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{2.1} &  \textbf{} & Mostra il pulsante per silenziare l’utente;  \\
+	\hline
+	\textbf{} & \textbf{3.1} &Seleziona il comando “silenzia”; & \textbf{}  \\
+	\hline
+\textbf{} & \textbf{4.1} &  \textbf{} & Silenzia l’utente; \\
+	\hline
+	
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 - 1.1.1 Connessione assente: viene visualizzato un messaggio di errore;
+	\newline 2.1 - 2.1.1 - 4.1 - 4.1.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} visualizza un messaggio di conferma del successo dell’operazione.
+} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+
+\label{CUP14 - Reintegra utente in un canale}
+\caption{\textbf{CUP14 - Reintegra utente in un canale}}
+
+L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente silenziato in un canale. Reintegrando l'utente, quest'ultimo ha di nuovo la possibilità di inviare messaggi all'interno del canale della \emph{chat}.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP14 - Reintegra utente in un canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  seleziona il canale di discussione dove vuole reintegrare un utente e visualizza la lista utenti del canale.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona un utente silenziato; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra la voce “Reintegra utente”;  \\
+	\hline
+\textbf{} & \textbf{3}& Seleziona la voce ”Reintegra”; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Reintegra l’utente; \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;
+\newline 1.2 Il canale non contiene utenti silenziati: viene visualizzato un messaggio di errore;	
+	\newline 2.1 - 4.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza un messaggio di conferma del successo dell’operazione.
+} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+ 
+\label{CUP15 - Modificare i permessi di un utente in un canale}
+
+\caption{\textbf{CUP15 - Modificare i permessi di un utente in un canale}}
+L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ricopre all’interno di un canale di una \emph{chat}, cioè impostare un utente amministratore oppure rimuovere questo titolo e far diventare quindi un amministratore di un canale un semplice utente.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP15 - Modificare i permessi di un utente in un canale}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  seleziona il canale di discussione dove è presente l’utente da modificare e visualizza la lista degli utenti del canale.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Seleziona un utente e modifica il suo ruolo; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Modifica ruolo dell’utente e visualizza la modifica; \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;
+	\newline 2.2 L’utente ricopre già il ruolo assegnato: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza un messaggio di conferma del successo dell’operazione.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP16 - Nascondi messaggio}
+\caption{\textbf{CUP16 - Nascondi messaggio}}
+
+L'\emph{Amministratore} vuole nascondere il contenuto di un messaggio in uno specifico canale di una \emph{chat}. Può risultare opportuno nascondere un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato risulti effettivamente inopportuno. 
+Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi messaggio del canale.\\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP16 - Nascondi messaggio}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  seleziona un canale di discussione e visualizza i messaggi.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona uno specifico messaggio;  & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra l’icona per nascondere lo specifico messaggio nel canale; \\
+	\hline
+\textbf{} & \textbf{3}& Seleziona l’icona per nascondere il messaggio; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Nasconde il contenuto del messaggio all’interno del canale;\\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza la scritta “Questo messaggio è stato nascosto” al posto del testo del messaggio originale.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP17 - Reintegra messaggio}
+
+\caption{\textbf{CUP17 - Reintegra messaggio}}
+L'\emph{Amministratore}  vuole reintegrare un messaggio in uno specifico canale di una \emph{chat}. 
+Può risultare opportuno reintegrare un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato non risulta effettivamente inopportuno. 
+Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi risultare evidenziato all’interno del canale.\\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP17 - Reintegra messaggio}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} seleziona un canale di discussione e visualizza  un messaggio segnalato.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona uno specifico messaggio evidenziato come segnalato;  & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra l’icona per togliere la segnalazione allo specifico messaggio nel canale;  \\
+	\hline
+\textbf{} & \textbf{3}& Seleziona l’icona per nascondere il messaggio; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Toglie la segnalazione al messaggio selezionato;\\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza il messaggio non più segnalato.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+\label{CUP18 - Invio Notifiche}
+
+\caption{\textbf{CUP18 - Invio Notifiche}}
+
+L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a quale categoria di \emph{chat} indirizzarla così da avere la sicurezza che solo chi realmente interessato al contenuto della notifica la riceva. \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP18 - Invio Notifiche}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} effettua il \emph{login}
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce “Invia Notifiche”;   & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra un’area di testo in cui scrivere il messaggio della notifica e la possibilità di effettuare una ricerca;   \\
+	\hline
+\textbf{} & \textbf{3}& Scrive il messaggio della notifica;
+Effettua una ricerca; Invia la notifica; & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Riceve la notifica e la invia alle \emph{chat} selezionate; \\
+	\hline
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;
+	\newline 4.1 Il campo di testo è vuoto: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}  visualizza un messaggio di conferma dell’invio della notifica.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
+
+\begin{table}[tb]
+%\normalsize % Dimensione testo normale
+\small
+
+\label{CUP19 - Gestione messaggi inopportuni}
+\caption{\textbf{CUP19 - Gestione messaggi inopportuni}}
+
+L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportuni all’interno delle \emph{chat}, così da poter decidere se nascondere o meno i messaggi che possono essere ritenuti offensivi o non adatti alla conversazione, decidendo inoltre anche se silenziare l’utente che ha scritto un messaggio offensivo.\\
+
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP19 - Gestione messaggi inopportuni}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Amministratore}}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore} effettua il \emph{login}.
+} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Amministratore}} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona la voce “Gestione messaggi inopportuni”;    & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra una lista di tutte le \emph{chat} dove è presente almeno un messaggio segnalato ancora da verificare riportando il numero di messaggi segnalati all’interno di ognuna; 
+Mostra la possibilità di effettuare una ricerca della lista;    \\
+	\hline
+\textbf{} & \textbf{3}& Seleziona una \emph{chat} dove è presente almeno un messaggio da verificare;  & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Mostra la \emph{chat} evidenziando il o i messaggio / i da verificare; \\
+	\hline
+
+
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{1.1 Connessione assente: viene visualizzato un messaggio di errore;\newline 2.1 Errore di sistema: viene visualizzato un messaggio di errore;} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{L'\emph{Amministratore}   visualizza il messaggio segnalato evidenziato nel canale.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+
 
 
 
