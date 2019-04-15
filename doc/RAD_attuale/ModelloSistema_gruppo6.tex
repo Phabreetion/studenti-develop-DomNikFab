@@ -599,7 +599,6 @@ Seleziona il messaggio e visualizza tutte le icone che permettono una modifica a
 
 \section{Casi d'uso}
 
-\newpage
 \begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS1 - Visualizza canale}
@@ -975,11 +974,10 @@ Seleziona il messaggio e visualizza tutte le icone che permettono una modifica a
 \end{table}
 
 
-\newpage
 \begin{table}
 	\small % Dimensione testo piccola
 	\label{CUE1 - Connessione assente}
-	\caption{CUE2 - Connessione assente}
+	\caption{CUE1 - Connessione assente}
 	
 	Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete ma quest’ultima non è disponibile pertanto visualizza un messaggio d’errore. \\
 	
@@ -1029,6 +1027,262 @@ Seleziona il messaggio e visualizza tutte le icone che permettono una modifica a
 		\hline
 	\end{tabular}
 \end{table}
+
+
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD1 - Creazione canale}
+	\caption{CUD1 - Creazione canale}
+	
+	Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede alla sezione "\emph{menù}" e crea un nuovo canale all'interno di quello attuale in uso, assengando ad esso un nome ed aggiungendo uno o più membri. \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD1 - Creazione canale}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{menù} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menù}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona la voce di creazione del nuovo canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Chiede l'immissione del nome del nuovo canale; \\
+		\hline
+		\textbf{} & \textbf{5} & Inserisce il nome del nuovo canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Chiede conferma del nome inserito; \\
+		\hline
+		\textbf{} & \textbf{7} & Conferma il nome inserito; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{8} & \textbf{} & Chiede l'identificativo dei membri da inserire all'interno del canale; \\
+		\hline
+		\textbf{} & \textbf{9} & Inserisce l'identificativo dei membri da aggiungere al canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{10} & \textbf{} & Chiede conferma degli identificativi inseriti; \\
+		\hline
+		\textbf{} & \textbf{11} & Conferma gli identificativi inseriti; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{10} & \textbf{} & Conferma la creazione del canale; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Connessione assente: il sistema non procede con la creazione canale; \newline 4.1 - 6.1 - 8.1 - 10.1 - 12.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} visualizza il canale appena creato.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD2 - Cancellazione canale}
+	\caption{CUD2 - Cancellazione canale}
+
+Il \emph{Docente} che si trova all'interno di un canale di discussione accede alla sezione "\emph{menù}" e effettua la cancellazione di uno dei canali presenti all'interno della \emph{chat}. \\
+
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD2 - Cancellazione canale}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{menù} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menù}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona la voce di cancellazione del canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Chiede conferma della cancellaizone; \\
+		\hline
+		\textbf{} & \textbf{5} & Conferma la scelta; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & procede alla cancellazione del canale; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Connessione assente: il canale non viene cancellato; \newline E' presente un solo canale di discussione: il canale non viene cancellato; \newline 4.1 - 6.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} visualizza i canali attivi.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD3 - Aggiungi membro ad un canale}
+	\caption{CUD3 - Aggiungi membro ad un canale}
+
+	Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di aggiungere un nuovo membro ad un canale attraverso il \emph{menù} di modifica che include l'opzione di aggiuta nuovo membro. \\
+
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD3 - Aggiungi membro ad un canale}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{menù} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menù}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona la voce aggiungi nuovo membro al canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Chiede l'identificativo del membro da aggiungere al canale; \\
+		\hline
+		\textbf{} & \textbf{5} & Inserisce l'identificativo del membro da aggiungere; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Chiede conferma dell'identificativo inserito; \\
+		\hline
+		\textbf{} & \textbf{7} & Conferma i dati inseriti; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{8} & \textbf{} & Conferma l'aggiunta del nuovo \emph{Docente}; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Connessione assente: il membro non viene aggiunto; \newline 4.1 - 6.1 - 8.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} visualizza l'elenco aggiornato dei membri assegnati al canale.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD4 - Rimuovi membro ad un canale}
+	\caption{CUD4 - Rimuovi membro ad un canale}
+
+Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di rimuovere un \emph{Docente} o uno \emph{Studente} da un canale attraverso il \emph{menù} di modifica che include l'opzione di rimozione \emph{Docente} o \emph{Studente}. \\
+
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD4 - Rimuovi membro ad un canale}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Accede alla sezione \emph{menù} del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra il \emph{menù}; \\
+		\hline
+		\textbf{} & \textbf{3} & Seleziona la voce rimuovi membro dal canale; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Chiede l'immissione dell'identificativo del membro da rimuovere; \\
+		\hline
+		\textbf{} & \textbf{5} & Inserisce l'identificativo del membro; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} & Chiede conferma dell'identificativo inserito; \\
+		\hline
+		\textbf{} & \textbf{7} & Conferma l'identificativo inserito; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{8} & \textbf{} & Conferma la rimozione del membro dal canale; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Connessione assente: non viene eliminato il membro dal canale; \newline 4.1 - 6.1 - 8.1 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} visualizza l'elenco aggiornato dei membri assegnati al canale.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD5 - Blocca Studente}
+	\caption{CUD5 - Blocca Studente}
+
+	Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso in cui ritenga inappropriati alcuni interventi nel canale di comunicaizone. Per silenziare si intende impedire l'invio di nuovi messaggi ad un determinato \emph{Studente}. \\
+
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD5 - Blocca Studente}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona un messaggio; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra l'opzione di blocco dello \emph{Studente} associato al messaggio; \\
+		\hline
+		\textbf{} & \textbf{3} & Conferma il blocco dello \emph{Studente}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Blocca lo \emph{Studente} e mostra un messaggio di conferma; \\
+		\hline
+		\textbf{} & \textbf{1.1} & Seleziona il nome del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{1.2} & \textbf{} & Mostra il numero dei membri della \emph{chat} e l'elenco dei loro nomi; \\
+		\hline
+		\textbf{} & \textbf{1.3} & Seleziona uno \emph{Studente}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2.1} & \textbf{} & Mostra l'opzione di blocco dello \emph{Studente}; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Il \emph{Docente} non conferma il blocco dello \emph{Studente}: lo \emph{Studente} non viene bloccato \newline Connessione assente: lo \emph{Studente} non viene bloccato; \newline 4.2 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema blocca lo \emph{Studente scelto}.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\newpage
+\begin{table}
+	\small % Dimensione testo piccola
+	\label{CUD6 - Sblocca Studentee}
+	\caption{CUD6 - Sblocca Studente}
+	
+	Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente precedentemente bloccato  nel caso in cui ritenga opportuno farlo, così da poter permettere nuovamente allo studente di inviare messaggi nel canale di discussione.    \\
+	
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD6 - Sblocca Studente}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{\emph{Docente}.}} \\ 
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Il \emph{Docente} seleziona un canale di discussione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{\emph{Docente}} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona un messaggio; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra l'opzione di sblocco dello \emph{Studente} associato al messaggio; \\
+		\hline
+		\textbf{} & \textbf{3} & Conferma lo sblocco dello \emph{Studente}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Sblocca lo \emph{Studente} e mostra un messaggio di conferma; \\
+		\hline
+		\textbf{} & \textbf{1.1} & Seleziona il nome del canale di discussione; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{1.2} & \textbf{} & Mostra il numero dei membri della \emph{chat} e l'elenco dei loro nomi; \\
+		\hline
+		\textbf{} & \textbf{1.3} & Seleziona uno \emph{Studente}; & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2.1} & \textbf{} & Mostra l'opzione di sblocco dello \emph{Studente}; \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Il \emph{Docente} non conferma lo sblocco dello \emph{Studente}: lo \emph{Studente} non viene sbloccato \newline Connessione assente: lo \emph{Studente} non viene sbloccato; \newline 4.2 Nessuna risposta dal \emph{server}: viene visualizzato un messaggio di errore;} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Il sistema sblocca lo \emph{Studente scelto}.} \\
+		\hline
+	\end{tabular}
+\end{table}
+
 
 
 \newpage
