@@ -6,9 +6,48 @@
 %%% Il gruppo 1 scriverà il suo modello del sistema. Esso dovrà includere: attori, casi d'uso (descrizione e tabella), scenari, diagrammi dei casi d'uso, diagrammi di sequenza, diagramma delle attività, screen mockups della funzionalità %%%
 
 \section{Attori}
-Descrivere gli attori che partecipano ai casi d'uso. Se un attore partecipa solo ad alcuni casi d'uso, specificare a quali partecipa, inserendo anche una referenza con \ref{nome_label} qui e con \label{nome_label} sui paragrafi che descrivono quel caso d'uso. 
+\label{sec:attori}
+\subsection{\textit{Sync}}
+\paragraph{} 
+\textit{Sync} rappresenta il sincronizzatore remoto, un web service esterno che si interfaccia con una serie di servizi tra cui \textit{Esse3}, ossia il portale dello studente che offre le funzionalità da replicare nell’applicazione, \textit{Aule Unimol} ed altri servizi esterni. È un’entità esterna al sistema che si vuole realizzare, pertanto  è classificata come attore.
+\begin{center}
+	\includegraphics[width=0.6in]{imgs/attori/Attore-Sync.pdf}
+\end{center}
 
-//Per la chat aggiungere alla descrizione di Studente la visione dello studente che ha il gruppo chat (gruppo 6), inserendo la referenza alla loro parte.
+\subsection{\textit{Docente}}
+\paragraph{} 
+\textit{Docente} è un professore dell’\textit{Università degli Studi del Molise} avente le credenziali di accesso al portale \textit{Esse3}. Il \textit{Docente} utilizzerà la nuova funzionalità per comunicare in modo rapido e semplice e anche in via ufficiosa con tutti gli studenti che frequentano un proprio corso. Egli potrà amministrare le chat secondo le sue preferenze, in particolare potrà creare o rimuovere dei canali e aggiungere o rimuovere i membri.
+\begin{center}
+	\includegraphics[width=0.6in]{imgs/attori/Docente.png}
+\end{center}
+
+\subsection{Studente}
+\paragraph{} 
+Studente regolarmente iscritto all’\textit{Università degli Studi Del Molise}, munito delle credenziali per accedere al portale dello studente \textit{Esse3}, il servizio esterno sul quale si basa l’applicazione. Lo studente utilizza l’applicazione per usufruire in maniera agevole dei servizi offerti dai portali dell’\textit{Università degli Studi del Molise} e monitorare la propria carriera universitaria. Di seguito è mostrata l'icona dello studente standard.
+\begin{center}
+	\includegraphics[width=0.8in]{imgs/attori/Attore-Studente.pdf}
+\end{center}
+Per quanto riguarda la nuova funzionalità di messaggistica, lo \textit{Studente} utilizzerà tale funzione per facilitare la comunicazione ufficiale con i docenti relativi ai corsi della Coorte di appartenenza. Potrà comunicare, inoltre, con gli altri studenti appartenenti al suo stesso anno di corso. Di seguito è mostrato lo studente della chat.
+\begin{center}
+	\includegraphics[width=0.8in]{imgs/attori/Studente.png}
+	\label{fig:Attore: Studente chat}
+\end{center}
+
+
+\emph{\textbf{Amministratore:} è un Amministratore dell’Università degli Studi del Molise}, al quale sono assegnate le credenziali per poter effettuare l’accesso al pannello amministrazione.\emph{L’Amministratore} avrà il compito di gestire, mediante tale pannello, le \emph{chat} degli studenti e le \emph{chat} dei corsi dove potrà coordinare i relativi canali e gli utenti in essi presenti.
+Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la segnalazione dei messaggi inopportuni all’interno delle \emph{chat}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.2\textwidth]{imgs/attori/admin.png}
+	\caption{Attore: Amministratore}
+	\label{fig:Attore: Amministratore} 
+\end{figure}
+
+
+
+\newpage
+
 
 \section{Scenari}
 Inserire qui gli scenari di tutti i gruppi.
@@ -55,7 +94,7 @@ Inserire diagramma casi d'uso di tutti i gruppi.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/useCaseEsempio.png}
+	%\includegraphics[height=3in]{imgs/file-comuni-ai-gruppi/useCaseEsempio.png}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
@@ -66,7 +105,7 @@ Inserire diagrammi di sequenza di tutti i gruppi.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/SequenceDgEsempio.png}
+%	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/SequenceDgEsempio.png}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
@@ -77,9 +116,11 @@ Inserire diagrammi di activity di tutti i gruppi.
 
 \begin{figure}
 	\centering
-	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/ActivityDgEsempio.png}
+%	\includegraphics[height=3in,width=5in]{imgs/file-comuni-ai-gruppi/ActivityDgEsempio.png}
 	\caption{Inserire descrizione}
 	\label{fig:prova}
 \end{figure}
+
+
 
 \clearpage
