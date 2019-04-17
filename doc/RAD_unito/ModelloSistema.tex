@@ -1615,6 +1615,31 @@ Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo
 \subsection{Funzionalità chat}
 
 
+\subsection{Funzionalità previsione media}
+
+\paragraph{Previsione media\\}
+\begin{itemize}
+	\item \textit{Scenario 1 - Simulazione della media:\\}
+	\textit {Giuseppe}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, il quale seleziona gli esami di Ingegneria Del Software e Calcolo Numerico, inserisce la votazione di 26/30 per l'esame di Ingegneria Del Software e 23/30 per l'esame di Calcolo Numerico, il sistema restituisce la previsione media aritmetica con valore di 24,5, la previsione media ponderata con valore di 24,8 e base di laurea con votazione di 91/110.\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 2 - Simulazione della media con valori non validi o vuoti:\\}
+	\textit {Emilio}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, lo studente inserisce il voto di 15/30 riguardante l'esame di Calcolo Numerico oppure non inserisce un voto per nessun esame e preme sul tasto calcola media, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 3 - Esami da conseguire terminati:\\}
+	\textit {Gianluca}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, il sistema mostra la carriera completa allo studente, lo studente non può selezionare alcun esame poichè ha conseguito tutti gli esami, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 4 - Mancata connessione:\\}
+	\textit {Giovanna}, \textit {Studentessa} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, il sistema mostra il messaggio: "Connessione assente, nessun dato disponibile".\\
+\end{itemize}
+
+\section{Casi d'uso}
+\subsection{Funzionalità chat}
 \paragraph{CUS1 - Visualizza canale \\}
 
 Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente.
@@ -3130,6 +3155,138 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 	\caption{\textbf{Visualizza contatto}}
 \end{table}
 
+<<<<<<< HEAD
+=======
+\clearpage
+\subsection{Funzionalità previsione media}
+\paragraph{Simulazione della media\\}
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito opportunamente i voti, restituirà la simulazione della media e la salverà in locale.
+
+\begin{table}[H]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+
+%\label{} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Simulazione della media}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Selezionerà simulazione con esami. \textbf{} &  \\
+	\hline
+	\textbf{} & \textbf{2} &  & Mostrerà la carriera dello studente. \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} &Selezionerà gli esami da includere nel calcolo della media e inserirà i valori da simulare. \textbf{} & \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Simulerà e restituirà la previsione della media salvando in locale. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente tornerà alla Home Page.} \\
+	\hline
+\end{tabular}
+\caption{Simulazione della media} % Didascalia tabella
+\end{table}
+
+\paragraph{Simulazione della media con valori non validi o vuoti\\}
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito dei valori non validi oppure vuoti, restituirà un messaggio di errore allo studente.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Simulazione della media con valori non validi o vuoti.}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} &  \textbf{} & Mostrerà la carriera dello studente.  \\
+		\hline
+		\textbf{} & \textbf{2} & Selezionerà gli esami da includere nel calcolo della media e inserirà valori non validi o vuoti da simulare.  &  \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Visualizzerà a video un messaggio di errore. \\
+		\hline
+	    \textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.[da modificare]\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).[da modificare]} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente chiuderà il messaggio e inserirà nuovamente i valori.} \\
+		\hline
+	\end{tabular}
+	\caption{Simulazione della media con valori non validi o vuoti} % Didascalia tabella
+\end{table}
+
+\paragraph{Esami da conseguire terminati\\}
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e segnalerà che lo studente ha terminato gli esami da conseguire.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Esami da conseguire terminati}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Selezionerà simulazione con esami. \textbf{} &  \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostrerà la carriera dello studente e segnalerà che ha terminato gli esami da conseguire. \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente chiuderà il messaggio e lascerà la sezione.} \\
+		\hline
+	\end{tabular}
+	\caption{Esami da conseguire terminati} % Didascalia tabella
+\end{table}
+
+\paragraph{Mancata connessione\\}
+Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l’impossibilità di connessione con il sincronizzatore.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Mancata connessione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Invierà una richiesta al sincronizzatore per ottenere la carriera e attiverà un timer di sicurezza prima di considerare l’impossibilità di comunicare con il database. \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Arriverà l’evento di Time out. Segnalerà il problema all’ utente e rimanderà alla Home Page. \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente tornerà alla Home Page, cambierà sezione, o chiuderà il messaggio di errore.} \\
+		\hline
+	\end{tabular}
+	\caption{Mancata connessione} % Didascalia tabella
+\end{table}
+
+>>>>>>> develop
 \section{Diagramma dei casi d'uso}
 
 \subsection{Funzionalità Gestione piano di studio}
@@ -3186,6 +3343,17 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 	\label{fig:ucd-rubrica}
 \end{figure}
 
+<<<<<<< HEAD
+=======
+\clearpage
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=4in]{imgs/gruppo3/caso-duso-media.pdf}
+	\caption{UCD - Previsione Media}
+	\label{fig:prova}
+\end{figure}
+>>>>>>> develop
 
 \newpage
 \section{Diagramma di sequenza}
@@ -3621,6 +3789,7 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 	\label{fig:seq3-rubrica}
 \end{figure}
 
+<<<<<<< HEAD
 
 \section{Diagrammi delle attività}
 
@@ -3759,6 +3928,32 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 \end{center}
 \newpage
 
+=======
+\clearpage
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-validi.pdf}
+	\caption{sequence simulazione media}
+	\label{fig:seq1-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-non-validi.pdf}
+	\caption{Sequence simulazione media con valori non validi o vuoti}
+	\label{fig:seq2-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-esami-finiti.pdf}
+	\caption{Sequence simulazione media con esami finiti}
+	\label{fig:seq3-media}
+\end{figure}
+
+\section{Diagramma delle attività}
+>>>>>>> develop
 
 \subsection{Funzionalità chat}
 
@@ -4159,7 +4354,18 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 	\caption{Rubrica}
 	\label{fig:act-rubrica}
 \end{figure}
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
 
+\clearpage
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/media-activity-diagram.pdf}
+	\caption{Diagramma di attività}
+	\label{fig:act-rubrica}
+\end{figure}
 
 \clearpage
