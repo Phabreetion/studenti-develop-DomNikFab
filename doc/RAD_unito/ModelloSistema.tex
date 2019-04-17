@@ -50,7 +50,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \newpage
 
 \section{Scenari}
-\subsection{Gestione piano di studio}
+\subsection{Funzionalità Gestione piano di studio}
 \paragraph{Visualizza corsi}
 \begin{itemize}
 	\item \textit{Visualizzazione avvenuta con successo:}
@@ -251,7 +251,6 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”. 
 \end{itemize}
 
-\subsection{Dettagli corso}
 \paragraph{Visualizza dettagli corso}
 \begin{itemize}
 	\item \textit{Visualizzazione dettagli di un corso superato:}
@@ -276,7 +275,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	\end{tabbing}
 \end{itemize}
 
-\subsection{Gestione appelli}
+\subsection{Funzionalità Gestione appelli}
 \paragraph{Visualizza appelli disponibili}
 \begin{itemize}
 	\item \textit{Visualizzazione avvenuta con successo:}
@@ -468,7 +467,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} previsto e lo seleziona dalla lista. Il sistema prova a cancellare la prenotazione, ma l’operazione non ha successo, per cui il sistema mostra il messaggio di errore “Impossibile annullare la prenotazione”.
 \end{itemize}
 
-\subsection{Gestione materiale didattico}
+\subsection{Funzionalità Gestione materiale didattico}
 \paragraph{Visualizza elenco file}
 \begin{itemize}
 	\item \textit{Visualizzazione elenco file avvenuta con successo:}
@@ -513,7 +512,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 		\hspace{1cm} • \textbf{Nome file} \> Slides.pdf  \\
 		\hspace{1cm} • \textbf{Docente/i} \> Troncarelli Barbara  \\
 		\hspace{1cm} • \textbf{Data} \> 10/02/2019  \\
-		\hspace{1cm} • \textbf{Note} \> In allegato il materiale didattico presentato nelle lezioni dell'anno accademico 2017-18  \\
+		\hspace{1cm} • \textbf{Note} \> In allegato il materiale didattico presentato nelle\\ lezioni dell'anno accademico 2017-18  \\
 	\end{tabbing} 
 \end{itemize}
 
@@ -1118,8 +1117,505 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	\textit{Pasquale} ripete da capo l’operazione per verificare che vi sia stato effettivamente un errore e non ci siano dunque messaggi inopportuni nel canale.\\
 \end{itemize}
 
+\subsection{Funzionalità rubrica}
+
+\paragraph{Ricerca non filtrata \\}
+\begin{itemize}
+	\item \textit{Scenario 1:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, seleziona la sezione "rubrica" dalla voce del menu e, immediatamente, riesce a visualizzare la rubrica completa.\\
+	
+	\item \textit{Scenario 2 - Connessione assente:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, seleziona la sezione "rubrica" dalla voce del menu, ma riscontra problemi con la connessione pertanto il sistema restituisce l'ultima copia salvata della rubrica.\\
+	
+	\item \textit{Scenario 3 - Copia non presente:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, seleziona la sezione "rubrica" dalla voce del menu, ma riscontra problemi con la connessione pertanto il sistema, non avendo una copia salvata da visualizzare, mostra un messaggio di errore.\\	
+\end{itemize}
+
+\paragraph{Ricerca filtrata \\}
+\begin{itemize}
+	\item \textit{Scenario 1:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, dopo aver selezionato la sezione “rubrica” dalla voce del menu, attraverso la barra di ricerca, inserisce dei parametri di ricerca per trovare uno specifico contatto.\\
+	
+	\item \textit{Scenario 2 - Connessione assente:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, seleziona la sezione "rubrica" dalla voce del menu, ma riscontra problemi con la connessione pertanto il sistema restituisce l'ultima copia della rubrica salvata ed effettua la ricerca.\\
+	
+	\item \textit{Scenario 3 - Copia non presente:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, seleziona la sezione "rubrica" dalla voce del menu, ma riscontra problemi con la connessione pertanto il sistema, non avendo una copia salvata da visualizzare, mostra un messaggio di errore.\\
+	
+	\item \textit{Scenario 4 - Contatto non presente:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, dopo aver selezionato la sezione “rubrica” dalla voce del menu, attraverso la barra di ricerca, inserisce dei parametri di ricerca per trovare uno specifico contatto, ma il risultato non viene trovato pertanto il sistema visualizza un messaggio di "contatto non trovato".\\
+\end{itemize}
+
+\paragraph{Visualizza contatto \\}
+\begin{itemize}
+	\item \textit{Scenario 1:\\}
+	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, dopo aver effettuato la visualizzazione della rubrica o di uno specifico contatto, seleziona il conatto e riesce a visualizzare le informazioni relative ad esso.\\
+\end{itemize}
+
 \section{Casi d'uso}
-\paragraph{CUS1 - Visualizza canale}
+
+\subsection{Funzionalità Piano di studio}
+\paragraph{Visualizza corsi \\}
+Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza corsi}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Piano di studio.}} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia dei corsi salvata nello \textit{storage.} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio per la visualizzazione dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene i corsi del piano di studio aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi aggiornati del piano di studio.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ricerca corsi \\}
+Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i corsi trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca corsi}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Filtra corsi con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di filtrare i corsi in base ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà la lista di corsi filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage} per visualizzare i dati filtrati ad ogni nuovo accesso alla sezione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: 
+\ref{diag:gestionePianoStudio}\\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra corsi con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce uno o più filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Filtra l’elenco dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi filtrati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} &  \textbf{} & Memorizza i filtri nello \textit{storage}.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{4.1} Nessuna memorizzazione.\newline \textbf{5.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi filtrati ed eventualmente salva i filtri. } \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ordina corsi con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un criterio di ordinamento. Il sistema, dopo aver ordinato l’elenco, mostrerà la lista di corsi ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina corsi con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ordina l’elenco dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi ordinati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare il criterio di ordinamento selezionato. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} &  \textbf{} & Memorizza nello \textit{storage} il criterio di ordinamento.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{3.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi ordinati ed eventualmente salva il criterio di ordinamento.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Visualizza dettagli corso \\}
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un corso e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del corso selezionato. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi al corso selezionato. Il sistema mostrerà allo studente i dettagli del corso selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}\\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli corso}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona un corso di cui visualizzare i dettagli. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i dettagli relativi al corso selezionato. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al corso selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\subsection{Funzionalità Gestione appelli}
+\paragraph{Visualizza appelli disponibili \\}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli disponibili afferenti ai corsi del suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili. Il sistema mostrerà allo studente gli appelli disponibili. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli disponibili}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Appelli}.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli disponibili salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli disponibili aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello disponibile.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili aggiornati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Visualizza appelli prenotati \\}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai quali si è prenotato per sostenere degli esami e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli prenotati. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli prenotati. Il sistema mostrerà allo studente gli appelli prenotati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli prenotati}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli prenotati salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli prenotati aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello prenotato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli pronotati aggiornati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ricerca appelli disponibili \\}
+Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà gli appelli trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} 
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca appelli disponibili}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Filtra appelli disponibili con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibili in base di ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà gli appelli disponibili filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra appelli disponibili con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Filtra l’elenco degli appelli disponibili. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili filtrati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Memorizza i filtri nello storage. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.\newline \textbf{4.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili filtrati ed eventualmente salva i filtri.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ordina appelli disponibili con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibili in base ad un criterio di ordinamento, dopodiché il sistema mostrerà gli appelli disponibili ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso:\ref{diag:gestioneAppelli}  \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina appelli disponibili con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Ordina l’elenco degli appelli disponibili. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili ordinati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i criteri di ordinamento & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Memorizza il criterio di ordinamento. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{4.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili ordinati  ed eventualmente salva i criterio di ordinamento.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{ Prenota appello \\ }
+Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sistema inoltra la richiesta di prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta prenotazione, includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati, dopodiché il sistema mostrerà allo studente la conferma della prenotazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} \\
+
+\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Prenota appello}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+	\hline
+	\textbf{} & \textbf{1}& Seleziona l’appello a cui prenotarsi.  & \textbf{} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli. & \textbf{}\\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della prenotazione. & \textbf{}\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Prenotazione fallita.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la conferma della prenotazione e l’appello tra gli appelli prenotati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{ Cancella prenotazione  \\}
+Questo caso d’uso consentirà allo studente di cancellare la prenotazione di un appello. Il sistema inoltra la richiesta di cancellazione della prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta cancellazione, il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati. Il sistema mostrerà allo studente la conferma dell’avvenuta cancellazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+
+\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Cancella prenotazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli prenotati.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+	\hline
+	\textbf{} & \textbf{1}& Seleziona la prenotazione da cancellare.  & \textbf{} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. & \textbf{}\\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della cancellazione. & \textbf{}\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Cancellazione fallita.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la cancellazione della prenotazione, mentra l’appello cancellato torna tra gli appelli disponibili.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\subsection{Funzionalità Gestione materiale didattico}
+\paragraph{Visualizza elenco file \\}
+Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei file afferenti ad un corso. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista di file, il quale elaborerà la richiesta e restituirà i dati relativi ai file. Il sistema mostrerà allo studente l’elenco dei file. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza elenco file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia dei file salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra allo studente l’elenco dei file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun file.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco aggiornato dei file.} \\
+	\hline
+\end{tabular}
+
+\newpage	
+
+\paragraph{Ricerca file \\}
+Questo caso d’uso consentirà allo studente di ricercare i file utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i file trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}\\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i file che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i file trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Visualizza dettagli file \\}
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un file. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del file selezionato, il quale elaborerà la richiesta e restituirà i dati relativi al file selezionato. Il sistema mostrerà allo studente i dettagli del file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file di un corso.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona un file di cui visualizzare i dettagli. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra i dettagli relativi al file selezionato. \\
+	\hline
+	
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al file selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Apri file \\}
+Questo caso d’uso consentirà allo studente di aprire un file. Il sistema ricercherà il file nello \textit{storage} per poi aprirlo. Nel caso in cui il file non fosse presente, il sistema sfrutta i servizi forniti dal \textit{DBService} che procederà con il download nello \textit{storage} dell’app e successivamente aprirà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Apri file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona il file da aprire. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Apre il file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage: si interfaccia con \textit{DBService} per scaricarlo.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente apre il file selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Rimuovi  file \\}
+Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo nello \textit{storage} e rimuovendolo. Nel caso in cui il file non fosse presente, il sistema mostrerà allo studente un messaggio d’errore. Il sistema eliminerà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Rimuovi  file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona il file da eliminare. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Rimuove il file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente rimuove il file selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+\subsection{Funzionalità chat}
+
+
+\paragraph{CUS1 - Visualizza canale \\}
 
 Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente.
 \begin{table}[!h]
@@ -1154,7 +1650,7 @@ Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{me
 \end{table}
 
 \newpage
-	\paragraph{CUS2 - Invio messaggio}
+	\paragraph{CUS2 - Invio messaggio \\}
 
 Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggio selezionando l’apposito spazio dedito alla scrittura. Una volta digitato il testo del messaggio e selezionato il pulsante di invio, il sistema lo mostra nel canale di discussione. \\
 \begin{table}[!h]
@@ -1185,7 +1681,7 @@ Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggi
 
 
 \newpage
-\paragraph{CUS3 - Invio allegato}
+\paragraph{CUS3 - Invio allegato \\}
 
 Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di discussione, similmente ad un messaggio. \\
 	
@@ -1225,7 +1721,7 @@ Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di 
 
 
 \newpage
-\paragraph{CUS4 - Rispondi a singolo messaggio}
+\paragraph{CUS4 - Rispondi a singolo messaggio \\}
 Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona il singolo messaggio a cui desidera rispondere. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1258,7 +1754,7 @@ Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona i
 
 
 \newpage
-\paragraph{CUS5 - Scarica allegato}
+\paragraph{CUS5 - Scarica allegato \\}
 Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canale di discussione. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1290,7 +1786,7 @@ Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canal
 
 
 \newpage
-\paragraph{CUS6 - Segnalazione messaggio}
+\paragraph{CUS6 - Segnalazione messaggio \\}
 Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messaggio che desidera segnalare. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1328,7 +1824,7 @@ Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messa
 
 
 \newpage
-\paragraph{CUS7 - Ricerca testo nella chat}
+\paragraph{CUS7 - Ricerca testo nella chat \\}
 Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca” nel \emph{menù} interno del canale di discussione, digitando il testo da cercare in un’apposita casella di testo. Il sistema mostra tutti i messaggi che contengono il testo partendo dal più recente. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1368,7 +1864,7 @@ Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca
 
 
 \newpage
-\paragraph{CUS8 - Tag membro in messaggio}
+\paragraph{CUS8 - Tag membro in messaggio \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di richiamare l’attenzione di uno specifico membro durante la digitazione di un messaggio. Lo studente digita il nome del membro preceduto da un carattere speciale (@). Il membro selezionato viene avvisato tramite una notifica diretta. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1400,7 +1896,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 
 
 \newpage
-\paragraph{CUS9 - Gestisci notifiche chat}
+\paragraph{CUS9 - Gestisci notifiche chat \\}
 Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibilitá di accedere al \emph{menù} e gestire le notifiche ovvero di attivarle o disattivarle in base alle sue preferenze. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1432,7 +1928,7 @@ Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibili
 
 
 \newpage
-\paragraph{CUS10 - Selezione \emph{emoji}}
+\paragraph{CUS10 - Selezione \emph{emoji} \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di scegliere una o piú \emph{emoji} tra quelle disponibili. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1466,7 +1962,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 
 
 \newpage
-\paragraph{CUS11 - Visualizza elenco membri chat}
+\paragraph{CUS11 - Visualizza elenco membri chat \\}
 Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussione e l’elenco contenente l’\emph{username} degli stessi. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale dell’elenco dei partecipanti al canale qualora essa sia presente. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1494,15 +1990,11 @@ Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussion
 	\caption{CUS11 - Visualizza elenco membri chat}
 \end{table}
 
-\paragraph{CUE1 - Connessione assente}
+\paragraph{CUE1 - Connessione assente \\}
 Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete ma quest’ultima non è disponibile pertanto visualizza un messaggio d’errore. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUE1 - Connessione assente}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUE1 - Connessione assente}} \\
@@ -1525,7 +2017,7 @@ Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete m
 
 
 \newpage
-\paragraph{CUE2 - Nessuna risposta dal sistema}
+\paragraph{CUE2 - Nessuna risposta dal sistema \\}
 Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistema, ma quest’ultimo non è in grado di soddisfare la richiesta pertanto visualizza un messaggio d’errore. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1554,15 +2046,11 @@ Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistem
 	\caption{CUE2 - Nessuna risposta dal sistema}
 \end{table}
 
-\paragraph{CUD1 - Creazione canale}
+\paragraph{CUD1 - Creazione canale \\}
 Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede alla sezione "\emph{menù}" e crea un nuovo canale all'interno di quello attuale in uso, assengando ad esso un nome ed aggiungendo uno o più membri. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD1 - Creazione canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD1 - Creazione canale}} \\
@@ -1607,15 +2095,11 @@ Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede al
 
 
 \newpage
-\paragraph{CUD2 - Cancellazione canale}
+\paragraph{CUD2 - Cancellazione canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione accede alla sezione "\emph{menù}" e effettua la cancellazione di uno dei canali presenti all'interno della \emph{chat}. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD2 - Cancellazione canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD2 - Cancellazione canale}} \\
@@ -1648,7 +2132,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione accede al
 
 
 \newpage
-\paragraph{CUD3 - Aggiungi membro ad un canale}
+\paragraph{CUD3 - Aggiungi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di aggiungere un nuovo membro ad un canale attraverso il \emph{menù} di modifica che include l'opzione di aggiunta nuovo membro. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
@@ -1689,15 +2173,11 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 
 
 \newpage
-\paragraph{CUD4 - Rimuovi membro ad un canale}
+\paragraph{CUD4 - Rimuovi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di rimuovere un \emph{Docente} o uno \emph{Studente} da un canale attraverso il \emph{menù} di modifica che include l'opzione di rimozione \emph{Docente} o \emph{Studente}. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD4 - Rimuovi membro ad un canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD4 - Rimuovi membro ad un canale}} \\
@@ -1734,15 +2214,11 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 
 
 \newpage
-\paragraph{CUD5 - Blocca Studente}
+\paragraph{CUD5 - Blocca Studente \\}
 Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso in cui ritenga inappropriati alcuni interventi nel canale di comunicazione. Per silenziare si intende impedire l'invio di nuovi messaggi ad un determinato \emph{Studente}. \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD5 - Blocca Studente}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD5 - Blocca Studente}} \\
@@ -1779,15 +2255,11 @@ Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso
 
 
 \newpage
-\paragraph{CUD6 - Sblocca Studente}
+\paragraph{CUD6 - Sblocca Studente \\}
 Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente precedentemente bloccato  nel caso in cui ritenga opportuno farlo, così da poter permettere nuovamente allo studente di inviare messaggi nel canale di discussione.    \\
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD6 - Sblocca Studentee}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUD6 - Sblocca Studente}} \\
@@ -1824,7 +2296,7 @@ Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente preced
 
 
 \newpage
-\paragraph{CUP1 - Login}
+\paragraph{CUP1 - Login \\}
 L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’accesso avviene mediante l’inserimento di una \emph{username} e \emph{password}. Il \emph{login} dovrà verificare in modo sicuro l’identità di chi sta effettuando l’accesso.\\
 \begin{table}[!h] 
 	\small % Dimensione testo piccola
@@ -1860,16 +2332,12 @@ L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’acces
 \end{table}
 
 \newpage
-\paragraph{CUP2 - Logout}
+\paragraph{CUP2 - Logout \\}
 L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo sicuro.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP2-Logout}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP2 - \emph{Logout}}} \\
@@ -1894,16 +2362,12 @@ L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo 
 \end{table}
 
 \newpage
-\paragraph{CUP3 - Ricerca chat}
+\paragraph{CUP3 - Ricerca chat \\}
 L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visualizza una schermata relativa alla ricerca, all’interno della quale è possibile cercare una specifica \emph{chat} o un gruppo di \emph{chat}. Tale ricerca, può essere effettuata mediante l’inserimento del nome della \emph{chat} da ricercare, o attraverso l’utilizzo di filtri.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP3- Ricerca chat}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP3 - Ricerca \emph{chat}}} \\
@@ -1948,15 +2412,13 @@ L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visu
 \end{table}
 
 \newpage
-\paragraph{CUP4 - Visualizza lista chat}
+\paragraph{CUP4 - Visualizza lista chat \\}
 L'\emph{Amministratore} vuole selezionare una tipologia di \emph{chat} da visualizzare.
 E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{chat} dei corsi, queste ultime suddivise a loro volta in \emph{chat} attive e non attive. La suddivisione garantisce una corretta caratterizzazione e organizzazione delle \emph{chat}.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP4 - Visualizza lista chat}
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP4 - Visualizza lista \emph{chat}}} \\
@@ -1997,7 +2459,7 @@ E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{ch
 
 
 \newpage
-\paragraph{CUP5 - Abilita chat}
+\paragraph{CUP5 - Abilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non attive e a seguito di una richiesta abilita una specifica \emph{chat}.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
@@ -2034,11 +2496,9 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non att
 \end{table}
 
 \newpage
-\paragraph{CUP6 - Disabilita chat}
+\paragraph{CUP6 - Disabilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive e a seguito di una richiesta disabilita una specifica \emph{chat}.\\
 \begin{table}[!h]
-	
-	
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP6-Disabilita chat}
@@ -2071,16 +2531,13 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive 
 \end{table}
 
 \newpage
-\paragraph{CUP7 - Visualizza canale}
+\paragraph{CUP7 - Visualizza canale \\}
 L'\emph{Amministratore} seleziona una specifica chat da visualizzare.
 In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opportuno canale, ne visualizza i messaggi in esso contenuti.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP7- Visualizza canale}
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP7 - Visualizza canale}} \\
@@ -2109,17 +2566,13 @@ In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opp
 \end{table}
 
 \newpage
-\paragraph{CUP8 - Aggiungi canale}
+\paragraph{CUP8 - Aggiungi canale \\}
 L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{chat} al fine di rendere la conversazione quanto più organizzata possibile e di suddividere eventuali moduli e partizionamenti di un corso. Ha quindi la possibilità di aggiungere utenti al canale della \emph{chat} e di scegliere il nome del nuovo canale.\\
 \begin{table}[!h]
 	
 	\small % Dimensione testo piccola
 	
 	\label{CUP8-Aggiungi canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP8 - Aggiungi canale}} \\
@@ -2162,15 +2615,12 @@ L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{c
 \end{table}
 
 \newpage
-\paragraph{CUP9 - Cancella canale}
+\paragraph{CUP9 - Cancella canale \\}
 L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga richiesta l’eliminazione.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP9-Cancella canale}
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP9 - Cancella canale}} \\
@@ -2206,15 +2656,12 @@ L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga ri
 \end{table}
 
 \newpage
-\paragraph{CUP10 - Visualizza lista utenti}
+\paragraph{CUP10 - Visualizza lista utenti \\}
 L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'interno di un canale.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP10 - Visualizza lista utenti}
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP10 - Visualizza lista utenti}} \\
@@ -2238,18 +2685,13 @@ L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'in
 \end{table} 
 
 \newpage
-\paragraph{CUP11 - Aggiungi un utente ad un canale}
+\paragraph{CUP11 - Aggiungi un utente ad un canale \\}
 L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
 	\label{CUP11 - Aggiungi un utente ad un canale}
-	
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP11 - Aggiungi un utente ad un canale}} \\
@@ -2279,16 +2721,12 @@ L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
 \end{table}
 
 \newpage
-\paragraph{CUP12 - Rimuovere un utente da un canale}
+\paragraph{CUP12 - Rimuovere un utente da un canale \\}
 L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP12 - Rimuovere un utente da un canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP12 - Rimuovere un utente da un canale}} \\
@@ -2314,17 +2752,12 @@ L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
 \end{table}
 
 \newpage
-\paragraph{CUP13 - Silenziare utente in un canale}
+\paragraph{CUP13 - Silenziare utente in un canale \\}
 L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio offensivo in una \emph{chat}. Silenziando l'utente, quest'ultimo non avrà la possibilità di inviare messaggi all'interno della \emph{chat}.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP13 - Silenziare utente in un canale}
-	
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP13 - Silenziare utente in un canale}} \\
@@ -2364,17 +2797,13 @@ L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio off
 
 
 \newpage
-\paragraph{CUP14 - Reintegra utente in un canale}
+\paragraph{CUP14 - Reintegra utente in un canale \\}
 L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente silenziato in un canale. Reintegrando l'utente, quest'ultimo ha di nuovo la possibilità di inviare messaggi all'interno del canale della \emph{chat}.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
 	\label{CUP14 - Reintegra utente in un canale}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP14 - Reintegra utente in un canale}} \\
@@ -2407,18 +2836,13 @@ L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente 
 
 
 \newpage
-\paragraph{CUP15 - Modificare i permessi di un utente in un canale}
+\paragraph{CUP15 - Modificare i permessi di un utente in un canale \\}
 L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ricopre all’interno di un canale di una \emph{chat}, cioè impostare un utente amministratore oppure rimuovere questo titolo e far diventare quindi un amministratore di un canale un semplice utente.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
 	\label{CUP15 - Modificare i permessi di un utente in un canale}
-	
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP15 - Modificare i permessi di un utente in un canale}} \\
@@ -2446,17 +2870,13 @@ L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ric
 
 
 \newpage
-\paragraph{CUP16 - Nascondi messaggio}
+\paragraph{CUP16 - Nascondi messaggio \\}
 L'\emph{Amministratore} vuole nascondere il contenuto di un messaggio in uno specifico canale di una \emph{chat}. Può risultare opportuno nascondere un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato risulti effettivamente inopportuno. 
 Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi messaggio del canale.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP16 - Nascondi messaggio}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP16 - Nascondi messaggio}} \\
@@ -2487,7 +2907,7 @@ Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi 
 
 
 \newpage
-\paragraph{CUP17 - Reintegra messaggio}
+\paragraph{CUP17 - Reintegra messaggio \\}
 L'\emph{Amministratore}  vuole reintegrare un messaggio in uno specifico canale di una \emph{chat}. 
 Può risultare opportuno reintegrare un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato non risulta effettivamente inopportuno. 
 Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi risultare evidenziato all’interno del canale.\\
@@ -2495,9 +2915,6 @@ Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP17 - Reintegra messaggio}
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP17 - Reintegra messaggio}} \\
@@ -2527,17 +2944,12 @@ Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi
 \end{table}
 
 \newpage
-\paragraph{CUP18 - Invio Notifiche}
+\paragraph{CUP18 - Invio Notifiche \\}
 L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a quale categoria di \emph{chat} indirizzarla così da avere la sicurezza che solo chi realmente interessato al contenuto della notifica la riceva. \\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP18 - Invio Notifiche}
-	
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUP18 - Invio Notifiche}} \\
@@ -2569,7 +2981,7 @@ L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a qual
 \end{table}
 
 \newpage
-\paragraph{CUP19 - Gestione messaggi inopportuni}
+\paragraph{CUP19 - Gestione messaggi inopportuni \\}
 L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportuni all’interno delle \emph{chat}, così da poter decidere se nascondere o meno i messaggi che possono essere ritenuti offensivi o non adatti alla conversazione, decidendo inoltre anche se silenziare l’utente che ha scritto un messaggio offensivo.\\
 \begin{table}[!h]
 	%\normalsize % Dimensione testo normale
@@ -2606,7 +3018,141 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\caption{\textbf{CUP19 - Gestione messaggi inopportuni}}
 \end{table}
 
+\newpage
+\subsection{Funzionalità rubrica}
+\paragraph{Ricerca non filtrata \\}
+Il caso d'uso mostra, nella tabella sottostante, il comportamento
+che il sistema assume quando lo \textit{Studente} accede alla sezione rubrica e non effettua nessun tipo di ricerca.
+
+\begin{table}[!h]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Ricerca non filtrata} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Ricerca non filtrata}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}. Partecipa \textbf{Esse3}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} accede alla sezione della rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Esse3} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Richiede la lista completa dei contatti ad \textit{Esse3}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & \textbf{} & Elabora la richiesta e invia i dati relativi alla rubrica. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra allo \textit{Studente} l'elenco dei contatti in rubrica. & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{3.1 \textit{Esse3} non risponde.\newline 3.2 Connessione assente: il sistema restituisce l'ultima copia salvata in locale. \newline 3.3 Connessione assente e copia non presente.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza tutti i contatti della rubrica.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Ricerca non filtrata}}
+\end{table}
+
+\newpage
+\paragraph{Ricerca filtrata \\} 
+Il caso d'uso è il più frequente e mostra nella tabella sottostante il comportamento che il sistema assume quando lo \textit{Studente}
+cerca informazioni inerenti un docente o il personale di segreteria di una sede didattica specifica.
+
+\begin{table}[!h]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Ricerca filtrata} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Ricerca filtrata}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}. Partecipa \textbf{Esse3}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} accede alla sezione della rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Esse3} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce i parametri di ricerca nella barra di ricerca che consente di inserire stringhe di testo. & \textbf{}  & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Richiede il contatto ad \textit{Esse3}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Elabora la richiesta e invia i dati relativi alla rubrica. \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Mostra allo \textit{Studente} il contatto cercato in rubrica. & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{3.1 \textit{Esse3} non risponde.\newline 3.2 Connessione assente: il sistema restituisce l'ultima copia salvata in locale. \newline 3.3 Connessione assente e copia non presente. \newline 3.4 Contatto non presente.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza il contatto cercato nella rubrica.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Ricerca filtrata}}
+\end{table}
+
+\newpage
+\paragraph{Visualizza contatto \\} 
+Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatto, seleziona il contatto e visualizza le informazioni. Non ci sono eccezioni in quanto la ricerca è andata a buon fine.
+
+\begin{table}[!h]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Visualizza contatto} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visulizza contatto}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \textit{Studente} ha effettuato una ricerca dalla rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona il contatto trovato. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra le informazioni del contatto selezionato:
+		\begin{enumerate}
+			\item Nome Cognome
+			\item Dipartimento, Sede
+			\item Email
+			\item Numero telefonico
+		\end{enumerate} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza le informazioni del contatto selezionato.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Visualizza contatto}}
+\end{table}
+
 \section{Diagramma dei casi d'uso}
+
+\subsection{Funzionalità Gestione piano di studio}
+\begin{center}
+	\label{diag:gestionePianoStudio}
+	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD1-gestione_piano_di_studio.pdf}
+\end{center}
+\newpage
+
+\subsection{Funzionalità Gestione appelli}
+\begin{center}
+	\label{diag:gestioneAppelli}
+	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD2-gestione_appelli.pdf}
+\end{center}
+\newpage
+
+\subsection{Funzionalità Gestione Materiale Didattico}
+\begin{center}
+	\label{diag:gestioneMatDidattico}
+	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD3-materiale_didattico.pdf}
+\end{center}
+\newpage
+
 
 \subsection{Funzionalità chat}
 
@@ -2629,6 +3175,15 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\includegraphics[height=3in]{imgs/gruppo6/use_case_diagrams/ucd3_pannello.pdf}
 	\caption{UCD3 - Pannello di amministrazione}
 	\label{fig:ucd3-amm}
+\end{figure}
+
+\clearpage
+\subsection{Funzionalità rubrica}
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=3in]{imgs/gruppo5/Diagram1.pdf}
+	\caption{UCD - Rubrica}
+	\label{fig:ucd-rubrica}
 \end{figure}
 
 
@@ -2935,6 +3490,29 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE2_nessuna_risposta_dal_server.pdf}
 	\caption{CUE2 - Nessuna risposta dal server}
 	\label{fig:seq-cue2}
+\end{figure}
+
+\clearpage
+\subsection{Funzionalità rubrica}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo5/sequence1.pdf}
+	\caption{Ricerca non filtarta}
+	\label{fig:seq1-rubrica}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{imgs/gruppo5/sequence2.pdf}
+\caption{Ricerca filtarta}
+\label{fig:seq2-rubrica}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo5/sequence3.pdf}
+	\caption{Visualizza contatto}
+	\label{fig:seq3-rubrica}
 \end{figure}
 
 \section{Diagramma delle attività}
@@ -3329,6 +3907,15 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\label{fig:act-cup19}
 \end{figure}
 %%% END activities chat pannello %%%
+
+\clearpage
+\subsection{Funzionalità rubrica}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo5/activity.pdf}
+	\caption{Rubrica}
+	\label{fig:act-rubrica}
+\end{figure}
 
 
 
