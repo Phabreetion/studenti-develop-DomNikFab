@@ -49,8 +49,492 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 
 \newpage
 
-
 \section{Scenari}
+\subsection{Gestione piano di studio}
+\paragraph{Visualizza corsi}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, accede alla sezione \textit{Piano di studio} per visualizzare i corsi del piano di studio. Nello specifico, per ogni corso il sistema mostra il nome e, se superato, il voto e la data di verbalizzazione:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
+		\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
+		\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+		\hspace{1cm} • Storia della matematica \> N/D \>\\
+		\hspace{1cm} • Informatica territoriale \> N/D \>\\
+		\hspace{1cm} • Statistica \> N/D \>\\
+		\hspace{1cm} • Intelligenza artificiale \> N/D \>\\
+		\hspace{1cm} • Programmazione mobile \> N/D \>\\
+	\end{tabbing}
+\end{itemize}
+
+\paragraph{Ricerca corsi}
+\begin{itemize}
+	\item \textit{Ricerca avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova i corsi e mostra i risultati:
+
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Storia della matematica \> N/D \>\\
+	\end{tabbing}
+
+	\item \textit{La ricerca non restituisce risultati:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun corso trovato”.
+\end{itemize}
+
+\paragraph{Filtra corsi con memorizzazione}
+\begin{itemize}
+	\item \textit{Filtra per anno:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli esami del \textbf{secondo anno}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+		\hspace{1cm} • Ingegneria del Software\> N/D \> \\
+		\hspace{1cm} • Storia della matematica \> 30L \> 04/02/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Filtra esami superati:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli\textbf{ esami superati}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
+		\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
+		\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Memorizza filtro:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema. Alla successiva apertura dell’app, il sistema filtra di default i corsi per “esami da sostenere”.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di non memorizzare le opzioni inserite. Il sistema applica il filtro selezionato fino alla chiusura del sistema. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti i corsi del piano di studio.
+	
+	\item \textit{Il filtraggio non restituisce alcun risultato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, applica il filtro “esami da sostenere” che non restituisce alcun risultato. Il sistema mostra allo studente il messaggio di errore “Nessun esame è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+\end{itemize}
+
+\paragraph{Ordina corsi con memorizzazione}
+\begin{itemize}
+	\item \textit{Ordinamento alfabetico crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base all’nome del corso. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Architettura degli elaboratori \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \\
+		\hspace{1cm} • Calcolo numerico \\
+		\hspace{1cm} • Informatica giuridica \\
+		\hspace{1cm} • Matematica \\
+		\hspace{1cm} • Programmazione e laboratorio \\
+		\hspace{1cm} • Storia della matematica \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento alfabetico decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base all’nome del corso. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame---------------------------\kill
+		%Scrivere da qui
+		\hspace{1cm} • Storia della matematica \\
+		\hspace{1cm} • Programmazione e laboratorio \\
+		\hspace{1cm} • Matematica \\
+		\hspace{1cm} • Informatica giuridica \\
+		\hspace{1cm} • Calcolo numerico \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \\
+		\hspace{1cm} • Architettura degli elaboratori \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per anno crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base all’anno. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Anno--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> Primo anno\\
+		\hspace{1cm} • Matematica  \>Primo anno\\
+		\hspace{1cm} • Architettura degli elaboratori \> Primo anno\\
+		\hspace{1cm} • Fisica \> Secondo anno\\
+		\hspace{1cm} • Calcolo numerico \> Secondo anno\\
+		\hspace{1cm} • Intelligenza artificiale \> Terzo anno\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per anno decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base all’anno. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Anno--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Intelligenza artificiale \> Terzo anno\\
+		\hspace{1cm} • Calcolo numerico \> Secondo anno\\
+		\hspace{1cm} • Fisica \> Secondo anno\\
+		\hspace{1cm} • Architettura degli elaboratori \> Primo anno\\
+		\hspace{1cm} • Matematica  \>Primo anno\\
+		\hspace{1cm} • Programmazione e laboratorio \> Primo anno\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base ai CFU. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---CFU--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Inglese \> 6 CFU\\
+		\hspace{1cm} • Calcolo numerico  \>6 CFU\\
+		\hspace{1cm} • Architettura degli elaboratori \> 6 CFU\\
+		\hspace{1cm} • Fisica \> 7 CFU\\
+		\hspace{1cm} • Intelligenza artificiale \> 9 CFU\\
+		\hspace{1cm} • Matematica \> 12CFU\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base ai CFU. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---CFU--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica \> 12CFU\\
+		\hspace{1cm} • Intelligenza artificiale \> 9 CFU\\
+		\hspace{1cm} • Fisica \> 7 CFU\\
+		\hspace{1cm} • Architettura degli elaboratori \> 6 CFU\\
+		\hspace{1cm} • Calcolo numerico  \>6 CFU\\
+		\hspace{1cm} • Inglese \> 6 CFU\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per voto crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base al voto. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Voto--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico \> 18\\
+		\hspace{1cm} • Matematica   \>24\\
+		\hspace{1cm} • Programmazione e laboratorio \> 25\\
+		\hspace{1cm} • Architettura degli elaboratori \> 28\\
+		\hspace{1cm} • Informatica giuridica \> 30\\
+		\hspace{1cm} • Storia della matematica \> 30L\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per voto decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base al voto. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Voto--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Storia della matematica \> 30L\\
+		\hspace{1cm} • Informatica giuridica \> 30\\
+		\hspace{1cm} • Architettura degli elaboratori \> 28\\
+		\hspace{1cm} • Programmazione e laboratorio \> 25\\
+		\hspace{1cm} • Matematica \>24\\
+		\hspace{1cm} • Calcolo numerico \> 18\\
+	\end{tabbing}
+	
+	\item \textit{Memorizza ordinamento:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina i corsi sulla base dell'ultimo ordinamento memorizzato.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”. 
+\end{itemize}
+
+\subsection{Dettagli corso}
+\paragraph{Visualizza dettagli corso}
+\begin{itemize}
+	\item \textit{Visualizzazione dettagli di un corso superato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso superato di Informatica giuridica. Il sistema mostra allo studente i seguenti dettagli:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Informatica giuridica \> \textbf{Docente} Troncarelli Barbara\\
+		\hspace{1cm} • \textbf{Anno} 1 \> \textbf{CFU} 6   \\
+		\hspace{1cm} • \textbf{Data esame} 19/06/2018 \> \textbf{Voto} 25 \\
+	\end{tabbing}
+
+	\item \textit{Visualizzazione dettagli di un corso non superato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso non superato di Ingegneria del software. Il sistema mostra allo studente i seguenti dettagli:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Matematica \> \textbf{Docente} Giovanni  Capobianco\\
+		\hspace{1cm} • \textbf{Anno} 1 \> \textbf{CFU} 12  \\
+	\end{tabbing}
+\end{itemize}
+
+\subsection{Gestione appelli}
+\paragraph{Visualizza appelli disponibili}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare gli appelli disponibili. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Basi di dati \> \textbf{Docente} Pareschi Remo
+		\\
+		\hspace{1cm} •  \textbf{CFU} 12  \> \textbf{Data} 15/06/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Nessun appello disponibile:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare gli appelli disponibili. Il sistema non restituisce alcun appello disponibile e mostra il messaggio di errore “Nessun appello disponibile”.
+\end{itemize}
+
+\paragraph{Visualizza appelli prenotati}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema mostra i dati relativi agli appelli prenotati: 
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Fisica \> 01/03/2019 \> \hspace{1cm}Orale \\
+	\end{tabbing}
+	
+	\item \textit{Nessun appello prenotato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema non restituisce alcun appello prenotato e mostra il messaggio di errore “Nessun appello prenotato”. 
+\end{itemize}
+
+\paragraph{Ricerca appelli disponibili}
+\begin{itemize}
+	\item \textit{Ricerca avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova gli appelli disponibili e mostra i risultati:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica  \> 16/02/2019  \\
+		\hspace{1cm} • Storia della Matematica \> 18/01/2019 \\
+	\end{tabbing}
+	
+	\item \textit{La ricerca non restituisce risultati:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun appello trovato”.
+\end{itemize}
+
+\paragraph{Filtra appelli disponibili con memorizzazione}
+\begin{itemize}
+	\item \textit{Filtra per tipologia d’esame (scritto):}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli esami per tipologia \textbf{“scritto”}. Il sistema mostra:  
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico  \> 26/03/2019 \> \hspace{1cm}Scritto \\
+		\hspace{1cm} • Ingegneria del Software \> 01/04/2019 \> \hspace{1cm}Scritto-Orale  \\
+	\end{tabbing}
+	
+	\item \textit{Filtra per tipologia d’esame (orale):}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli appelli per tipologia di esame \textbf{“orale”}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Informatica giuridica  \> 10/04/2019\> \hspace{1cm}Orale \\
+		\hspace{1cm} • Matematica\> 18/04/2019 \> \hspace{1cm}Orale-Scritto  \\
+	\end{tabbing}
+	
+	\item \textit{Filtra per anno:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare in base all'anno in cui è previsto il corso e sceglie di filtrare gli appelli per visualizzare solo quelli afferenti al \textbf{secondo anno}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/06/2019 \\
+		\hspace{1cm} • Fisica \> 28 \> 29/06/2019 \\
+		\hspace{1cm} • Ingegneria del Software \> N/D \> 7/06/2019  \\
+	\end{tabbing}
+	
+	\item \textit{Memorizza filtro:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato il filtro “anno”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema . Alla successiva apertura dell’app, il sistema filtra di default gli appelli per “anno”.
+	
+	\item \textit{Nessuna memorizzzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un filtro, sceglie di non memorizzare le opzioni inserite. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti gli appelli disponibili.
+	
+	\item \textit{Il filtraggio non restituisce alcun risultato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver scelto di filtrare gli appelli disponibili in base al parametro selezionato, non riceve risultati dal sistema. Il sistema mostra il messaggio “Nessun appello è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+\end{itemize}
+
+\paragraph{Ordina appelli disponibili con memorizzazione}
+\begin{itemize}
+	\item \textit{Ordinamento alfabetico crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento alfabetico crescente degli appelli. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento alfabetico decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento alfabetico decrescente degli appelli. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\		
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per data crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per data crescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+	\end{tabbing} 
+	
+	\item \textit{Ordinamento per data decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per data decrescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+	\end{tabbing} 
+	
+	\item \textit{Ordinamento per CFU crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU crescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------- \= --Data--- \= -------------Docente---------- \= -----CFU-----\kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\	
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU decrescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame------------------ \= --Data--- \= -----------Docente------------- \= -----CFU----- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\	
+	\end{tabbing} 
+	
+	\item \textit{Memorizza ordinamento:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento per data, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina gli appelli disponibili sulla base dell'ultimo ordinamento memorizzato.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”.
+\end{itemize}
+
+\paragraph{Prenota appello}
+\begin{itemize}
+	\item \textit{Prenotazione effettuata con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema effettua la prenotazione all’appello e mostra il messaggio “La prenotazione è stata confermata”.
+	
+	\item \textit{Prenotazione fallita:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema prova ad effettuare la prenotazione ma l’operazione non ha successo, per cui mostra il messaggio di errore “Impossibile effettuare la prenotazione”.
+\end{itemize}
+
+\paragraph{Cancella prenotazione}
+\begin{itemize}
+	\item \textit{Cancellazione della prenotazione effettuata con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} e lo seleziona dalla lista. Il sistema annulla la prenotazione all’appello e mostra il messaggio “La prenotazione è stata annullata con successo”.
+	
+	\item \textit{Cancellazione impossibile da effettuare:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} previsto e lo seleziona dalla lista. Il sistema prova a cancellare la prenotazione, ma l’operazione non ha successo, per cui il sistema mostra il messaggio di errore “Impossibile annullare la prenotazione”.
+\end{itemize}
+
+\subsection{Gestione materiale didattico}
+\paragraph{Visualizza elenco file}
+\begin{itemize}
+	\item \textit{Visualizzazione elenco file avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista dei corsi, seleziona il corso di \textit{Informatica giuridica} e chiede di visualizzarne il materiale didattico. Il sistema mostra allo studente i seguenti file: 
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------File---------------------------\kill
+		%Scrivere da qui
+		\hspace{1cm} • Interventi in aula.pdf  \\
+		\hspace{1cm} • Link utili.pdf  \\
+		\hspace{1cm} • Programma di dettaglio.pdf  \\	
+		\hspace{1cm} • Slides.pdf  \\
+	\end{tabbing} 
+	
+	\item \textit{Nessun file:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista dei corsi, seleziona il corso di Evoluzione del calcolo automatico  e chiede di visualizzarne il materiale didattico. Il sistema cerca i file di \textit{Evoluzione del calcolo automatico}, ma non trova nessun file, quindi mostra il messaggio “Nessun file disponibile”.
+\end{itemize}
+
+\paragraph{Ricerca file}
+\begin{itemize}
+	\item \textit{Ricerca avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della  facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di Informatica giuridica, inserisce la parola chiave \textbf{“Slides”}. Il sistema trova il file e mostra i risultati:   
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------File---------------------------\kill
+		%Scrivere da qui
+		\hspace{1cm} • Slides.pdf  \\
+	\end{tabbing} 
+	
+	\item \textit{La ricerca non restituisce risultati:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di Informatica giuridica, inserisce la parola chiave “Sliders”. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun file trovato”.
+\end{itemize}
+
+\paragraph{Visualizza dettagli file}
+\begin{itemize}
+	\item \textit{Visualizzazione dettagli file avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco del materiale didattico del corso di \textit{Informatica giuridica}, seleziona il file \textit{Slides.pdf}. Il sistema elabora la richiesta e mostra allo studente i seguenti dettagli relativi al file selezionato:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Info---------------------------\= infoRegistrate\kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Nome file} \> Slides.pdf  \\
+		\hspace{1cm} • \textbf{Docente/i} \> Troncarelli Barbara  \\
+		\hspace{1cm} • \textbf{Data} \> 10/02/2019  \\
+		\hspace{1cm} • \textbf{Note} \> In allegato il materiale didattico presentato nelle lezioni dell'anno accademico 2017-18  \\
+	\end{tabbing} 
+\end{itemize}
+
+\paragraph{Apri file}
+\begin{itemize}
+	\item \textit{Apertura del file avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, sceglie di aprirlo dalla schermata che ne mostra i dettagli. Il sistema cerca il file all'interno dello \textit{storage}, mostrando il suo contenuto allo studente.
+	
+	\item \textit{File non presente nello \textbf{storage}:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, sceglie di aprirlo dalla schermata che ne mostra i dettagli. Il sistema cerca il file all'interno dello storage e, non trovandolo, mostra il messaggio “Il file non è presente sul dispositivo. Vuoi scaricarlo ora?”. Giuseppe conferma, il sistema scarica il file e successivamente lo apre.
+\end{itemize}
+
+\paragraph{Rimuovi file}
+\begin{itemize}
+	\item \textit{Rimozione del file avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno dello \textit{storage} e lo rimuove, successivamente mostra il messaggio “File rimosso con successo”.
+	
+	\item \textit{File non presente nello \textbf{storage}:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
+\end{itemize}
+
 \subsection{Funzionalità chat}
 \subsubsection{Chat Studenti}
 \paragraph{CUS1 - Visualizza canale}
@@ -215,7 +699,6 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \end{itemize}
 
 \subsubsection{Chat Docenti}
-
 \paragraph{CUD1 - Creazione canale\\}
 \begin{itemize}
 	\item \textit{Scenario 1:\\}
@@ -636,12 +1119,10 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \end{itemize}
 
 \section{Casi d'uso}
-
 \paragraph{CUS1 - Visualizza canale}
+
 Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente.
 \begin{table}[!h]
-	
-	
 	\small % Dimensione testo piccola
 	\label{CUS1 - Visualizza canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -671,7 +1152,6 @@ Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{me
 	\end{tabular}
 	\caption{CUS1 - Visualizza canale}
 \end{table}
-
 
 \newpage
 	\paragraph{CUS2 - Invio messaggio}
@@ -750,10 +1230,6 @@ Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona i
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS4 - Rispondi a singolo messaggio}
-	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS4 - Rispondi a singolo messaggio}} \\
@@ -788,9 +1264,6 @@ Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canal
 	\small % Dimensione testo piccola
 	\label{CUS5 - Scarica allegato}
 	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS5 - Scarica allegato}} \\
@@ -822,9 +1295,6 @@ Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messa
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS6 - Segnalazione messaggio}
-	
-	
-	
 	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -863,9 +1333,6 @@ Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS7 - Ricerca testo nella chat}
-	
-	
-	
 	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -907,9 +1374,6 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 	\small % Dimensione testo piccola
 	\label{CUS8 - Tag membro in messaggio}
 	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS8 - Tag membro in messaggio}} \\
@@ -942,9 +1406,6 @@ Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibili
 	\small % Dimensione testo piccola
 	\label{CUS9 - Gestisci notifiche chat}
 	
-	
-	
-	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
 		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{CUS9 - Gestisci notifiche chat}} \\
@@ -976,9 +1437,6 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 \begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS10 - Selezione emoji}
-	
-	
-	
 	
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 		\hline
@@ -2485,7 +2943,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 %%% START activities chat studenti %%%
 \begin{figure}[!h]
-	\subsubsection{Activities relative alla chat dell'App Studenti}
+	\subsubsection{Chat studenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cus1_visualizza_canale.pdf}
 	\caption{CUS 1 - Visualizza canale}
@@ -2573,7 +3031,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 %%% START activities chat docenti %%%
 \pagebreak
 \begin{figure}[!h]
-	\subsubsection{Activities relative alla chat dell'App Docenti}
+	\subsubsection{Chat docenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cud1_creazione_canale.pdf}
 	\caption{CUD1 - Creazione canale}
@@ -2633,7 +3091,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 %%% START activities chat pannello %%%
 \pagebreak
 \begin{figure}[!h]
-	\subsubsection{Activities relative al pannello di amministrazione}
+	\subsubsection{Pannello di amministrazione}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cup1_login.pdf}
 	\caption{CUP1 - Login}
