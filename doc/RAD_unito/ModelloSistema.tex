@@ -535,7 +535,20 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
 \end{itemize}
 
+\subsection{Funzionalità gestione orario}
+\subsubsection{Gestione primo avvio}
+\textit{Giulio}, Studente di Informatica, dopo aver selezionato la sezione “\textit{orario}” dalla voce del menu, potrà spuntare, da una lista di corsi, quelli che vuole seguire. Confermerà la selezione premendo l’apposito tasto “OK”. Da questo momento in poi Giulio potrà visualizzare l’orario costituito dai corsi scelti.
+
+
+\subsubsection{Modifica orario}
+\textit{Giulio}, Studente di Informatica, modificherà l’orario del proprio anno accademico spuntando la lista dei corsi che vuole seguire. Una volta confermata la modifica, lo studente visualizzerà l’orario aggiornato.
+
+
+\subsubsection{Visualizza orario}
+\textit{Giulio}, Studente di Informatica, successivamente al primo avvio dell’orario, selezionando la sezione “orario” dalla voce del menu, visualizzerà l’orario.
+
 \subsection{Funzionalità chat}
+
 \subsubsection{Chat Studenti}
 \paragraph{CUS1 - Visualizza canale}
 
@@ -1119,6 +1132,117 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \end{itemize}
 
 \section{Casi d'uso}
+
+
+\subsection{Gestione orario}
+
+\paragraph{Gestione primo avvio\\}
+Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, mostra la lista dei corsi del Piano di Studi dalla quale è possibile selezionare i corsi di cui si vuole visulizzare l'orario. Dopodiché si seleziona "conferma" e si visualizza l'orario dei corsi selezionati.
+
+\begin{table}[H]
+	\small 
+	
+	\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
+		\hline
+		\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1 Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup con i dettagli dei due corsi.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+		\hline
+		
+	\end{tabular}
+	\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
+\end{table}
+
+\paragraph{Modifica orario\\} 
+Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, può visualizzare l'orario, e premendo sul pulsante opportuno, può modificare l'orario precedentemente selezionato.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+		\hline
+		\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
+		\hline
+		\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
+		\hline
+		\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1 Aule Unimol non risponde.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+		\hline
+	\end{tabular}
+	\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
+\end{table}
+
+
+\paragraph{Visualizza orario} 
+Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, visualizza l'orario precedentemente selezionato. 
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	
+	\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+		\hline
+	\end{tabular}
+	\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
+\end{table}
+
+
 \subsection{Funzionalità chat}
 \paragraph{CUS1 - Visualizza canale \\}
 
@@ -2524,10 +2648,19 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \end{table}
 
 \section{Diagramma dei casi d'uso}
+\pagebreak
+\subsection{Funzionalità gestione orario}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-orario.pdf}
+	\caption{Diagramma caso d'uso - Gestione orario}
+	\label{fig:diag-caso-duso-gestione-orario}
+\end{figure}
 
 \subsection{Funzionalità chat}
 
-\begin{figure}
+\begin{figure}[H]
 	\centering
 	\includegraphics[height=3in]{imgs/gruppo6/use_case_diagrams/ucd1_chat_studenti.pdf}
 	\caption{UCD1 - Chat Studenti}
@@ -2551,6 +2684,36 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 \newpage
 \section{Diagramma di sequenza}
+
+\subsection{Funzionalità gestione orario}
+
+\subsubsection{Gestione primo avvio} % Didascalia tabella
+%\pagebreak
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-primo-avvio.pdf}
+	\caption{Diagramma di sequenza - Gestione primo avvio}
+	\label{fig:sequence-orario-primo-avvio}
+\end{figure}
+
+\subsubsection{Modifica orario} % Didascalia tabella
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-modifica-orario.pdf}
+	\caption{Diagramma di sequenza - Modifica orario}
+	\label{fig:sequence-orario-modifica-orario}
+\end{figure}
+
+\subsubsection{Visualizza orario} % Didascalia tabella
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-visualizza-orario.pdf}
+	\caption{Diagramma di sequenza - Visualizza orario}
+	\label{fig:sequence-orario-visualizza-orario}
+\end{figure}
+
 
 \subsection{Funzionalità chat}
 
@@ -2855,6 +3018,31 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \end{figure}
 
 \section{Diagramma delle attività}
+
+\subsection{Funzionalità gestione orario}
+\subsubsection{Gestione primo avvio}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-primo-avvio}
+	\caption{Diagramma delle attività - primo avvio}
+	\label{fig:act-diag-orario-primo-avvio}
+\end{figure}
+
+\subsubsection{Modifica orario}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-modifica-orario}
+	\caption{Diagramma delle attività - Modifica orario}
+	\label{fig:act-diag-orario-modifica-orario}
+\end{figure}
+
+\subsubsection{Visualizza orario}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-visualizza-orario}
+	\caption{Diagramma delle attività - Visualizza orario}
+	\label{fig:act-diag-orario-visualizza-orario}
+\end{figure}
 
 \subsection{Funzionalità chat}
 
