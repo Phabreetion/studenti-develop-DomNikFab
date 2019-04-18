@@ -535,20 +535,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
 \end{itemize}
 
-\subsection{Funzionalità gestione orario}
-\subsubsection{Gestione primo avvio}
-\textit{Giulio}, Studente di Informatica, dopo aver selezionato la sezione “\textit{orario}” dalla voce del menu, potrà spuntare, da una lista di corsi, quelli che vuole seguire. Confermerà la selezione premendo l’apposito tasto “OK”. Da questo momento in poi Giulio potrà visualizzare l’orario costituito dai corsi scelti.
-
-
-\subsubsection{Modifica orario}
-\textit{Giulio}, Studente di Informatica, modificherà l’orario del proprio anno accademico spuntando la lista dei corsi che vuole seguire. Una volta confermata la modifica, lo studente visualizzerà l’orario aggiornato.
-
-
-\subsubsection{Visualizza orario}
-\textit{Giulio}, Studente di Informatica, successivamente al primo avvio dell’orario, selezionando la sezione “orario” dalla voce del menu, visualizzerà l’orario.
-
 \subsection{Funzionalità chat}
-
 \subsubsection{Chat Studenti}
 \paragraph{CUS1 - Visualizza canale}
 
@@ -1132,117 +1119,6 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \end{itemize}
 
 \section{Casi d'uso}
-
-
-\subsection{Gestione orario}
-
-\paragraph{Gestione primo avvio\\}
-Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, mostra la lista dei corsi del Piano di Studi dalla quale è possibile selezionare i corsi di cui si vuole visulizzare l'orario. Dopodiché si seleziona "conferma" e si visualizza l'orario dei corsi selezionati.
-
-\begin{table}[H]
-	\small 
-	
-	\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
-	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
-		\hline
-		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
-		\hline
-		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
-		\hline
-		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
-		\hline
-		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
-		\hline
-		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
-		\hline
-		\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
-		\hline
-		\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
-		\hline
-		\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
-		\hline
-		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1 Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup con i dettagli dei due corsi.} \\
-		\hline
-		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
-		\hline
-		
-	\end{tabular}
-	\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
-\end{table}
-
-\paragraph{Modifica orario\\} 
-Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, può visualizzare l'orario, e premendo sul pulsante opportuno, può modificare l'orario precedentemente selezionato.
-
-\begin{table}[H]
-	%\normalsize % Dimensione testo normale
-	\small % Dimensione testo piccola
-	%\footnotesize % Dimensione testo piccolissima
-	%\scriptsize % Dimensione del testo ulteriormente più piccola
-	\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
-	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
-		\hline
-		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
-		\hline
-		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
-		\hline
-		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
-		\hline
-		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
-		\hline
-		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
-		\hline
-		\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
-		\hline
-		\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
-		\hline
-		\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
-		\hline
-		\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
-		\hline
-		\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
-		\hline
-		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1 Aule Unimol non risponde.} \\
-		\hline
-		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
-		\hline
-	\end{tabular}
-	\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
-\end{table}
-
-
-\paragraph{Visualizza orario} 
-Lo \emph{Studente}, una volta selezionata la voce \emph{“orario”} dal \emph{menù} dell’app \emph{Studenti Unimol}, visualizza l'orario precedentemente selezionato. 
-
-\begin{table}[H]
-	%\normalsize % Dimensione testo normale
-	\small % Dimensione testo piccola
-	%\footnotesize % Dimensione testo piccolissima
-	%\scriptsize % Dimensione del testo ulteriormente più piccola
-	
-	\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
-	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
-		\hline
-		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
-		\hline
-		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
-		\hline
-		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
-		\hline
-		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
-		\hline
-		\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
-		\hline
-		\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
-		\hline
-		\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
-		\hline
-		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
-		\hline
-	\end{tabular}
-	\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
-\end{table}
-
-
 \subsection{Funzionalità chat}
 \paragraph{CUS1 - Visualizza canale \\}
 
@@ -1282,7 +1158,7 @@ Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{me
 	\paragraph{CUS2 - Invio messaggio \\}
 
 Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggio selezionando l’apposito spazio dedito alla scrittura. Una volta digitato il testo del messaggio e selezionato il pulsante di invio, il sistema lo mostra nel canale di discussione. \\
-\begin{table}
+\begin{table}[!h]
 
 	\small % Dimensione testo piccola
 	\label{CUS2 - Invio messaggio}
@@ -1314,7 +1190,7 @@ Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggi
 
 Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di discussione, similmente ad un messaggio. \\
 	
-\begin{table}
+\begin{table}[!h]
 	
 	\small % Dimensione testo piccola
 	\label{CUS3 - Invio allegato}	
@@ -1352,7 +1228,7 @@ Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di 
 \newpage
 \paragraph{CUS4 - Rispondi a singolo messaggio \\}
 Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona il singolo messaggio a cui desidera rispondere. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS4 - Rispondi a singolo messaggio}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1385,7 +1261,7 @@ Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona i
 \newpage
 \paragraph{CUS5 - Scarica allegato \\}
 Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canale di discussione. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS5 - Scarica allegato}
 	
@@ -1417,7 +1293,7 @@ Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canal
 \newpage
 \paragraph{CUS6 - Segnalazione messaggio \\}
 Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messaggio che desidera segnalare. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS6 - Segnalazione messaggio}
 	
@@ -1455,7 +1331,7 @@ Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messa
 \newpage
 \paragraph{CUS7 - Ricerca testo nella chat \\}
 Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca” nel \emph{menù} interno del canale di discussione, digitando il testo da cercare in un’apposita casella di testo. Il sistema mostra tutti i messaggi che contengono il testo partendo dal più recente. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS7 - Ricerca testo nella chat}
 	
@@ -1495,7 +1371,7 @@ Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca
 \newpage
 \paragraph{CUS8 - Tag membro in messaggio \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di richiamare l’attenzione di uno specifico membro durante la digitazione di un messaggio. Lo studente digita il nome del membro preceduto da un carattere speciale (@). Il membro selezionato viene avvisato tramite una notifica diretta. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS8 - Tag membro in messaggio}
 	
@@ -1527,7 +1403,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 \newpage
 \paragraph{CUS9 - Gestisci notifiche chat \\}
 Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibilitá di accedere al \emph{menù} e gestire le notifiche ovvero di attivarle o disattivarle in base alle sue preferenze. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS9 - Gestisci notifiche chat}
 	
@@ -1559,7 +1435,7 @@ Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibili
 \newpage
 \paragraph{CUS10 - Selezione \emph{emoji} \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di scegliere una o piú \emph{emoji} tra quelle disponibili. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS10 - Selezione emoji}
 	
@@ -1593,7 +1469,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 \newpage
 \paragraph{CUS11 - Visualizza elenco membri chat \\}
 Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussione e l’elenco contenente l’\emph{username} degli stessi. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale dell’elenco dei partecipanti al canale qualora essa sia presente. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUS11 - Visualizza elenco membri chat}
 	
@@ -1621,7 +1497,7 @@ Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussion
 
 \paragraph{CUE1 - Connessione assente \\}
 Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete ma quest’ultima non è disponibile pertanto visualizza un messaggio d’errore. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUE1 - Connessione assente}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1648,7 +1524,7 @@ Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete m
 \newpage
 \paragraph{CUE2 - Nessuna risposta dal sistema \\}
 Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistema, ma quest’ultimo non è in grado di soddisfare la richiesta pertanto visualizza un messaggio d’errore. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUE2 - Nessuna risposta dal sistema}
 	
@@ -1677,7 +1553,7 @@ Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistem
 
 \paragraph{CUD1 - Creazione canale \\}
 Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede alla sezione "\emph{menù}" e crea un nuovo canale all'interno di quello attuale in uso, assengando ad esso un nome ed aggiungendo uno o più membri. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD1 - Creazione canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1726,7 +1602,7 @@ Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede al
 \newpage
 \paragraph{CUD2 - Cancellazione canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione accede alla sezione "\emph{menù}" e effettua la cancellazione di uno dei canali presenti all'interno della \emph{chat}. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD2 - Cancellazione canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1763,7 +1639,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione accede al
 \newpage
 \paragraph{CUD3 - Aggiungi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di aggiungere un nuovo membro ad un canale attraverso il \emph{menù} di modifica che include l'opzione di aggiunta nuovo membro. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD3 - Aggiungi membro ad un canale}
 		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1804,7 +1680,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 \newpage
 \paragraph{CUD4 - Rimuovi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di rimuovere un \emph{Docente} o uno \emph{Studente} da un canale attraverso il \emph{menù} di modifica che include l'opzione di rimozione \emph{Docente} o \emph{Studente}. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD4 - Rimuovi membro ad un canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1845,7 +1721,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 \newpage
 \paragraph{CUD5 - Blocca Studente \\}
 Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso in cui ritenga inappropriati alcuni interventi nel canale di comunicazione. Per silenziare si intende impedire l'invio di nuovi messaggi ad un determinato \emph{Studente}. \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD5 - Blocca Studente}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1886,7 +1762,7 @@ Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso
 \newpage
 \paragraph{CUD6 - Sblocca Studente \\}
 Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente precedentemente bloccato  nel caso in cui ritenga opportuno farlo, così da poter permettere nuovamente allo studente di inviare messaggi nel canale di discussione.    \\
-\begin{table}
+\begin{table}[!h]
 	\small % Dimensione testo piccola
 	\label{CUD6 - Sblocca Studentee}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1927,7 +1803,7 @@ Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente preced
 \newpage
 \paragraph{CUP1 - Login \\}
 L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’accesso avviene mediante l’inserimento di una \emph{username} e \emph{password}. Il \emph{login} dovrà verificare in modo sicuro l’identità di chi sta effettuando l’accesso.\\
-\begin{table} 
+\begin{table}[!h] 
 	\small % Dimensione testo piccola
 	\label{CUP1-Login}
 	
@@ -1963,7 +1839,7 @@ L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’acces
 \newpage
 \paragraph{CUP2 - Logout \\}
 L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo sicuro.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP2-Logout}
@@ -1993,7 +1869,7 @@ L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo 
 \newpage
 \paragraph{CUP3 - Ricerca chat \\}
 L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visualizza una schermata relativa alla ricerca, all’interno della quale è possibile cercare una specifica \emph{chat} o un gruppo di \emph{chat}. Tale ricerca, può essere effettuata mediante l’inserimento del nome della \emph{chat} da ricercare, o attraverso l’utilizzo di filtri.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP3- Ricerca chat}
@@ -2044,7 +1920,7 @@ L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visu
 \paragraph{CUP4 - Visualizza lista chat \\}
 L'\emph{Amministratore} vuole selezionare una tipologia di \emph{chat} da visualizzare.
 E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{chat} dei corsi, queste ultime suddivise a loro volta in \emph{chat} attive e non attive. La suddivisione garantisce una corretta caratterizzazione e organizzazione delle \emph{chat}.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP4 - Visualizza lista chat}
@@ -2090,7 +1966,7 @@ E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{ch
 \newpage
 \paragraph{CUP5 - Abilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non attive e a seguito di una richiesta abilita una specifica \emph{chat}.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP5-Abilita chat}
@@ -2127,7 +2003,7 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non att
 \newpage
 \paragraph{CUP6 - Disabilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive e a seguito di una richiesta disabilita una specifica \emph{chat}.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP6-Disabilita chat}
@@ -2163,7 +2039,7 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive 
 \paragraph{CUP7 - Visualizza canale \\}
 L'\emph{Amministratore} seleziona una specifica chat da visualizzare.
 In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opportuno canale, ne visualizza i messaggi in esso contenuti.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP7- Visualizza canale}
@@ -2197,7 +2073,7 @@ In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opp
 \newpage
 \paragraph{CUP8 - Aggiungi canale \\}
 L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{chat} al fine di rendere la conversazione quanto più organizzata possibile e di suddividere eventuali moduli e partizionamenti di un corso. Ha quindi la possibilità di aggiungere utenti al canale della \emph{chat} e di scegliere il nome del nuovo canale.\\
-\begin{table}
+\begin{table}[!h]
 	
 	\small % Dimensione testo piccola
 	
@@ -2246,7 +2122,7 @@ L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{c
 \newpage
 \paragraph{CUP9 - Cancella canale \\}
 L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga richiesta l’eliminazione.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP9-Cancella canale}
@@ -2287,7 +2163,7 @@ L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga ri
 \newpage
 \paragraph{CUP10 - Visualizza lista utenti \\}
 L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'interno di un canale.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP10 - Visualizza lista utenti}
@@ -2316,7 +2192,7 @@ L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'in
 \newpage
 \paragraph{CUP11 - Aggiungi un utente ad un canale \\}
 L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2352,7 +2228,7 @@ L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
 \newpage
 \paragraph{CUP12 - Rimuovere un utente da un canale \\}
 L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP12 - Rimuovere un utente da un canale}
@@ -2383,7 +2259,7 @@ L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
 \newpage
 \paragraph{CUP13 - Silenziare utente in un canale \\}
 L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio offensivo in una \emph{chat}. Silenziando l'utente, quest'ultimo non avrà la possibilità di inviare messaggi all'interno della \emph{chat}.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP13 - Silenziare utente in un canale}
@@ -2428,7 +2304,7 @@ L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio off
 \newpage
 \paragraph{CUP14 - Reintegra utente in un canale \\}
 L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente silenziato in un canale. Reintegrando l'utente, quest'ultimo ha di nuovo la possibilità di inviare messaggi all'interno del canale della \emph{chat}.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2467,7 +2343,7 @@ L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente 
 \newpage
 \paragraph{CUP15 - Modificare i permessi di un utente in un canale \\}
 L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ricopre all’interno di un canale di una \emph{chat}, cioè impostare un utente amministratore oppure rimuovere questo titolo e far diventare quindi un amministratore di un canale un semplice utente.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2502,7 +2378,7 @@ L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ric
 \paragraph{CUP16 - Nascondi messaggio \\}
 L'\emph{Amministratore} vuole nascondere il contenuto di un messaggio in uno specifico canale di una \emph{chat}. Può risultare opportuno nascondere un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato risulti effettivamente inopportuno. 
 Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi messaggio del canale.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP16 - Nascondi messaggio}
@@ -2540,7 +2416,7 @@ Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi 
 L'\emph{Amministratore}  vuole reintegrare un messaggio in uno specifico canale di una \emph{chat}. 
 Può risultare opportuno reintegrare un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato non risulta effettivamente inopportuno. 
 Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi risultare evidenziato all’interno del canale.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP17 - Reintegra messaggio}
@@ -2575,7 +2451,7 @@ Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi
 \newpage
 \paragraph{CUP18 - Invio Notifiche \\}
 L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a quale categoria di \emph{chat} indirizzarla così da avere la sicurezza che solo chi realmente interessato al contenuto della notifica la riceva. \\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP18 - Invio Notifiche}
@@ -2612,7 +2488,7 @@ L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a qual
 \newpage
 \paragraph{CUP19 - Gestione messaggi inopportuni \\}
 L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportuni all’interno delle \emph{chat}, così da poter decidere se nascondere o meno i messaggi che possono essere ritenuti offensivi o non adatti alla conversazione, decidendo inoltre anche se silenziare l’utente che ha scritto un messaggio offensivo.\\
-\begin{table}
+\begin{table}[!h]
 	%\normalsize % Dimensione testo normale
 	\small
 	
@@ -2648,19 +2524,10 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \end{table}
 
 \section{Diagramma dei casi d'uso}
-\pagebreak
-\subsection{Funzionalità gestione orario}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-orario.pdf}
-	\caption{Diagramma caso d'uso - Gestione orario}
-	\label{fig:diag-caso-duso-gestione-orario}
-\end{figure}
 
 \subsection{Funzionalità chat}
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\includegraphics[height=3in]{imgs/gruppo6/use_case_diagrams/ucd1_chat_studenti.pdf}
 	\caption{UCD1 - Chat Studenti}
@@ -2682,43 +2549,36 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \end{figure}
 
 
-\newpage
+\subsection{Funzionalità rubrica}
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=3in]{imgs/gruppo5/Diagram1.pdf}
+	\caption{UCD - Rubrica}
+	\label{fig:ucd-rubrica}
+\end{figure}
+
+<<<<<<< HEAD
+=======
+
+\clearpage
+
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[height=4in]{imgs/gruppo3/caso-duso-media.pdf}
+	\caption{UCD - Previsione Media}
+	\label{fig:prova}
+\end{figure}
+>>>>>>> develop
+
+\clearpage
+
 \section{Diagramma di sequenza}
-
-\subsection{Funzionalità gestione orario}
-
-\subsubsection{Gestione primo avvio} % Didascalia tabella
-%\pagebreak
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-primo-avvio.pdf}
-	\caption{Diagramma di sequenza - Gestione primo avvio}
-	\label{fig:sequence-orario-primo-avvio}
-\end{figure}
-
-\subsubsection{Modifica orario} % Didascalia tabella
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-modifica-orario.pdf}
-	\caption{Diagramma di sequenza - Modifica orario}
-	\label{fig:sequence-orario-modifica-orario}
-\end{figure}
-
-\subsubsection{Visualizza orario} % Didascalia tabella
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-visualizza-orario.pdf}
-	\caption{Diagramma di sequenza - Visualizza orario}
-	\label{fig:sequence-orario-visualizza-orario}
-\end{figure}
-
 
 \subsection{Funzionalità chat}
 
 \subsubsection{Chat studenti}
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	%%% cambiare height=3in,width=5in -> width=0.9\textwidth
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUS1_visualizza_canale.pdf}
@@ -2813,7 +2673,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 \pagebreak
 \subsubsection{Chat docenti}
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUD1_creazione_canale.pdf}
 	\caption{CUD1 - Creazione canale}
@@ -2857,7 +2717,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 \pagebreak
 
-\begin{figure}
+\begin{figure}[!h]
 	\subsubsection{Pannello di amministrazione}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUP1_Login.pdf}
@@ -3001,7 +2861,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 \pagebreak
 
-\begin{figure}
+\begin{figure}[!h]
 	\subsection{Eccezioni}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE1_connessione_assente.pdf}
@@ -3019,35 +2879,10 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 \section{Diagramma delle attività}
 
-\subsection{Funzionalità gestione orario}
-\subsubsection{Gestione primo avvio}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-primo-avvio}
-	\caption{Diagramma delle attività - primo avvio}
-	\label{fig:act-diag-orario-primo-avvio}
-\end{figure}
-
-\subsubsection{Modifica orario}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-modifica-orario}
-	\caption{Diagramma delle attività - Modifica orario}
-	\label{fig:act-diag-orario-modifica-orario}
-\end{figure}
-
-\subsubsection{Visualizza orario}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-visualizza-orario}
-	\caption{Diagramma delle attività - Visualizza orario}
-	\label{fig:act-diag-orario-visualizza-orario}
-\end{figure}
-
 \subsection{Funzionalità chat}
 
 %%% START activities chat studenti %%%
-\begin{figure}
+\begin{figure}[!h]
 	\subsubsection{Chat studenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cus1_visualizza_canale.pdf}
@@ -3135,7 +2970,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 %%% START activities chat docenti %%%
 \pagebreak
-\begin{figure}
+\begin{figure}[!h]
 	\subsubsection{Chat docenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cud1_creazione_canale.pdf}
@@ -3195,7 +3030,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 
 %%% START activities chat pannello %%%
 \pagebreak
-\begin{figure}
+\begin{figure}[!h]
 	\subsubsection{Pannello di amministrazione}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cup1_login.pdf}
