@@ -535,6 +535,42 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
 \end{itemize}
 
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio}
+
+Giulio, dopo aver selezionato la sezione “orario” dalla voce del menu, potrà spuntare, da una lista di corsi, quelli che vuole seguire. Confermerà la selezione premendo l’apposito tasto “OK”. Da questo momento in poi Giulio potrà visualizzare l’orario costituito dai corsi scelti. 
+
+\subsubsection{Modifica orario}
+
+Giulio modificherà l’orario del proprio anno accademico spuntando la lista dei corsi che vuole seguire. Una volta confermata la modifica, lo studente visualizzerà l’orario aggiornato. 
+
+\subsubsection{Visualizza orario}
+
+Dopo il primo avvio dell’orario, selezionando la sezione “orario” dalla voce del menu, Giulio visualizzerà l’orario.
+
+\subsection{Funzionalità notifiche}
+
+\subsubsection{Apertura finestra di prenotazione per l’appello d’esame}
+
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in concomitanza con l’apertura della finestra di prenotazione dell’esame di “Ingegneria del Software” del Prof. Fausto Fasano, in quanto ancora da sostenere e presente all’interno della propria carriera.
+
+\subsubsection{Chiusura finestra di prenotazione per l’appello d’esame}
+
+Il sistema invia una notifica push alla studentessa Giuseppina Mazzocco, identificata per mezzo di matricola 789101, poco prima della chiusura della finestra di prenotazione all’esame di “Ingegneria del Software” del Prof. Fausto Fasano, in quanto ancora da sostenere e presente all’interno della propria carriera.
+
+\subsubsection{Verbalizzazione esame}
+
+Il sistema invia una notifica push alla studentessa Martina Buro, identificata per mezzo di matricola 234567, in occasione della verbalizzazione dell’esame di “Ingegneria del Software” del Prof. Fausto Fasano, sostenuto in data 28/02/2019 riportando votazione pari a 28.
+
+\subsubsection{Avviso tasse}
+
+All’apertura del periodo di pagamento di un importo di tasse universitarie, tale evento verrà notificato all’utente per mezzo di una notifica push.
+
+\subsubsection{Sospensione lezione}
+
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in occasione della sospensione della lezione di “Ingegneria del Software” del Prof. Fausto Fasano prevista per il giorno 19/03/2019.
+
 \subsection{Funzionalità chat}
 \subsubsection{Chat Studenti}
 \paragraph{CUS1 - Visualizza canale}
@@ -1119,6 +1155,162 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 \end{itemize}
 
 \section{Casi d'uso}
+
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio} 
+
+Questo caso d’uso mostra come gli utenti che accedono alla sezione "orario" per la prima volta come si devono comportare. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-gestione-primo-avvio}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
+\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con 		lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup 		con i dettagli dei due corsi.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+
+\end{tabular}
+\end{table}
+
+\subsubsection{Modifica orario} 
+
+La funzionalità permette agli utenti di modificare l'orario da loro struttarato.
+
+Vedi Tabella~\vref{tab:tab-caso-duso-modifica-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
+\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
+	\hline
+	\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Visualizza orario} 
+
+Questo caso d’uso mostra come gli utenti, che hanno già fatto l'accesso alla sezione "orario" almeno una volta, potranno visualizzare i corsi. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-visualizza-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
+\label{tab:tab-caso-duso-visualizza-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+\subsubsection{Gestione notifiche}
+
+Il caso d'uso \emph{Gestione notifiche} è identico per tutte le notifiche, ciò che cambia è unicamente il contenuto della modifica. Vedi Tabella~\vref{tab:caso-duso-gestione-notifiche}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione notifiche} % Didascalia tabella
+\label{tab:caso-duso-gestione-notifiche} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione notifiche}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
+	\hline
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
+	\hline
+	\textbf{} & \textbf{2} & Riceve la notifica. & \textbf{} \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
 \subsection{Funzionalità chat}
 \paragraph{CUS1 - Visualizza canale \\}
 
@@ -2523,7 +2715,37 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\caption{\textbf{CUP19 - Gestione messaggi inopportuni}}
 \end{table}
 
+\clearpage
+
 \section{Diagramma dei casi d'uso}
+
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione orario}
+
+Vedi Figura~\vref{fig:diag-caso-duso-gestione-orario}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-orario.pdf}
+	\caption{Diagramma caso d'uso - Gestione orario}
+	\label{fig:diag-caso-duso-gestione-orario}
+\end{figure}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+Vedi Figura~\vref{fig:diagr-casi-duso-notifiche}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-notifiche}
+	\caption{Diagramma casi d'uso - Notifiche}
+	\label{fig:diagr-casi-duso-notifiche}
+\end{figure}
+
+\clearpage
 
 \subsection{Funzionalità chat}
 
@@ -2547,7 +2769,6 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 	\caption{UCD3 - Pannello di amministrazione}
 	\label{fig:ucd3-amm}
 \end{figure}
-
 
 \subsection{Funzionalità rubrica}
 \begin{figure}[H]
@@ -2574,6 +2795,56 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \clearpage
 
 \section{Diagramma di sequenza}
+
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio}
+
+Vedi Figura~\vref{fig:sequence-orario-primo-avvio}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-primo-avvio.pdf}
+	\caption{Diagramma di sequenza - Gestione primo avvio}
+	\label{fig:sequence-orario-primo-avvio}
+\end{figure}
+
+\subsubsection{Modifica orario}
+
+Vedi Figura~\vref{fig:sequence-orario-modifica-orario}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-modifica-orario.pdf}
+	\caption{Diagramma di sequenza - Modifica orario}
+	\label{fig:sequence-orario-modifica-orario}
+\end{figure}
+
+\subsubsection{Visualizza orario}
+
+Vedi Figura~\vref{fig:sequence-orario-visualizza-orario}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-visualizza-orario.pdf}
+	\caption{Diagramma di sequenza - Visualizza orario}
+	\label{fig:sequence-orario-visualizza-orario}
+\end{figure}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+Diagramma di sequenza: Vedi Figura~\vref{fig:seq-diagr-notifiche}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.85\textwidth]{imgs/gruppo2/sequence-notifiche}
+	\caption{Sequence diagram - Notifiche}
+	\label{fig:seq-diagr-notifiche}
+\end{figure}
+
+\clearpage
 
 \subsection{Funzionalità chat}
 
@@ -2878,6 +3149,122 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 \end{figure}
 
 \section{Diagramma delle attività}
+
+\subsection{Funzionalità orario}
+
+Diagramma delle attività di "Primo avvio": vedi Figura~\vref{fig:act-diag-orario-primo-avvio}.
+
+Diagramma delle attività di "Visualizza orario": vedi Figura~\vref{fig:act-diag-orario-visualizza-orario}.
+
+Diagramma delle attività di "Modifica orario": vedi Figura~\vref{fig:act-diag-orario-modifica-orario}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-primo-avvio}
+	\caption{Diagramma delle attività - Orario, primo avvio}
+	\label{fig:act-diag-orario-primo-avvio}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-visualizza-orario}
+	\caption{Diagramma delle attività - Visualizza orario}
+	\label{fig:act-diag-orario-visualizza-orario}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-modifica-orario}
+	\caption{Diagramma delle attività - Modifica orario}
+	\label{fig:act-diag-orario-modifica-orario}
+\end{figure}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+Diagrammma per "Verbalizzazione esame": vedi Figura~\vref{fig:activity-notifiche-verbalizzazione-esame}.
+
+Diagrammma per "Apertura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-apertura-finestra-esame}.
+
+Diagrammma per "Chiusura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-chiusura-finestra-esame}.
+
+Diagrammma per "Avviso tasse": vedi Figura~\vref{fig:activity-notifiche-avviso-tasse}.
+
+Diagrammma per "Rinvio delle lezioni": vedi Figura~\vref{fig:activity-notifiche-rinvio-lezioni}.
+
+Diagrammma per "Sospensione lezioni": vedi Figura~\vref{fig:activity-notifiche-sospensione-lezioni}.
+
+Diagrammma per "Notizie dall'Ateneo": vedi Figura~\vref{fig:activity-notifiche-notizie-ateneo}.
+
+Diagrammma per "Notizie dal Dipartimento": vedi Figura~\vref{fig:activity-notifiche-notizie-dipartimento}.
+
+Diagrammma per "Notizie dal Corso di Studi": vedi Figura~\vref{fig:activity-notifiche-notizie-corso-di-studi}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-verbalizzazione-esame}
+	\caption{Activity - Verbalizzazione esame}
+	\label{fig:activity-notifiche-verbalizzazione-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-apertura-prenotazione-esame}
+	\caption{Activity - Apertura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-apertura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-chiusura-prenotazione-esame}
+	\caption{Activity - Chiusura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-chiusura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-avviso-tasse}
+	\caption{Activity - Avviso tasse}
+	\label{fig:activity-notifiche-avviso-tasse}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-rinvio-lezioni}
+	\caption{Activity - Rinvio delle lezioni}
+	\label{fig:activity-notifiche-rinvio-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-sospensione-lezioni}
+	\caption{Activity - Sospensione lezioni}
+	\label{fig:activity-notifiche-sospensione-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-ateneo}
+	\caption{Activity - Notizie dall'Ateneo}
+	\label{fig:activity-notifiche-notizie-ateneo}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-dipartimento}
+	\caption{Activity - Notizie dal Dipartimento}
+	\label{fig:activity-notifiche-notizie-dipartimento}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-corso-di-studi}
+	\caption{Activity - Notizie dal Corso di Studi}
+	\label{fig:activity-notifiche-notizie-corso-di-studi}
+\end{figure}
+
+\clearpage
 
 \subsection{Funzionalità chat}
 

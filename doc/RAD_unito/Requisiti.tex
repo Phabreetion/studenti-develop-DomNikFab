@@ -26,14 +26,107 @@ L’app dovrà mostrare l’elenco degli appelli disponibili richiedendoli al si
 Il relativo diagramma dei casi d'uso è visibile al punto \ref{diag:gestioneAppelli}.
 
 \subsection{Requisiti gestione orario}
-\paragraph{Gestione primo avvio\\} 
+
+\subsubsection{Gestione primo avvio}
+
 La funzionalità consente allo studente di selezionare i corsi relativi al proprio Piano di Studio e l’aula in cui si svolgeranno i corsi e di visualizzare l'orario. 
 
-\paragraph{Modifica orario\\} 
+\subsubsection{Modifica orario}
+
 La funzionalità consente allo studente di inserire ed eliminare dall’orario i corsi che non si vuole visualizzare. 
 
-\paragraph{Visualizza orario\\}
+\subsubsection{Visualizza orario}
+
 La funzionalità consente allo studente di visualizzare l’orario dei corsi da lui selezionati.
+
+\subsection{Requisiti gestione notifiche}
+
+Gestione delle notifiche push relative ad eventi a cui lo studente potrebbe essere interessato (Verbalizzazione di un esame, Nuova notizia). 
+
+Le notifiche push saranno mostrate sul dispositivo dell’utente con l’app in esecuzione in background nel momento in cui c’è un cambiamento nel sistema che richiede una notifica.  
+
+Gli eventi che generano una notifica sono: notifica per apertura e chiusura dell'opzione di prenotazione agli appelli, notifica di una nuova tassa da pagare, notifica verbalizzazione esame, notifiche di notizie da parte del Corso di Studi, del Dipartimento o dell’Ateneo, notifiche riguardanti le lezioni come un’eventuale sospensione o rinvio della stessa.
+
+Lo studente, in presenza di connettività, riceverà notifiche da parte dell’applicazione relative a contenuti di proprio interesse, come ad esempio la verbalizzazione di un esame, l’apertura e la chiusura della finestra temporale di prenotazione ad un esame, la pubblicazione all’interno del portale di una nuova notizia d’Ateneo, Dipartimento o Corso di Studi.
+
+\subsubsection{Notifiche push} 
+
+Vedi Tabella~\vref{tab:gruppo-2-notifiche-push}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Notifiche push} % Didascalia tabella
+\label{tab:gruppo-2-notifiche-push} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{0.45\textwidth} | p{0.45\textwidth} |}
+	\hline
+	\textbf{Notifiche per il singolo utente} & \textbf{Notifiche di gruppo} \\
+	\hline
+	Notifica verbalizzazione esame. & Notifiche per notizie dall'Ateneo. \\
+	\hline
+	Notifiche appelli:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Apertura finestra temporale di prenotazione all'esame;
+	\item Chiusura finestra temporale di prenotazione all'esame.
+	\end{itemize} &
+	Notifiche per notizie dal Dipartimento. \\
+	\hline
+	Avviso tasse. & Notifiche per notizie dal Corso di Studi. \\
+	\hline
+	& Notifiche lezioni:
+	\begin{itemize}[noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt]
+	\item Sospensione lezioni;
+	\item Rinvio lezioni.
+	\end{itemize} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Notifiche per singolo utente}
+
+Le notifiche push per il singolo utente sono rapportate al singolo studente per mezzo di codice identificativo univoco (cfr. matricola).
+
+\paragraph{Verbalizzazione esame\\}
+
+Al momento della verbalizzazione di un esame sostenuto, l’utente riceverà una notifica relativa all’avvenuto aggiornamento della propria carriera.
+
+\paragraph{Apertura finestra prenotazione esame\\}
+
+Il sistema invia una notifica push allo studente in concomitanza con l’apertura della finestra temporale di prenotazione inerente agli esami ancora da sostenere e presenti all’interno della propria carriera.
+
+\paragraph{Chiusura finestra prenotazione esame\\}
+
+Il sistema invia una notifica push allo studente in concomitanza con l’approssimarsi della chiusura della finestra d’apertura riguardo agli esami ancora da sostenere e presenti all’interno della propria carriera.
+
+\paragraph{Avviso tasse}
+
+Al momento della resa disponibilità di nuove tasse, verrà segnalato all’utente per mezzo di una notifica push.
+
+\subsubsection{Notifiche di gruppo}
+
+Per notifiche di gruppo si intendono quelle inviate a tutti gli studenti appartenenti ad una medesima categoria, ad esempio Ateneo, Dipartimento, Corso di Studi.
+
+\paragraph{Rinvio delle lezioni}
+
+In caso di rinvio di una lezione l’utente riceverà una notifica push.
+
+\paragraph{Sospensione lezioni}
+
+In caso di sospensione di una lezione l’utente riceverà una notifica push.
+
+\paragraph{Notizie dall'Ateneo}
+
+Al momento della pubblicazione di una nuova notizia riguardante l’Ateneo, tutti gli studenti riceveranno una notifica inerente ad essa.
+
+\paragraph{Notizie dal Dipartimento}
+
+Al momento della pubblicazione di una nuova notizia riguardante il Dipartimento afferente al Corso di Studi di appartenenza dello Studente, egli riceverà una notifica inerente a tale notizia.
+
+\paragraph{Notizie dal Corso di Studi}
+
+Al momento della pubblicazione di una nuova notizia riguardante il Corso di studi di appartenenza, l’utente riceverà una notifica inerente ad essa.
 
 \subsection{Requisiti chat}
 
