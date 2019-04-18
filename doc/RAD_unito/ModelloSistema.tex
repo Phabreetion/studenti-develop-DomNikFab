@@ -251,7 +251,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”. 
 \end{itemize}
 
-\paragraph{Visualizza dettagli corso}
+\subsection{Funzionalità Visualizza dettagli corso}
 \begin{itemize}
 	\item \textit{Visualizzazione dettagli di un corso superato:}
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso superato di Informatica giuridica. Il sistema mostra allo studente i seguenti dettagli:
@@ -1154,9 +1154,10 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 
 \section{Casi d'uso}
 
-\subsection{Funzionalità Piano di studio}
+\subsection{Funzionalità Gestione piano di studio}
 \paragraph{Visualizza corsi \\}
-Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}.
+È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaCorsiSD}) e del diagramma delle attività (\ref{diag:visualizzaCorsiAD}).
 
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
@@ -1182,7 +1183,8 @@ Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti 
 \newpage
 
 \paragraph{Ricerca corsi \\}
-Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i corsi trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i corsi trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaCorsiSD}) e del diagramma delle attività (\ref{diag:ricercaCorsiAD}). \\ \\
+
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca corsi}} \\
@@ -1208,7 +1210,7 @@ Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando d
 
 \paragraph{Filtra corsi con memorizzazione \\}
 Questo caso d’uso consentirà allo studente di filtrare i corsi in base ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà la lista di corsi filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage} per visualizzare i dati filtrati ad ogni nuovo accesso alla sezione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: 
-\ref{diag:gestionePianoStudio}\\
+\ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:filtraCorsiConMemSD}) e del diagramma delle attività (\ref{diag:filtraCorsiConMemAD}).\\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra corsi con memorizzazione}} \\
@@ -1237,7 +1239,7 @@ Questo caso d’uso consentirà allo studente di filtrare i corsi in base ad uno
 \newpage
 
 \paragraph{Ordina corsi con memorizzazione \\}
-Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un criterio di ordinamento. Il sistema, dopo aver ordinato l’elenco, mostrerà la lista di corsi ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un criterio di ordinamento. Il sistema, dopo aver ordinato l’elenco, mostrerà la lista di corsi ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ordinaCorsiConMemSD}) e del diagramma delle attività (\ref{diag:ordinaCorsiConMemAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina corsi con memorizzazione}} \\
@@ -1265,8 +1267,9 @@ Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un 
 \end{tabular}
 \newpage
 
+\subsection{Funzionalità Visualizza dettagli corso}
 \paragraph{Visualizza dettagli corso \\}
-Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un corso e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del corso selezionato. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi al corso selezionato. Il sistema mostrerà allo studente i dettagli del corso selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}\\
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un corso e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del corso selezionato. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi al corso selezionato. Il sistema mostrerà allo studente i dettagli del corso selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaDettagliCorsoSD}) e del diagramma delle attività (\ref{diag:visualizzaDettagliCorsoAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli corso}} \\
@@ -1292,7 +1295,7 @@ Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un c
 
 \subsection{Funzionalità Gestione appelli}
 \paragraph{Visualizza appelli disponibili \\}
-Questo caso d’uso consentirà allo studente di visualizzare gli appelli disponibili afferenti ai corsi del suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili. Il sistema mostrerà allo studente gli appelli disponibili. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} \\
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli disponibili afferenti ai corsi del suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili. Il sistema mostrerà allo studente gli appelli disponibili. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaAppelliDisponibiliSD}) e del diagramma delle attività (\ref{diag:visualizzaAppelliDisponibiliAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli disponibili}} \\
@@ -1317,7 +1320,7 @@ Questo caso d’uso consentirà allo studente di visualizzare gli appelli dispon
 \newpage
 
 \paragraph{Visualizza appelli prenotati \\}
-Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai quali si è prenotato per sostenere degli esami e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli prenotati. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli prenotati. Il sistema mostrerà allo studente gli appelli prenotati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai quali si è prenotato per sostenere degli esami e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli prenotati. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli prenotati. Il sistema mostrerà allo studente gli appelli prenotati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaAppelliPrenotatiSD}) e del diagramma delle attività (\ref{diag:visualizzaAppelliPrenotatiAD}).  \\
 
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
@@ -1343,7 +1346,7 @@ Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai qua
 \newpage
 
 \paragraph{Ricerca appelli disponibili \\}
-Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà gli appelli trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} 
+Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà gli appelli trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaAppelliDisponibiliSD}) e del diagramma delle attività (\ref{diag:ricercaAppelliDisponibiliAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca appelli disponibili}} \\
@@ -1368,7 +1371,7 @@ Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizz
 \newpage
 
 \paragraph{Filtra appelli disponibili con memorizzazione \\}
-Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibili in base di ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà gli appelli disponibili filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibili in base di ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà gli appelli disponibili filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:filtraAppelliDisponibiliConMemSD}) e del diagramma delle attività (\ref{diag:filtraAppelliDisponibiliConMemAD}).  \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra appelli disponibili con memorizzazione}} \\
@@ -1397,7 +1400,7 @@ Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibil
 \newpage
 
 \paragraph{Ordina appelli disponibili con memorizzazione \\}
-Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibili in base ad un criterio di ordinamento, dopodiché il sistema mostrerà gli appelli disponibili ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso:\ref{diag:gestioneAppelli}  \\
+Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibili in base ad un criterio di ordinamento, dopodiché il sistema mostrerà gli appelli disponibili ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso:\ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ordinaAppelliDisponibiliConMemSD}) e del diagramma delle attività (\ref{diag:ordinaAppelliDisponibiliConMemAD}).  \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina appelli disponibili con memorizzazione}} \\
@@ -1426,7 +1429,7 @@ Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibil
 \newpage
 
 \paragraph{ Prenota appello \\ }
-Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sistema inoltra la richiesta di prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta prenotazione, includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati, dopodiché il sistema mostrerà allo studente la conferma della prenotazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli} \\
+Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sistema inoltra la richiesta di prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta prenotazione, includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati, dopodiché il sistema mostrerà allo studente la conferma della prenotazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:prenotaAppelloSD}) e del diagramma delle attività (\ref{diag:prenotaAppelloAD}). \\
 
 \label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
@@ -1457,7 +1460,7 @@ Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sis
 \newpage
 
 \paragraph{ Cancella prenotazione  \\}
-Questo caso d’uso consentirà allo studente di cancellare la prenotazione di un appello. Il sistema inoltra la richiesta di cancellazione della prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta cancellazione, il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati. Il sistema mostrerà allo studente la conferma dell’avvenuta cancellazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}  \\
+Questo caso d’uso consentirà allo studente di cancellare la prenotazione di un appello. Il sistema inoltra la richiesta di cancellazione della prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta cancellazione, il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati. Il sistema mostrerà allo studente la conferma dell’avvenuta cancellazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:cancellaPrenotazioneSD}) e del diagramma delle attività (\ref{diag:cancellaPrenotazioneAD}).  \\
 
 \label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
@@ -1489,7 +1492,7 @@ Questo caso d’uso consentirà allo studente di cancellare la prenotazione di u
 
 \subsection{Funzionalità Gestione materiale didattico}
 \paragraph{Visualizza elenco file \\}
-Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei file afferenti ad un corso. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista di file, il quale elaborerà la richiesta e restituirà i dati relativi ai file. Il sistema mostrerà allo studente l’elenco dei file. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei file afferenti ad un corso. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista di file, il quale elaborerà la richiesta e restituirà i dati relativi ai file. Il sistema mostrerà allo studente l’elenco dei file. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaElencoFileSD}) e del diagramma delle attività (\ref{diag:visualizzaElencoFileAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza elenco file}} \\
@@ -1515,7 +1518,7 @@ Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei fil
 \newpage	
 
 \paragraph{Ricerca file \\}
-Questo caso d’uso consentirà allo studente di ricercare i file utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i file trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}\\
+Questo caso d’uso consentirà allo studente di ricercare i file utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i file trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaFileSD}) e del diagramma delle attività (\ref{diag:ricercaFileAD}).\\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca file}} \\
@@ -1540,7 +1543,7 @@ Questo caso d’uso consentirà allo studente di ricercare i file utilizzando de
 \newpage
 
 \paragraph{Visualizza dettagli file \\}
-Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un file. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del file selezionato, il quale elaborerà la richiesta e restituirà i dati relativi al file selezionato. Il sistema mostrerà allo studente i dettagli del file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un file. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del file selezionato, il quale elaborerà la richiesta e restituirà i dati relativi al file selezionato. Il sistema mostrerà allo studente i dettagli del file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaDettagliFileSD}) e del diagramma delle attività (\ref{diag:visualizzaDettagliFileAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli file}} \\
@@ -1564,7 +1567,7 @@ Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un f
 \newpage
 
 \paragraph{Apri file \\}
-Questo caso d’uso consentirà allo studente di aprire un file. Il sistema ricercherà il file nello \textit{storage} per poi aprirlo. Nel caso in cui il file non fosse presente, il sistema sfrutta i servizi forniti dal \textit{DBService} che procederà con il download nello \textit{storage} dell’app e successivamente aprirà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+Questo caso d’uso consentirà allo studente di aprire un file. Il sistema ricercherà il file nello \textit{storage} per poi aprirlo. Nel caso in cui il file non fosse presente, il sistema sfrutta i servizi forniti dal \textit{DBService} che procederà con il download nello \textit{storage} dell’app e successivamente aprirà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:apriFileSD}) e del diagramma delle attività (\ref{diag:apriFileAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Apri file}} \\
@@ -1589,7 +1592,7 @@ Questo caso d’uso consentirà allo studente di aprire un file. Il sistema rice
 \newpage
 
 \paragraph{Rimuovi  file \\}
-Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo nello \textit{storage} e rimuovendolo. Nel caso in cui il file non fosse presente, il sistema mostrerà allo studente un messaggio d’errore. Il sistema eliminerà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico} \\
+Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo nello \textit{storage} e rimuovendolo. Nel caso in cui il file non fosse presente, il sistema mostrerà allo studente un messaggio d’errore. Il sistema eliminerà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:rimuoviFileSD}) e del diagramma delle attività (\ref{diag:rimuoviFileAD}). \\ \\
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
 	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Rimuovi  file}} \\
@@ -1643,7 +1646,7 @@ Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo
 \paragraph{CUS1 - Visualizza canale \\}
 
 Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente.
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS1 - Visualizza canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1678,7 +1681,7 @@ Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{me
 	\paragraph{CUS2 - Invio messaggio \\}
 
 Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggio selezionando l’apposito spazio dedito alla scrittura. Una volta digitato il testo del messaggio e selezionato il pulsante di invio, il sistema lo mostra nel canale di discussione. \\
-\begin{table}[!h]
+\begin{table}
 
 	\small % Dimensione testo piccola
 	\label{CUS2 - Invio messaggio}
@@ -1710,7 +1713,7 @@ Lo \emph{Studente}, all’interno di un canale di discussione, invia un messaggi
 
 Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di discussione, similmente ad un messaggio. \\
 	
-\begin{table}[!h]
+\begin{table}
 	
 	\small % Dimensione testo piccola
 	\label{CUS3 - Invio allegato}	
@@ -1748,7 +1751,7 @@ Lo \emph{Studente} invia un file che viene mostrato all’interno del canale di 
 \newpage
 \paragraph{CUS4 - Rispondi a singolo messaggio \\}
 Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona il singolo messaggio a cui desidera rispondere. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS4 - Rispondi a singolo messaggio}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -1781,7 +1784,7 @@ Lo \emph{Studente} visualizza il canale di discussione  desiderato e seleziona i
 \newpage
 \paragraph{CUS5 - Scarica allegato \\}
 Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canale di discussione. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS5 - Scarica allegato}
 	
@@ -1813,7 +1816,7 @@ Lo \emph{Studente} è intenzionato a scaricare un \emph{file} presente nel canal
 \newpage
 \paragraph{CUS6 - Segnalazione messaggio \\}
 Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messaggio che desidera segnalare. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS6 - Segnalazione messaggio}
 	
@@ -1851,7 +1854,7 @@ Lo \emph{Studente} dopo aver visualizzato la chat interessata seleziona il messa
 \newpage
 \paragraph{CUS7 - Ricerca testo nella chat \\}
 Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca” nel \emph{menù} interno del canale di discussione, digitando il testo da cercare in un’apposita casella di testo. Il sistema mostra tutti i messaggi che contengono il testo partendo dal più recente. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS7 - Ricerca testo nella chat}
 	
@@ -1891,7 +1894,7 @@ Lo \emph{Studente} vuole visualizzare vecchi messaggi seleziona la voce “cerca
 \newpage
 \paragraph{CUS8 - Tag membro in messaggio \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di richiamare l’attenzione di uno specifico membro durante la digitazione di un messaggio. Lo studente digita il nome del membro preceduto da un carattere speciale (@). Il membro selezionato viene avvisato tramite una notifica diretta. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS8 - Tag membro in messaggio}
 	
@@ -1923,7 +1926,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 \newpage
 \paragraph{CUS9 - Gestisci notifiche chat \\}
 Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibilitá di accedere al \emph{menù} e gestire le notifiche ovvero di attivarle o disattivarle in base alle sue preferenze. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS9 - Gestisci notifiche chat}
 	
@@ -1955,7 +1958,7 @@ Lo \emph{Studente} che si trova all’interno di una \emph{chat} ha la possibili
 \newpage
 \paragraph{CUS10 - Selezione \emph{emoji} \\}
 Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la possibilitá di scegliere una o piú \emph{emoji} tra quelle disponibili. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS10 - Selezione emoji}
 	
@@ -1989,7 +1992,7 @@ Lo \emph{Studente} che si trova all’interno di un canale di discussione ha la 
 \newpage
 \paragraph{CUS11 - Visualizza elenco membri chat \\}
 Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussione e l’elenco contenente l’\emph{username} degli stessi. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale dell’elenco dei partecipanti al canale qualora essa sia presente. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUS11 - Visualizza elenco membri chat}
 	
@@ -2017,7 +2020,7 @@ Lo \emph{Studente} visualizza il numero dei partecipanti al canale di discussion
 
 \paragraph{CUE1 - Connessione assente \\}
 Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete ma quest’ultima non è disponibile pertanto visualizza un messaggio d’errore. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUE1 - Connessione assente}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2044,7 +2047,7 @@ Lo \emph{Studente} effettua un’operazione che richiede connessione alla rete m
 \newpage
 \paragraph{CUE2 - Nessuna risposta dal sistema \\}
 Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistema, ma quest’ultimo non è in grado di soddisfare la richiesta pertanto visualizza un messaggio d’errore. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUE2 - Nessuna risposta dal sistema}
 	
@@ -2073,7 +2076,7 @@ Lo \emph{Studente} effettua un’operazione che richiede una risposta dal Sistem
 
 \paragraph{CUD1 - Creazione canale \\}
 Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede alla sezione "\emph{menù}" e crea un nuovo canale all'interno di quello attuale in uso, assengando ad esso un nome ed aggiungendo uno o più membri. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD1 - Creazione canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2122,7 +2125,7 @@ Il \emph{Docente}, che si trova all'interno di un cnale di discussione accede al
 \newpage
 \paragraph{CUD2 - Cancellazione canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione accede alla sezione "\emph{menù}" e effettua la cancellazione di uno dei canali presenti all'interno della \emph{chat}. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD2 - Cancellazione canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2159,7 +2162,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione accede al
 \newpage
 \paragraph{CUD3 - Aggiungi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di aggiungere un nuovo membro ad un canale attraverso il \emph{menù} di modifica che include l'opzione di aggiunta nuovo membro. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD3 - Aggiungi membro ad un canale}
 		\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2200,7 +2203,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 \newpage
 \paragraph{CUD4 - Rimuovi membro ad un canale \\}
 Il \emph{Docente} che si trova all'interno di un canale di discussione ha la possibilità di rimuovere un \emph{Docente} o uno \emph{Studente} da un canale attraverso il \emph{menù} di modifica che include l'opzione di rimozione \emph{Docente} o \emph{Studente}. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD4 - Rimuovi membro ad un canale}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2241,7 +2244,7 @@ Il \emph{Docente} che si trova all'interno di un canale di discussione ha la pos
 \newpage
 \paragraph{CUD5 - Blocca Studente \\}
 Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso in cui ritenga inappropriati alcuni interventi nel canale di comunicazione. Per silenziare si intende impedire l'invio di nuovi messaggi ad un determinato \emph{Studente}. \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD5 - Blocca Studente}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2282,7 +2285,7 @@ Il \emph{Docente} ha la possibilità di silenziare uno \emph{Studente}, nel caso
 \newpage
 \paragraph{CUD6 - Sblocca Studente \\}
 Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente precedentemente bloccato  nel caso in cui ritenga opportuno farlo, così da poter permettere nuovamente allo studente di inviare messaggi nel canale di discussione.    \\
-\begin{table}[!h]
+\begin{table}
 	\small % Dimensione testo piccola
 	\label{CUD6 - Sblocca Studentee}
 	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
@@ -2323,7 +2326,7 @@ Il \emph{Docente} Il Docente ha la possibilità di sbloccare uno Studente preced
 \newpage
 \paragraph{CUP1 - Login \\}
 L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’accesso avviene mediante l’inserimento di una \emph{username} e \emph{password}. Il \emph{login} dovrà verificare in modo sicuro l’identità di chi sta effettuando l’accesso.\\
-\begin{table}[!h] 
+\begin{table} 
 	\small % Dimensione testo piccola
 	\label{CUP1-Login}
 	
@@ -2359,7 +2362,7 @@ L'\emph{Amministratore} vuole accedere al pannello di amministrazione. L’acces
 \newpage
 \paragraph{CUP2 - Logout \\}
 L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo sicuro.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP2-Logout}
@@ -2389,7 +2392,7 @@ L'\emph{Amministratore} vuole uscire dal sistema, chiudendo la sessione in modo 
 \newpage
 \paragraph{CUP3 - Ricerca chat \\}
 L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visualizza una schermata relativa alla ricerca, all’interno della quale è possibile cercare una specifica \emph{chat} o un gruppo di \emph{chat}. Tale ricerca, può essere effettuata mediante l’inserimento del nome della \emph{chat} da ricercare, o attraverso l’utilizzo di filtri.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP3- Ricerca chat}
@@ -2440,7 +2443,7 @@ L'\emph{Amministratore}, seleziona una specifica categoria di \emph{chat} e visu
 \paragraph{CUP4 - Visualizza lista chat \\}
 L'\emph{Amministratore} vuole selezionare una tipologia di \emph{chat} da visualizzare.
 E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{chat} dei corsi, queste ultime suddivise a loro volta in \emph{chat} attive e non attive. La suddivisione garantisce una corretta caratterizzazione e organizzazione delle \emph{chat}.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP4 - Visualizza lista chat}
@@ -2486,7 +2489,7 @@ E’ possibile visualizzare la lista delle \emph{chat} studenti e delle \emph{ch
 \newpage
 \paragraph{CUP5 - Abilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non attive e a seguito di una richiesta abilita una specifica \emph{chat}.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP5-Abilita chat}
@@ -2523,7 +2526,7 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso non att
 \newpage
 \paragraph{CUP6 - Disabilita chat \\}
 L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive e a seguito di una richiesta disabilita una specifica \emph{chat}.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP6-Disabilita chat}
@@ -2559,7 +2562,7 @@ L'\emph{Amministratore} visualizza l’elenco delle \emph{chat} di corso attive 
 \paragraph{CUP7 - Visualizza canale \\}
 L'\emph{Amministratore} seleziona una specifica chat da visualizzare.
 In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opportuno canale, ne visualizza i messaggi in esso contenuti.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP7- Visualizza canale}
@@ -2593,7 +2596,7 @@ In quest’ultima, visualizza i canali in cui è suddivisa e, selezionato un opp
 \newpage
 \paragraph{CUP8 - Aggiungi canale \\}
 L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{chat} al fine di rendere la conversazione quanto più organizzata possibile e di suddividere eventuali moduli e partizionamenti di un corso. Ha quindi la possibilità di aggiungere utenti al canale della \emph{chat} e di scegliere il nome del nuovo canale.\\
-\begin{table}[!h]
+\begin{table}
 	
 	\small % Dimensione testo piccola
 	
@@ -2642,7 +2645,7 @@ L'\emph{Amministratore} vuole creare un nuovo canale all’interno della \emph{c
 \newpage
 \paragraph{CUP9 - Cancella canale \\}
 L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga richiesta l’eliminazione.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP9-Cancella canale}
@@ -2683,7 +2686,7 @@ L'\emph{Amministratore} potrà eliminare un canale esistente qualora ne venga ri
 \newpage
 \paragraph{CUP10 - Visualizza lista utenti \\}
 L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'interno di un canale.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP10 - Visualizza lista utenti}
@@ -2712,7 +2715,7 @@ L'\emph{Amministratore} vuole visualizzare la lista degli utenti presenti all'in
 \newpage
 \paragraph{CUP11 - Aggiungi un utente ad un canale \\}
 L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2748,7 +2751,7 @@ L'\emph{Amministratore} vuole aggiungere un Utente ad uno specifico canale.\\
 \newpage
 \paragraph{CUP12 - Rimuovere un utente da un canale \\}
 L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP12 - Rimuovere un utente da un canale}
@@ -2779,7 +2782,7 @@ L'\emph{Amministratore}  vuole rimuovere un Utente ad uno specifico canale.\\
 \newpage
 \paragraph{CUP13 - Silenziare utente in un canale \\}
 L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio offensivo in una \emph{chat}. Silenziando l'utente, quest'ultimo non avrà la possibilità di inviare messaggi all'interno della \emph{chat}.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP13 - Silenziare utente in un canale}
@@ -2824,7 +2827,7 @@ L'\emph{Amministratore}vuole silenziare l'utente che ha scritto un messaggio off
 \newpage
 \paragraph{CUP14 - Reintegra utente in un canale \\}
 L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente silenziato in un canale. Reintegrando l'utente, quest'ultimo ha di nuovo la possibilità di inviare messaggi all'interno del canale della \emph{chat}.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2863,7 +2866,7 @@ L'\emph{Amministratore} vuole reintegrare l'utente che è stato precedentemente 
 \newpage
 \paragraph{CUP15 - Modificare i permessi di un utente in un canale \\}
 L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ricopre all’interno di un canale di una \emph{chat}, cioè impostare un utente amministratore oppure rimuovere questo titolo e far diventare quindi un amministratore di un canale un semplice utente.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	
@@ -2898,7 +2901,7 @@ L'\emph{Amministratore}   vuole modificare il ruolo che uno specifico utente ric
 \paragraph{CUP16 - Nascondi messaggio \\}
 L'\emph{Amministratore} vuole nascondere il contenuto di un messaggio in uno specifico canale di una \emph{chat}. Può risultare opportuno nascondere un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato risulti effettivamente inopportuno. 
 Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi messaggio del canale.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP16 - Nascondi messaggio}
@@ -2936,7 +2939,7 @@ Inoltre l'\emph{Amministratore} ha piena libertà di poter nascondere qualsiasi 
 L'\emph{Amministratore}  vuole reintegrare un messaggio in uno specifico canale di una \emph{chat}. 
 Può risultare opportuno reintegrare un messaggio in seguito ad una segnalazione una volta verificato che il messaggio segnalato non risulta effettivamente inopportuno. 
 Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi risultare evidenziato all’interno del canale.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP17 - Reintegra messaggio}
@@ -2971,7 +2974,7 @@ Un messaggio per essere reintegrato deve per forza essere stato segnalato quindi
 \newpage
 \paragraph{CUP18 - Invio Notifiche \\}
 L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a quale categoria di \emph{chat} indirizzarla così da avere la sicurezza che solo chi realmente interessato al contenuto della notifica la riceva. \\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	\label{CUP18 - Invio Notifiche}
@@ -3008,7 +3011,7 @@ L'\emph{Amministratore} vuole inviare una particolare notifica scegliendo a qual
 \newpage
 \paragraph{CUP19 - Gestione messaggi inopportuni \\}
 L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportuni all’interno delle \emph{chat}, così da poter decidere se nascondere o meno i messaggi che possono essere ritenuti offensivi o non adatti alla conversazione, decidendo inoltre anche se silenziare l’utente che ha scritto un messaggio offensivo.\\
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small
 	
@@ -3049,7 +3052,7 @@ L'\emph{Amministratore}  vuole visualizzare i messaggi segnalati come inopportun
 Il caso d'uso mostra, nella tabella sottostante, il comportamento
 che il sistema assume quando lo \textit{Studente} accede alla sezione rubrica e non effettua nessun tipo di ricerca.
 
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
@@ -3085,7 +3088,7 @@ che il sistema assume quando lo \textit{Studente} accede alla sezione rubrica e 
 Il caso d'uso è il più frequente e mostra nella tabella sottostante il comportamento che il sistema assume quando lo \textit{Studente}
 cerca informazioni inerenti un docente o il personale di segreteria di una sede didattica specifica.
 
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
@@ -3122,7 +3125,7 @@ cerca informazioni inerenti un docente o il personale di segreteria di una sede 
 \paragraph{Visualizza contatto \\} 
 Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatto, seleziona il contatto e visualizza le informazioni. Non ci sono eccezioni in quanto la ricerca è andata a buon fine.
 
-\begin{table}[!h]
+\begin{table}
 	%\normalsize % Dimensione testo normale
 	\small % Dimensione testo piccola
 	%\footnotesize % Dimensione testo piccolissima
@@ -3290,25 +3293,29 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \section{Diagramma dei casi d'uso}
 
 \subsection{Funzionalità Gestione piano di studio}
-\begin{center}
-	\label{diag:gestionePianoStudio}
+\begin{figure} [h]
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD1-gestione_piano_di_studio.pdf}
-\end{center}
-\newpage
+	\caption{UC - Gestione piano di studio}
+	\label{diag:gestionePianoStudio}
+\end{figure}
+\clearpage
 
 \subsection{Funzionalità Gestione appelli}
-\begin{center}
-	\label{diag:gestioneAppelli}
+\begin{figure}[h]
 	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD2-gestione_appelli.pdf}
-\end{center}
-\newpage
+	\caption{UC - Gestione appelli}
+	\label{diag:gestioneAppelli}
+\end{figure}
+\clearpage
 
 \subsection{Funzionalità Gestione Materiale Didattico}
-\begin{center}
+\begin{figure}[h]
+	\includegraphics[width=6.5in, height=6in]{imgs/gruppo1/use_case_diagrams/UCD3-materiale_didattico.pdf}
+	\caption{UC - Gestione materiale didattico}
 	\label{diag:gestioneMatDidattico}
-	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD3-materiale_didattico.pdf}
-\end{center}
-\newpage
+\end{figure}
+\clearpage
 
 
 \subsection{Funzionalità chat}
@@ -3359,115 +3366,164 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \section{Diagramma di sequenza}
 
 \subsection{Funzionalità Gestione Piano di studio}
-\paragraph{Visualizza corsi}
-\begin{center}
+%\paragraph{Visualizza corsi}
+\begin{figure}[h]
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD1_visualizza_corsi.pdf}
-\end{center}
-%%8.5.2 - Ricerca corsi%%
-\paragraph{Ricerca corsi}
-\begin{center}
+	\caption{Sequence Diagram - Visualizza corsi}
+	\label{diag:visualizzaCorsiSD}
+\end{figure}
+
+%\paragraph{Ricerca corsi}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD2_ricerca_corsi.pdf}
-\end{center}
+	\caption{Sequence Diagram - Ricerca corsi}
+	\label{diag:ricercaCorsiSD}
+\end{figure}
 \newpage
 
-
-%%8.5.3 - Filtra corsi con memorizzazione%%
-\paragraph{Filtra corsi con memorizzazione}
-\begin{center}
+%\paragraph{Filtra corsi con memorizzazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD3_filtra_corsi_con_memorizzazione.pdf}
-\end{center}
-%%8.5.4 - Ordina corsi con memorizzazione%%
-\paragraph{Ordina corsi con memorizzazione}
-\begin{center}
-	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD4_ordina_corsi_con_memorizzazione.pdf}
-\end{center}
-\newpage
+	\caption{Sequence Diagram - Filtra corsi con memorizzazione}
+	\label{diag:filtraCorsiConMemSD}
+\end{figure}
 
-\paragraph{Visualizza dettagli corso}
-\begin{center}
-	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD5_visualizza_dettagli_corso.pdf}
-\end{center}
-%%8.5.6 - Visualizza appelli disponibili %%
-\paragraph{Visualizza appelli disponibili}
-\begin{center}
-	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD6_visualizza_appelli_disponibili.pdf}
-\end{center}
+%\paragraph{Ordina corsi con memorizzazione}
+\begin{figure}
+	\centering
+	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD4_ordina_corsi_con_memorizzazione.pdf}
+	\caption{Sequence Diagram - Ordina corsi con memorizzazione}
+	\label{diag:ordinaCorsiConMemSD}
+\end{figure}
 \newpage
+\clearpage
+
+\subsection{Funzionalità Visualizza dettagli corso}
+\clearpage
+\begin{figure}
+	\centering
+	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD5_visualizza_dettagli_corso.pdf}
+	\caption{Sequence Diagram - Visualizza dettagli corso}
+	\label{diag:visualizzaDettagliCorsoSD}
+\end{figure}
+\newpage
+\clearpage
 
 \subsection{Funzionalità Gestione appelli}
-\paragraph{Visualizza appelli prenotati}
-\begin{center}
+\clearpage
+%\paragraph{Visualizza appelli disponibili}
+\begin{figure} 
+	\centering
+	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD6_visualizza_appelli_disponibili.pdf}
+	\caption{Sequence Diagram - Visualizza appelli disponibili}
+	\label{diag:visualizzaAppelliDisponibiliSD}
+\end{figure}
+
+%\paragraph{Visualizza appelli prenotati}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD7_visualizza_appelli_prenotati.pdf}
-\end{center}
-%% 8.5.8 - Ricerca appelli disponibili  %%
-\paragraph{Ricerca appelli disponibili}
-\begin{center}
+	\caption{Sequence Diagram - Visualizza appelli prenotati}
+	\label{diag:visualizzaAppelliPrenotatiSD}
+\end{figure}
+
+%\paragraph{Ricerca appelli disponibili}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD8_ricerca_appelli_disponibili.pdf}
-\end{center}
+	\caption{Sequence Diagram - Ricerca appelli disponibili}
+	\label{diag:ricercaAppelliDisponibiliSD}
+\end{figure}
 \newpage
 
-
-%% 8.5.9 - Filtra appelli disponibili con memorizzazione  %%
-\paragraph{Filtra appelli disponibili con memorizzazione}
-\begin{center}
+%\paragraph{Filtra appelli disponibili con memorizzazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD9_filtra_appelli_disponibili_con_memorizzazione.pdf}
-\end{center}
-%% 8.5.10 - Ordina appelli disponibili con memorizzazione  %%
-\paragraph{Ordina appelli disponibili con memorizzazione}
-\begin{center}
+	\caption{Sequence Diagram - Filtra appelli disponibili con memorizzazione}
+	\label{diag:filtraAppelliDisponibiliConMemSD}
+\end{figure}
+
+%\paragraph{Ordina appelli disponibili con memorizzazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD10_ordina_appelli_disponibili_con_memorizzazione.pdf}
-\end{center}
+	\caption{Sequence Diagram - Ordina appelli disponibili con memorizzazione}
+	\label{diag:ordinaAppelliDisponibiliConMemSD}
+\end{figure}
 \newpage
 
-%%  8.5.11 - Prenota appello  %%
-\paragraph{Prenota appello}
-\begin{center}
+%\paragraph{Prenota appello}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD11_prenota_appello.pdf}
-\end{center}
-%% 8.5.12 - Cancella prenotazione   %%
-\paragraph{Cancella prenotazione}
-\begin{center}
+	\caption{Sequence Diagram - Prenota appello}
+	\label{diag:prenotaAppelloSD}
+\end{figure}
+
+%\paragraph{Cancella prenotazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD12_cancella_prenotazione.pdf}
-\end{center}
+	\caption{Sequence Diagram - Cancella prenotazione}
+	\label{diag:cancellaPrenotazioneSD}
+\end{figure}
 \newpage
+\clearpage
 
 \subsection{Funzionalità Gestione materiale didattico}
-\paragraph{Visualizza elenco file}
-\begin{center}
+\clearpage
+%\paragraph{Visualizza elenco file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD13_visualizza_elenco_file.pdf}
-\end{center}
+	\caption{Sequence Diagram - Visualizza elenco file}
+	\label{diag:visualizzaElencoFileSD}
+\end{figure}
 
-%% 8.5.14 - Ricerca file %
-\paragraph{Ricerca file}
-\begin{center}
+%\paragraph{Ricerca file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD14_ricerca_file.pdf}
-\end{center}
+	\caption{Sequence Diagram - Ricerca file}
+	\label{diag:ricercaFileSD}
+\end{figure}
 \newpage
 
-%% 8.5.15 - Visualizza dettagli file %%
-\paragraph{Visualizza dettagli file}
-\begin{center}
+%\paragraph{Visualizza dettagli file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1//sequence_diagrams/SD15_visualizza_dettagli_file.pdf}
-\end{center}
+	\caption{Sequence Diagram - Visualizza dettagli file}
+	\label{diag:visualizzaDettagliFileSD}
+\end{figure}
 
-%% 8.5.16- Apri file  %%
-\paragraph{Apri file}
-\begin{center}
+%\paragraph{Apri file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD16_apri_file.pdf}
-\end{center}
+	\caption{Sequence Diagram - Apri file}
+	\label{diag:apriFileSD}
+\end{figure}
 \newpage
 
-%% 8.5.17 - Rimuovi file %%
-\paragraph{Rimuovi  file}
-\begin{center}
+%\paragraph{Rimuovi  file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD17_rimuovi_file.pdf}
-\end{center}
+	\caption{Sequence Diagram - Rimuovi file}
+	\label{diag:rimuoviFileSD}
+\end{figure}
 \newpage
+\clearpage
 
 \subsection{Funzionalità chat}
 
 \subsubsection{Chat studenti}
-\begin{figure}[!h]
+\begin{figure}
 	\centering
 	%%% cambiare height=3in,width=5in -> width=0.9\textwidth
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUS1_visualizza_canale.pdf}
@@ -3562,7 +3618,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \pagebreak
 \subsubsection{Chat docenti}
-\begin{figure}[!h]
+\begin{figure}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUD1_creazione_canale.pdf}
 	\caption{CUD1 - Creazione canale}
@@ -3606,7 +3662,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \pagebreak
 
-\begin{figure}[!h]
+\begin{figure}
 	\subsubsection{Pannello di amministrazione}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUP1_Login.pdf}
@@ -3750,7 +3806,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \pagebreak
 
-\begin{figure}[!h]
+\begin{figure}
 	\subsection{Eccezioni}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE1_connessione_assente.pdf}
@@ -3794,138 +3850,166 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \section{Diagrammi delle attività}
 
 \subsection{Funzionalità Gestione Piano di studio}
-\paragraph{Visualizza corsi}
-\begin{center}
+%\paragraph{Visualizza corsi}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD1_Visualizza_corsi.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza corsi}
+	\label{diag:visualizzaCorsiAD}
+\end{figure}
 \newpage
 
-%%8.6.2 - Ricerca corsi  %%
-
-\paragraph{Ricerca corsi }
-\begin{center}
+%\paragraph{Ricerca corsi }
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD2_ricerca_corsi.pdf}
-\end{center}
+	\caption{Activity Diagram - Ricerca corsi}
+	\label{diag:ricercaCorsiAD}
+\end{figure}
 \newpage
 
-%%8.6.3 - Filtra corsi con memorizzazione %%
-
-\paragraph{Filtra corsi con memorizzazione  }
-\begin{center}
+%\paragraph{Filtra corsi con memorizzazione  }
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD3_filtra_corsi.pdf}
-\end{center}
+	\caption{Activity Diagram - Filtra corsi con memorizzazione}
+	\label{diag:filtraCorsiConMemAD}
+\end{figure}
 \newpage
 
-%%8.6.4 - Ordina corsi con memorizzazione %%
-
-\paragraph{Ordina corsi con memorizzazione}
-\begin{center}
+%\paragraph{Ordina corsi con memorizzazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD4_ordina_corsi.pdf}
-\end{center}
+	\caption{Activity Diagram - Ordina corsi con memorizzazione}
+	\label{diag:ordinaCorsiConMemAD}
+\end{figure}
 \newpage
+\clearpage
 
-%%8.6.5 - Visualizza dettagli corso%%
-
-\paragraph{Visualizza dettagli corso}
-\begin{center}
+\subsection{Funzionalità Visualizza dettagli corso}
+\clearpage
+\begin{figure}
+	\centering
 	\includegraphics[width=7in]{imgs/gruppo1/activity_diagrams/AD5_visualizza_dettagli_corso.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza dettagli corso}
+	\label{diag:visualizzaDettagliCorsoAD}
+\end{figure}
 \newpage
+\clearpage
 
-%%8.6.6 - Visualizza appelli disponibili%%
 \subsection{Funzionalità Gestione appelli}
-\paragraph{Visualizza appelli disponibil}
-\begin{center}
+\clearpage
+%\paragraph{Visualizza appelli disponibil}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD6_visualizza_appelli_disponibili.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza appelli disponibili}
+	\label{diag:visualizzaAppelliDisponibiliAD}
+\end{figure}
 \newpage
 
-%%8.6.7 - Visualizza appelli prenotati%%
-
-\paragraph{Visualizza appelli prenotati}
-\begin{center}
+%\paragraph{Visualizza appelli prenotati}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD7_visualizza_appelli_prenotati.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza appelli prenotati}
+	\label{diag:visualizzaAppelliPrenotatiAD}
+\end{figure}
 \newpage
 
-%%8.6.8 - Ricerca appelli disponibili %%
-
-\paragraph{Ricerca appelli disponibili}
-\begin{center}
+%\paragraph{Ricerca appelli disponibili}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD8_Ricerca_appelli.pdf}
-\end{center}
+	\caption{Activity Diagram - Ricerca appelli disponibili}
+	\label{diag:ricercaAppelliDisponibiliAD}
+\end{figure}
 \newpage
 
-%%8.6.9 - Filtra appelli disponibili con memorizzazione %%
-
-\paragraph{Filtra appelli disponibili con memorizzazione }
-\begin{center}
+%\paragraph{Filtra appelli disponibili con memorizzazione }
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD9_filtrati_appelli.pdf}
-\end{center}
+	\caption{Activity Diagram - Filtra appelli disponibili con memorizzazione}
+	\label{diag:filtraAppelliDisponibiliConMemAD}
+\end{figure}
 \newpage
 
-%%8.6.10 - Ordina appelli disponibili con memorizzazione%%
-
-\paragraph{Ordina appelli disponibili con memorizzazione }
-\begin{center}
+%\paragraph{Ordina appelli disponibili con memorizzazione }
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD10_ordina_appelli.pdf}
-\end{center}
+	\caption{Activity Diagram - Ordina appelli disponibili con memorizzazione}
+	\label{diag:ordinaAppelliDisponibiliConMemAD}
+\end{figure}
 \newpage
 
-%%8.6.11 - Prenota appello%%
-
-\paragraph{Prenota appello }
-\begin{center}
+%\paragraph{Prenota appello }
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD11_prenota_apppello.pdf}
-\end{center}
+	\caption{Activity Diagram - Prenota appello}
+	\label{diag:prenotaAppelloAD}
+\end{figure}
 \newpage
 
-%%8.6.12 - Cancella prenotazione%%
-
-\paragraph{Cancella prenotazione}
-\begin{center}
+%\paragraph{Cancella prenotazione}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD12_cancella_prenotazione.pdf}
-\end{center}
+	\caption{Activity Diagram - Cancella Prenotazione}
+	\label{diag:cancellaPrenotazioneAD}
+\end{figure}
 \newpage
+\clearpage
 
-%%8.6.13 - Visualizza elenco file%%
 \subsection{Funzionalità Gestione materiale didattico}
-\paragraph{Visualizza elenco file}
-\begin{center}
+\clearpage
+\newpage
+%\paragraph{Visualizza elenco file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD13_viasualizza_elenco_file.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza elenco file}
+	\label{diag:visualizzaElencoFileAD}
+\end{figure}
 \newpage
 
-%%8.6.14 - Ricerca files%%
-
-\paragraph{Ricerca files}
-\begin{center}
+%\paragraph{Ricerca files}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD14_ricerca_file.pdf}
-\end{center}
+	\caption{Activity Diagram - Ricerca file}
+	\label{diag:ricercaFileAD}
+\end{figure}
 \newpage
 
-%%8.6.15 - Visualizza dettagli file%%
-
-\paragraph{Visualizza dettagli file}
-\begin{center}
+%\paragraph{Visualizza dettagli file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD15_dettagli_file.pdf}
-\end{center}
+	\caption{Activity Diagram - Visualizza dettagli file}
+	\label{diag:visualizzaDettagliFileAD}
+\end{figure}
 \newpage
 
-%%8.6.16 - Apri file%%
-
-\paragraph{Apri file}
-\begin{center}
+%\paragraph{Apri file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD16_apri_file.pdf}
-\end{center}
+	\caption{Activity Diagram - Apri file}
+	\label{diag:apriFileAD}
+\end{figure}
 \newpage
 
-%%8.6.17 - Rimuovi file%%
-
-\paragraph{Rimuovi file}
-\begin{center}
+%\paragraph{Rimuovi file}
+\begin{figure}
+	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD17_rimuovi_file.pdf}
-\end{center}
+	\caption{Activity Diagram - Rimuovi file}
+	\label{diag:rimuoviFileAD}
+\end{figure}
 \newpage
 
 =======
@@ -3958,7 +4042,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \subsection{Funzionalità chat}
 
 %%% START activities chat studenti %%%
-\begin{figure}[!h]
+\begin{figure}
 	\subsubsection{Chat studenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cus1_visualizza_canale.pdf}
@@ -4046,7 +4130,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 %%% START activities chat docenti %%%
 \pagebreak
-\begin{figure}[!h]
+\begin{figure}
 	\subsubsection{Chat docenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cud1_creazione_canale.pdf}
@@ -4106,7 +4190,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 %%% START activities chat pannello %%%
 \pagebreak
-\begin{figure}[!h]
+\begin{figure}
 	\subsubsection{Pannello di amministrazione}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cup1_login.pdf}
