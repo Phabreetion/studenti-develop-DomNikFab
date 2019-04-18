@@ -1291,7 +1291,8 @@ Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un c
 	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al corso selezionato.} \\
 	\hline
 \end{tabular}
-\newpage
+
+\clearpage
 
 \subsection{Funzionalità Gestione appelli}
 \paragraph{Visualizza appelli disponibili \\}
@@ -1488,7 +1489,8 @@ Questo caso d’uso consentirà allo studente di cancellare la prenotazione di u
 	\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la cancellazione della prenotazione, mentra l’appello cancellato torna tra gli appelli disponibili.} \\
 	\hline
 \end{tabular}
-\newpage
+
+\clearpage
 
 \subsection{Funzionalità Gestione materiale didattico}
 \paragraph{Visualizza elenco file \\}
@@ -1614,9 +1616,12 @@ Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo
 	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente rimuove il file selezionato.} \\
 	\hline
 \end{tabular}
-\newpage
+
+\clearpage
+
 \subsection{Funzionalità chat}
 
+\clearpage
 
 \subsection{Funzionalità previsione media}
 
@@ -1641,8 +1646,12 @@ Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo
 	\textit {Giovanna}, \textit {Studentessa} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, il sistema mostra il messaggio: "Connessione assente, nessun dato disponibile".\\
 \end{itemize}
 
+\clearpage
+
 \section{Casi d'uso}
+
 \subsection{Funzionalità chat}
+
 \paragraph{CUS1 - Visualizza canale \\}
 
 Lo \emph{Studente}, una volta selezionata la voce \emph{“chat”} dal \emph{menù} dell’app \emph{Studenti Unimol},  seleziona una \emph{chat} specifica della lista e visualizza i messaggi presenti nel canale di discussione della stessa. Nel caso in cui vi sia l’assenza di connessione viene visualizzata l’ultima copia salvata in locale del canale qualora essa sia presente.
@@ -3158,11 +3167,13 @@ Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatt
 	\caption{\textbf{Visualizza contatto}}
 \end{table}
 
-<<<<<<< HEAD
-=======
+
 \clearpage
+
 \subsection{Funzionalità previsione media}
+
 \paragraph{Simulazione della media\\}
+
 Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito opportunamente i voti, restituirà la simulazione della media e la salverà in locale.
 
 \begin{table}[H]
@@ -3289,7 +3300,9 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Mancata connessione} % Didascalia tabella
 \end{table}
 
->>>>>>> develop
+
+\clearpage
+
 \section{Diagramma dei casi d'uso}
 
 \subsection{Funzionalità Gestione piano di studio}
@@ -3316,7 +3329,10 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{diag:gestioneMatDidattico}
 \end{figure}
 \clearpage
+	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD3-materiale_didattico.pdf}
+\end{center}
 
+\clearpage
 
 \subsection{Funzionalità chat}
 
@@ -3342,6 +3358,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \end{figure}
 
 \clearpage
+
 \subsection{Funzionalità rubrica}
 \begin{figure}[H]
 	\centering
@@ -3350,9 +3367,9 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:ucd-rubrica}
 \end{figure}
 
-<<<<<<< HEAD
-=======
+
 \clearpage
+
 \subsection{Funzionalità previsione media}
 \begin{figure}[H]
 	\centering
@@ -3360,9 +3377,9 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{UCD - Previsione Media}
 	\label{fig:prova}
 \end{figure}
->>>>>>> develop
 
-\newpage
+\clearpage
+
 \section{Diagramma di sequenza}
 
 \subsection{Funzionalità Gestione Piano di studio}
@@ -3410,6 +3427,12 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{diag:visualizzaDettagliCorsoSD}
 \end{figure}
 \newpage
+\end{center}
+%%8.5.6 - Visualizza appelli disponibili %%
+\paragraph{Visualizza appelli disponibili}
+\begin{center}
+	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD6_visualizza_appelli_disponibili.pdf}
+\end{center}
 \clearpage
 
 \subsection{Funzionalità Gestione appelli}
@@ -3472,6 +3495,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{diag:cancellaPrenotazioneSD}
 \end{figure}
 \newpage
+\end{center}
 \clearpage
 
 \subsection{Funzionalità Gestione materiale didattico}
@@ -3518,6 +3542,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{diag:rimuoviFileSD}
 \end{figure}
 \newpage
+\end{center}
 \clearpage
 
 \subsection{Funzionalità chat}
@@ -3804,7 +3829,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:seq-cup19}
 \end{figure}
 
-\pagebreak
+\clearpage
 
 \begin{figure}
 	\subsection{Eccezioni}
@@ -3846,6 +3871,8 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \end{figure}
 
 <<<<<<< HEAD
+
+\clearpage
 
 \section{Diagrammi delle attività}
 
@@ -3892,10 +3919,14 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \begin{figure}
 	\centering
 	\includegraphics[width=7in]{imgs/gruppo1/activity_diagrams/AD5_visualizza_dettagli_corso.pdf}
+<<<<<<< HEAD
 	\caption{Activity Diagram - Visualizza dettagli corso}
 	\label{diag:visualizzaDettagliCorsoAD}
 \end{figure}
 \newpage
+=======
+\end{center}
+>>>>>>> develop
 \clearpage
 
 \subsection{Funzionalità Gestione appelli}
@@ -3958,10 +3989,14 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \begin{figure}
 	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD12_cancella_prenotazione.pdf}
+<<<<<<< HEAD
 	\caption{Activity Diagram - Cancella Prenotazione}
 	\label{diag:cancellaPrenotazioneAD}
 \end{figure}
 \newpage
+=======
+\end{center}
+>>>>>>> develop
 \clearpage
 
 \subsection{Funzionalità Gestione materiale didattico}
@@ -4035,6 +4070,8 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Sequence simulazione media con esami finiti}
 	\label{fig:seq3-media}
 \end{figure}
+
+\clearpage
 
 \section{Diagramma delle attività}
 >>>>>>> develop
