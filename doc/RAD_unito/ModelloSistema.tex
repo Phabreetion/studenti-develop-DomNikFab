@@ -251,7 +251,7 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”. 
 \end{itemize}
 
-\subsection{Funzionalità Visualizza dettagli corso}
+\paragraph{Visualizza dettagli corso}
 \begin{itemize}
 	\item \textit{Visualizzazione dettagli di un corso superato:}
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso superato di Informatica giuridica. Il sistema mostra allo studente i seguenti dettagli:
@@ -1154,10 +1154,9 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 
 \section{Casi d'uso}
 
-\subsection{Funzionalità Gestione piano di studio}
+\subsection{Funzionalità Piano di studio}
 \paragraph{Visualizza corsi \\}
-Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}.
-È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaCorsiSD}) e del diagramma delle attività (\ref{diag:visualizzaCorsiAD}).
+Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
 
 \begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
 	\hline
@@ -1619,7 +1618,158 @@ Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo
 
 \clearpage
 
-\subsection{Funzionalità chat}
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio} 
+
+Questo caso d’uso mostra come gli utenti che accedono alla sezione "orario" per la prima volta come si devono comportare. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-gestione-primo-avvio}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
+\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con 		lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup 		con i dettagli dei due corsi.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+
+\end{tabular}
+\end{table}
+
+\subsubsection{Modifica orario} 
+
+La funzionalità permette agli utenti di modificare l'orario da loro struttarato.
+
+Vedi Tabella~\vref{tab:tab-caso-duso-modifica-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
+\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
+	\hline
+	\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Visualizza orario} 
+
+Questo caso d’uso mostra come gli utenti, che hanno già fatto l'accesso alla sezione "orario" almeno una volta, potranno visualizzare i corsi. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-visualizza-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
+\label{tab:tab-caso-duso-visualizza-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+\subsubsection{Gestione notifiche}
+
+Il caso d'uso \emph{Gestione notifiche} è identico per tutte le notifiche, ciò che cambia è unicamente il contenuto della modifica. Vedi Tabella~\vref{tab:caso-duso-gestione-notifiche}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione notifiche} % Didascalia tabella
+\label{tab:caso-duso-gestione-notifiche} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione notifiche}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
+	\hline
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
+	\hline
+	\textbf{} & \textbf{2} & Riceve la notifica. & \textbf{} \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
+	\hline
+\end{tabular}
+\end{table}
 
 \clearpage
 
@@ -3365,6 +3515,8 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:ucd-rubrica}
 \end{figure}
 
+<<<<<<< HEAD
+=======
 
 \clearpage
 
@@ -3375,6 +3527,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{UCD - Previsione Media}
 	\label{fig:prova}
 \end{figure}
+>>>>>>> develop
 
 \clearpage
 
@@ -3398,6 +3551,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \end{figure}
 \newpage
 
+
 %\paragraph{Filtra corsi con memorizzazione}
 \begin{figure}
 	\centering
@@ -3413,11 +3567,11 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Sequence Diagram - Ordina corsi con memorizzazione}
 	\label{diag:ordinaCorsiConMemSD}
 \end{figure}
-\newpage
+
 \clearpage
 
-\subsection{Funzionalità Visualizza dettagli corso}
-\clearpage
+\paragraph{Visualizza dettagli corso}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD5_visualizza_dettagli_corso.pdf}
@@ -3496,7 +3650,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \clearpage
 
 \subsection{Funzionalità Gestione materiale didattico}
-\clearpage
+
 %\paragraph{Visualizza elenco file}
 \begin{figure}
 	\centering
@@ -3505,7 +3659,8 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{diag:visualizzaElencoFileSD}
 \end{figure}
 
-%\paragraph{Ricerca file}
+%% 8.5.14 - Ricerca file %
+\paragraph{Ricerca file}
 \begin{figure}
 	\centering
 	\includegraphics[width=6.5in]{imgs/gruppo1/sequence_diagrams/SD14_ricerca_file.pdf}
@@ -3870,31 +4025,6 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \clearpage
 
-\subsection{Funzionalità previsione media}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-validi.pdf}
-	\caption{sequence simulazione media}
-	\label{fig:seq1-media}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-non-validi.pdf}
-	\caption{Sequence simulazione media con valori non validi o vuoti}
-	\label{fig:seq2-media}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-esami-finiti.pdf}
-	\caption{Sequence simulazione media con esami finiti}
-	\label{fig:seq3-media}
-\end{figure}
-
-\clearpage
-
-
 \section{Diagrammi delle attività}
 
 \subsection{Funzionalità Gestione Piano di studio}
@@ -3932,11 +4062,11 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Activity Diagram - Ordina corsi con memorizzazione}
 	\label{diag:ordinaCorsiConMemAD}
 \end{figure}
-\newpage
+
 \clearpage
 
 \subsection{Funzionalità Visualizza dettagli corso}
-\clearpage
+
 \begin{figure}
 	\centering
 	\includegraphics[width=7in]{imgs/gruppo1/activity_diagrams/AD5_visualizza_dettagli_corso.pdf}
@@ -3944,8 +4074,6 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Activity Diagram - Visualizza dettagli corso}
 	\label{diag:visualizzaDettagliCorsoAD}
 \end{figure}
-
-\clearpage
 
 \subsection{Funzionalità Gestione appelli}
 \clearpage
@@ -4060,12 +4188,34 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{Activity Diagram - Rimuovi file}
 	\label{diag:rimuoviFileAD}
 \end{figure}
-\newpage
 
-=======
 \clearpage
 
->>>>>>> develop
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-validi.pdf}
+	\caption{sequence simulazione media}
+	\label{fig:seq1-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-non-validi.pdf}
+	\caption{Sequence simulazione media con valori non validi o vuoti}
+	\label{fig:seq2-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-esami-finiti.pdf}
+	\caption{Sequence simulazione media con esami finiti}
+	\label{fig:seq3-media}
+\end{figure}
+
+\clearpage
+
+\section{Diagramma delle attività}
 
 \subsection{Funzionalità chat}
 
