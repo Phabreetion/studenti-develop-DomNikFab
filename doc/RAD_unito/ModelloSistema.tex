@@ -534,6 +534,42 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i dettagli relativi al file \textit{Slides.pdf}, chiede al sistema di rimuoverlo. Il sistema cerca il file all'interno delloe e, non trovandolo, mostra il messaggio di errore “Impossibile rimuovere file”.
 \end{itemize}
 
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio}
+
+Giulio, dopo aver selezionato la sezione “orario” dalla voce del menu, potrà spuntare, da una lista di corsi, quelli che vuole seguire. Confermerà la selezione premendo l’apposito tasto “OK”. Da questo momento in poi Giulio potrà visualizzare l’orario costituito dai corsi scelti. 
+
+\subsubsection{Modifica orario}
+
+Giulio modificherà l’orario del proprio anno accademico spuntando la lista dei corsi che vuole seguire. Una volta confermata la modifica, lo studente visualizzerà l’orario aggiornato. 
+
+\subsubsection{Visualizza orario}
+
+Dopo il primo avvio dell’orario, selezionando la sezione “orario” dalla voce del menu, Giulio visualizzerà l’orario.
+
+\subsection{Funzionalità notifiche}
+
+\subsubsection{Apertura finestra di prenotazione per l’appello d’esame}
+
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in concomitanza con l’apertura della finestra di prenotazione dell’esame di “Ingegneria del Software” del Prof. Fausto Fasano, in quanto ancora da sostenere e presente all’interno della propria carriera.
+
+\subsubsection{Chiusura finestra di prenotazione per l’appello d’esame}
+
+Il sistema invia una notifica push alla studentessa Giuseppina Mazzocco, identificata per mezzo di matricola 789101, poco prima della chiusura della finestra di prenotazione all’esame di “Ingegneria del Software” del Prof. Fausto Fasano, in quanto ancora da sostenere e presente all’interno della propria carriera.
+
+\subsubsection{Verbalizzazione esame}
+
+Il sistema invia una notifica push alla studentessa Martina Buro, identificata per mezzo di matricola 234567, in occasione della verbalizzazione dell’esame di “Ingegneria del Software” del Prof. Fausto Fasano, sostenuto in data 28/02/2019 riportando votazione pari a 28.
+
+\subsubsection{Avviso tasse}
+
+All’apertura del periodo di pagamento di un importo di tasse universitarie, tale evento verrà notificato all’utente per mezzo di una notifica push.
+
+\subsubsection{Sospensione lezione}
+
+Il sistema invia una notifica push allo studente Angelo Gino Varrati, identificato per mezzo di matricola 123456, in occasione della sospensione della lezione di “Ingegneria del Software” del Prof. Fausto Fasano prevista per il giorno 19/03/2019.
+
 \subsection{Funzionalità chat}
 \subsubsection{Chat Studenti}
 \paragraph{CUS1 - Visualizza canale}
@@ -1151,6 +1187,31 @@ Avrà anche la possibilità di inviare notifiche personalizzate e di gestire la 
 	\item \textit{Scenario 1:\\}
 	\textit{Antonio}, \textit{Studente} frequentante il primo anno di Informatica, dopo aver effettuato la visualizzazione della rubrica o di uno specifico contatto, seleziona il conatto e riesce a visualizzare le informazioni relative ad esso.\\
 \end{itemize}
+
+\subsection{Funzionalità previsione media}
+
+\paragraph{Previsione media\\}
+\begin{itemize}
+	\item \textit{Scenario 1 - Simulazione della media:\\}
+	\textit {Giuseppe}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, il quale seleziona gli esami di Ingegneria Del Software e Calcolo Numerico, inserisce la votazione di 26/30 per l'esame di Ingegneria Del Software e 23/30 per l'esame di Calcolo Numerico, il sistema restituisce la previsione media aritmetica con valore di 24,5, la previsione media ponderata con valore di 24,8 e base di laurea con votazione di 91/110.\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 2 - Simulazione della media con valori non validi o vuoti:\\}
+	\textit {Emilio}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, lo studente inserisce il voto di 15/30 riguardante l'esame di Calcolo Numerico oppure non inserisce un voto per nessun esame e preme sul tasto calcola media, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 3 - Esami da conseguire terminati:\\}
+	\textit {Gianluca}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, il sistema mostra la carriera completa allo studente, lo studente non può selezionare alcun esame poichè ha conseguito tutti gli esami, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
+\end{itemize}
+
+\begin{itemize}
+	\item \textit{Scenario 4 - Mancata connessione:\\}
+	\textit {Giovanna}, \textit {Studentessa} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, il sistema mostra il messaggio: "Connessione assente, nessun dato disponibile".\\
+\end{itemize}
+
+\clearpage
 
 \section{Casi d'uso}
 
@@ -1770,31 +1831,6 @@ Il caso d'uso \emph{Gestione notifiche} è identico per tutte le notifiche, ciò
 	\hline
 \end{tabular}
 \end{table}
-
-\clearpage
-
-\subsection{Funzionalità previsione media}
-
-\paragraph{Previsione media\\}
-\begin{itemize}
-	\item \textit{Scenario 1 - Simulazione della media:\\}
-	\textit {Giuseppe}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, il quale seleziona gli esami di Ingegneria Del Software e Calcolo Numerico, inserisce la votazione di 26/30 per l'esame di Ingegneria Del Software e 23/30 per l'esame di Calcolo Numerico, il sistema restituisce la previsione media aritmetica con valore di 24,5, la previsione media ponderata con valore di 24,8 e base di laurea con votazione di 91/110.\\
-\end{itemize}
-
-\begin{itemize}
-	\item \textit{Scenario 2 - Simulazione della media con valori non validi o vuoti:\\}
-	\textit {Emilio}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, successivamente, il sistema mostra gli esami di Ingegneria Del Software, Calcolo Numerico e Algoritmi, lo studente inserisce il voto di 15/30 riguardante l'esame di Calcolo Numerico oppure non inserisce un voto per nessun esame e preme sul tasto calcola media, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
-\end{itemize}
-
-\begin{itemize}
-	\item \textit{Scenario 3 - Esami da conseguire terminati:\\}
-	\textit {Gianluca}, \textit {Studente} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, seleziona simulazione con esami, il sistema mostra la carriera completa allo studente, lo studente non può selezionare alcun esame poichè ha conseguito tutti gli esami, il sistema mostra il seguente messaggio: "Non è possibile effettuare nessuna previsione".\\
-\end{itemize}
-
-\begin{itemize}
-	\item \textit{Scenario 4 - Mancata connessione:\\}
-	\textit {Giovanna}, \textit {Studentessa} frequentante il primo anno di Informatica, dopo aver effettuato il login, seleziona la funzionalità Previsione Media, il sistema mostra il messaggio: "Connessione assente, nessun dato disponibile".\\
-\end{itemize}
 
 \clearpage
 
@@ -3451,7 +3487,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \clearpage
 
-\section{Diagramma dei casi d'uso}
+\section{Diagrammi dei casi d'uso}
 
 \subsection{Funzionalità Gestione piano di studio}
 \begin{figure} [h]
@@ -3479,6 +3515,34 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \begin{center}
 	\includegraphics[width=6.5in]{imgs/gruppo1/use_case_diagrams/UCD3-materiale_didattico.pdf}
 \end{center}
+
+\clearpage
+
+\subsection{Funzionalità orario}
+
+\paragraph{Gestione orario\\}
+
+Vedi Figura~\vref{fig:diag-caso-duso-gestione-orario}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-orario.pdf}
+	\caption{Diagramma caso d'uso - Gestione orario}
+	\label{fig:diag-caso-duso-gestione-orario}
+\end{figure}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+Vedi Figura~\vref{fig:diagr-casi-duso-notifiche}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/usecase-diagram-notifiche}
+	\caption{Diagramma casi d'uso - Notifiche}
+	\label{fig:diagr-casi-duso-notifiche}
+\end{figure}
 
 \clearpage
 
@@ -3515,9 +3579,6 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:ucd-rubrica}
 \end{figure}
 
-<<<<<<< HEAD
-=======
-
 \clearpage
 
 \subsection{Funzionalità previsione media}
@@ -3527,11 +3588,10 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\caption{UCD - Previsione Media}
 	\label{fig:prova}
 \end{figure}
->>>>>>> develop
 
 \clearpage
 
-\section{Diagramma di sequenza}
+\section{Diagrammi di sequenza}
 
 \subsection{Funzionalità Gestione Piano di studio}
 %\paragraph{Visualizza corsi}
@@ -3696,10 +3756,60 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \clearpage
 
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio}
+
+Vedi Figura~\vref{fig:sequence-orario-primo-avvio}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-primo-avvio.pdf}
+	\caption{Diagramma di sequenza - Gestione primo avvio}
+	\label{fig:sequence-orario-primo-avvio}
+\end{figure}
+
+\subsubsection{Modifica orario}
+
+Vedi Figura~\vref{fig:sequence-orario-modifica-orario}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-modifica-orario.pdf}
+	\caption{Diagramma di sequenza - Modifica orario}
+	\label{fig:sequence-orario-modifica-orario}
+\end{figure}
+
+\subsubsection{Visualizza orario}
+
+Vedi Figura~\vref{fig:sequence-orario-visualizza-orario}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{imgs/gruppo2/sequence-orario-visualizza-orario.pdf}
+	\caption{Diagramma di sequenza - Visualizza orario}
+	\label{fig:sequence-orario-visualizza-orario}
+\end{figure}
+
+\clearpage
+
+\subsection{Funzionalità notifiche}
+
+Diagramma di sequenza: Vedi Figura~\vref{fig:seq-diagr-notifiche}.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.85\textwidth]{imgs/gruppo2/sequence-notifiche}
+	\caption{Sequence diagram - Notifiche}
+	\label{fig:seq-diagr-notifiche}
+\end{figure}
+
+\clearpage
+
 \subsection{Funzionalità chat}
 
 \subsubsection{Chat studenti}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	%%% cambiare height=3in,width=5in -> width=0.9\textwidth
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUS1_visualizza_canale.pdf}
@@ -3708,7 +3818,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:seq-cus1}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUS2_invio_messaggio.pdf}
 	\caption{CUS2 - Invio messaggio}
@@ -3982,23 +4092,6 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \clearpage
 
-\begin{figure}
-	\subsection{Eccezioni}
-	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE1_connessione_assente.pdf}
-	\caption{CUE1 - Connessione assente}
-	\label{fig:seq-cue1}
-\end{figure}
-
-
-\begin{figure}
-	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE2_nessuna_risposta_dal_server.pdf}
-	\caption{CUE2 - Nessuna risposta dal server}
-	\label{fig:seq-cue2}
-\end{figure}
-
-\clearpage
 \subsection{Funzionalità rubrica}
 \begin{figure}[H]
 	\centering
@@ -4021,7 +4114,48 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 	\label{fig:seq3-rubrica}
 \end{figure}
 
-<<<<<<< HEAD
+\clearpage
+
+\subsection{Funzionalità previsione media}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-validi.pdf}
+	\caption{sequence simulazione media}
+	\label{fig:seq1-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-non-validi.pdf}
+	\caption{Sequence simulazione media con valori non validi o vuoti}
+	\label{fig:seq2-media}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-esami-finiti.pdf}
+	\caption{Sequence simulazione media con esami finiti}
+	\label{fig:seq3-media}
+\end{figure}
+
+\clearpage
+
+\subsection{Eccezioni}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE1_connessione_assente.pdf}
+	\caption{CUE1 - Connessione assente}
+	\label{fig:seq-cue1}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/sequence/CUE2_nessuna_risposta_dal_server.pdf}
+	\caption{CUE2 - Nessuna risposta dal server}
+	\label{fig:seq-cue2}
+\end{figure}
 
 \clearpage
 
@@ -4029,7 +4163,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \subsection{Funzionalità Gestione Piano di studio}
 %\paragraph{Visualizza corsi}
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD1_Visualizza_corsi.pdf}
 	\caption{Activity Diagram - Visualizza corsi}
@@ -4038,7 +4172,7 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 \newpage
 
 %\paragraph{Ricerca corsi }
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=6in]{imgs/gruppo1/activity_diagrams/AD2_ricerca_corsi.pdf}
 	\caption{Activity Diagram - Ricerca corsi}
@@ -4191,37 +4325,127 @@ Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l
 
 \clearpage
 
-\subsection{Funzionalità previsione media}
-\begin{figure}[H]
+\subsection{Funzionalità orario}
+
+Diagramma delle attività di "Primo avvio": vedi Figura~\vref{fig:act-diag-orario-primo-avvio}.
+
+Diagramma delle attività di "Visualizza orario": vedi Figura~\vref{fig:act-diag-orario-visualizza-orario}.
+
+Diagramma delle attività di "Modifica orario": vedi Figura~\vref{fig:act-diag-orario-modifica-orario}.
+
+\begin{figure}[h]
 	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-validi.pdf}
-	\caption{sequence simulazione media}
-	\label{fig:seq1-media}
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-primo-avvio}
+	\caption{Diagramma delle attività - Orario, primo avvio}
+	\label{fig:act-diag-orario-primo-avvio}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-valori-non-validi.pdf}
-	\caption{Sequence simulazione media con valori non validi o vuoti}
-	\label{fig:seq2-media}
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-visualizza-orario}
+	\caption{Diagramma delle attività - Visualizza orario}
+	\label{fig:act-diag-orario-visualizza-orario}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
-	\includegraphics[width=0.9\textwidth]{imgs/gruppo3/sequence-media-esami-finiti.pdf}
-	\caption{Sequence simulazione media con esami finiti}
-	\label{fig:seq3-media}
+	\includegraphics[width=\textwidth]{imgs/gruppo2/activity-orario-modifica-orario}
+	\caption{Diagramma delle attività - Modifica orario}
+	\label{fig:act-diag-orario-modifica-orario}
 \end{figure}
 
 \clearpage
 
-\section{Diagramma delle attività}
+\subsection{Funzionalità notifiche}
+
+Diagrammma per "Verbalizzazione esame": vedi Figura~\vref{fig:activity-notifiche-verbalizzazione-esame}.
+
+Diagrammma per "Apertura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-apertura-finestra-esame}.
+
+Diagrammma per "Chiusura finestra di prenotazione per l'appello d'esame": vedi Figura~\vref{fig:activity-notifiche-chiusura-finestra-esame}.
+
+Diagrammma per "Avviso tasse": vedi Figura~\vref{fig:activity-notifiche-avviso-tasse}.
+
+Diagrammma per "Rinvio delle lezioni": vedi Figura~\vref{fig:activity-notifiche-rinvio-lezioni}.
+
+Diagrammma per "Sospensione lezioni": vedi Figura~\vref{fig:activity-notifiche-sospensione-lezioni}.
+
+Diagrammma per "Notizie dall'Ateneo": vedi Figura~\vref{fig:activity-notifiche-notizie-ateneo}.
+
+Diagrammma per "Notizie dal Dipartimento": vedi Figura~\vref{fig:activity-notifiche-notizie-dipartimento}.
+
+Diagrammma per "Notizie dal Corso di Studi": vedi Figura~\vref{fig:activity-notifiche-notizie-corso-di-studi}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-verbalizzazione-esame}
+	\caption{Activity - Verbalizzazione esame}
+	\label{fig:activity-notifiche-verbalizzazione-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-apertura-prenotazione-esame}
+	\caption{Activity - Apertura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-apertura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-chiusura-prenotazione-esame}
+	\caption{Activity - Chiusura finestra di prenotazione per l'appello d'esame}
+	\label{fig:activity-notifiche-chiusura-finestra-esame}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-avviso-tasse}
+	\caption{Activity - Avviso tasse}
+	\label{fig:activity-notifiche-avviso-tasse}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-rinvio-lezioni}
+	\caption{Activity - Rinvio delle lezioni}
+	\label{fig:activity-notifiche-rinvio-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-sospensione-lezioni}
+	\caption{Activity - Sospensione lezioni}
+	\label{fig:activity-notifiche-sospensione-lezioni}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-ateneo}
+	\caption{Activity - Notizie dall'Ateneo}
+	\label{fig:activity-notifiche-notizie-ateneo}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-dipartimento}
+	\caption{Activity - Notizie dal Dipartimento}
+	\label{fig:activity-notifiche-notizie-dipartimento}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=0.67\textwidth]{imgs/gruppo2/activity-notifiche-notizie-corso-di-studi}
+	\caption{Activity - Notizie dal Corso di Studi}
+	\label{fig:activity-notifiche-notizie-corso-di-studi}
+\end{figure}
+
+\clearpage
 
 \subsection{Funzionalità chat}
 
-%%% START activities chat studenti %%%
+\subsubsection{Chat studenti}
+
 \begin{figure}
-	\subsubsection{Chat studenti}
 	\centering
 	\includegraphics[width=0.9\textwidth]{imgs/gruppo6/activities/act_cus1_visualizza_canale.pdf}
 	\caption{CUS 1 - Visualizza canale}
