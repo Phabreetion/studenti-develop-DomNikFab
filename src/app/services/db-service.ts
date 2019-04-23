@@ -22,7 +22,7 @@ export class DBService {
         location: 'default'
     };
 
-    urlAllegatoTest: string = this.globalData.schema + this.globalData.ip + this.globalData.dir + '/test_json/test.pdf';
+    urlAllegatoTest: string = this.sync.schema + this.sync.ip + this.sync.dir + '/test_json/test.pdf';
 
     private browser: any;
     options: InAppBrowserOptions = {

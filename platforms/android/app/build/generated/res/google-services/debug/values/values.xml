@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">595649663999-c3f85mq69cu0kbrcn6bi2p554g40idhn.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://unimol2-ffbae.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">595649663999</string>
+    <string name="google_api_key" translatable="false">AIzaSyBOz6uc-KqcYxruYpbD0x7m_VLmaOlOyi4</string>
+    <string name="google_app_id" translatable="false">1:595649663999:android:b0a63dff5760c0de</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBOz6uc-KqcYxruYpbD0x7m_VLmaOlOyi4</string>
+    <string name="google_storage_bucket" translatable="false">unimol2-ffbae.appspot.com</string>
+    <string name="project_id" translatable="false">unimol2-ffbae</string>
+</resources>

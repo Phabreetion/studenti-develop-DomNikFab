@@ -60,7 +60,7 @@ export class AccountService {
     salvaDatiLogin(username, password, tokenNotifiche, carriera) {
 
         const userRole = carriera['user_role'];
-        this.globalData.userRole = userRole;
+        // this.globalData.userRole = userRole;
 
         const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
@@ -87,12 +87,6 @@ export class AccountService {
                     promiseToken, promiseMatId, promiseMatId, promiseMatricola, promiseCdsId, promiseDipId,
                     promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged]).then(
                     (datiStorage) => {
-                        // TEST ONLY
-                        // this.storage.set('nome', 'Mario');
-                        // this.storage.set('cognome', 'Rossi');
-                        // this.storage.set('username', 'm.rossi');
-                        // this.storage.set('matricola', 123456);
-
                         GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
                         this.notificheService.aggiornaSottoscrizioni();
                     }, (storageErr) => {
@@ -112,12 +106,6 @@ export class AccountService {
                     promiseToken, promiseDipId, promiseDip, promiseNome, promiseCognome,
                     promiseId, promiseIdDocente, promiseRuolo, promiseEmail, promiseLogged]).then(
                     (datiStorage) => {
-                        // TEST ONLY
-                        // this.storage.set('nome', 'Mario');
-                        // this.storage.set('cognome', 'Rossi');
-                        // this.storage.set('username', 'm.rossi');
-                        // this.storage.set('matricola', 123456);
-
                         GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
                         this.notificheService.aggiornaSottoscrizioni();
                     }, (storageErr) => {
@@ -151,7 +139,6 @@ export class AccountService {
             const storedNomePromise = this.storage.get('nome');
             const storedCognomePromise = this.storage.get('cognome');
             const hashedPassword = Md5.hashStr(password).toString();
-
             Promise.all([storedUsernamePromise, storedPasswordPromise, storedMatricolaPromise, storedIdDocentePromise, storedNomePromise, storedCognomePromise]).then(data => {
                 const storedUsername = data[0];
                 const storedPassword = data[1];
@@ -269,6 +256,8 @@ export class AccountService {
                                     const carriera = esitoRegistrazione;
                                     const carriere = esitoRegistrazione['carriere'];
 
+
+
                                     if (codice === 0) {
                                         // Se l'utente è valido ma è diverso dall'utente connesso
                                         // cancelliamo i dati precedentemente memorizzati
@@ -278,7 +267,9 @@ export class AccountService {
                                                     this.notificheService.rimuoviSottoscrizioni().then(
                                                         () => {
                                                             this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
+                                                            // console.log('[+] account.service.ts -> getJson -> codice = 0 -> salvaDatiLogin');
                                                             resolve ('logged');
+                                                            this.sync.aggiornaDeviceInfo(tokenNotifiche);
                                                         }, (err => {
                                                             GlobalDataService.log(2, 'Errore rimozione sottoscrizioni', err);
                                                             reject(err);
@@ -290,9 +281,13 @@ export class AccountService {
                                                 }
                                             );
                                         } else {
+                                            console.log('[+] account.service.ts -> getJson -> codice != 0 -> salvaDatiLogin');
                                             this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
                                             resolve ('logged');
+                                            this.sync.aggiornaDeviceInfo(tokenNotifiche);
                                         }
+
+
                                     } else {
                                         if (codice === 2) {
                                             GlobalDataService.log(1, 'Carriere multiple', carriere);
@@ -310,6 +305,7 @@ export class AccountService {
                                                     reject( err );
                                                 });
                                         }
+
                                     }
 
                                 },

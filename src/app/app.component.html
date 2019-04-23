@@ -11,7 +11,7 @@
           <ion-row no-padding>
             <ion-col no-padding>
               <ion-toolbar>
-                <ion-title no-padding>Unimol</ion-title>
+                <ion-title no-padding>Studenti Unimol</ion-title>
               </ion-toolbar>
             </ion-col>
           </ion-row>
@@ -21,7 +21,7 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item *ngIf="p.role == 'all' || p.role == globalData.userRole" [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}

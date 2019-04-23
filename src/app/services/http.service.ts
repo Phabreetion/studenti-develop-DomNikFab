@@ -36,7 +36,7 @@ export class HttpService {
 
     checkNative() {
         return new Promise((resolve) => {
-            this.postNative(this.globalData.baseurl + 'ultimaVersione.php', {platform: 'Android'})
+            this.postNative('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
                 .then(
                     () => {
                     resolve(true);
@@ -78,8 +78,10 @@ export class HttpService {
 
     getJSON(url: string, body: any) {
         if (this.httpNativo) {
+            console.log('nativo');
             return this.getJSONNative(url, body);
         } else {
+            console.log('non nativo');
             return this.getJSONAngular(url, body);
         }
     }
@@ -170,6 +172,8 @@ export class HttpService {
     }
 
     getJSONAngular(url: string, body: any) {
+        // console.log('url: ', url);
+        // console.log('body: ', body);
         return new Promise((resolve, reject) => {
             this.httpClient.post(url, body)
                 .subscribe(
@@ -203,9 +207,9 @@ export class HttpService {
                 // this.http.setHeader('*', 'Content-Type', 'application/json');
                 // this.http.setDataSerializer('json');
 
-                this.post(this.globalData.baseurl + '/ultimaVersione.php', {platform: 'Android'})
-                    .then(() => {
-                        // console.dir(data);
+                this.post('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
+                    .then(data => {
+                        console.dir(data);
                         this.connessioneInizializzata = true;
                         this.connected = true;
                         this.connessioneInCorso = false;

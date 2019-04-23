@@ -1,0 +1,4 @@
+#Tue Apr 23 19:12:30 CEST 2019
+base.0=/Users/antonio_mastropaolo/Desktop/modificheAPP/studenti-master/platforms/android/app/build/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex

@@ -13,8 +13,7 @@ import {HttpService} from '../../../services/http.service';
 export class PianoDiStudiPage implements OnInit {
 
     currentPage = '/carriera/tab/piano-di-studi';
-    // original id 12     test info id 112
-    idServizio = 112;
+    idServizio = 12;
 
     srcPage: string;
     libretto: Array<any>;

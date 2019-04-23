@@ -6,23 +6,13 @@ import {NavController, Platform} from '@ionic/angular';
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
 import {mapStackTrace} from 'sourcemapped-stacktrace';
 import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
-import {Storage} from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalDataService {
 
-    schema = 'https://';
-    ip = 'service.unimol.it';
-    dir = '/app_2_1';
-    apiurl =  this.dir + '/api/';
-    baseurl: string = this.schema + this.ip + this.apiurl;
-
-
     utente_test = false;
-
-    userRole = 'student';
 
     android = false;
     iPhoneX = false;
@@ -60,14 +50,6 @@ export class GlobalDataService {
     faWifi = faWifi;
     faLink = faLink;
     faUnlink = faUnlink;
-
-
-    appello: any;
-    nrAppelliAperti: number;
-    nrAppelli: number;
-    testoAppelliAperti: string;
-    testoAppelli: string;
-    testoTesisti: string;
 
     // level 0: VERBOSE
     // level 1: INFO
@@ -183,13 +165,6 @@ export class GlobalDataService {
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
-    static formatStringDateNoTime(stringDate, daySeparator): string {
-        const day = stringDate.slice(0, 10);
-        const dayParts = day.split(daySeparator);
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2]);
-        return this.timestamp2string(mydate.getTime() / 1000);
-    }
-
     getWidth() {
         this.width = this.platform.width();
         return this.width;
@@ -214,16 +189,6 @@ export class GlobalDataService {
         return this.landscape;
     }
 
-
-    goHome(fromPage = '/home') {
-        if (this.userRole === 'student') {
-            return this.goTo(fromPage, '/home', 'root', false);
-        } else if (this.userRole === 'teacher') {
-            return this.goTo(fromPage, '/home-docente', 'root', false);
-        } else {
-            return this.goTo(fromPage, '/login', 'root', false);
-        }
-    }
 
     goTo(fromPage, toPage, direction, zone) {
         // zone = true;
@@ -319,17 +284,6 @@ export class GlobalDataService {
     constructor(
         private navCtrl: NavController,
         private platform: Platform,
-        private storage: Storage,
         private screenOrientation: ScreenOrientation,
-        private ngZone: NgZone) {
-
-        this.storage.get('user_role').then(
-            (value) => {
-                if (value != null) {
-                    this.userRole = value;
-                } else {
-                    this.userRole = 'student';
-                }
-            });
-    }
+        private ngZone: NgZone) { }
 }

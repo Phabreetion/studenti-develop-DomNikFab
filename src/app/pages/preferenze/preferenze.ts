@@ -58,8 +58,6 @@ export class PreferenzePage implements OnInit {
                 // Prende la versione dell'app settata nel file config.xml
                 this.appVersionProvider.getVersionNumber().then((value) => {
                     this.appVersionNum = value;
-                }, (err) => {
-                    GlobalDataService.log(2, 'REJECT in getVersionNumber', err);
                 });
 
                 // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO

@@ -41,20 +41,28 @@ ID SERVIZI
 
 export class SyncService {
 
-    baseurl = this.globalData.baseurl;
+     // schema = 'https://';
+     // ip = 'service.unimol.it';
+     // dir = '/studenti';
 
-    urlCheckToken: string = this.baseurl + 'checkToken.php';
-    urlSync: string = this.baseurl + 'sincronizza.php';
-    urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
-    urlAppelliPrenotabili: string = this.baseurl + 'appelliPrenotabili.php';
-    urlPreferenzeNotifiche: string = this.baseurl + 'salvaPreferenzeNotifiche.php';
-    urlAggiornaTokenNotifiche: string = this.baseurl + 'aggiornaTokenNotifiche.php';
-    urlAggiornaDeviceInfo: string = this.baseurl + 'aggiornaDeviceInfo.php';
-    urlControllaMessaggi: string = this.baseurl + 'controllaMessaggi.php';
-    urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
-    urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
-    urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
-    urlDettaglioAppello: string = this.baseurl + 'dettaglioAppello.php';
+     schema = 'http://';
+     ip = '192.168.0.5/sync';
+     dir = '';
+
+
+     apiurl =  this.dir + '/api/';
+     baseurl: string = this.schema + this.ip + this.apiurl;
+     urlCheckToken: string = this.baseurl + 'checkToken.php';
+     urlSync: string = this.baseurl + 'sincronizza.php';
+     urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
+     urlAppelliPrenotabili: string = this.baseurl + 'appelliPrenotabili.php';
+     urlPreferenzeNotifiche: string = this.baseurl + 'salvaPreferenzeNotifiche.php';
+     urlAggiornaTokenNotifiche: string = this.baseurl + 'aggiornaTokenNotifiche.php';
+     urlAggiornaDeviceInfo: string = this.baseurl + 'aggiornaDeviceInfo.php';
+     urlControllaMessaggi: string = this.baseurl + 'controllaMessaggi.php';
+     urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
+     urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
+     urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
 
     private user = 'username';
     private mat_id = 'matid';
@@ -65,6 +73,9 @@ export class SyncService {
 
 
     loading = [];
+
+    private elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+    // private elencoServizi = [1,2];
 
     private timeout = 30000;
 
@@ -94,8 +105,8 @@ export class SyncService {
                 public loadingCtrl: LoadingController,
                 public ngZone: NgZone,
                 public globalData: GlobalDataService ) {
-        // this.http.setHeader('*', 'Content-Type', 'application/json');
-        // this.http.setDataSerializer('json');
+         // this.http.setHeader('*', 'Content-Type', 'application/json');
+         // this.http.setDataSerializer('json');
     }
 
     getTimeout() {
@@ -162,33 +173,16 @@ export class SyncService {
         return this.uuid;
     }
 
-    getUrlDettaglioAppello() {
-        return this.urlDettaglioAppello;
-    }
 
     sincronizza() {
-        let elencoServizi = [];
-
-        switch (this.globalData.userRole) {
-            case 'student':
-                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
-                break;
-            case 'teacher':
-                elencoServizi = [ 7, 13, 14, 16, 19, 102];
-                break;
-            default:
-                elencoServizi = [ 7, 19 ];
-        }
-
-
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.aggiornaDeviceInfo().then(
+            /*this.aggiornaDeviceInfo().then(
                 () => {
                     GlobalDataService.log(0, 'Aggiornato il Device', null);
                 }, (err) => {
                     GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
                 }
-            );
+            );*/
             this.controllaVersione().then(
                 () => {
                     GlobalDataService.log(0, 'Constollo versione OK', null);
@@ -198,7 +192,7 @@ export class SyncService {
             );
         }
 
-        for (const i of elencoServizi) {
+        for (const i of this.elencoServizi) {
             this.getJson(i, true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
@@ -523,7 +517,7 @@ export class SyncService {
         });
     }
 
-    aggiornaDeviceInfo() {
+    aggiornaDeviceInfo(tokenNotifichePar: string) {
 
         return new Promise((resolve, reject) => {
             if (this.platform.is('ios') || (this.platform.is('android'))) {
@@ -571,8 +565,11 @@ export class SyncService {
                                         osVersion: this.device.version,
                                         manufacturer: this.device.manufacturer,
                                         isVirtual: this.device.isVirtual,
-                                        uuid: this.device.uuid
+                                        uuid: this.device.uuid,
+                                        tokenNotifiche: tokenNotifichePar
                                     };
+
+
                                     this.services.post(url, body).then(
                                         (response) => {
                                             this.storage.set('lastDeviceUpdate', tsOggi).then(
@@ -624,7 +621,7 @@ export class SyncService {
                     this.services.post(urlControllaMessaggi, body).then(
                         (response) => {
                             if (response) {
-                                const messaggio: string = response.toString();
+                             const messaggio: string = response.toString();
 
                                 if ((messaggio === '') || (messaggio === 'NULL')) {
                                     GlobalDataService.log(0, 'Nessun nuovo messaggio', null);
@@ -722,111 +719,111 @@ export class SyncService {
                                         .then(
                                             (ultimaVersione) => {
 
-                                                if (ultimaVersione != null) {
-                                                    GlobalDataService.log(1, 'Ultima versione', ultimaVersione);
+                                            if (ultimaVersione != null) {
+                                                GlobalDataService.log(1, 'Ultima versione', ultimaVersione);
 
-                                                    this.appVersion.getVersionNumber().then(
-                                                        (appVersion) => {
-                                                            this.storage.set('lastCheck', tsOggi).then(
-                                                                () => {
-                                                                }, (storageErr) => {
-                                                                    GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                                                                }
-                                                            );
-                                                            this.storage.set('appVersion', appVersion).then(
-                                                                () => {
-                                                                }, (storageErr) => {
-                                                                    GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                                                                }
-                                                            );
-
-                                                            GlobalDataService.log(1,
-                                                                'La tua version (' + appVersion +
-                                                                '). L\'ultima versione disponibile (' + ultimaVersione + ')', null);
-
-
-                                                            if (appVersion.toString() < ultimaVersione) {
-                                                                const messaggio: string = 'Questa versione dell\'App Studenti Unimol (' +
-                                                                    appVersion + ') non è aggiornata. <br \>L\'ultima versione disponibile (' +
-                                                                    ultimaVersione + ') introduce nuove funzionalità e corregge i bug presenti';
-
-                                                                let target: string;
-
-                                                                switch (this.device.platform) {
-                                                                    case 'iOS': {
-                                                                        target = 'studenti-unimol/id1275911366?mt=8';
-                                                                        break;
-                                                                    }
-                                                                    case 'Android' : {
-                                                                        target = 'it.unimol.app.studenti';
-                                                                        break;
-                                                                    }
-                                                                }
-
-                                                                if (target != null) {
-                                                                    this.alertCtrl.create({
-                                                                        header: 'Aggiornamento disponibile',
-                                                                        subHeader: messaggio,
-                                                                        buttons: [
-                                                                            {
-                                                                                text: 'Non ora',
-                                                                                role: 'cancel',
-                                                                                handler: () => {
-                                                                                }
-                                                                            },
-                                                                            {
-                                                                                text: 'Vai allo Store',
-                                                                                handler: () => {
-                                                                                    //// this.market.open(target);
-                                                                                }
-                                                                            }
-                                                                        ]
-                                                                    }).then(
-                                                                        (alert) => {
-                                                                            alert.present();
-                                                                        },
-                                                                        (err) => {
-                                                                            GlobalDataService.log(2, 'Alert fallito', err);
-                                                                        });
-                                                                } else {
-                                                                    this.alertCtrl.create({
-                                                                        header: 'Aggiornamento disponibile',
-                                                                        subHeader: messaggio,
-                                                                        buttons: ['Chiudi']
-                                                                    }).then((alert) => {
-                                                                            alert.present();
-                                                                        },
-                                                                        (err) => {
-                                                                            GlobalDataService.log(2, 'Alert fallito', err);
-                                                                        });
-                                                                }
-
-                                                                resolve(true);
+                                                this.appVersion.getVersionNumber().then(
+                                                    (appVersion) => {
+                                                        this.storage.set('lastCheck', tsOggi).then(
+                                                            () => {
+                                                            }, (storageErr) => {
+                                                                GlobalDataService.log(2, 'Errore in local storage', storageErr);
                                                             }
-                                                        },
-                                                        (err) => {
-                                                            // Non è possibile verificare la versione attuale. Probabile versione web
-                                                            reject(err);
-                                                        }
-                                                    );
-                                                } else {
-                                                    this.storage.set('lastCheck', new Date(75, 2, 20).getTime()).then(
-                                                        () => {
-                                                        }, (storageErr) => {
-                                                            GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                                                        }
-                                                    );
-                                                }
+                                                        );
+                                                        this.storage.set('appVersion', appVersion).then(
+                                                            () => {
+                                                            }, (storageErr) => {
+                                                                GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                                                            }
+                                                        );
 
-                                            }, (err) => {
-                                                GlobalDataService.log(2, 'Rinvio il controllo della versione', err);
+                                                        GlobalDataService.log(1,
+                                                            'La tua version (' + appVersion +
+                                                            '). L\'ultima versione disponibile (' + ultimaVersione + ')', null);
+
+
+                                                        if (appVersion.toString() < ultimaVersione) {
+                                                            const messaggio: string = 'Questa versione dell\'App Studenti Unimol (' +
+                                                                appVersion + ') non è aggiornata. <br \>L\'ultima versione disponibile (' +
+                                                                ultimaVersione + ') introduce nuove funzionalità e corregge i bug presenti';
+
+                                                            let target: string;
+
+                                                            switch (this.device.platform) {
+                                                                case 'iOS': {
+                                                                    target = 'studenti-unimol/id1275911366?mt=8';
+                                                                    break;
+                                                                }
+                                                                case 'Android' : {
+                                                                    target = 'it.unimol.app.studenti';
+                                                                    break;
+                                                                }
+                                                            }
+
+                                                            if (target != null) {
+                                                                this.alertCtrl.create({
+                                                                    header: 'Aggiornamento disponibile',
+                                                                    subHeader: messaggio,
+                                                                    buttons: [
+                                                                        {
+                                                                            text: 'Non ora',
+                                                                            role: 'cancel',
+                                                                            handler: () => {
+                                                                            }
+                                                                        },
+                                                                        {
+                                                                            text: 'Vai allo Store',
+                                                                            handler: () => {
+                                                                                //// this.market.open(target);
+                                                                            }
+                                                                        }
+                                                                    ]
+                                                                }).then(
+                                                                    (alert) => {
+                                                                        alert.present();
+                                                                    },
+                                                                    (err) => {
+                                                                        GlobalDataService.log(2, 'Alert fallito', err);
+                                                                    });
+                                                            } else {
+                                                                this.alertCtrl.create({
+                                                                    header: 'Aggiornamento disponibile',
+                                                                    subHeader: messaggio,
+                                                                    buttons: ['Chiudi']
+                                                                }).then((alert) => {
+                                                                        alert.present();
+                                                                    },
+                                                                    (err) => {
+                                                                        GlobalDataService.log(2, 'Alert fallito', err);
+                                                                    });
+                                                            }
+
+                                                            resolve(true);
+                                                        }
+                                                    },
+                                                    (err) => {
+                                                        // Non è possibile verificare la versione attuale. Probabile versione web
+                                                        reject(err);
+                                                    }
+                                                );
+                                            } else {
                                                 this.storage.set('lastCheck', new Date(75, 2, 20).getTime()).then(
                                                     () => {
                                                     }, (storageErr) => {
                                                         GlobalDataService.log(2, 'Errore in local storage', storageErr);
                                                     }
                                                 );
-                                            })
+                                            }
+
+                                        }, (err) => {
+                                            GlobalDataService.log(2, 'Rinvio il controllo della versione', err);
+                                            this.storage.set('lastCheck', new Date(75, 2, 20).getTime()).then(
+                                                () => {
+                                                }, (storageErr) => {
+                                                    GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                                                }
+                                            );
+                                        })
                                         .catch(error => {
                                             GlobalDataService.log(2, 'Rinvio il controllo della versione', error);
                                             this.storage.set('lastCheck', new Date(75, 2, 20).getTime()).then(
