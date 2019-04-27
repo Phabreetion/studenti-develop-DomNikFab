@@ -1,0 +1,197 @@
+\subsection{Funzionalità Gestione appelli}
+\paragraph{Visualizza appelli disponibili \\}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli disponibili afferenti ai corsi del suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili. Il sistema mostrerà allo studente gli appelli disponibili. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaAppelliDisponibiliSD}) e del diagramma delle attività (\ref{diag:visualizzaAppelliDisponibiliAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli disponibili}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Appelli}.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli disponibili salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli disponibili aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello disponibile.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili aggiornati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Visualizza appelli prenotati \\}
+Questo caso d’uso consentirà allo studente di visualizzare gli appelli ai quali si è prenotato per sostenere degli esami e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli prenotati. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi agli appelli prenotati. Il sistema mostrerà allo studente gli appelli prenotati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaAppelliPrenotatiSD}) e del diagramma delle attività (\ref{diag:visualizzaAppelliPrenotatiAD}).  \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza appelli prenotati}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia degli appelli prenotati salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene gli appelli prenotati aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun appello prenotato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli pronotati aggiornati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ricerca appelli disponibili \\}
+Questo caso d’uso consentirà allo studente di ricercare degli appelli utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà gli appelli trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaAppelliDisponibiliSD}) e del diagramma delle attività (\ref{diag:ricercaAppelliDisponibiliAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca appelli disponibili}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Filtra appelli disponibili con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di filtrare gli appelli disponibili in base di ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà gli appelli disponibili filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:filtraAppelliDisponibiliConMemSD}) e del diagramma delle attività (\ref{diag:filtraAppelliDisponibiliConMemAD}).  \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra appelli disponibili con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Filtra l’elenco degli appelli disponibili. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili filtrati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Memorizza i filtri nello storage. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.\newline \textbf{4.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili filtrati ed eventualmente salva i filtri.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ordina appelli disponibili con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di ordinare gli appelli disponibili in base ad un criterio di ordinamento, dopodiché il sistema mostrerà gli appelli disponibili ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso:\ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ordinaAppelliDisponibiliConMemSD}) e del diagramma delle attività (\ref{diag:ordinaAppelliDisponibiliConMemAD}).  \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina appelli disponibili con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Ordina l’elenco degli appelli disponibili. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra gli appelli disponibili ordinati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i criteri di ordinamento & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Memorizza il criterio di ordinamento. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{ \textbf{4.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli disponibili ordinati  ed eventualmente salva i criterio di ordinamento.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{ Prenota appello \\ }
+Questo caso d’uso consentirà allo studente di prenotarsi a un appello. Il sistema inoltra la richiesta di prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta prenotazione, includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati, dopodiché il sistema mostrerà allo studente la conferma della prenotazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:prenotaAppelloSD}) e del diagramma delle attività (\ref{diag:prenotaAppelloAD}). \\
+
+\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Prenota appello}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco degli appelli.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+	\hline
+	\textbf{} & \textbf{1}& Seleziona l’appello a cui prenotarsi.  & \textbf{} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio della prenotazione appelli. & \textbf{}\\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della prenotazione. & \textbf{}\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Prenotazione fallita.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la conferma della prenotazione e l’appello tra gli appelli prenotati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{ Cancella prenotazione  \\}
+Questo caso d’uso consentirà allo studente di cancellare la prenotazione di un appello. Il sistema inoltra la richiesta di cancellazione della prenotazione al sincronizzatore remoto, il quale conferma il successo dell’operazione. In seguito all'avvenuta cancellazione, il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista contenente tutti gli appelli disponibili e prenotati aggiornati. Il caso d’uso \textit{getJson} elaborerà la richiesta e restituirà i dati relativi agli appelli disponibili e prenotati. Il sistema mostrerà allo studente la conferma dell’avvenuta cancellazione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneAppelli}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:cancellaPrenotazioneSD}) e del diagramma delle attività (\ref{diag:cancellaPrenotazioneAD}).  \\
+
+\label{tab:template-tab-casiduso-tre-attori} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Cancella prenotazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}. Partecipa \textit{Sync}} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza gli appelli prenotati.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Sync} \\
+	\hline
+	\textbf{} & \textbf{1}& Seleziona la prenotazione da cancellare.  & \textbf{} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Inoltra richiesta al \textit{Sync} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Il\textit{Sync} elabora la richiesta e conferma il successo dell’operazione.\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. & \textbf{}\\
+	\hline
+	\textbf{} & \textbf{5} & \textbf{} & Mostra conferma della cancellazione. & \textbf{}\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{3.1} Cancellazione fallita.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo studente visualizza la cancellazione della prenotazione, mentra l’appello cancellato torna tra gli appelli disponibili.} \\
+	\hline
+\end{tabular}
+
+\clearpage
