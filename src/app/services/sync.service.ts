@@ -199,7 +199,7 @@ export class SyncService {
         }
 
         for (const i of elencoServizi) {
-            this.getJson(i, true).then(
+            this.getJson(i,null, true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
@@ -210,23 +210,23 @@ export class SyncService {
     }
 
 
-    getJson(id: number, sync: boolean) {
+    getJson(id: number,params: string[], sync: boolean) {
 
         return new Promise((resolve, reject) => {
             this.storage.get(id.toString()).then(
                 (data) => {
                     if (data && (data[0] || data['timestamp'])) {
                         if (sync) {
-                            this.getJsonLista(id).then(); // Aggiornamento in background
+                            this.getJsonLista(id, params).then(); // Aggiornamento in background
                         }
                         resolve(data);
                     } else {
-                        this.getJsonLista(id).then(
+                        this.getJsonLista(id,params).then(
                             (dati) => resolve(dati),
                             (err) => reject(err)
                         ).catch(err => reject(err));
                     }
-                }, () => this.getJsonLista(id).then(
+                }, () => this.getJsonLista(id,params).then(
                     (data) => resolve(data),
                     (err) =>  reject(err)
                 ).catch(err => reject(err))
@@ -234,7 +234,7 @@ export class SyncService {
         });
     }
 
-    private getJsonLista(id: number) {
+    private getJsonLista(id: number, params: string[]) {
         //  let jsonLista = [];
         if (id == null) {
             return;
@@ -262,17 +262,21 @@ export class SyncService {
                             // });
 
                             const body = {
+                               
                                 token: this.token,
                                 uuid: this.uuid,
-                                id_servizio: id
+                                id_servizio: id,
+                                params: params
                             };
-
-
+console.log("[+]-->");
+console.log(body);
                             this.services.getJSON(url, body).then(
                                 (dati) => {
 
                                     // Salvo i json nello storage
                                     if (dati) {
+                                        console.log("[+]dati-->");
+console.log(dati);
                                         this.storage.set(id.toString(), dati).then(
                                             () => {
                                             }, (storageErr) => {
@@ -286,6 +290,8 @@ export class SyncService {
                                     resolve(dati);
                                 },
                                 (rej) => {
+ console.log("[+]rej-->");                                   
+console.log(rej);
                                     this.loading[id] = false;
                                     if (rej.error) {
                                         const errore = JSON.parse(rej.error);
@@ -314,7 +320,7 @@ export class SyncService {
                                                     this.ngZone.run(() => {
                                                         this.services.post(url, bodyCheckToken).then(
                                                             () => {
-                                                                this.getJsonLista(id).then(
+                                                                this.getJsonLista(id, params).then(
                                                                     (res) => {
                                                                         GlobalDataService.log(0, 'getJsonLista', res);
                                                                     }, (err) => {

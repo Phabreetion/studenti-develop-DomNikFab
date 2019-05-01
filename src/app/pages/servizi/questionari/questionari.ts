@@ -76,7 +76,7 @@ export class QuestionariPage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, true).then(
+        this.sync.getJson(this.idServizio, null, true).then(
             (data) => {
                 this.parseQuestionari(data);
                 this.dataAggiornamento = SyncService.dataAggiornamento(data);
