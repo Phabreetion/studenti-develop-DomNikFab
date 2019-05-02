@@ -439,7 +439,7 @@ export class PianoDiStudiPage implements OnInit {
         const actionSheet = await this.actionSheetCtrl.create({
             header: esame.DESCRIZIONE,
             buttons: [{
-                text: 'Dettali esame',
+                text: 'Dettagli corso',
                 icon: 'information-circle',
                 handler: () => {
                     this.dettagliEsame(esame);
