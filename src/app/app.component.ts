@@ -57,6 +57,12 @@ export class AppComponent {
             role: 'student'
         },
         {
+            title: 'Piano di studio',
+            url: '/piano-di-studio',
+            icon: 'book',
+            role: 'student'
+        },
+        {
             title: 'Appelli',
             url: '/appelli',
             icon: 'bookmark',
