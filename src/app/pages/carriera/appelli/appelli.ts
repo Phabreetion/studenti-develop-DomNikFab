@@ -183,6 +183,8 @@ export class AppelliPage implements OnChanges, OnInit {
             }).catch(err => {
             console.log('Eccezione in aggiorna: ' + err);
         });
+
+        console.log(this.appelli);
     }
 
     controllaAggiornamentoDisponibili() {
@@ -427,4 +429,11 @@ export class AppelliPage implements OnChanges, OnInit {
         return item.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
     }
 
+    isPrenotabile(item) {
+        const data_inizio = new Date(item.p10_app_data_inizio_iscr);
+        const data_fine = new Date(item.p10_app_data_fine_iscr);
+        const data_odierna = new Date();
+
+        return data_odierna >= data_inizio; // && data_odierna <= data_fine;
+    }
 }
