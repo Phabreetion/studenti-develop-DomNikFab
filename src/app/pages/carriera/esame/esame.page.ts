@@ -25,7 +25,6 @@ export class EsamePage implements OnInit {
 
     onGoBack()  {
         this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'backward', false);
-
     }
 
 }
