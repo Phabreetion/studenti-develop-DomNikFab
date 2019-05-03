@@ -7,7 +7,8 @@ import {Component, OnInit} from '@angular/core';
 })
 export class PianoDiStudioPage implements OnInit {
 
-  public corsi: any[];
+  private corsi: any[];
+  private corsiFiltrati: any[];
   private searchKey: String;
 
   // Sarà un array di corsi
@@ -27,6 +28,7 @@ export class PianoDiStudioPage implements OnInit {
       {id: 7, anno: 3, nome: 'Informatica territoriale'},
       {id: 8, anno: 3, nome: 'Ricerca operativa'},
     ]; // Prova per testare
+    this.filtra();
   }
 
   doRefresh(event) {
@@ -35,5 +37,9 @@ export class PianoDiStudioPage implements OnInit {
       console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  private filtra(): void {
+    // @TODO
   }
 }
