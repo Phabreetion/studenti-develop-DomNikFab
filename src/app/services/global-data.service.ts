@@ -23,7 +23,7 @@ export class GlobalDataService {
 
     utente_test = false;
 
-    userRole = 'student';
+    userRole = 'none';
 
     android = false;
     iPhoneX = false;
@@ -323,7 +323,6 @@ export class GlobalDataService {
     }
 
     initialize() {
-        console.log('INIZIALIZZO GLOBALDATA');
         this.storage.get('baseurl').then(
             (value) => {
                 if (value != null) {
@@ -331,8 +330,6 @@ export class GlobalDataService {
                 } else {
                     this.baseurl = this.defaultBaseUrl;
                 }
-                console.log('BASEURL: ' + this.baseurl);
-
             }, (err) => {
                 this.baseurl = this.defaultBaseUrl;
             });
@@ -341,16 +338,14 @@ export class GlobalDataService {
                 if (value != null) {
                     this.userRole = value;
                 } else {
-                    this.userRole = 'student';
+                    this.logged ? this.userRole = 'student' : this.userRole = 'none';
                 }
             }, (err) => {
-                this.userRole = 'student';
+                this.logged ? this.userRole = 'student' : this.userRole = 'none';
             });
     }
 
     getBaseUrl(): string {
-        console.log('LEGGO BASEURL: ' + this.baseurl);
-
         if (!this.baseurl) {
             this.storage.get('baseurl').then(
                 (value) => {
@@ -359,19 +354,15 @@ export class GlobalDataService {
                     } else {
                         this.baseurl = this.defaultBaseUrl;
                     }
-                    console.log('(1) BASEURL: ' + this.baseurl);
                     return this.baseurl;
 
                 }, (err) => {
                     this.baseurl = this.defaultBaseUrl;
-                    console.log('(2) DEFAULT BASEURL: ' + this.baseurl);
                     return this.baseurl;
                 });
         } else {
-            console.log('(3) OK BASEURL: ' + this.baseurl);
             return this.baseurl;
         }
-
     }
 
     constructor(

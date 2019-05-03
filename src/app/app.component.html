@@ -1,6 +1,6 @@
 <ion-app>
   <ion-split-pane>
-    <ion-menu [hidden]="!account.logged">
+    <ion-menu>
       <ion-header>
         <ion-grid no-padding>
           <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
@@ -21,7 +21,7 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item *ngIf="p.role == 'all' || p.role == globalData.userRole" [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item *ngIf="p.role == 'all' || (p.role == 'logged' && globalData.logged) || p.role == globalData.userRole" [routerDirection]="'root'" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
@@ -31,6 +31,7 @@
         </ion-list>
       </ion-content>
     </ion-menu>
+
     <ion-router-outlet main></ion-router-outlet>
   </ion-split-pane>
 </ion-app>

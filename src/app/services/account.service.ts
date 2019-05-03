@@ -38,6 +38,7 @@ export class AccountService {
                 (logged) => {
                     GlobalDataService.log(0, 'Logged', logged);
                     this.logged = logged;
+                    this.globalData.logged = this.logged;
                     if (logged) {
                         resolve(this.logged);
                     } else {
@@ -45,6 +46,7 @@ export class AccountService {
                     }
                 }, (err) => {
                     this.logged = false;
+                    this.globalData.logged = this.logged;
                     // Forse sarebbe meglio verificare se esiste il tokene ed eventualmente aggiornare tutto
                     GlobalDataService.log(1, 'logged non presente in storage', err);
                     reject(this.logged);
@@ -58,6 +60,7 @@ export class AccountService {
 
         const userRole = carriera['user_role'];
         this.globalData.userRole = userRole;
+        this.globalData.logged = true;
 
         const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
@@ -381,6 +384,7 @@ export class AccountService {
                     (response) => {
                         loading.dismiss();
                         if (response) {
+
                             this.toastCtrl.create({
                                 message: 'Il dispositivo è stato disconnesso.',
                                 duration: 5000
