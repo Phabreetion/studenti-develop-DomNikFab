@@ -4,6 +4,8 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-searchbar [(ngModel)]="searchKey"></ion-searchbar>
+    <ion-button fill="clear" slot="end"><ion-icon slot="icon-only" name="search"></ion-icon></ion-button>
   </ion-toolbar>
 </ion-header>
 
@@ -22,7 +24,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let corso of corsi">
-      <ion-item>{{corso.nome}}   Anno:{{corso.anno}}</ion-item>
+      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}   Anno:{{corso.anno}}</ion-item>
 
       <ion-item-options>
         <ion-item-option>
