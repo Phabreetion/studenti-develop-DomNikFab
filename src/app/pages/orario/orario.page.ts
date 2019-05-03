@@ -90,7 +90,7 @@ aggiorna(interattivo: boolean, sync: boolean) {
   this.nrRinvii = 0;
 
   // Otteniamo l'orario
-  this.sync.getJson(this.idServizio, sync).then(
+  this.sync.getJson(this.idServizio, null, sync).then(
       (data) => {
           console.log(this.ultimoDato);
           if (this.ultimoDato !== JSON.stringify(data[0])) {

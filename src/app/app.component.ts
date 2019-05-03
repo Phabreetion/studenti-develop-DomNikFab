@@ -192,7 +192,9 @@ export class AppComponent {
             }
 
             this.splashScreen.hide();
+
             this.globalData.landscape = false;
+            this.globalData.initialize();
 
             this.http.setHttpType();
 

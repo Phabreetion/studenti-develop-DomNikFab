@@ -40,29 +40,12 @@ ID SERVIZI
 })
 
 export class SyncService {
-
-    baseurl = this.globalData.baseurl;
-
-    urlCheckToken: string = this.baseurl + 'checkToken.php';
-    urlSync: string = this.baseurl + 'sincronizza.php';
-    urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
-    urlAppelliPrenotabili: string = this.baseurl + 'appelliPrenotabili.php';
-    urlPreferenzeNotifiche: string = this.baseurl + 'salvaPreferenzeNotifiche.php';
-    urlAggiornaTokenNotifiche: string = this.baseurl + 'aggiornaTokenNotifiche.php';
-    urlAggiornaDeviceInfo: string = this.baseurl + 'aggiornaDeviceInfo.php';
-    urlControllaMessaggi: string = this.baseurl + 'controllaMessaggi.php';
-    urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
-    urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
-    urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
-    urlDettaglioAppello: string = this.baseurl + 'dettaglioAppello.php';
-
     private user = 'username';
     private mat_id = 'matid';
     private psw = 'psw';
     private uuid = 'virtual';
     private token = 'token';
     private tokenNotifiche = 'tokenNotifiche';
-
 
     loading = [];
 
@@ -103,39 +86,51 @@ export class SyncService {
     }
 
     getUrlSync() {
-        return this.urlSync;
+        return this.globalData.getBaseUrl() + 'sincronizza.php';
     }
 
     getUrlConfermaRegistrazione() {
-        return this.urlConfermaRegistra;
+        return this.globalData.getBaseUrl() + 'confermaRegistrazione.php';
     }
 
     getUrlAppelliPrenotabili() {
-        return this.urlAppelliPrenotabili;
+        return this.globalData.getBaseUrl() + 'appelliPrenotabili.php';
     }
 
     getUrlPreferenzeNotifiche() {
-        return this.urlPreferenzeNotifiche;
+        return this.globalData.getBaseUrl() + 'salvaPreferenzeNotifiche.php';
     }
 
     getUrlAggiornaTokenNotifiche() {
-        return this.urlAggiornaTokenNotifiche;
+        return this.globalData.getBaseUrl() + 'aggiornaTokenNotifiche.php';
     }
 
     getUrlAggiornaDeviceInfo() {
-        return this.urlAggiornaDeviceInfo;
+        return this.globalData.getBaseUrl() + 'aggiornaDeviceInfo.php';
     }
 
     getUrlControllaMessaggi() {
-        return this.urlControllaMessaggi;
+        return this.globalData.getBaseUrl() + 'controllaMessaggi.php';
     }
 
     getUrlReimpostaMessaggi() {
-        return this.urlReimpostaMessaggi;
+        return this.globalData.getBaseUrl() + 'reimpostaMessaggi.php';
     }
 
     getUrlUltimaVersione() {
-        return this.urlUltimaVersione;
+        return this.globalData.getBaseUrl() + 'ultimaVersione.php';
+    }
+
+    getUrlSottoscrizioneCalendario() {
+        return this.globalData.getBaseUrl() + 'sottoscrizioneCalendario.php';
+    }
+
+    getUrlDettaglioAppello() {
+        return this.globalData.getBaseUrl() + 'dettaglioAppello.php';
+    }
+
+    getUrlCheckTolek() {
+        return this.globalData.getBaseUrl() + 'checkToken.php';
     }
 
     getTokenString() {
@@ -160,10 +155,6 @@ export class SyncService {
 
     getUUIDString() {
         return this.uuid;
-    }
-
-    getUrlDettaglioAppello() {
-        return this.urlDettaglioAppello;
     }
 
     sincronizza() {
@@ -199,7 +190,7 @@ export class SyncService {
         }
 
         for (const i of elencoServizi) {
-            this.getJson(i,null, true).then(
+            this.getJson(i, null, true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
@@ -210,7 +201,7 @@ export class SyncService {
     }
 
 
-    getJson(id: number,params: string[], sync: boolean) {
+    getJson(id: number, params: string[], sync: boolean) {
 
         return new Promise((resolve, reject) => {
             this.storage.get(id.toString()).then(
@@ -221,12 +212,12 @@ export class SyncService {
                         }
                         resolve(data);
                     } else {
-                        this.getJsonLista(id,params).then(
+                        this.getJsonLista(id, params).then(
                             (dati) => resolve(dati),
                             (err) => reject(err)
                         ).catch(err => reject(err));
                     }
-                }, () => this.getJsonLista(id,params).then(
+                }, () => this.getJsonLista(id, params).then(
                     (data) => resolve(data),
                     (err) =>  reject(err)
                 ).catch(err => reject(err))
@@ -262,20 +253,21 @@ export class SyncService {
                             // });
 
                             const body = {
-                               
+
                                 token: this.token,
                                 uuid: this.uuid,
                                 id_servizio: id,
                                 params: params
                             };
-console.log("[+]-->");
+console.log('[+]-->');
+console.log(url);
 console.log(body);
                             this.services.getJSON(url, body).then(
                                 (dati) => {
 
                                     // Salvo i json nello storage
                                     if (dati) {
-                                        console.log("[+]dati-->");
+                                        console.log('[+]dati-->');
 console.log(dati);
                                         this.storage.set(id.toString(), dati).then(
                                             () => {
@@ -290,7 +282,7 @@ console.log(dati);
                                     resolve(dati);
                                 },
                                 (rej) => {
- console.log("[+]rej-->");                                   
+ console.log('[+]rej-->');
 console.log(rej);
                                     this.loading[id] = false;
                                     if (rej.error) {
@@ -309,7 +301,7 @@ console.log(rej);
                                                     storedUsername = data[0];
                                                     storedPassword = data[1];
 
-                                                    url = this.urlCheckToken;
+                                                    url = this.getUrlCheckTolek();
                                                     const bodyCheckToken = {
                                                         token: this.token,
                                                         username: storedUsername,
@@ -916,7 +908,7 @@ console.log(rej);
                             }
 
                             let body;
-                            const url = this.urlSottoscrizioneCalendario;
+                            const url = this.getUrlSottoscrizioneCalendario();
                             body = {
                                 token: this.token,
                                 uuid: this.uuid,

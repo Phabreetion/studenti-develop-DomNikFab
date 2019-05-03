@@ -9,29 +9,23 @@ import {HttpService} from './http.service';
 })
 export class Esse3Service {
 
-    baseurl = this.sync.baseurl;
-    urlPrenotaAppello: string = this.baseurl + 'prenotaAppello.php';
-    urlCancellaPrenotazione: string = this.baseurl + 'cancellaPrenotazione.php';
-    urlSession: string = this.baseurl + 'getSession.php';
-
-
     constructor(
         public storage: Storage,
         public services: HttpService,
         public sync: SyncService,
-
+        public globalData: GlobalDataService
     ) { }
 
     getUrlPrenotaAppello() {
-        return this.urlPrenotaAppello;
+        return this.globalData.getBaseUrl()  + 'prenotaAppello.php';
     }
 
     getUrlCancellaPrenotazione() {
-        return this.urlCancellaPrenotazione;
+        return this.globalData.getBaseUrl()  + 'cancellaPrenotazione.php';
     }
 
     getUrlSession() {
-        return this.urlSession;
+        return this.globalData.getBaseUrl()  + 'getSession.php';
     }
 
     // Sembra non essere mai usata!

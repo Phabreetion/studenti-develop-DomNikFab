@@ -13,9 +13,6 @@ import {HttpService} from './http.service';
 export class AccountService {
 
     logged: boolean;
-    baseurl = this.sync.baseurl;
-    urlRegistra: string = this.baseurl + 'registra.php';
-    urlDisconnetti: string = this.baseurl + 'disconnetti.php';
 
     constructor(
         public storage: Storage,
@@ -28,11 +25,11 @@ export class AccountService {
     ) { }
 
     getUrlDisconnetti() {
-        return this.urlDisconnetti;
+        return this.globalData.getBaseUrl()  + 'disconnetti.php';
     }
 
     getUrlRegistra() {
-        return this.urlRegistra;
+        return this.globalData.getBaseUrl() + 'registra.php';
     }
 
     controllaAccount() {
@@ -142,7 +139,7 @@ export class AccountService {
         GlobalDataService.log(0, 'Login ' + username + ' ' + matricola + ' ' + cds_id + ' ' + dip_id, null);
 
         return new Promise((resolve, reject) => {
-            const url = this.urlRegistra;
+            const url = this.getUrlRegistra();
 
             const storedUsernamePromise = this.storage.get('username');
             const storedPasswordPromise = this.storage.get('password');

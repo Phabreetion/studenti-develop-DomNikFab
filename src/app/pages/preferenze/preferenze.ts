@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Storage } from '@ionic/storage';
 import {AlertController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
@@ -12,7 +12,7 @@ import {AppVersion} from '@ionic-native/app-version/ngx';
     selector: 'app-page-preferenze',
     templateUrl: 'preferenze.html',
 })
-export class PreferenzePage implements OnInit {
+export class PreferenzePage implements OnInit, OnDestroy {
 
     currentPage = '/preferenze';
 
@@ -31,6 +31,9 @@ export class PreferenzePage implements OnInit {
     appVersionNum = '';
     step = 20;
     android = false;
+    baseurl = '';
+    clicks = 0;
+    avanzate = false;
 
     constructor(
         public sync: SyncService,
@@ -46,6 +49,8 @@ export class PreferenzePage implements OnInit {
     // CONTROLLA TUTTE LE IMPOSTAZIONI PRIMA DEL CARICAMENTO DELLA PAGINA
     ngOnInit() {
         this.globalData.srcPage = '/preferenze';
+        this.baseurl = this.globalData.baseurl;
+
         this.account.controllaAccount().then(
             (ok) => {
                 this.http.getConnected();
@@ -160,13 +165,24 @@ export class PreferenzePage implements OnInit {
                         this.step = 20;
                     }
                 });
+
+                // URL DEL BACKEND
+                this.storage.get('baseurl').then((value) => {
+                    if (value != null) {
+                        this.baseurl = value;
+                    } else {
+                        this.baseurl = this.globalData.defaultBaseUrl;
+                    }
+                });
+
             }, (err) => {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
     }
 
-    ionViewWillLeave() {
+    ngOnDestroy() {
+        console.log('ngOnDestroy()');
         const storedNewsAteneo = this.storage.get('newsAteneo');
         const storedNewsDipartimento = this.storage.get('newsDipartimento');
         const storedNewsCds = this.storage.get('newsCds');
@@ -182,6 +198,8 @@ export class PreferenzePage implements OnInit {
                     this.salvaPreferenze();
                 }
             });
+        this.salvaPreferenze();
+        this.salvaPreferenzeLocali();
     }
 
 
@@ -276,10 +294,26 @@ export class PreferenzePage implements OnInit {
         this.storage.set('includiNoMedia', this.includiNoMedia);
         this.storage.set('connessioneLenta', this.connessioneLenta);
         this.storage.set('httpNativo', this.httpNativo);
+        this.storage.set('baseurl', this.baseurl);
         this.http.httpNativo = this.httpNativo;
+        if (this.baseurl) {
+            this.globalData.baseurl = this.baseurl;
+        } else {
+            // Ripristino i valori di default
+            this.baseurl = this.globalData.defaultBaseUrl;
+            this.globalData.baseurl = this.baseurl;
+            this.storage.set('baseurl', this.baseurl);
+        }
     }
 
     showAccounts() {
         this.globalData.goTo(this.currentPage, '/accounts', 'forward', false);
+    }
+
+    attivaAvanzate() {
+        this.clicks++;
+        if (this.clicks > 10) {
+            this.avanzate = true;
+        }
     }
 }

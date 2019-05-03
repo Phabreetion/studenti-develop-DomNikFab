@@ -85,6 +85,8 @@ export class DisconnettiPage implements OnInit {
                             this.storage.clear();
                             this.storage.set('logged', false);
                             this.storage.set('tokenNotifiche', this.tokenNotifiche);
+                            // Conserviamo il valore dell'URL del backend in caso di riavvio dell'app
+                            this.storage.set('baseurl', this.globalData.baseurl);
                             this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
                             this.toastCtrl.create({
                                 message: response.toString(),

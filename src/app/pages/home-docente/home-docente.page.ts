@@ -193,7 +193,7 @@ export class HomeDocentePage implements OnInit {
 
 
         // Otteniamo il PDS
-        this.sync.getJson(this.idServizio, sync).then(
+        this.sync.getJson(this.idServizio, null, sync).then(
             (data) => {
                 if (this.ultimoDato !== JSON.stringify(data[0])) {
                     this.ultimoDato = JSON.stringify(data[0]);

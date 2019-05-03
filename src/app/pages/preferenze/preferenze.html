@@ -71,17 +71,27 @@
       </ion-label>
       <ion-toggle name="includiNoMedia" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="includiNoMedia"></ion-toggle>
     </ion-item>
-    <ion-item id="preferenzeAggiornamento-toggle4">
-      <ion-label>
-        Mostra avviso di connessione lenta
-      </ion-label>
-      <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
-    </ion-item>
     <ion-item id="preferenzeAggiornamento-toggle6">
       <ion-label>
         Usa chiamate HTTP native
       </ion-label>
       <ion-toggle name="httpNativo" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="httpNativo"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider *ngIf="this.avanzate" color="light" id="avanzate-divider">
+      Avanzate
+    </ion-item-divider>
+    <ion-item *ngIf="this.avanzate" id="preferenzeAggiornamento-toggle4">
+      <ion-label>
+        Mostra avviso di connessione lenta
+      </ion-label>
+      <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
+    </ion-item >
+    <ion-item *ngIf="this.avanzate" id="baseurl">
+      <ion-label>
+        Backend URL
+      </ion-label>
+      <ion-input name="baseurl" clearInput (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="baseurl"></ion-input>
     </ion-item>
     <!--
     <ion-item id="preferenzeAggiornamento-range1">
@@ -111,7 +121,7 @@
       <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
     </ion-buttons>
 
-    <div class="testo-footer">
+    <div class="testo-footer" (click)="attivaAvanzate()">
       ver. {{appVersionNum}}
     </div>
 

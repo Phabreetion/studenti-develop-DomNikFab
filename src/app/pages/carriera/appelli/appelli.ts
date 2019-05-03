@@ -160,7 +160,7 @@ export class AppelliPage implements OnChanges, OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizioPrenotati, sync).then(
+        this.sync.getJson(this.idServizioPrenotati, null, sync).then(
             (data) => {
                 const newData = data[0];
                 // console.dir(newData);

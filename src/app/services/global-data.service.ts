@@ -4,21 +4,22 @@ import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {NavController, Platform} from '@ionic/angular';
 
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
-import {mapStackTrace} from 'sourcemapped-stacktrace';
+// import {mapStackTrace} from 'sourcemapped-stacktrace';
 import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
 import {Storage} from '@ionic/storage';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class GlobalDataService {
 
     schema = 'https://';
     ip = 'service.unimol.it';
     dir = '/app_2_1';
     apiurl =  this.dir + '/api/';
-    baseurl: string = this.schema + this.ip + this.apiurl;
-
+    defaultBaseUrl: string = this.schema + this.ip + this.apiurl;
+    baseurl;
 
     utente_test = false;
 
@@ -76,8 +77,12 @@ export class GlobalDataService {
         const minLog = 3;
         const minTrace = 10; // disabilitato, lo usiamo solo nel dubugging, problemi con l'emulatore ios
         if (level >= minLog) {
-            // if (reason) { console.log(reason); }
-            // if (msg) { console.dir(msg); }
+            if (reason) { console.log(reason); }
+            if (msg) { console.dir(msg); }
+
+            /*
+            Il trace non serve
+
             if (level >= minTrace) {
                 let stack = null;
                 try { throw true; } catch (e) { stack = e.stack; }
@@ -111,6 +116,7 @@ export class GlobalDataService {
                 if (reason) { console.log(reason); }
                 if (msg) { console.dir(msg); }
             }
+            */
         }
 
     }
@@ -316,13 +322,20 @@ export class GlobalDataService {
         }
     }
 
-    constructor(
-        private navCtrl: NavController,
-        private platform: Platform,
-        private storage: Storage,
-        private screenOrientation: ScreenOrientation,
-        private ngZone: NgZone) {
+    initialize() {
+        console.log('INIZIALIZZO GLOBALDATA');
+        this.storage.get('baseurl').then(
+            (value) => {
+                if (value != null) {
+                    this.baseurl = value;
+                } else {
+                    this.baseurl = this.defaultBaseUrl;
+                }
+                console.log('BASEURL: ' + this.baseurl);
 
+            }, (err) => {
+                this.baseurl = this.defaultBaseUrl;
+            });
         this.storage.get('user_role').then(
             (value) => {
                 if (value != null) {
@@ -330,6 +343,45 @@ export class GlobalDataService {
                 } else {
                     this.userRole = 'student';
                 }
+            }, (err) => {
+                this.userRole = 'student';
             });
     }
+
+    getBaseUrl(): string {
+        console.log('LEGGO BASEURL: ' + this.baseurl);
+
+        if (!this.baseurl) {
+            this.storage.get('baseurl').then(
+                (value) => {
+                    if (value != null) {
+                        this.baseurl = value;
+                    } else {
+                        this.baseurl = this.defaultBaseUrl;
+                    }
+                    console.log('(1) BASEURL: ' + this.baseurl);
+                    return this.baseurl;
+
+                }, (err) => {
+                    this.baseurl = this.defaultBaseUrl;
+                    console.log('(2) DEFAULT BASEURL: ' + this.baseurl);
+                    return this.baseurl;
+                });
+        } else {
+            console.log('(3) OK BASEURL: ' + this.baseurl);
+            return this.baseurl;
+        }
+
+    }
+
+    constructor(
+        private navCtrl: NavController,
+        private platform: Platform,
+        private storage: Storage,
+        private screenOrientation: ScreenOrientation,
+        private ngZone: NgZone) {
+
+        this.initialize();
+    }
+
 }
