@@ -392,6 +392,26 @@ export class DBService {
                 (data) => {
                     GlobalDataService.log(1, 'checkFile OK', data);
 
+                    //TEST PER ALERT ("CONFERMA PRIMA DI ELIMINARE")
+                   /* this.alertCtrl.create({
+                        header: 'Rimozione File',
+                        message: 'Sei sicuro di\' voler eliminare il file sul dispositivo?',
+                        buttons: [
+                            {
+                                text: 'Si',
+                                handler: () => {
+                                   this.eliminaFile(item);
+                                }
+                            },
+                            {
+                                text: 'No',
+                                role: 'cancel',
+                                handler: () => {
+                                }
+                            }
+                        ]
+                    }).then(alert => alert.present()); */
+
                     this.file.removeFile(downloadDir, fileName).then(
                         () => {
                             this.messaggi.successoEliminazione();
