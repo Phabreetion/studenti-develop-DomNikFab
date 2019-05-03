@@ -261,7 +261,7 @@ export class HomePage implements OnInit {
         this.nrRinvii = 0;
 
         // Otteniamo il PDS
-        this.sync.getJson(this.idServizioPds, sync).then(
+        this.sync.getJson(this.idServizioPds, null, sync).then(
             (data) => {
                 if (this.ultimoDato !== JSON.stringify(data[0])) {
                     this.ultimoDato = JSON.stringify(data[0]);

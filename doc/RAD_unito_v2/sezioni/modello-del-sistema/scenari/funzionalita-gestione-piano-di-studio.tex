@@ -1,0 +1,224 @@
+\subsection{Funzionalità Gestione piano di studio}
+\paragraph{Visualizza corsi}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, accede alla sezione \textit{Piano di studio} per visualizzare i corsi del piano di studio. Nello specifico, per ogni corso il sistema mostra il nome e, se superato, il voto e la data di verbalizzazione:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
+		\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
+		\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+		\hspace{1cm} • Storia della matematica \> N/D \>\\
+		\hspace{1cm} • Informatica territoriale \> N/D \>\\
+		\hspace{1cm} • Statistica \> N/D \>\\
+		\hspace{1cm} • Intelligenza artificiale \> N/D \>\\
+		\hspace{1cm} • Programmazione mobile \> N/D \>\\
+	\end{tabbing}
+\end{itemize}
+
+\paragraph{Ricerca corsi}
+\begin{itemize}
+	\item \textit{Ricerca avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova i corsi e mostra i risultati:
+
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Storia della matematica \> N/D \>\\
+	\end{tabbing}
+
+	\item \textit{La ricerca non restituisce risultati:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun corso trovato”.
+\end{itemize}
+
+\paragraph{Filtra corsi con memorizzazione}
+\begin{itemize}
+	\item \textit{Filtra per anno:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli esami del \textbf{secondo anno}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+		\hspace{1cm} • Ingegneria del Software\> N/D \> \\
+		\hspace{1cm} • Storia della matematica \> 30L \> 04/02/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Filtra esami superati:} 
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio, applica il filtro per visualizzare gli\textbf{ esami superati}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> 25 \> 01/07/2018 \\
+		\hspace{1cm} • Architettura degli elaboratori \> 28 \> 21/01/2018 \\
+		\hspace{1cm} • Informatica giuridica \> 30 \> 07/06/2018 \\
+		\hspace{1cm} • Matematica \> 24 \> 20/07/2018 \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/03/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Memorizza filtro:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema. Alla successiva apertura dell’app, il sistema filtra di default i corsi per “esami da sostenere”.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato il filtro “esami da sostenere”, sceglie di non memorizzare le opzioni inserite. Il sistema applica il filtro selezionato fino alla chiusura del sistema. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti i corsi del piano di studio.
+	
+	\item \textit{Il filtraggio non restituisce alcun risultato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato i corsi del piano di studio, applica il filtro “esami da sostenere” che non restituisce alcun risultato. Il sistema mostra allo studente il messaggio di errore “Nessun esame è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+\end{itemize}
+
+\paragraph{Ordina corsi con memorizzazione}
+\begin{itemize}
+	\item \textit{Ordinamento alfabetico crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base all’nome del corso. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Architettura degli elaboratori \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \\
+		\hspace{1cm} • Calcolo numerico \\
+		\hspace{1cm} • Informatica giuridica \\
+		\hspace{1cm} • Matematica \\
+		\hspace{1cm} • Programmazione e laboratorio \\
+		\hspace{1cm} • Storia della matematica \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento alfabetico decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base all’nome del corso. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame---------------------------\kill
+		%Scrivere da qui
+		\hspace{1cm} • Storia della matematica \\
+		\hspace{1cm} • Programmazione e laboratorio \\
+		\hspace{1cm} • Matematica \\
+		\hspace{1cm} • Informatica giuridica \\
+		\hspace{1cm} • Calcolo numerico \\
+		\hspace{1cm} • Basi di dati e sistemi informativi \\
+		\hspace{1cm} • Architettura degli elaboratori \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per anno crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base all’anno. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Anno--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Programmazione e laboratorio \> Primo anno\\
+		\hspace{1cm} • Matematica  \>Primo anno\\
+		\hspace{1cm} • Architettura degli elaboratori \> Primo anno\\
+		\hspace{1cm} • Fisica \> Secondo anno\\
+		\hspace{1cm} • Calcolo numerico \> Secondo anno\\
+		\hspace{1cm} • Intelligenza artificiale \> Terzo anno\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per anno decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base all’anno. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Anno--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Intelligenza artificiale \> Terzo anno\\
+		\hspace{1cm} • Calcolo numerico \> Secondo anno\\
+		\hspace{1cm} • Fisica \> Secondo anno\\
+		\hspace{1cm} • Architettura degli elaboratori \> Primo anno\\
+		\hspace{1cm} • Matematica  \>Primo anno\\
+		\hspace{1cm} • Programmazione e laboratorio \> Primo anno\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base ai CFU. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---CFU--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Inglese \> 6 CFU\\
+		\hspace{1cm} • Calcolo numerico  \>6 CFU\\
+		\hspace{1cm} • Architettura degli elaboratori \> 6 CFU\\
+		\hspace{1cm} • Fisica \> 7 CFU\\
+		\hspace{1cm} • Intelligenza artificiale \> 9 CFU\\
+		\hspace{1cm} • Matematica \> 12CFU\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base ai CFU. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---CFU--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica \> 12CFU\\
+		\hspace{1cm} • Intelligenza artificiale \> 9 CFU\\
+		\hspace{1cm} • Fisica \> 7 CFU\\
+		\hspace{1cm} • Architettura degli elaboratori \> 6 CFU\\
+		\hspace{1cm} • Calcolo numerico  \>6 CFU\\
+		\hspace{1cm} • Inglese \> 6 CFU\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per voto crescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo crescente della configurazione in base al voto. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Voto--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico \> 18\\
+		\hspace{1cm} • Matematica   \>24\\
+		\hspace{1cm} • Programmazione e laboratorio \> 25\\
+		\hspace{1cm} • Architettura degli elaboratori \> 28\\
+		\hspace{1cm} • Informatica giuridica \> 30\\
+		\hspace{1cm} • Storia della matematica \> 30L\\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per voto decrescente:}
+	Lo studente Giuseppe iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l'elenco dei corsi del piano di studio, applica l'ordinamento in modo decrescente della configurazione in base al voto. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= ---Voto--- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Storia della matematica \> 30L\\
+		\hspace{1cm} • Informatica giuridica \> 30\\
+		\hspace{1cm} • Architettura degli elaboratori \> 28\\
+		\hspace{1cm} • Programmazione e laboratorio \> 25\\
+		\hspace{1cm} • Matematica \>24\\
+		\hspace{1cm} • Calcolo numerico \> 18\\
+	\end{tabbing}
+	
+	\item \textit{Memorizza ordinamento:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina i corsi sulla base dell'ultimo ordinamento memorizzato.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco dei corsi del piano di studio ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”. 
+\end{itemize}
+
+\paragraph{Visualizza dettagli corso}
+\begin{itemize}
+	\item \textit{Visualizzazione dettagli di un corso superato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso superato di Informatica giuridica. Il sistema mostra allo studente i seguenti dettagli:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Informatica giuridica \> \textbf{Docente} Troncarelli Barbara\\
+		\hspace{1cm} • \textbf{Anno} 1 \> \textbf{CFU} 6   \\
+		\hspace{1cm} • \textbf{Data esame} 19/06/2018 \> \textbf{Voto} 25 \\
+	\end{tabbing}
+
+	\item \textit{Visualizzazione dettagli di un corso non superato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare i dettagli del corso non superato di Ingegneria del software. Il sistema mostra allo studente i seguenti dettagli:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Matematica \> \textbf{Docente} Giovanni  Capobianco\\
+		\hspace{1cm} • \textbf{Anno} 1 \> \textbf{CFU} 12  \\
+	\end{tabbing}
+\end{itemize}

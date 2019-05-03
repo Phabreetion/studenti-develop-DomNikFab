@@ -1,0 +1,112 @@
+\subsection{Funzionalità Piano di studio}
+\paragraph{Visualizza corsi \\}
+Questo caso d’uso consentirà allo studente di visualizzare i corsi afferenti al suo piano di studio e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere la lista di tutti i corsi. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi ai corsi del piano di studio, dopodiché il sistema li mostrerà allo studente. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio} \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza corsi}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente si trova nella sezione \textit{Piano di studio.}} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia dei corsi salvata nello \textit{storage.} & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio per la visualizzazione dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Ottiene i corsi del piano di studio aggiornati e li mostra a video. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi aggiornati del piano di studio.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ricerca corsi \\}
+Questo caso d’uso consentirà allo studente di ricercare i corsi utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i corsi trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaCorsiSD}) e del diagramma delle attività (\ref{diag:ricercaCorsiAD}). \\ \\
+
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca corsi}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Filtra corsi con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di filtrare i corsi in base ad uno o più filtri. Il sistema, dopo aver filtrato l’elenco, mostrerà la lista di corsi filtrati. Lo studente avrà la possibilità di memorizzare i filtri nello \textit{storage} per visualizzare i dati filtrati ad ogni nuovo accesso alla sezione. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: 
+\ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:filtraCorsiConMemSD}) e del diagramma delle attività (\ref{diag:filtraCorsiConMemAD}).\\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Filtra corsi con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce uno o più filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Filtra l’elenco dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi filtrati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare i filtri. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} &  \textbf{} & Memorizza i filtri nello \textit{storage}.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{4.1} Nessuna memorizzazione.\newline \textbf{5.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi filtrati ed eventualmente salva i filtri. } \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Ordina corsi con memorizzazione \\}
+Questo caso d’uso consentirà allo studente di ordinare i corsi in base ad un criterio di ordinamento. Il sistema, dopo aver ordinato l’elenco, mostrerà la lista di corsi ordinati. Lo studente avrà la possibilità di memorizzare il criterio di ordinamento nello \textit{storage}. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ordinaCorsiConMemSD}) e del diagramma delle attività (\ref{diag:ordinaCorsiConMemAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ordina corsi con memorizzazione}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce un criterio di ordinamento. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ordina l’elenco dei corsi. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i corsi ordinati. \\
+	\hline
+	\textbf{} & \textbf{4} & Sceglie di salvare il criterio di ordinamento selezionato. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{5} &  \textbf{} & Memorizza nello \textit{storage} il criterio di ordinamento.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{3.1} Nessuna memorizzazione.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi ordinati ed eventualmente salva il criterio di ordinamento.} \\
+	\hline
+\end{tabular}
+
+\clearpage

@@ -13,9 +13,6 @@ import {HttpService} from './http.service';
 export class AccountService {
 
     logged: boolean;
-    baseurl = this.sync.baseurl;
-    urlRegistra: string = this.baseurl + 'registra.php';
-    urlDisconnetti: string = this.baseurl + 'disconnetti.php';
 
     constructor(
         public storage: Storage,
@@ -28,11 +25,11 @@ export class AccountService {
     ) { }
 
     getUrlDisconnetti() {
-        return this.urlDisconnetti;
+        return this.globalData.getBaseUrl()  + 'disconnetti.php';
     }
 
     getUrlRegistra() {
-        return this.urlRegistra;
+        return this.globalData.getBaseUrl() + 'registra.php';
     }
 
     controllaAccount() {
@@ -41,6 +38,7 @@ export class AccountService {
                 (logged) => {
                     GlobalDataService.log(0, 'Logged', logged);
                     this.logged = logged;
+                    this.globalData.logged = this.logged;
                     if (logged) {
                         resolve(this.logged);
                     } else {
@@ -48,6 +46,7 @@ export class AccountService {
                     }
                 }, (err) => {
                     this.logged = false;
+                    this.globalData.logged = this.logged;
                     // Forse sarebbe meglio verificare se esiste il tokene ed eventualmente aggiornare tutto
                     GlobalDataService.log(1, 'logged non presente in storage', err);
                     reject(this.logged);
@@ -61,6 +60,7 @@ export class AccountService {
 
         const userRole = carriera['user_role'];
         this.globalData.userRole = userRole;
+        this.globalData.logged = true;
 
         const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
@@ -142,7 +142,7 @@ export class AccountService {
         GlobalDataService.log(0, 'Login ' + username + ' ' + matricola + ' ' + cds_id + ' ' + dip_id, null);
 
         return new Promise((resolve, reject) => {
-            const url = this.urlRegistra;
+            const url = this.getUrlRegistra();
 
             const storedUsernamePromise = this.storage.get('username');
             const storedPasswordPromise = this.storage.get('password');
@@ -384,6 +384,7 @@ export class AccountService {
                     (response) => {
                         loading.dismiss();
                         if (response) {
+
                             this.toastCtrl.create({
                                 message: 'Il dispositivo è stato disconnesso.',
                                 duration: 5000

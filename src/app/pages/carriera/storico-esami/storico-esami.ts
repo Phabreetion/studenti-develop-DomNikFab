@@ -80,7 +80,7 @@ export class StoricoEsamiPage implements OnInit {
         }
         this.rinvioAggiornamento = false;
 
-        this.sync.getJson(this.idServizio, sync).then(
+        this.sync.getJson(this.idServizio, null, sync).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.storico, this.carriera[0]['storico_esami']) ) {
                     this.carriera = data;

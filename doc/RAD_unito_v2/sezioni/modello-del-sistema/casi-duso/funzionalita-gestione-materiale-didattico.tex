@@ -1,0 +1,126 @@
+\subsection{Funzionalità Gestione materiale didattico}
+\paragraph{Visualizza elenco file \\}
+Questo caso d’uso consentirà allo studente di visualizzare l’elenco dei file afferenti ad un corso. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere una lista di file, il quale elaborerà la richiesta e restituirà i dati relativi ai file. Il sistema mostrerà allo studente l’elenco dei file. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaElencoFileSD}) e del diagramma delle attività (\ref{diag:visualizzaElencoFileAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza elenco file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Visualizza l’ultima copia dei file salvata nello \textit{storage}. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra allo studente l’elenco dei file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun file.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco aggiornato dei file.} \\
+	\hline
+\end{tabular}
+
+\newpage	
+
+\paragraph{Ricerca file \\}
+Questo caso d’uso consentirà allo studente di ricercare i file utilizzando delle parole chiave. Il sistema, dopo aver eseguito la ricerca, mostrerà i file trovati. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:ricercaFileSD}) e del diagramma delle attività (\ref{diag:ricercaFileAD}).\\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Ricerca file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Inserisce delle parole chiave. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Esegue la ricerca. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i file che corrispondono alle parole chiave. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} Nessun risultato.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i file trovati.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Visualizza dettagli file \\}
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un file. Il sistema includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del file selezionato, il quale elaborerà la richiesta e restituirà i dati relativi al file selezionato. Il sistema mostrerà allo studente i dettagli del file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaDettagliFileSD}) e del diagramma delle attività (\ref{diag:visualizzaDettagliFileAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file di un corso.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona un file di cui visualizzare i dettagli. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Mostra i dettagli relativi al file selezionato. \\
+	\hline
+	
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al file selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Apri file \\}
+Questo caso d’uso consentirà allo studente di aprire un file. Il sistema ricercherà il file nello \textit{storage} per poi aprirlo. Nel caso in cui il file non fosse presente, il sistema sfrutta i servizi forniti dal \textit{DBService} che procederà con il download nello \textit{storage} dell’app e successivamente aprirà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:apriFileSD}) e del diagramma delle attività (\ref{diag:apriFileAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Apri file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona il file da aprire. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Apre il file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage: si interfaccia con \textit{DBService} per scaricarlo.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente apre il file selezionato.} \\
+	\hline
+\end{tabular}
+\newpage
+
+\paragraph{Rimuovi  file \\}
+Questo caso d’uso consentirà allo studente di rimuovere un file, ricercandolo nello \textit{storage} e rimuovendolo. Nel caso in cui il file non fosse presente, il sistema mostrerà allo studente un messaggio d’errore. Il sistema eliminerà il file selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestioneMatDidattico}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:rimuoviFileSD}) e del diagramma delle attività (\ref{diag:rimuoviFileAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Rimuovi  file}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza l’elenco dei file.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona il file da eliminare. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Ricerca il file nello \textit{storage}. \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Rimuove il file. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{2.1} File non presente nello storage} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente rimuove il file selezionato.} \\
+	\hline
+\end{tabular}
+
+\clearpage

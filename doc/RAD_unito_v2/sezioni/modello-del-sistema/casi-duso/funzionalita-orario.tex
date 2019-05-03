@@ -1,0 +1,118 @@
+\subsection{Funzionalità orario}
+
+\subsubsection{Gestione primo avvio} 
+
+Questo caso d’uso mostra come gli utenti che accedono alla sezione "orario" per la prima volta come si devono comportare. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-gestione-primo-avvio}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione primo avvio} % Didascalia tabella
+\label{tab:tab-caso-duso-gestione-primo-avvio} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione primo avvio.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra la lista dei corsi.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona i corsi da seguire. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra l’orario sulla base dei corsi scelti dall’utente.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.\newline 3.2 Nel caso in cui dovessero esserci più corsi con 		lo stesso orario, viene mostrato un rettangolo che evidenzia la sovrapposizione degli insegnamenti. Selezionando il rettangolo viene mostrato un popup 		con i dettagli dei due corsi.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+
+\end{tabular}
+\end{table}
+
+\subsubsection{Modifica orario} 
+
+La funzionalità permette agli utenti di modificare l'orario da loro struttarato.
+
+Vedi Tabella~\vref{tab:tab-caso-duso-modifica-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Modifica orario} % Didascalia tabella
+\label{tab:tab-caso-duso-modifica-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Modifica orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{} & \textbf{3} &Seleziona il tasto modifica orario. \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} &Mostra la lista dei corsi.\\
+	\hline
+	\textbf{} & \textbf{5} &Seleziona la lista dei corsi \textbf{} &\\
+	\hline
+	\textbf{} & \textbf{6} & \textbf{} &Mostra l'orario scelto.\\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{4.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Visualizza orario} 
+
+Questo caso d’uso mostra come gli utenti, che hanno già fatto l'accesso alla sezione "orario" almeno una volta, potranno visualizzare i corsi. 
+
+Vedi Tabella~\vref{tab:tab-caso-duso-visualizza-orario}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Visualizza orario} % Didascalia tabella
+\label{tab:tab-caso-duso-visualizza-orario} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza orario.}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Utente}.Partecipa \textbf{Sistema}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente accede alla sezione orario. } \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} &Accede a orario.\textbf{} &\\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} &Mostra l'orario.  \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{2.1Aule Unimol non risponde.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente visualizza l’orario.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\clearpage

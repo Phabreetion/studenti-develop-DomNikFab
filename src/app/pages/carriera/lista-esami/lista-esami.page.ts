@@ -77,7 +77,7 @@ export class ListaEsamiPage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, true).then(
+        this.sync.getJson(this.idServizio, null, true).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.list, data[0]) ) {
                     this.list = data[0];

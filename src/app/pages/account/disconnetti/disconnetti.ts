@@ -85,6 +85,9 @@ export class DisconnettiPage implements OnInit {
                             this.storage.clear();
                             this.storage.set('logged', false);
                             this.storage.set('tokenNotifiche', this.tokenNotifiche);
+                            // Conserviamo il valore dell'URL del backend in caso di riavvio dell'app
+                            this.storage.set('baseurl', this.globalData.baseurl);
+                            this.globalData.logged = false;
                             this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
                             this.toastCtrl.create({
                                 message: response.toString(),
@@ -123,7 +126,7 @@ export class DisconnettiPage implements OnInit {
         this.alertCtrl.create({
             header: 'Errore',
             subHeader: 'Server non raggiungibile',
-            message: 'Il server non risponde. Per poter cancellare la registrazione di questo dispoditivo devi essere connesso ' +
+            message: 'Il server non risponde. Per poter cancellare la registrazione di questo dispositivo devi essere connesso ' +
             'ad Internet. Se procedi, i dati sul tuo dispositivo saranno rimossi, ma i dati sul server non potranno essere cancellati. ' +
             'Sei sicuro di voler procedere?',
             buttons: [
@@ -131,14 +134,20 @@ export class DisconnettiPage implements OnInit {
                     text: 'Disconnetti',
                     role: 'cancel',
                     handler: () => {
-                            this.storage.clear();
-                            this.storage.set('tokenNotifiche', this.tokenNotifiche);
-                            this.notificheService.rimuoviSottoscrizioni().then(
-                                () => {
-                                    this.globalData.goTo('/login', '/login', 'root', false);
 
-                                }
-                            );
+                        this.storage.clear();
+                        this.storage.set('logged', false);
+                        this.storage.set('tokenNotifiche', this.tokenNotifiche);
+                        // Conserviamo il valore dell'URL del backend in caso di riavvio dell'app
+                        this.storage.set('baseurl', this.globalData.baseurl);
+                        this.globalData.logged = false;
+
+                        this.notificheService.rimuoviSottoscrizioni().then(
+                            () => {
+                                this.globalData.goTo('/login', '/login', 'root', false);
+
+                            }
+                        );
                     }
                 },
                 {

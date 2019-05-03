@@ -1,0 +1,112 @@
+\subsection{Funzionalità rubrica}
+\paragraph{Ricerca non filtrata \\}
+Il caso d'uso mostra, nella tabella sottostante, il comportamento
+che il sistema assume quando lo \textit{Studente} accede alla sezione rubrica e non effettua nessun tipo di ricerca.
+
+\begin{table}
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Ricerca non filtrata} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Ricerca non filtrata}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}. Partecipa \textbf{Esse3}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} accede alla sezione della rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Esse3} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Richiede la lista completa dei contatti ad \textit{Esse3}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & \textbf{} & Elabora la richiesta e invia i dati relativi alla rubrica. \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Mostra allo \textit{Studente} l'elenco dei contatti in rubrica. & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{3.1 \textit{Esse3} non risponde.\newline 3.2 Connessione assente: il sistema restituisce l'ultima copia salvata in locale. \newline 3.3 Connessione assente e copia non presente.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza tutti i contatti della rubrica.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Ricerca non filtrata}}
+\end{table}
+
+\newpage
+\paragraph{Ricerca filtrata \\} 
+Il caso d'uso è il più frequente e mostra nella tabella sottostante il comportamento che il sistema assume quando lo \textit{Studente}
+cerca informazioni inerenti un docente o il personale di segreteria di una sede didattica specifica.
+
+\begin{table}
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Ricerca filtrata} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseThreeCol} | p{\useCaseThreeCol} | p{\useCaseThreeCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{4}{p{\useCaseMulticol} |}{\textbf{Ricerca filtrata}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{4}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}. Partecipa \textbf{Esse3}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} accede alla sezione della rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} & \textbf{Esse3} \\
+		\hline
+		\textbf{} & \textbf{1} & Inserisce i parametri di ricerca nella barra di ricerca che consente di inserire stringhe di testo. & \textbf{}  & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Richiede il contatto ad \textit{Esse3}. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & \textbf{} & Elabora la richiesta e invia i dati relativi alla rubrica. \\
+		\hline
+		\textbf{} & \textbf{4} & \textbf{} & Mostra allo \textit{Studente} il contatto cercato in rubrica. & \textbf{} \\
+		\hline
+		\textbf{Eccezioni} & \multicolumn{4}{p{\useCaseMulticol} |}{3.1 \textit{Esse3} non risponde.\newline 3.2 Connessione assente: il sistema restituisce l'ultima copia salvata in locale. \newline 3.3 Connessione assente e copia non presente. \newline 3.4 Contatto non presente.} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{4}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza il contatto cercato nella rubrica.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Ricerca filtrata}}
+\end{table}
+
+\newpage
+\paragraph{Visualizza contatto \\} 
+Lo \textit{Studente}, dopo aver effettuato una ricerca e aver trovato il contatto, seleziona il contatto e visualizza le informazioni. Non ci sono eccezioni in quanto la ricerca è andata a buon fine.
+
+\begin{table}
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	% Didascalia tabella
+	\label{Visualizza contatto} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visulizza contatto}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \textit{Studente} ha effettuato una ricerca dalla rubrica.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Utente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Seleziona il contatto trovato. & \textbf{} \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostra le informazioni del contatto selezionato:
+		\begin{enumerate}
+			\item Nome Cognome
+			\item Dipartimento, Sede
+			\item Email
+			\item Numero telefonico
+		\end{enumerate} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo \textit{Studente} visualizza le informazioni del contatto selezionato.} \\
+		\hline
+	\end{tabular}
+	\caption{\textbf{Visualizza contatto}}
+\end{table}
+
+\clearpage

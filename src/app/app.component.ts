@@ -83,13 +83,14 @@ export class AppComponent {
         {
             title: 'Orario',
             url: '/orario',
-            icon: 'calendar'
+            icon: 'calendar',
+            role: 'disabled'
         },
         {
             title: 'News',
             url: '/news',
             icon: 'information-circle',
-            role: 'all'
+            role: 'logged'
         },
         // {
         //     title: 'Calendario',
@@ -100,13 +101,13 @@ export class AppComponent {
             title: 'Notifiche',
             url: '/notifiche',
             icon: 'megaphone',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Rubrica',
             url: '/rubrica',
             icon: 'contacts',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Questionari',
@@ -130,19 +131,19 @@ export class AppComponent {
             title: 'Impostazioni',
             url: '/preferenze',
             icon: 'options',
-            role: 'student'
+            role: 'all'
         },
         {
             title: 'Blocca',
             url: '/lock',
             icon: 'lock',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Disconnetti',
             url: '/disconnetti',
             icon: 'log-out',
-            role: 'all'
+            role: 'logged'
         }
     ];
 
@@ -198,7 +199,9 @@ export class AppComponent {
             }
 
             this.splashScreen.hide();
+
             this.globalData.landscape = false;
+            this.globalData.initialize();
 
             this.http.setHttpType();
 
