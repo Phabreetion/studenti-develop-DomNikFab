@@ -10,6 +10,10 @@ export class PianoDiStudioPage implements OnInit {
   private corsi: any[];
   private corsiFiltrati: any[];
   private searchKey: String;
+  showSearchBar = false;
+  searchTerm = '';
+  flyInOutState = 'in';
+
 
   // Sarà un array di corsi
 
@@ -40,6 +44,13 @@ export class PianoDiStudioPage implements OnInit {
   }
 
   private filtra(): void {
-    // @TODO
+     }
+  private onSearchCancel(): void {
+    this.searchTerm = '';
+    this.filtra();
+  }
+  private  toggleInOut() {
+    this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
+    this.showSearchBar = !this.showSearchBar;
   }
 }
