@@ -30,7 +30,6 @@ const routes: Routes = [
     {path: 'questionari', loadChildren: './pages/servizi/questionari/questionari.module#QuestionariPageModule'},
     {path: 'rubrica', loadChildren: './pages/servizi/rubrica/rubrica.module#RubricaPageModule'},
     {path: 'servizi-online', loadChildren: './pages/servizi/servizi-online/servizi-online.module#ServiziOnlinePageModule'},
-    {path: 'storico-esami', loadChildren: './pages/carriera/storico-esami/storico-esami.module#StoricoEsamiPageModule'},
     {path: 'tasse', loadChildren: './pages/servizi/tasse/tasse.module#TassePageModule'},
     {path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule'},
     {path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule'},

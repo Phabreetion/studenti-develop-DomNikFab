@@ -393,6 +393,7 @@ export class DBService {
                     GlobalDataService.log(1, 'checkFile OK', data);
 
                     //TEST PER ALERT ("CONFERMA PRIMA DI ELIMINARE") se funziona posizionare bene
+                    //Da aggiustare perchè elimina il file prima dell'allert.
                    /* this.alertCtrl.create({
                         header: 'Rimozione File',
                         message: 'Sei sicuro di\' voler eliminare il file sul dispositivo?',

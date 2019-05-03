@@ -434,6 +434,9 @@ export class AppelliPage implements OnChanges, OnInit {
         const data_fine = new Date(item.p10_app_data_fine_iscr);
         const data_odierna = new Date();
 
+
         return data_odierna >= data_inizio; // && data_odierna <= data_fine;
     }
+
+
 }
