@@ -25,6 +25,7 @@ export class PianoDiStudioPage implements OnInit {
   flyInOutState = 'in';
 
   private filtroSuperatiAttivo: boolean;
+  private filtroNonSuperatiAttivo: boolean;
 
   //private filtra
 
@@ -58,11 +59,17 @@ export class PianoDiStudioPage implements OnInit {
   }
 
   private filtra(): void {
+    this.corsiFiltrati = this.corsi;
     if(this.filtroSuperatiAttivo) {
       this.corsiFiltrati = this.corsi.filter(corso => corso.voto != null );
     }
+
+    if(this.filtroNonSuperatiAttivo) {
+      this.corsiFiltrati = this.corsi.filter(corso => corso.voto == null );
+    }
     // @TODO
-     }
+  }
+
   private onSearchCancel(): void {
     this.searchTerm = '';
     this.filtra();
