@@ -1,13 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Piano di studio</ion-title>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-searchbar [(ngModel)]="searchKey"></ion-searchbar>
-    <ion-button fill="clear" slot="end"><ion-icon slot="icon-only" name="search"></ion-icon></ion-button>
-  </ion-toolbar>
+  <ion-grid no-padding>
+    <ion-row >
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title *ngIf='!showSearchBar'>
+            Piano di studio
+          </ion-title>
+          <ion-searchbar *ngIf='showSearchBar'
+                         [@flyInOut]="flyInOutState"
+                         [(ngModel)]="searchTerm"
+                         (click)="filtra()"
+                         (ionChange)="filtra()"
+                         (ionCancel)="onSearchCancel()"
+                         (ionClear)="onSearchCancel()">
+          </ion-searchbar>
+          <ion-buttons slot="end">
+            <ion-button icon-only (click)="toggleInOut()">
+              <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-header>
+
+<ion-content>
 
 <ion-content padding>
   <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
@@ -18,18 +44,10 @@
       refreshingText="Aggiornamento...">
     </ion-refresher-content>
   </ion-refresher>
-  <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
-  <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
-  <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
-  <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
-  <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
-  <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
-  <ion-button (click)="ordina(7)">Ordina cfu crescente</ion-button>
-  <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
 
   <ion-list>
     <ion-item-sliding *ngFor="let corso of corsi">
-      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
+      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}   Anno:{{corso.anno}}</ion-item>
 
       <ion-item-options>
         <ion-item-option>
