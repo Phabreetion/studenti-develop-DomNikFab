@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {GlobalDataService} from '../../../services/global-data.service';
 
 const ALFABETICO_CRESCENTE: number = 1;
 const ALFABETICO_DECRESCENTE: number = 2;
@@ -31,7 +32,7 @@ export class PianoDiStudioPage implements OnInit {
 
   // Sarà un array di corsi
 
-  constructor() {
+  constructor(public globalData: GlobalDataService,) {
     this.searchKey = '';
   }
 
@@ -61,11 +62,11 @@ export class PianoDiStudioPage implements OnInit {
   private filtra(): void {
     this.corsiFiltrati = this.corsi;
     if(this.filtroSuperatiAttivo) {
-      this.corsiFiltrati = this.corsi.filter(corso => corso.voto != null );
+      this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto != null );
     }
 
     if(this.filtroNonSuperatiAttivo) {
-      this.corsiFiltrati = this.corsi.filter(corso => corso.voto == null );
+      this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto == null );
     }
     // @TODO
   }

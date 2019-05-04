@@ -1,6 +1,6 @@
 <ion-header>
   <ion-grid no-padding>
-    <ion-row >
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
       <ion-col>
         <ion-label> </ion-label>
       </ion-col>
@@ -16,7 +16,7 @@
           </ion-title>
           <ion-searchbar *ngIf='showSearchBar'
                          [@flyInOut]="flyInOutState"
-                         [(ngModel)]="searchTerm"
+                         [(ngModel)]="searchKey"
                          (click)="filtra()"
                          (ionChange)="filtra()"
                          (ionCancel)="onSearchCancel()"
