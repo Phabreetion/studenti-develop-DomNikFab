@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GlobalDataService} from '../../../../services/global-data.service';
 import {DBService} from '../../../../services/db-service';
 import {AlertController} from '@ionic/angular';
+import {ToastsService} from '../../../../services/toasts.service';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class AllegatoPage implements OnInit {
 
     constructor(public globalData: GlobalDataService,
                 private localdb: DBService,
-                public alertController: AlertController) {}
+                public alertController: AlertController,
+                public toastsService: ToastsService,) {}
 
 
     ngOnInit() {
@@ -81,6 +83,29 @@ export class AllegatoPage implements OnInit {
 
     apriFile() {
         this.localdb.apriFile(this.allegato);
+    }
+
+    newApriFile() {
+        if ( this.localdb.isPiattaformaSupportata()) {
+            console.log("a");
+            this.localdb.isAllegatoScaricato(this.allegato).then(
+                () => this.apriFile(),
+                () => this.presentAlertConfermaDownload()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+    async newRimuoviFile() {
+        if (this.localdb.isPiattaformaSupportata()) {
+            await this.localdb.isAllegatoScaricato(this.allegato).then(
+                () => this.presentAlertConfermaRimozione(),
+                () => this.toastsService.fileNonScaricato()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
     }
 
 
