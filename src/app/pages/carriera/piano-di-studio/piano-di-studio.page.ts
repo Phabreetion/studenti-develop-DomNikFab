@@ -24,6 +24,9 @@ export class PianoDiStudioPage implements OnInit {
   searchTerm = '';
   flyInOutState = 'in';
 
+  private filtroSuperatiAttivo: boolean;
+
+  //private filtra
 
   // Sarà un array di corsi
 
@@ -42,6 +45,7 @@ export class PianoDiStudioPage implements OnInit {
       {id: 7, anno: 3, nome: 'Informatica territoriale', cfu: 8,},
       {id: 8, anno: 3, nome: 'Ricerca operativa', cfu: 7,},
     ]; // Prova per testare
+    this.corsiFiltrati = this.corsi;
     this.filtra();
   }
 
@@ -54,6 +58,10 @@ export class PianoDiStudioPage implements OnInit {
   }
 
   private filtra(): void {
+    if(this.filtroSuperatiAttivo) {
+      this.corsiFiltrati = this.corsi.filter(corso => corso.voto != null );
+    }
+    // @TODO
      }
   private onSearchCancel(): void {
     this.searchTerm = '';
