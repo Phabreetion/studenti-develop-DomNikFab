@@ -83,6 +83,17 @@
             {{esame.GIUDIZIO}}
           </ion-col>
         </ion-row>
+
+        <ion-row *ngIf="esame.PREREQUISITI">
+          <ion-col>
+            Propedeuticità:
+          </ion-col>
+
+          <ion-col>
+            {{esame.PREREQUISITI}}<ion-icon name="checkbox"></ion-icon>
+          </ion-col>
+        </ion-row>
+
         <ion-row *ngIf="esame.SOVRANNUMERARIA == 1 || esame.NO_MEDIA == 1">
           <ion-col>
             <strong>Informazioni agguntive</strong>
