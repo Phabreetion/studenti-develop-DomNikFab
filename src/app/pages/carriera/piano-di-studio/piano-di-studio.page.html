@@ -44,22 +44,35 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-card>
-    <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
-    <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
-    <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
-    <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
-    <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
-    <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
-    <ion-button (click)="ordina(7)">Ordina cfu crescente</ion-button>
-    <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
-  </ion-card>
-
-  <ion-text>Filtra esami superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroSuperatiAttivo"></ion-toggle></ion-text>
-  <ion-text>Filtra esami non superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroNonSuperatiAttivo"></ion-toggle></ion-text>
-
-
-
-  <ion-list>
+    <div class="ion-text-center">
+      <ion-item>Ordina esami per:</ion-item>
+      <br>
+      <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
+      <br>
+      <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
+      <br>
+      <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
+      <br>
+      <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
+      <br>
+      <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
+      <br>
+      <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
+      <br>
+      <ion-button (click)="ordina(7)">Ordina cfu crescente</ion-button>
+      <br>
+      <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
+      <br>
+    </div>
+    <div class="ion-text-center">
+      <ion-item>Filtra per:</ion-item>
+      <br>
+      <ion-item>Esami superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroSuperatiAttivo"></ion-toggle></ion-item>
+      <br>
+      <ion-item>Esami non superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroNonSuperatiAttivo"></ion-toggle></ion-item>
+    </div>
+</ion-card>
+<ion-list>
     <ion-item-sliding *ngFor="let corso of corsiFiltrati">
       <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
 
@@ -73,8 +86,5 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-
-
-  </ion-list>
+</ion-list>
 </ion-content>
