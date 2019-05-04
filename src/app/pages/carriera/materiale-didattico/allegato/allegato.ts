@@ -60,7 +60,7 @@ export class AllegatoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.eliminaFile();
+                        this.download();
                     }
                 },
                 {
@@ -87,7 +87,7 @@ export class AllegatoPage implements OnInit {
     async presentAlertConfermaRimozione() {
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Rimozione file',
-            message: 'Sei sicuro di\' voler eliminare il file sul dispositivo?',
+            message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
             buttons: [
                 {
                     text: 'Si',
