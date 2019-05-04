@@ -18,13 +18,16 @@
       refreshingText="Aggiornamento...">
     </ion-refresher-content>
   </ion-refresher>
-  Leave this page blank for now...<br>
-  We are going to rebuild from scratch this page...<br>
-  Work in progress...
+  <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
+  <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
+  <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
+  <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
+  <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
+  <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
 
   <ion-list>
     <ion-item-sliding *ngFor="let corso of corsi">
-      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}   Anno:{{corso.anno}}</ion-item>
+      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}   Anno:{{corso.anno}}   Voto{{corso.voto}}</ion-item>
 
       <ion-item-options>
         <ion-item-option>
