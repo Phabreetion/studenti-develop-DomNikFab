@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalDataService} from '../../../../services/global-data.service';
 import {DBService} from '../../../../services/db-service';
+import {AlertController} from '@ionic/angular';
 
 
 @Component({
@@ -15,7 +16,8 @@ export class AllegatoPage implements OnInit {
     ad_id: string;
 
     constructor(public globalData: GlobalDataService,
-                private localdb: DBService) {}
+                private localdb: DBService,
+                public alertController: AlertController) {}
 
 
     ngOnInit() {
@@ -50,12 +52,59 @@ export class AllegatoPage implements OnInit {
         }
     }
 
+    async presentAlertConfermaDownload() {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Download file',
+            message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.eliminaFile();
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
+    }
+
     download() {
         this.localdb.download(this.allegato);
     }
 
     apriFile() {
         this.localdb.apriFile(this.allegato);
+    }
+
+
+    async presentAlertConfermaRimozione() {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Rimozione file',
+            message: 'Sei sicuro di\' voler eliminare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.eliminaFile();
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
     }
 
     eliminaFile() {
