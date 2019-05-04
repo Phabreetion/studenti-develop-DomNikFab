@@ -54,7 +54,8 @@
     <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
   </ion-card>
 
-  <ion-text>Filtra esami superati<ion-toggle [(ngModel)]="filtroSuperatiAttivo"></ion-toggle></ion-text>
+  <ion-text>Filtra esami superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroSuperatiAttivo"></ion-toggle></ion-text>
+  <ion-text>Filtra esami non superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroNonSuperatiAttivo"></ion-toggle></ion-text>
 
 
 
