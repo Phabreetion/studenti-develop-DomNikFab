@@ -12,7 +12,7 @@
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
           <ion-title>
-            Dettaglio esame
+            Dettagli corso
           </ion-title>
           <ion-buttons slot="end">
             <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}" text="Indietro"></ion-back-button>
@@ -28,37 +28,19 @@
   <ion-card text-wrap *ngIf="esame">
 
     <ion-card-content>
+      <ion-card-header>
+        <ion-card-title text-center><b>{{esame.DESCRIZIONE}}</b></ion-card-title>
+        <ion-card-subtitle text-center>{{esame.ANNO}}° anno</ion-card-subtitle>
+      </ion-card-header>
+
+
       <ion-grid>
-        <ion-row>
-          <ion-col>
-            Descrizione:
-          </ion-col>
-          <ion-col>
-            {{esame.DESCRIZIONE}}
-          </ion-col>
-        </ion-row>
         <ion-row *ngIf="esame.COGNOME">
           <ion-col>
-            Docente titolare:
+            Docente:
           </ion-col>
           <ion-col>
             {{esame.NOME}} {{esame.COGNOME}}
-          </ion-col>
-        </ion-row>
-        <ion-row *ngIf="esame.COGNOME_NT">
-          <ion-col>
-            Altri docenti:
-          </ion-col>
-          <ion-col>
-            {{esame.NOME_NT}} {{esame.COGNOME_NT}}
-          </ion-col>
-        </ion-row>
-        <ion-row *ngIf="esame.ANNO">
-          <ion-col>
-            Anno:
-          </ion-col>
-          <ion-col>
-            {{esame.ANNO}}
           </ion-col>
         </ion-row>
         <ion-row *ngIf="esame.CFU">
@@ -119,8 +101,21 @@
       </ion-grid>
     </ion-card-content>
 
-
   </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block">Appelli</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block">Materiale didattico</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+
 
   <ion-card text-wrap *ngIf="!esame">
     <ion-card-header text-center text-wrap ng-bind-html="snippet">

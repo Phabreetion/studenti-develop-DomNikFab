@@ -106,13 +106,18 @@
                   </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="!isPrenotabile(item)">
-                    <div>L'appello sarà prenotabile entro x giorni</div>
+                <ion-row *ngIf="!isPrenotabile(item)" text-center>
+                  <ion-col>
+                    <ion-text color="success">Mancano {{giorniRimanentiPrimaDellApertura(item)}} giorni all'apertura dell'appello</ion-text>
+                  </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="isPrenotabile(item)">
-                    <div>L'appello sarà prenotabile ancora per x giorni</div>
+                <ion-row *ngIf="isPrenotabile(item)" text-center>
+                  <ion-col>
+                    <ion-text color="danger">Prenota l'appello entro {{giorniRimanentiPrimaDellaChiusura(item)}} giorni</ion-text>
+                  </ion-col>
                 </ion-row>
+
 
                 <ion-row>
                   <ion-col size="1">
