@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
+import {ModalController} from '@ionic/angular';
+import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
 
 const ALFABETICO_CRESCENTE: number = 1;
 const ALFABETICO_DECRESCENTE: number = 2;
@@ -28,11 +30,9 @@ export class PianoDiStudioPage implements OnInit {
     private filtroNonSuperatiAttivo: boolean;
     private anno: number;
 
-    //private filtra
 
-    // Sarà un array di corsi
-
-    constructor(public globalData: GlobalDataService,) {
+    constructor(public globalData: GlobalDataService,
+                private modalController: ModalController) {
         this.searchKey = '';
         this.filtroSuperatiAttivo = false;
         this.filtroNonSuperatiAttivo = false;
@@ -128,4 +128,12 @@ export class PianoDiStudioPage implements OnInit {
     }
 
 
+    async openFiltri() {
+        const modal = await this.modalController.create( {
+            component: GestoreListaCorsiComponent,
+            cssClass: 'gestore-lista-piano-di-studio-css'
+        });
+
+        return await modal.present();
+    }
 }
