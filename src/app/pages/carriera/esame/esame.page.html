@@ -115,10 +115,10 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button expand="block">Appelli</ion-button>
+        <ion-button expand="block" [routerLink]="['/appelli', esame.CODICE]" routerDirection="forward">Appelli</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" [routerLink]="['/materiale-didattico', esame.AD_ID]">Materiale didattico</ion-button>
+        <ion-button expand="block" [routerLink]="['/materiale-didattico', esame.AD_ID]" routerDirection="forward">Materiale didattico</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

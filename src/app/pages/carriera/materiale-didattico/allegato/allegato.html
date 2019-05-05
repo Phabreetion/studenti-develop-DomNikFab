@@ -48,6 +48,7 @@
       <ion-label text-wrap>Data: {{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
       <br>
       <ion-label text-wrap>File:{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
+
       <div *ngIf="allegato.TESTO">
         Note:<p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
       </div>
