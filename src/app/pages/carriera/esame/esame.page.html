@@ -114,8 +114,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-button expand="block" *ngIf="!esame.VOTO && !esame.GIUDIZIO" [routerLink]="['/appelli', esame.CODICE]" routerDirection="forward">Appelli</ion-button>
+      <ion-col *ngIf="!esame.VOTO && !esame.GIUDIZIO">
+        <ion-button expand="block"  [routerLink]="['/appelli', esame.CODICE]" routerDirection="forward">Appelli</ion-button>
       </ion-col>
       <ion-col>
         <ion-button expand="block" [routerLink]="['/materiale-didattico', esame.AD_ID]" routerDirection="forward">Materiale didattico</ion-button>
