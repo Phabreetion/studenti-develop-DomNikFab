@@ -34,12 +34,19 @@
 
     <ion-card-content>
       <ion-grid>
-        <ion-row *ngIf="esame.COGNOME">
-          <ion-col>
+        <ion-row>
+          <ion-col *ngIf=" !asDueProfessori() ">
             Docente:
           </ion-col>
-          <ion-col>
-            {{esame.NOME}} {{esame.COGNOME}}
+          <ion-col  *ngIf=" !asDueProfessori() ">
+             {{esame.COGNOME}}
+          </ion-col>
+
+          <ion-col *ngIf=" asDueProfessori()">
+            Docenti:
+          </ion-col>
+          <ion-col *ngIf=" asDueProfessori()">
+            {{esame.NOME}} <br> {{esame.COGNOME}}
           </ion-col>
         </ion-row>
         <ion-row *ngIf="esame.CFU">

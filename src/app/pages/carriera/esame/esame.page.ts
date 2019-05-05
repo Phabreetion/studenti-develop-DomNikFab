@@ -45,4 +45,20 @@ export class EsamePage implements OnInit {
         this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'backward', false);
     }
 
+    asDueProfessori() {
+
+        if (this.esame.COGNOME && this.esame.NOME !== ' ' && this.esame.NOME) {
+
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+
+
+
+
 }
