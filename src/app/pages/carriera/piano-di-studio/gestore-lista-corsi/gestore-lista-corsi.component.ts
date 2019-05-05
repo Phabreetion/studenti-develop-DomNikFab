@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-gestore-lista-corsi',
@@ -7,8 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestoreListaCorsiComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalController: ModalController) {
+
+
+  }
 
   ngOnInit() {}
+
+  // non restituisce nessun valore.. da implementare
+  closeFiltri(){
+    this.modalController.dismiss(
+        {result : null }
+    );
+
+  }
 
 }
