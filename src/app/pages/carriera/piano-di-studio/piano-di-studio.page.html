@@ -42,8 +42,11 @@
   </ion-refresher>
 
 
+  <ion-item>
+    <ion-searchbar></ion-searchbar>
+    <ion-button (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
+  </ion-item>
 
-  <ion-button (click)="openFiltri()">Open filtri</ion-button>
 
   <ion-list>
       <ion-item-sliding *ngFor="let corso of corsiFiltrati">
