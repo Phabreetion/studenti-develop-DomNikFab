@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {ModalController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 const ALFABETICO_CRESCENTE: number = 1;
 const ALFABETICO_DECRESCENTE: number = 2;
@@ -16,6 +18,15 @@ const CFU_DECRESCENTE: number = 8;
     selector: 'app-piano-di-studio',
     templateUrl: './piano-di-studio.page.html',
     styleUrls: ['./piano-di-studio.page.scss'],
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({transform: 'translateX(0)'})),
+            transition('void => *', [
+                style({transform: 'translateX(100%)'}),
+                animate(300)
+            ])
+        ])
+    ]
 })
 
 export class PianoDiStudioPage implements OnInit {
