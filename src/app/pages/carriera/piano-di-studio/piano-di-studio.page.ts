@@ -27,6 +27,7 @@ export class PianoDiStudioPage implements OnInit {
 
   private filtroSuperatiAttivo: boolean;
   private filtroNonSuperatiAttivo: boolean;
+  private anno: number;
 
   //private filtra
 
@@ -34,6 +35,9 @@ export class PianoDiStudioPage implements OnInit {
 
   constructor(public globalData: GlobalDataService,) {
     this.searchKey = '';
+    this.filtroSuperatiAttivo = false;
+    this.filtroNonSuperatiAttivo = false;
+    this.anno = 0;
   }
 
   ngOnInit() {
@@ -68,7 +72,11 @@ export class PianoDiStudioPage implements OnInit {
     if(this.filtroNonSuperatiAttivo) {
       this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto == null );
     }
-    // @TODO
+
+    if(this.anno != 0) {
+      this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.anno == this.anno );
+    }
+
   }
 
   private onSearchCancel(): void {

@@ -18,6 +18,7 @@ const routes: Routes = [
     {path: 'dettagli-studente', loadChildren: './pages/home-studente/dettagli-studente/dettagli-studente.module#DettagliUtentePageModule'},
     {path: 'disconnetti', loadChildren: './pages/account/disconnetti/disconnetti.module#DisconnettiPageModule'},
     {path: 'esame', loadChildren: './pages/carriera/esame/esame.module#EsamePageModule'},
+    {path: 'esame/:id', loadChildren: './pages/carriera/esame/esame.module#EsamePageModule'},
     {path: 'libretto', loadChildren: './pages/carriera/libretto/libretto.module#LibrettoPageModule'},
     {path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     {path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
