@@ -550,7 +550,11 @@ export class AppComponent {
 
     // active hardware back button
     backButtonEvent() {
-        this.platform.backButton.subscribe(async () => {
+        //@TODO sistemare il comportamento di default del back button su telefoni android
+        //su iPhone il problema non si pone perche non hanno il back button
+        //su android bisognerebbe implementare un meccanismo per gestire il back button
+        //ionic di base con il back button chiude i modals ma non il side menu.
+        /*this.platform.backButton.subscribe(async () => {
 
             // close action sheet
             try {
@@ -593,6 +597,6 @@ export class AppComponent {
                 this.globalData.goHome();
                // console.log(this.router.url);
             }
-        });
+        });*/
     }
 }

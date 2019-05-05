@@ -12,7 +12,7 @@ const routes: Routes = [
     {path: 'appelli-docente', loadChildren: './pages/docente/appelli/appelli-docente.module#AppelliDocentePageModule'},
     {path: 'appello-docente', loadChildren: './pages/docente/appelli/appello/appello.module#AppelloPageModule'},
     {path: 'calendario', loadChildren: './pages/servizi/calendario/calendario.module#CalendarioPageModule'},
-    {path: 'carriera', loadChildren: './pages/carriera/tabs-carriera/carriera.module#CarrieraPageModule'},
+    {path: 'carriera', loadChildren: './pages/carriera/piano-di-studi/piano-di-studi.module#PianoDiStudiPageModule'},
     {path: 'carriere', loadChildren: './pages/account/login/carriere/carriere.module#CarrierePageModule'},
     {path: 'contatto', loadChildren: './pages/servizi/rubrica/contatto/contatto.module#ContattoPageModule'},
     {path: 'dettagli-studente', loadChildren: './pages/home-studente/dettagli-studente/dettagli-studente.module#DettagliUtentePageModule'},

@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import {CarrieraPage} from './carriera.page';
-import {CarrieraPageRoutingModule} from './carriera-routing.module';
+//import {CarrieraPageRoutingModule} from './carriera-routing.module';
 import {PianoDiStudiPageModule} from '../piano-di-studi/piano-di-studi.module';
 import {LibrettoPageModule} from '../libretto/libretto.module';
 import {ListaEsamiPageModule} from '../lista-esami/lista-esami.module';
@@ -14,7 +14,7 @@ import {ListaEsamiPageModule} from '../lista-esami/lista-esami.module';
         CommonModule,
         FormsModule,
         IonicModule,
-        CarrieraPageRoutingModule,
+        //CarrieraPageRoutingModule,
         PianoDiStudiPageModule,
         LibrettoPageModule,
         ListaEsamiPageModule,
