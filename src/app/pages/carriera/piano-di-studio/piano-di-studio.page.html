@@ -1,6 +1,6 @@
 <ion-header>
   <ion-grid no-padding>
-    <ion-row >
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
       <ion-col>
         <ion-label> </ion-label>
       </ion-col>
@@ -16,11 +16,8 @@
           </ion-title>
           <ion-searchbar *ngIf='showSearchBar'
                          [@flyInOut]="flyInOutState"
-                         [(ngModel)]="searchTerm"
-                         (click)="filtra()"
-                         (ionChange)="filtra()"
-                         (ionCancel)="onSearchCancel()"
-                         (ionClear)="onSearchCancel()">
+                         [(ngModel)]="searchKey"
+                         (ionChange)="search()">
           </ion-searchbar>
           <ion-buttons slot="end">
             <ion-button icon-only (click)="toggleInOut()">
@@ -44,24 +41,99 @@
     </ion-refresher-content>
   </ion-refresher>
   <ion-card>
-    <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
-    <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
-    <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
-    <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
-    <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
-    <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
-    <ion-button (click)="ordina(7)">Ordina cfu crescente</ion-button>
-    <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
-  </ion-card>
 
-  <ion-text>Filtra esami superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroSuperatiAttivo"></ion-toggle></ion-text>
-  <ion-text>Filtra esami non superati<ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroNonSuperatiAttivo"></ion-toggle></ion-text>
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item><ion-title>Ordina esami per:</ion-title></ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(1)">Ordina alfabetico crescente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(2)">Ordina alfabetico decrscente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(3)">Ordina voto crescente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(4)">Ordina voto descrescente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(5)">Ordina anno crescente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(6)">Ordina anno decrscente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(7)">Ordina cfu crescente</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-button (click)="ordina(8)">Ordina cfu decrscente</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-item><ion-title text-center>Filtra per:</ion-title></ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col>
+          <ion-item><ion-text>Esami superati</ion-text></ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item><ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroSuperatiAttivo" align-items-center></ion-toggle></ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item><ion-text>Esami non superati</ion-text></ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item><ion-toggle (ionChange)="filtra()" [(ngModel)]="filtroNonSuperatiAttivo"></ion-toggle></ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item><ion-text>Anno</ion-text></ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-select value="0" [(ngModel)]="anno" (ionChange)="filtra()">
+            <ion-select-option value="0">Nessuno</ion-select-option>
+            <ion-select-option value="1">1Anno</ion-select-option>
+            <ion-select-option value="2">2Anno</ion-select-option>
+            <ion-select-option value="3">3Anno</ion-select-option>
+            <ion-select-option value="4">4Anno</ion-select-option>
+            <ion-select-option value="5">5Anno</ion-select-option>
+            <ion-select-option value="6">6Anno</ion-select-option>
+          </ion-select>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-
-  <ion-list>
+</ion-card>
+<ion-list>
     <ion-item-sliding *ngFor="let corso of corsiFiltrati">
-      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
+      <ion-item>{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
 
       <ion-item-options>
         <ion-item-option>
@@ -73,8 +145,5 @@
         </ion-item-option>
       </ion-item-options>
     </ion-item-sliding>
-
-
-
-  </ion-list>
+</ion-list>
 </ion-content>

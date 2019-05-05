@@ -1,5 +1,5 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {ActionSheetController, ToastController} from '@ionic/angular';
+import {ActionSheetController, NavController, ToastController} from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
@@ -76,7 +76,8 @@ export class PianoDiStudiPage implements OnInit {
         public globalData: GlobalDataService,
         public toastCtrl: ToastController,
         public actionSheetCtrl: ActionSheetController,
-        public account: AccountService) {
+        public account: AccountService,
+        public navController: NavController){
     }
 
     ngOnInit() {
@@ -397,8 +398,9 @@ export class PianoDiStudiPage implements OnInit {
 
     dettagliEsame(esame) {
         // console.dir(esame);
-        this.globalData.esame = esame;
-        this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
+        this.navController.navigateForward('/esame/' + esame.CODICE);
+        //this.globalData.esame = esame;
+        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
     }
 
     apriMaterialeDidattico(ad_id) {

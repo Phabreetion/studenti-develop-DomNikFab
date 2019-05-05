@@ -15,7 +15,8 @@
             Dettagli corso
           </ion-title>
           <ion-buttons slot="end">
-            <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}" text="Indietro"></ion-back-button>
+            <ion-back-button text="Indietro"></ion-back-button>
+            <!-- <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}" text="Indietro"></ion-back-button> -->
           </ion-buttons>
         </ion-toolbar>
       </ion-col>
@@ -26,21 +27,26 @@
 <ion-content>
 
   <ion-card text-wrap *ngIf="esame">
+    <ion-card-header>
+      <ion-card-title text-center><b>{{esame.DESCRIZIONE}}</b></ion-card-title>
+      <ion-card-subtitle text-center>{{esame.ANNO}}° anno</ion-card-subtitle>
+    </ion-card-header>
 
     <ion-card-content>
-      <ion-card-header>
-        <ion-card-title text-center><b>{{esame.DESCRIZIONE}}</b></ion-card-title>
-        <ion-card-subtitle text-center>{{esame.ANNO}}° anno</ion-card-subtitle>
-      </ion-card-header>
-
-
       <ion-grid>
-        <ion-row *ngIf="esame.COGNOME">
-          <ion-col>
+        <ion-row>
+          <ion-col *ngIf=" !asDueProfessori() ">
             Docente:
           </ion-col>
-          <ion-col>
-            {{esame.NOME}} {{esame.COGNOME}}
+          <ion-col  *ngIf=" !asDueProfessori() ">
+             {{esame.COGNOME}}
+          </ion-col>
+
+          <ion-col *ngIf=" asDueProfessori()">
+            Docenti:
+          </ion-col>
+          <ion-col *ngIf=" asDueProfessori()">
+            {{esame.NOME}} <br> {{esame.COGNOME}}
           </ion-col>
         </ion-row>
         <ion-row *ngIf="esame.CFU">
@@ -116,11 +122,11 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-button expand="block">Appelli</ion-button>
+      <ion-col *ngIf="!esame.VOTO && !esame.GIUDIZIO">
+        <ion-button expand="block"  [routerLink]="['/appelli', esame.CODICE]" routerDirection="forward">Appelli</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block">Materiale didattico</ion-button>
+        <ion-button expand="block" [routerLink]="['/materiale-didattico', esame.AD_ID]" routerDirection="forward">Materiale didattico</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
