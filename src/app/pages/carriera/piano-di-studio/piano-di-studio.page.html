@@ -17,10 +17,7 @@
           <ion-searchbar *ngIf='showSearchBar'
                          [@flyInOut]="flyInOutState"
                          [(ngModel)]="searchKey"
-                         (click)="filtra()"
-                         (ionChange)="filtra()"
-                         (ionCancel)="onSearchCancel()"
-                         (ionClear)="onSearchCancel()">
+                         (ionChange)="search()">
           </ion-searchbar>
           <ion-buttons slot="end">
             <ion-button icon-only (click)="toggleInOut()">
@@ -86,7 +83,7 @@
 </ion-card>
 <ion-list>
     <ion-item-sliding *ngFor="let corso of corsiFiltrati">
-      <ion-item *ngIf="corso.nome.toString().toLowerCase().search(searchKey.toLowerCase())>=0">{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
+      <ion-item>{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
 
       <ion-item-options>
         <ion-item-option>
