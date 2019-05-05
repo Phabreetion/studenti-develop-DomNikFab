@@ -134,6 +134,8 @@ export class PianoDiStudioPage implements OnInit {
             cssClass: 'gestore-lista-piano-di-studio-css'
         });
 
+
         return await modal.present();
     }
+
 }
