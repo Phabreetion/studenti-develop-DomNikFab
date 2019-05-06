@@ -19,7 +19,7 @@ export class AllegatoPage implements OnInit {
     constructor(public globalData: GlobalDataService,
                 private localdb: DBService,
                 public alertController: AlertController,
-                public toastsService: ToastsService,) {}
+                public toastsService: ToastsService) {}
 
 
     ngOnInit() {
