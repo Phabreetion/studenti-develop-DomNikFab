@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="it.unimol.app.studenti" version="2.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Studenti Unimol</name>
-    <description>App ufficiale per gli studenti dell'Università degli Studi del Molise</description>
+    <name>Unimol</name>
+    <description>App ufficiale per docenti e studenti dell'Università degli Studi del Molise</description>
     <author email="app@unimol.it" href="http://ionicframework.com/">Università degli Studi del Molise</author>
     <content src="index.html" />
     <access origin="*" />

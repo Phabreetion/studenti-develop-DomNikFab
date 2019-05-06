@@ -162,7 +162,7 @@ export class SyncService {
 
         switch (this.globalData.userRole) {
             case 'student':
-                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
+                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 112 ];
                 break;
             case 'teacher':
                 elencoServizi = [ 7, 13, 14, 16, 19, 102];
@@ -232,6 +232,25 @@ export class SyncService {
         }
 
         return new Promise((resolve, reject) => {
+            if ( (!params) && (this.globalData.archive[id]) ) {
+                // Async update
+                this.updateJson(id, params);
+                // Return cached data
+                resolve(this.globalData.archive[id]);
+            } else {
+                // Default sync
+                return this.updateJson(id, params);
+            }
+        });
+    }
+
+    private updateJson(id: number, params: string[]) {
+        //  let jsonLista = [];
+        if (id == null) {
+            return;
+        }
+
+        return new Promise((resolve, reject) => {
             this.loading[id] = true;
             this.storage.get('token').then(
                 (val) => {
@@ -259,16 +278,19 @@ export class SyncService {
                                 id_servizio: id,
                                 params: params
                             };
-console.log('[+]-->');
-console.log(url);
-console.log(body);
+
+// console.log('[+]-->');
+// console.log(url);
+// console.log(body);
                             this.services.getJSON(url, body).then(
                                 (dati) => {
 
                                     // Salvo i json nello storage
                                     if (dati) {
-                                        console.log('[+]dati-->');
-console.log(dati);
+                                        this.globalData.archive[id] = dati;
+
+// console.log('[+]dati-->');
+// console.log(dati);
                                         this.storage.set(id.toString(), dati).then(
                                             () => {
                                             }, (storageErr) => {
@@ -282,8 +304,8 @@ console.log(dati);
                                     resolve(dati);
                                 },
                                 (rej) => {
- console.log('[+]rej-->');
-console.log(rej);
+//  console.log('[+]rej-->');
+// console.log(rej);
                                     this.loading[id] = false;
                                     if (rej.error) {
                                         const errore = JSON.parse(rej.error);

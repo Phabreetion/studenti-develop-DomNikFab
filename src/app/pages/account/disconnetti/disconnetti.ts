@@ -89,6 +89,7 @@ export class DisconnettiPage implements OnInit {
                             this.storage.set('baseurl', this.globalData.baseurl);
                             this.globalData.logged = false;
                             this.globalData.userRole = '';
+                            this.globalData.archive = [];
                             this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
                             this.toastCtrl.create({
                                 message: response.toString(),
@@ -143,6 +144,7 @@ export class DisconnettiPage implements OnInit {
                         this.storage.set('baseurl', this.globalData.baseurl);
                         this.globalData.logged = false;
                         this.globalData.userRole = '';
+                        this.globalData.archive = [];
                         this.notificheService.rimuoviSottoscrizioni();
                         this.globalData.goTo('/login', '/login', 'root', false);
                     }

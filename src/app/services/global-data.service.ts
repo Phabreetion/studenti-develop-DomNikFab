@@ -21,6 +21,8 @@ export class GlobalDataService {
     defaultBaseUrl: string = this.schema + this.ip + this.apiurl;
     baseurl;
 
+    archive = [];
+
     utente_test = false;
 
     userRole = 'none';

@@ -9,129 +9,136 @@ import {HttpService} from '../../services/http.service';
 
 
 @Component({
-  selector: 'app-page-orario',
-  templateUrl: 'orario.page.html',
-  styleUrls: ['orario.page.scss'],
+    selector: 'app-page-orario',
+    templateUrl: 'orario.page.html',
+    styleUrls: ['orario.page.scss'],
 })
 export class OrarioPage implements OnInit {
 
-  currentPage = '/orario';
+    currentPage = '/orario';
 
-  idServizio = 999;
+    idServizio = 999;
 
-  ultimoDato = '';
-  dataAggiornamento: string;
-  aggiornamentoVerificato = false;
-  rinvioAggiornamento = false;
-  nrRinvii = 0;
-  maxNrRinvii = 5;
+    ultimoDato = '';
+    dataAggiornamento: string;
+    aggiornamentoVerificato = false;
+    rinvioAggiornamento = false;
+    nrRinvii = 0;
+    maxNrRinvii = 5;
 
-  graficoLegacy = false;
+    graficoLegacy = false;
 
-  
-  inizializzato = false;
-  orario: any;
 
-  start: Date;
-  end: Date;
-  description: number;
-  docente: string;
-  codiceIns: number;
-  codiceIns2: number;
-  name: string;
-  location: string;
+    inizializzato = false;
+    orario: any;
 
-  constructor(
-    public toastCtrl: ToastController,
-    public sync: SyncService,
-    public http: HttpService,
-    public storage: Storage,
-    public platform: Platform,
-    public globalData: GlobalDataService,
-    public notificheService: NotificheService,
-    public account: AccountService
-  ) { }
+    start: Date;
+    end: Date;
+    description: number;
+    docente: string;
+    codiceIns: number;
+    codiceIns2: number;
+    name: string;
+    location: string;
 
-  ngOnInit() {
-    this.globalData.srcPage = '/orario';
+    constructor(
+        public toastCtrl: ToastController,
+        public sync: SyncService,
+        public http: HttpService,
+        public storage: Storage,
+        public platform: Platform,
+        public globalData: GlobalDataService,
+        public notificheService: NotificheService,
+        public account: AccountService
+    ) { }
 
-      this.http.checkConnection();
+    ngOnInit() {
+        this.globalData.srcPage = '/orario';
 
-      this.aggiorna(false, true);
-                   
-  }
+        this.http.checkConnection();
 
-aggiorna(interattivo: boolean, sync: boolean) {
-  if (this.sync.loading[this.idServizio]) {
-      this.rinvioAggiornamento = true;
-      this.dataAggiornamento = 'in corso';
-      this.nrRinvii++;
+        this.aggiorna(false, true);
 
-      GlobalDataService.log(0, 'Rinvio'  + this.nrRinvii, null);
+    }
 
-      if (this.nrRinvii < this.maxNrRinvii) {
-          setTimeout(() => {
-              this.aggiorna(interattivo, sync);
-          }, 2000);
-          return;
-      } else {
-          if (this.http.connessioneLenta) {
-              this.toastCtrl.create({
-                  message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
-                  duration: 3000,
-                  position: 'bottom'
-              }).then(
-                  (toast) => { toast.present(); },
-                  (err) => { GlobalDataService.log(2, 'Errore in aggiorna', err); });
-          }
-      }
-  }
-  this.rinvioAggiornamento = false;
-  this.nrRinvii = 0;
+    aggiorna(interattivo: boolean, sync: boolean) {
+        if (this.sync.loading[this.idServizio]) {
+            this.rinvioAggiornamento = true;
+            this.dataAggiornamento = 'in corso';
+            this.nrRinvii++;
 
-  // Otteniamo l'orario
-  this.sync.getJson(this.idServizio, null, sync).then(
-      (data) => {
-          console.log(this.ultimoDato);
-          if (this.ultimoDato !== JSON.stringify(data[0])) {
-              this.ultimoDato = JSON.stringify(data[0]);
-              
-              
-              setTimeout(() => {
-                  this.controllaAggiornamento();
-              }, 1000);
-          }
-          this.dataAggiornamento = SyncService.dataAggiornamento(data);
-      },
-      (err) => {
-          GlobalDataService.log(2, 'Errore in aggiorna', err);
-      }).catch(ex => {
-      GlobalDataService.log(2, 'Eccezione in aggiorna', ex);
-      setTimeout(() => {
-          this.controllaAggiornamento();
-      }, 1000);
-  });
+            GlobalDataService.log(0, 'Rinvio'  + this.nrRinvii, null);
 
-}
+            if (this.nrRinvii < this.maxNrRinvii) {
+                setTimeout(() => {
+                    this.aggiorna(interattivo, sync);
+                }, 2000);
+                return;
+            } else {
+                if (this.http.connessioneLenta) {
+                    this.toastCtrl.create({
+                        message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
+                        duration: 3000,
+                        position: 'bottom'
+                    }).then(
+                        (toast) => { toast.present(); },
+                        (err) => { GlobalDataService.log(2, 'Errore in aggiorna', err); });
+                }
+            }
+        }
+        this.rinvioAggiornamento = false;
+        this.nrRinvii = 0;
 
-controllaAggiornamento() {
-  // La verifica dell'aggiornamento in background la facciamo solo una volta
-  if (this.aggiornamentoVerificato) {
-      return;
-  }
+        // Otteniamo l'orario
+        this.sync.getJson(this.idServizio, null, sync).then(
+            (data) => {
+                console.log(this.ultimoDato);
+                if (this.ultimoDato !== JSON.stringify(data[0])) {
+                    this.ultimoDato = JSON.stringify(data[0]);
 
-  // Se stiamo caricando dati dal server rimandiamo la verifica
-  if (this.sync.loading[this.idServizio]) {
-      setTimeout(() => {
-          this.controllaAggiornamento();
-      }, 1000);
-  } else {
-      this.aggiornamentoVerificato = true;
-      this.aggiorna(false, false);
-  }
-}
 
-isLoading() {
-  return this.sync.loading[this.idServizio];
-}
+                    setTimeout(() => {
+                        this.controllaAggiornamento();
+                    }, 1000);
+                }
+                this.dataAggiornamento = SyncService.dataAggiornamento(data);
+            },
+            (err) => {
+                GlobalDataService.log(2, 'Errore in aggiorna', err);
+            }).catch(ex => {
+            GlobalDataService.log(2, 'Eccezione in aggiorna', ex);
+            setTimeout(() => {
+                this.controllaAggiornamento();
+            }, 1000);
+        });
+
+    }
+
+    controllaAggiornamento() {
+        // La verifica dell'aggiornamento in background la facciamo solo una volta
+        if (this.aggiornamentoVerificato) {
+            return;
+        }
+
+        // Se stiamo caricando dati dal server rimandiamo la verifica
+        if (this.sync.loading[this.idServizio]) {
+            setTimeout(() => {
+                this.controllaAggiornamento();
+            }, 1000);
+        } else {
+            this.aggiornamentoVerificato = true;
+            this.aggiorna(false, false);
+        }
+    }
+
+    isLoading() {
+        return this.sync.loading[this.idServizio];
+    }
+
+    doRefresh(refresher) {
+        this.aggiorna(true, true);
+        if (refresher) {
+            refresher.complete();
+        }
+    }
 }
