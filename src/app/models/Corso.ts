@@ -4,5 +4,4 @@ export class Corso{
     CFU del corso
      */
     public CFU: number;
-
 }
