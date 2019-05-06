@@ -1,5 +1,4 @@
-<ion-card>
-
+<ion-content>
     <ion-list>
         <ion-radio-group>
             <ion-list-header>
@@ -7,33 +6,34 @@
             </ion-list-header>
 
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
+                <ion-buttons>
+                    <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+                </ion-buttons>
                 <ion-label>Alfabetico</ion-label>
                 <ion-radio value="0"></ion-radio>
             </ion-item>
 
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
+                <ion-buttons>
+                    <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+                </ion-buttons>
                 <ion-label>Anno</ion-label>
                 <ion-radio value="2"></ion-radio>
             </ion-item>
 
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
+                <ion-buttons>
+                    <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+                </ion-buttons>
                 <ion-label>Voto</ion-label>
                 <ion-radio value="4"></ion-radio>
             </ion-item>
 
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
+                <ion-buttons>
+                    <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+                </ion-buttons>
+
                 <ion-label>CFU</ion-label>
                 <ion-radio value="6"></ion-radio>
             </ion-item>
@@ -92,5 +92,9 @@
         </ion-row>
     </ion-grid>
 
+    <ion-button>Memorizza</ion-button>
+    <ion-button>Reset</ion-button>
     <ion-button (click)="closeFiltri()"> Chiudi</ion-button>
-</ion-card>
+</ion-content>
+
+
