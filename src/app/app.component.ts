@@ -3,8 +3,8 @@ import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
 import {
     ActionSheetController,
     AlertController,
-    IonRouterOutlet, MenuController, NavController,
-    Platform
+    IonRouterOutlet, MenuController, ModalController, NavController,
+    Platform, PopoverController
 } from '@ionic/angular';
 
 import { Network} from '@ionic-native/network/ngx';
@@ -27,8 +27,6 @@ import {Router} from '@angular/router';
 // import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 // import {Firebase} from '@ionic-native/firebase/ngx';
 // import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
-
-// import {isCombinedNodeFlagSet} from 'tslint';
 
 @Component({
     selector: 'app-root',
@@ -158,6 +156,8 @@ export class AppComponent {
         public navController: NavController,
         public alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
+        public popoverCtrl: PopoverController,
+        public modalCtrl: ModalController,
         public toast: Toast,
         public router: Router,
         public menu: MenuController,
@@ -551,15 +551,33 @@ export class AppComponent {
 
     // active hardware back button
     async backButtonEvent() {
-        //@TODO sistemare da quale schermata è possibile tornare alla home
-        //su iPhone il problema non si pone perche non hanno il back button
-        //su android bisognerebbe implementare un meccanismo per gestire il back button
-        //ionic di base con il back button chiude solo gli actionsheet ma non il side menu.
         this.platform.backButton.subscribe(async () => {
+            // close action sheet
             try {
                 const element = await this.actionSheetCtrl.getTop();
                 if (element) {
                     element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            // close popover
+            try {
+                const element = await this.popoverCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            // close modal
+            try {
+                const element = await this.modalCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
                 }
             } catch (error) {
             }
@@ -569,27 +587,30 @@ export class AppComponent {
                 const element = await this.menu.getOpen();
                 if (element) {
                     this.menu.close();
+                    return;
                 }
             } catch (error) {
             }
 
-            if (this.router.url === '/home') {
-                if ((new Date().getTime() - this.lastTimeBackPress) < this.timePeriodToExit) {
-                    // this.platform.exitApp(); // Exit from app
-                    navigator['app'].exitApp(); // work for ionic 4
-                } else {
-                    this.toast.show(
-                        'Premi ancora per uscire.',
-                        '2000',
-                        'center')
-                        .subscribe(() => {
-                            // console.log(JSON.stringify(toast));
-                        });
-                    this.lastTimeBackPress = new Date().getTime();
+            this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+                if (outlet && outlet.canGoBack()) {
+                    outlet.pop();
+
+                } else if (this.router.url === '/home') {
+                    if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+                        navigator['app'].exitApp(); // Exit from app, work for ionic 4
+                    } else {
+                        this.toast.show(
+                            `Premi ancora per uscire`,
+                            '2000',
+                            'center')
+                            .subscribe(toast => {
+                                // console.log(JSON.stringify(toast));
+                            });
+                        this.lastTimeBackPress = new Date().getTime();
+                    }
                 }
-            } else {
-                this.navController.pop();
-            }
+            });
         });
     }
 }

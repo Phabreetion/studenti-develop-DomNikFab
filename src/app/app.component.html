@@ -21,7 +21,7 @@
       <ion-content>
         <ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item *ngIf="p.role == 'all' || (p.role == 'logged' && globalData.logged) || p.role == globalData.userRole" [routerDirection]="'root'" [routerLink]="[p.url]">
+            <ion-item *ngIf="p.role == 'all' || (p.role == 'logged' && globalData.logged) || p.role == globalData.userRole" [routerLink]="[p.url]">
               <ion-icon slot="start" [name]="p.icon"></ion-icon>
               <ion-label>
                 {{p.title}}
