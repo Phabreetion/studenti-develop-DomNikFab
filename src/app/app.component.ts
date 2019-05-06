@@ -550,32 +550,28 @@ export class AppComponent {
 
 
     // active hardware back button
-    backButtonEvent() {
-        this.platform.backButton.subscribe(() => {
-            // get current active page
-            this.navController.pop();
-        });
-        //@TODO sistemare il comportamento di default del back button su telefoni android
+    async backButtonEvent() {
+        //@TODO sistemare da quale schermata è possibile tornare alla home
         //su iPhone il problema non si pone perche non hanno il back button
         //su android bisognerebbe implementare un meccanismo per gestire il back button
-        //ionic di base con il back button chiude i modals ma non il side menu.
-        /*this.platform.backButton.subscribe(async () => {
-
-            // close action sheet
+        //ionic di base con il back button chiude solo gli actionsheet ma non il side menu.
+        this.platform.backButton.subscribe(async () => {
             try {
                 const element = await this.actionSheetCtrl.getTop();
                 if (element) {
                     element.dismiss();
                 }
-            } catch (error) { }
+            } catch (error) {
+            }
 
             // close side menu
             try {
                 const element = await this.menu.getOpen();
-                if (element !== null) {
+                if (element) {
                     this.menu.close();
                 }
-            } catch (error) { }
+            } catch (error) {
+            }
 
             if (this.router.url === '/home') {
                 if ((new Date().getTime() - this.lastTimeBackPress) < this.timePeriodToExit) {
@@ -592,16 +588,8 @@ export class AppComponent {
                     this.lastTimeBackPress = new Date().getTime();
                 }
             } else {
-                // this.toast.show(
-                //     this.router.url,
-                //     '2000',
-                //     'center')
-                //     .subscribe(() => {
-                //         // console.log(JSON.stringify(toast));
-                //     });
-                this.globalData.goHome();
-               // console.log(this.router.url);
+                this.navController.pop();
             }
-        });*/
+        });
     }
 }
