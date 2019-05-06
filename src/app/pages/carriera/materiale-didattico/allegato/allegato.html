@@ -1,77 +1,77 @@
 <ion-header>
-  <ion-grid no-padding>
-    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
-      <ion-col>
-        <ion-label> </ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row no-padding>
-      <ion-col no-padding>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title>
-            File
-          </ion-title>
-          <ion-buttons slot="end">
-            <ion-back-button defaultHref="/materiale-didattico/{{ad_id}}" text="Indietro"></ion-back-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-col no-padding>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>
+                        File
+                    </ion-title>
+                    <ion-buttons slot="end">
+                        <ion-back-button defaultHref="/materiale-didattico/{{ad_id}}" text="Indietro"></ion-back-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-header>
 <ion-content no-padding>
 
-  <ion-card text-wrap *ngIf="!allegato">
-    <ion-card-header text-center text-wrap ng-bind-html="snippet">
-      <ion-label color="primary"><h1>Ops!</h1></ion-label>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label text-center text-wrap>
-        Si è verificato un problema durante l'accesso al materiale didattico per questo insegnamento.
-      </ion-label>
-      <ion-label text-center text-wrap>
-        Utilizza il tasto Back in alto per selezionare nuovamente l'elemento da visualizzare.
-      </ion-label>
-    </ion-card-content>
-  </ion-card>
+    <ion-card text-wrap *ngIf="!allegato">
+        <ion-card-header text-center text-wrap ng-bind-html="snippet">
+            <ion-label color="primary"><h1>Ops!</h1></ion-label>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-label text-center text-wrap>
+                Si è verificato un problema durante l'accesso al materiale didattico per questo insegnamento.
+            </ion-label>
+            <ion-label text-center text-wrap>
+                Utilizza il tasto Back in alto per selezionare nuovamente l'elemento da visualizzare.
+            </ion-label>
+        </ion-card-content>
+    </ion-card>
 
-  <ion-card text-wrap *ngIf="allegato">
-    <ion-card-header>
-      <ion-card-title text-center text-wrap> <b>{{ pulisciAllegato(allegato.TITOLO) }}</b> </ion-card-title>
-      <ion-card-subtitle text-center text-wrap> {{ pulisciAllegato(allegato.AUTORE) }} </ion-card-subtitle>
-    </ion-card-header>
+    <ion-card text-wrap *ngIf="allegato">
+        <ion-card-header>
+            <ion-card-title text-center text-wrap><b>{{ pulisciAllegato(allegato.TITOLO) }}</b></ion-card-title>
+            <ion-card-subtitle text-center text-wrap> {{ pulisciAllegato(allegato.AUTORE) }} </ion-card-subtitle>
+        </ion-card-header>
 
-    <ion-card-content text-wrap>
-      <ion-label text-wrap>Data: {{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
-      <br>
-      <ion-label text-wrap>File:{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
+        <ion-card-content text-wrap>
+            <ion-label text-wrap>Data: {{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
+            <br>
+            <ion-label text-wrap>File:{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
 
-      <div *ngIf="allegato.TESTO">
-        Note:<p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
-      </div>
+            <div *ngIf="allegato.TESTO">
+                Note:<p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
+            </div>
 
-    </ion-card-content>
+        </ion-card-content>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col text-center>
-          <ion-button icon-left color="light" (click)="newApriFile()">
-            <ion-icon name="easel" color="primary"></ion-icon>
-            Apri
-          </ion-button>
-        </ion-col>
-        <ion-col text-center>
-          <ion-button icon-left color="danger" (click)="newRimuoviFile()">
-            <ion-icon name="trash"></ion-icon>
-            Elimina
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
+        <ion-grid>
+            <ion-row>
+                <ion-col text-center>
+                    <ion-button icon-left color="light" (click)="newApriFile()">
+                        <ion-icon name="easel" color="primary"></ion-icon>
+                        Apri
+                    </ion-button>
+                </ion-col>
+                <ion-col text-center>
+                    <ion-button icon-left color="danger" (click)="newRimuoviFile()">
+                        <ion-icon name="trash"></ion-icon>
+                        Elimina
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
 
-  </ion-card>
+    </ion-card>
 
 </ion-content>
