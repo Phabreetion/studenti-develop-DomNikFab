@@ -166,6 +166,7 @@ export class AppelliPage implements OnChanges, OnInit {
                 // console.dir(newData);
                 if (JSON.stringify(this.prenotazioni) !== JSON.stringify(newData)) {
                     this.prenotazioni = data[0];
+                    this.controllaPrenotazioniOutOfTime();
                     console.log(this.prenotazioni);
                     // console.dir(this.prenotazioni);
                     this.dataAggiornamentoPrenotati = SyncService.dataAggiornamento(data);
@@ -428,6 +429,10 @@ export class AppelliPage implements OnChanges, OnInit {
 
     pulisciTesto(item: string): string {
         return item.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
+    }
+
+    controllaPrenotazioniOutOfTime() {
+        this.prenotazioni = this.prenotazioni.filter((prenotazione)=>{!this.isOutOfTime(prenotazione)} );
     }
 
     isPrenotabile(appello): boolean {
