@@ -146,8 +146,8 @@ export class AppComponent {
     ];
 
     // set up hardware back button event.
-    lastTimeBackPress = 0;
-    timePeriodToExit = 2000;
+    private lastTimeBackPress = 0;
+    private TIME_PERIOD_TO_EXIT = 2000;
 
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
@@ -244,39 +244,7 @@ export class AppComponent {
 
             // moment.locale('it');
 
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            // // IONIC 4 registerBackButtonAction non c'è!
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            //
-            // this.platform.registerBackButtonAction(() => {
-            //     // get current active page
-            //     // TODO: questa soluzione non è ottimale, la versione commentata è invece funzionante,
-            //     // ma non riporta alla Home in caso di sotto-pagine
-            //     // Purtroppo, al momento, la generazione della versione ottimizzata (flag --prod)
-            //     // minimizza il codice per cui il nome della pagina non corrisponde
-            //     const view = this.nav.getActive();
-            //     const componentName = view.component.toString();
-            //     if (componentName.indexOf('idServizio=9') > -1) {
-            //         // Double check to exit app
-            //         if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
-            //             this.platform.exitApp(); // Exit from app
-            //         } else {
-            //             const toast = this.toastCtrl.create({
-            //                 message: 'Premi di nuovo per uscire',
-            //                 duration: 2000,
-            //                 position: 'bottom'
-            //             });
-            //             toast.present();
-            //             lastTimeBackPress = new Date().getTime();
-            //         }
-            //     } else {
-            //         // go to previous page
-            //         this.navCtrl.navigateRoot('/home');
-            //     }
-            //
-            // });
+
 
             this.http.checkConnection();
 
@@ -548,10 +516,24 @@ export class AppComponent {
     }
 
 
-
-    // active hardware back button
+    /**
+     * Questa funzione gestisce l'evento generato dal back-button di Android.
+     * Gli ActionSheet, i Popover, i Modal e i SideMenu verrano chiusi se erano precedentemente aperti
+     * Il back-button inoltre tornerà indetro alla schermanta precedente fino alla home.
+     * Se nella schermata home dopo due click ravvicinati chiuderà l'app
+     */
     async backButtonEvent() {
-        this.platform.backButton.subscribe(async () => {
+        this.platform.backButton.subscribeWithPriority(0, async () => {
+            // close side menu
+            try {
+                const element = await this.menu.getOpen();
+                if (element) {
+                    this.menu.close();
+                    return;
+                }
+            } catch (error) {
+            }
+
             // close action sheet
             try {
                 const element = await this.actionSheetCtrl.getTop();
@@ -582,22 +564,13 @@ export class AppComponent {
             } catch (error) {
             }
 
-            // close side menu
-            try {
-                const element = await this.menu.getOpen();
-                if (element) {
-                    this.menu.close();
-                    return;
-                }
-            } catch (error) {
-            }
-
             this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
                 if (outlet && outlet.canGoBack()) {
-                    outlet.pop();
-
+                    // torna indetro fino alla home
+                    outlet.pop(); //la pop richiama l'ultima schermata dallo stack delle pagine
                 } else if (this.router.url === '/home') {
-                    if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
+                    // prova ad uscire dall'app con due tap ravvicinati
+                    if (new Date().getTime() - this.lastTimeBackPress < this.TIME_PERIOD_TO_EXIT) {
                         navigator['app'].exitApp(); // Exit from app, work for ionic 4
                     } else {
                         this.toast.show(
