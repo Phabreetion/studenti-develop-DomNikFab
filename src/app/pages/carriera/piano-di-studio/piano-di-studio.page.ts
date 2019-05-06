@@ -2,8 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {ModalController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {forEach} from '@angular-devkit/schematics';
+import {Corso} from '../../../models/Corso';
 
 const ALFABETICO_CRESCENTE: number = 1;
 const ALFABETICO_DECRESCENTE: number = 2;
@@ -31,7 +33,7 @@ const CFU_DECRESCENTE: number = 8;
 
 export class PianoDiStudioPage implements OnInit {
 
-    private corsi: any[];
+    private corsi: Corso[];
     private corsiFiltrati: any[];
     private searchKey: String;
     showSearchBar = false;
@@ -43,15 +45,25 @@ export class PianoDiStudioPage implements OnInit {
 
 
     constructor(public globalData: GlobalDataService,
-                private modalController: ModalController) {
+                private modalController: ModalController,
+                private pianoDiStudioService: PianoDiStudioService) {
         this.searchKey = '';
         this.filtroSuperatiAttivo = false;
         this.filtroNonSuperatiAttivo = false;
         this.anno = 0;
     }
 
-    ngOnInit() {
-        this.corsi = [
+    async ngOnInit() {
+        await this.pianoDiStudioService.getLibretto().then((data) => {
+            this.corsi = data[0] as any[];
+            for(let i = 0; i < this.corsi.length; i++) {
+                this.corsi[i] = Corso.toObj(this.corsi[i]);
+            }
+
+            console.log(this.corsi);
+        });
+
+        /*this.corsi = [
             {id: 1, anno: 1, nome: 'Programmazione', cfu: 12, voto: 30},
             {id: 2, anno: 1, nome: 'Matematica', cfu: 12, voto: 20},
             {id: 3, anno: 1, nome: 'Informatica giuridica', cfu: 6, voto: 20},
@@ -62,7 +74,7 @@ export class PianoDiStudioPage implements OnInit {
             {id: 8, anno: 3, nome: 'Ricerca operativa', cfu: 7,},
         ]; // Prova per testare
         this.corsiFiltrati = this.corsi;
-        this.filtra();
+        this.filtra();*/
     }
 
     doRefresh(event) {
@@ -99,7 +111,7 @@ export class PianoDiStudioPage implements OnInit {
         this.showSearchBar = !this.showSearchBar;
     }
 
-    private ordina(idOrdinamento: number): void {
+    /*private ordina(idOrdinamento: number): void {
         switch (idOrdinamento) {
             case ALFABETICO_CRESCENTE: //alfabetico crescente
                 this.corsi.sort((one, two) => (one.nome.toString() < two.nome.toString() ? -1 : 1));
@@ -136,7 +148,7 @@ export class PianoDiStudioPage implements OnInit {
 
         this.filtra();
 
-    }
+    }*/
 
 
     async openFiltri() {

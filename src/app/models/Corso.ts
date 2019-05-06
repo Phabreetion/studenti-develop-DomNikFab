@@ -85,7 +85,7 @@ export class Corso{
     public VOTO: number;
 
 
-    constructor(AA_OFF_ID: number, ADSCE_ID: number, ANNO: number, CFU: number, CODICE: number, COGNOME: string,  DESCRIZIONE: string, DOCENTI: string, LODE: number, NO_MEDIA: number, SCELTA: number, SORGENTE: number, SOTTOSCRITTO: number, SOVRANNUMERARIA: number, STATO: string, VALUTAZIONE: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string, GIUDIZIO?: number, NOME?: string) {
+    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string, GIUDIZIO?: number, NOME?: string) {
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
         this.ANNO = ANNO;
@@ -107,5 +107,9 @@ export class Corso{
         this.STATO = STATO;
         this.VALUTAZIONE = VALUTAZIONE;
         this.VOTO = VOTO;
+    }
+
+    public static toObj(j: Object): Corso {
+        return Object.assign(new Corso(), j);
     }
 }
