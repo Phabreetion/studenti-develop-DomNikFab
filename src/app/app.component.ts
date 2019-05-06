@@ -3,7 +3,7 @@ import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
 import {
     ActionSheetController,
     AlertController,
-    IonRouterOutlet, MenuController,
+    IonRouterOutlet, MenuController, NavController,
     Platform
 } from '@ionic/angular';
 
@@ -20,10 +20,10 @@ import { SyncService} from './services/sync.service';
 import { GlobalDataService} from './services/global-data.service';
 import { DBService} from './services/db-service';
 import { AccountService} from './services/account.service';
-import { Router} from '@angular/router';
 import { Toast } from '@ionic-native/toast/ngx';
 import {Device} from '@ionic-native/device/ngx';
 import {HttpService} from './services/http.service';
+import {Router} from '@angular/router';
 // import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 // import {Firebase} from '@ionic-native/firebase/ngx';
 // import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
@@ -155,6 +155,7 @@ export class AppComponent {
 
 
     constructor(
+        public navController: NavController,
         public alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
         public toast: Toast,
@@ -550,6 +551,10 @@ export class AppComponent {
 
     // active hardware back button
     backButtonEvent() {
+        this.platform.backButton.subscribe(() => {
+            // get current active page
+            this.navController.pop();
+        });
         //@TODO sistemare il comportamento di default del back button su telefoni android
         //su iPhone il problema non si pone perche non hanno il back button
         //su android bisognerebbe implementare un meccanismo per gestire il back button
