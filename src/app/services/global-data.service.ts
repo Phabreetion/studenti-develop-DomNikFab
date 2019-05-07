@@ -12,8 +12,23 @@ import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
 })
 export class GlobalDataService {
 
+<<<<<<< Updated upstream
     utente_test = false;
 
+=======
+    schema = 'http://';
+    ip = 'localhost/';
+    dir = 'sincronizzatore';
+    apiurl =  this.dir + '/api/';
+    baseurl: string = this.schema + this.ip + this.apiurl;
+
+
+    utente_test = false;
+
+    userRole = 'student';
+
+
+>>>>>>> Stashed changes
     android = false;
     iPhoneX = false;
 
@@ -51,6 +66,17 @@ export class GlobalDataService {
     faLink = faLink;
     faUnlink = faUnlink;
 
+<<<<<<< Updated upstream
+=======
+    appello: any;
+    nrAppelliAperti: number;
+    nrAppelli: number;
+    testoAppelliAperti: string;
+    testoAppelli: string;
+    testoTesisti: string;
+
+
+>>>>>>> Stashed changes
     // level 0: VERBOSE
     // level 1: INFO
     // level 2: ERROR
@@ -127,6 +153,14 @@ export class GlobalDataService {
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
+    static formatStringDateNoTime(stringDate, daySeparator): string {
+        const day = stringDate.slice(0, 10);
+        const dayParts = day.split(daySeparator);
+        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2]);
+        return this.timestamp2string(mydate.getTime() / 1000);
+    }
+
+
     static sleepBW(milliseconds) {
         const start = new Date().getTime();
         for (let i = 0; i < 1e7; i++) {
@@ -189,6 +223,20 @@ export class GlobalDataService {
         return this.landscape;
     }
 
+<<<<<<< Updated upstream
+=======
+    goHome(fromPage = '/home') {
+        if (this.userRole === 'student') {
+            return this.goTo(fromPage, '/home', 'root', false);
+        } else if (this.userRole === 'teacher') {
+            return this.goTo(fromPage, '/home-docente', 'root', false);
+        } else {
+            return this.goTo(fromPage, '/login', 'root', false);
+        }
+    }
+
+
+>>>>>>> Stashed changes
 
     goTo(fromPage, toPage, direction, zone) {
         // zone = true;

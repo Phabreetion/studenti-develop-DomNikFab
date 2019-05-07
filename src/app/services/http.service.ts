@@ -4,6 +4,11 @@ import {HTTP} from '@ionic-native/http/ngx';
 import {HttpClient} from '@angular/common/http';
 import {Storage} from '@ionic/storage';
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 @Injectable({
     providedIn: 'root'
 })
@@ -13,36 +18,33 @@ export class HttpService {
     connessioneInizializzata = false;
     connessioneInCorso = false;
     connessioneLenta = true;
-
     // Default (meno ottimizzato, ma funziona ion assenza di cordova)
     httpNativo = false;
-
-
-// const httpOptions = {
-//     headers: new HttpHeaders({
-//         'Content-Type':  'application/json',
-//     }),
-//     observe: 'response' as 'response',
-//     responseType: 'json' as 'json'
-// };
+    logged: boolean;
 
     constructor(
         public http: HTTP,
         public httpClient: HttpClient,
         public globalData: GlobalDataService,
-        public storage: Storage
-    ) { }
+        public storage: Storage,
+    ) {}
+
 
 
     checkNative() {
         return new Promise((resolve) => {
+<<<<<<< Updated upstream
             this.postNative('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
                 .then(
+=======
+            this.postNative(this.globalData.baseurl + 'ultimaVersione.php', {platform: 'Android'})
+            .then(
+>>>>>>> Stashed changes
                     () => {
-                    resolve(true);
-                }, () => {
-                    resolve(false);
-                });
+                        resolve(true);
+                    }, () => {
+                        resolve(false);
+                    });
         });
     }
 
@@ -188,17 +190,9 @@ export class HttpService {
         });
     }
 
-    // return this.http.get('https://httpbin.org/ip')
-    //     .pipe(
-    //         map(
-    //     res => { res.json(); },
-    //     err => { console.dir(err); }));
-
-
 
     getConnected(): boolean {
         // console.log(this.connessioneInizializzata);
-
         if (!this.connessioneInCorso && !this.connessioneInizializzata) {
             try {
                 this.connessioneInCorso = true;
@@ -207,6 +201,7 @@ export class HttpService {
                 // this.http.setHeader('*', 'Content-Type', 'application/json');
                 // this.http.setDataSerializer('json');
 
+<<<<<<< Updated upstream
                 this.post('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
                     .then(data => {
                         console.dir(data);
@@ -215,6 +210,16 @@ export class HttpService {
                         this.connessioneInCorso = false;
                         return this.connected;
 
+=======
+                this.post(this.globalData.baseurl + '/ultimaVersione.php', {platform: 'Android'})
+                .then(() => {
+                    // console.dir(data);
+                    this.connessioneInizializzata = true;
+                    this.connected = true;
+                    this.connessioneInCorso = false;
+                    return this.connected;
+                    
+>>>>>>> Stashed changes
                     }, (err) => {
                         console.log('NOT CONNECTED');
                         GlobalDataService.log(2, 'Ping fallito!', err);
@@ -231,25 +236,6 @@ export class HttpService {
                         this.connessioneInCorso = false;
                         return this.connected;
                     });
-
-                // this.http.get('https://service.unimol.it/studenti/api/ultimaVersione.php')
-                //    // .pipe(map(res => res.json()))
-                //     .subscribe(
-                //         (data) => {
-                //             // console.dir(data);
-                //             this.connessione Inizializzata = true;
-                //             this.connected = true;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         },
-                //         (err) => {
-                //             // console.dir(err);
-                //             this.connessioneInizializzata = true;
-                //             this.connected = false;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         }
-                //     );
             } catch (e) {
                 console.dir(e);
                 this.connessioneInCorso = false;
@@ -268,29 +254,9 @@ export class HttpService {
 
     checkConnection() {
         this.getConnected();
-        // this.http.get('https://httpbin.org/ip', {}, {})
-        //     .then(
-        //         (data) => {
-        //             this.setConnected(true);
-        //             console.dir(data);
-        //         },
-        //         (err) => {
-        //             this.setConnected(false);
-        //             console.dir(err);
-        //         })
     }
 
-    // testNetworkStartup() {
-    //     this.services.get('https://httpbin.org/ip', {})
-    //         .then(data => {
-    //             return true;
-    //         }, (err) => {
-    //             return false;
-    //         });
-    //     // return this.http.get('https://httpbin.org/ip')
-    //     //     .pipe(
-    //     //         map(
-    //     //     res => { res.json(); },
-    //     //     err => { console.dir(err); }));
-    // }
+
+
+
 }
