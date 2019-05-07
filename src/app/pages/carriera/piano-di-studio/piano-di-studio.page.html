@@ -48,7 +48,7 @@
   </ion-item>
 
   <ion-list *ngIf="corsi">
-      <ion-item-sliding *ngFor="let corso of corsi">
+      <ion-item-sliding *ngFor="let corso of corsiFiltrati">
         <ion-item (click)="presentActionSheet()">
           <ion-grid>
             <ion-row><b>Corso</b>: {{corso.DESCRIZIONE}}</ion-row>

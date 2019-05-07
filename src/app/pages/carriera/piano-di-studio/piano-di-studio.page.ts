@@ -34,13 +34,12 @@ const CFU_DECRESCENTE: number = 8;
 export class PianoDiStudioPage implements OnInit {
 
     private corsi: Corso[];
-    private corsiFiltrati: any[];
+    private corsiFiltrati: Corso[];
     private searchKey: String;
     showSearchBar = false;
     flyInOutState = 'in';
 
-    private filtroSuperatiAttivo: boolean;
-    private filtroNonSuperatiAttivo: boolean;
+
     private anno: number;
 
 
@@ -49,8 +48,6 @@ export class PianoDiStudioPage implements OnInit {
                 private actionSheetController: ActionSheetController,
                 private pianoDiStudioService: PianoDiStudioService) {
         this.searchKey = '';
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
         this.anno = 0;
     }
 
@@ -63,19 +60,8 @@ export class PianoDiStudioPage implements OnInit {
 
             console.log(this.corsi);
         });
-
-        /*this.corsi = [
-            {id: 1, anno: 1, nome: 'Programmazione', cfu: 12, voto: 30},
-            {id: 2, anno: 1, nome: 'Matematica', cfu: 12, voto: 20},
-            {id: 3, anno: 1, nome: 'Informatica giuridica', cfu: 6, voto: 20},
-            {id: 4, anno: 2, nome: 'Storia della matematica', cfu: 6, voto: 18},
-            {id: 5, anno: 2, nome: 'Ingegneria del software', cfu: 9, voto: 27},
-            {id: 6, anno: 2, nome: 'Basi di dati e sistemi informativi', cfu: 12, voto: 28},
-            {id: 7, anno: 3, nome: 'Informatica territoriale', cfu: 8,},
-            {id: 8, anno: 3, nome: 'Ricerca operativa', cfu: 7,},
-        ]; // Prova per testare
         this.corsiFiltrati = this.corsi;
-        this.filtra();*/
+        this.filtra(false, false);
     }
 
     doRefresh(event) {
@@ -86,25 +72,25 @@ export class PianoDiStudioPage implements OnInit {
         }, 2000);
     }
 
-    private filtra(): void {
+    public filtra(filtroSuperatiAttivo: boolean, filtroNonSuperatiAttivo: boolean): void {
         this.corsiFiltrati = this.corsi;
-        if (this.filtroSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto != null);
+        if (filtroSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO != null);
         }
 
-        if (this.filtroNonSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto == null);
+        if (filtroNonSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO == null);
         }
 
         if (this.anno != 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.anno == this.anno);
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.anno);
         }
 
-        this.search();
+        //this.search();
     }
 
     private search() {
-        this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
+        //this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
     }
 
     private toggleInOut() {
