@@ -6,8 +6,10 @@ import { RouterModule } from '@angular/router';
 
 import { AppelliPage } from './appelli';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 
 @NgModule({
+    entryComponents: [GestoreListaAppelliDisponbiliComponent],
     imports: [
         CommonModule,
         FormsModule,
