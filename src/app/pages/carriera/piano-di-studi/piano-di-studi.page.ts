@@ -400,7 +400,7 @@ export class PianoDiStudiPage implements OnInit {
         // console.dir(esame);
         this.navController.navigateForward('/esame/' + esame.CODICE);
         //this.globalData.esame = esame;
-        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
+        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }
 
     apriMaterialeDidattico(ad_id) {

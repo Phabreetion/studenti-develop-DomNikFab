@@ -554,7 +554,7 @@ export class AppComponent {
             } catch (error) {
             }
 
-            // close modal
+            // close Modal
             try {
                 const element = await this.modalCtrl.getTop();
                 if (element) {

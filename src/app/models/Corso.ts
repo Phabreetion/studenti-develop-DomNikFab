@@ -1,6 +1,6 @@
 export class Corso{
     /**
-     *Anno accademico in cui è stato svolto il corso
+     *Anno accademico in cui è stato svolto il corso.
     */
     public AA_OFF_ID: number;
     /**
@@ -8,7 +8,7 @@ export class Corso{
      */
     public ADSCE_ID: number;
     /**
-     * Non ne ho la benche minima idea, serve per passare a materiale didattico
+     * Non ne ho la benchè minima idea, serve per passare a materiale didattico
      */
     public AD_ID: number;
     /**
