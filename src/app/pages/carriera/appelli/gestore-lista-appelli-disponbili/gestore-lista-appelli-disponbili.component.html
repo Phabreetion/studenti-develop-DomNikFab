@@ -47,7 +47,16 @@
         </ion-item>
       </ion-col>
       <ion-col>
-        <ion-select cancelText="Annulla" value="0">
+        <ion-select cancelText="Annulla" value="0" *ngIf="ordinamento != 0">
+          <ion-select-option value="0">Nessuno</ion-select-option>
+          <ion-select-option value="1">1° Anno</ion-select-option>
+          <ion-select-option value="2">2° Anno</ion-select-option>
+          <ion-select-option value="3">3° Anno</ion-select-option>
+          <ion-select-option value="4">4° Anno</ion-select-option>
+          <ion-select-option value="5">5° Anno</ion-select-option>
+          <ion-select-option value="6">6° Anno</ion-select-option>
+        </ion-select>
+        <ion-select cancelText="Annulla" value="0" *ngIf="ordinamento === 0">
           <ion-select-option value="0">Nessuno</ion-select-option>
           <ion-select-option value="1">1° Anno</ion-select-option>
           <ion-select-option value="2">2° Anno</ion-select-option>
@@ -66,12 +75,20 @@
         </ion-item>
       </ion-col>
       <ion-col>
-        <ion-select cancelText="Annulla" value="0">
+        <ion-select cancelText="Annulla"  value="0" *ngIf="ordinamento !=0">
+        <ion-select-option value="0">Nessuno</ion-select-option>
+        <ion-select-option value="1">Scritto</ion-select-option>
+        <ion-select-option value="2">Orale</ion-select-option>
+        <ion-select-option value="3">Scritto/Orale</ion-select-option>
+      </ion-select>
+        <ion-select cancelText="Annulla"  value="0" *ngIf="ordinamento === 0">
           <ion-select-option value="0">Nessuno</ion-select-option>
           <ion-select-option value="1">Scritto</ion-select-option>
           <ion-select-option value="2">Orale</ion-select-option>
           <ion-select-option value="3">Scritto/Orale</ion-select-option>
         </ion-select>
+
+
       </ion-col>
     </ion-row>
   </ion-grid>

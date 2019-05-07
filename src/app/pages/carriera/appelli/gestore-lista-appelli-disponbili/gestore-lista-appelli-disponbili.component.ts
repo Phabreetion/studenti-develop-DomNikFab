@@ -23,6 +23,7 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
 
   private reset() {
     this.ordinamento = 0;
+    
   }
 
 }
