@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {ModalController} from '@ionic/angular';
+import {ActionSheetController, ModalController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
@@ -46,6 +46,7 @@ export class PianoDiStudioPage implements OnInit {
 
     constructor(public globalData: GlobalDataService,
                 private modalController: ModalController,
+                private actionSheetController: ActionSheetController,
                 private pianoDiStudioService: PianoDiStudioService) {
         this.searchKey = '';
         this.filtroSuperatiAttivo = false;
@@ -149,6 +150,40 @@ export class PianoDiStudioPage implements OnInit {
         this.filtra();
 
     }*/
+
+    async presentActionSheet() { //
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Operazioni', // da sostituire con il nome del corso
+            buttons: [{
+
+                text: 'Appelli',
+                icon: 'book',
+                handler: () => {
+                    console.log('Appelli cliccato');
+                }
+            }, {
+                text: 'Materiale didattico',
+                icon: 'archive',
+                handler: () => {
+                    console.log('Materiale didattico cliccato');
+                }
+            }, {
+                text: 'Dettagli corso',
+                icon: 'alert',
+                handler: () => {
+                    console.log('Dettagli corso cliccato');
+                }
+            }, {
+                text: 'Chiudi',
+                role: 'cancel',
+                icon: 'close',
+                handler: () => {
+                    console.log('Chiudi cliccato');
+                }
+            }]
+        });
+        await actionSheet.present();
+    }
 
 
     async openFiltri() {
