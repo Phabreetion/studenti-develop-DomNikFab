@@ -4,6 +4,7 @@ import {HttpService} from '../../../services/http.service';
 import {SyncService} from '../../../services/sync.service';
 import {ActivatedRoute} from '@angular/router';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {Corso} from '../../../models/Corso';
 
 @Component({
     selector: 'app-esame',
@@ -13,7 +14,7 @@ import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 export class EsamePage implements OnInit {
 
     srcPage: string;
-    esame: any;
+    esame: Corso;
     private libretto: any[];
     private codiceEsame: string;
 
@@ -38,6 +39,7 @@ export class EsamePage implements OnInit {
             (data) => {
                 this.libretto = data[0];
                 this.esame = this.libretto.find( esame => esame.CODICE === this.codiceEsame);
+                this.esame = Corso.toObj(this.esame);
             }
         );
     }

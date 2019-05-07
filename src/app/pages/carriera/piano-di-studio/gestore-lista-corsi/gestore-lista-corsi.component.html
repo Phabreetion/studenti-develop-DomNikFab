@@ -1,6 +1,6 @@
 <ion-content>
     <ion-list>
-        <ion-radio-group>
+        <ion-radio-group [(ngModel)]="ordinamento">
             <ion-title text-center>
                 Ordina per:
             </ion-title>
@@ -95,7 +95,7 @@
         <ion-row>
 
             <ion-col>
-                <ion-button style="width:100%"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
+                <ion-button style="width:100%" (click)="reset()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
             </ion-col>
             <ion-col>
                 <ion-button (click)="closeFiltri()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>

@@ -154,7 +154,10 @@ export class PianoDiStudioPage implements OnInit {
     async openFiltri() {
         const modal = await this.modalController.create( {
             component: GestoreListaCorsiComponent,
-            cssClass: 'gestore-lista-piano-di-studio-css'
+            cssClass: 'gestore-lista-piano-di-studio-css',
+            componentProps: {
+                'page': this
+            }
         });
 
 
