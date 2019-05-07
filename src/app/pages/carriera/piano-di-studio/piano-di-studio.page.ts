@@ -90,7 +90,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     private search() {
-        //this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
+      //  this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
     }
 
     private toggleInOut() {
