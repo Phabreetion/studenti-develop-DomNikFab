@@ -51,10 +51,11 @@
       <ion-item-sliding *ngFor="let corso of corsiFiltrati">
         <ion-item (click)="presentActionSheet()">
           <ion-grid>
-            <ion-row><b>Corso</b>: {{corso.DESCRIZIONE}}</ion-row>
+            <ion-row><b>Corso</b>:{{corso.DESCRIZIONE}}</ion-row>
             <ion-row>
-              <ion-col *ngIf="corso.VOTO"><b>Voto</b>: {{corso.VOTO}}</ion-col>
-              <ion-col><b>CFU</b>:{{corso.CFU}}</ion-col>
+              <ion-col *ngIf="corso.GIUDIZIO"><strong>Esito</strong>:{{corso.GIUDIZIO}}</ion-col>
+              <ion-col *ngIf="corso.VOTO"><strong>Voto</strong>: {{corso.VOTO}}</ion-col>
+              <ion-col><strong>CFU</strong>:{{corso.CFU}}</ion-col>
             </ion-row>
           </ion-grid>
         </ion-item>
