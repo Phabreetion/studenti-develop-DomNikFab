@@ -1,89 +1,92 @@
 export class Corso{
-    /*
-   Anno accademico in cui è stato svolto il corso
+    /**
+     *Anno accademico in cui è stato svolto il corso
     */
     public AA_OFF_ID: number;
-    /*
-    ID settore accademico
+    /**
+     * ID settore accademico
      */
     public ADSCE_ID: number;
-    /*
-    ANNO del corso
+    /**
+     * Non ne ho la benche minima idea, serve per passare a materiale didattico
+     */
+    public AD_ID: number;
+    /**
+     * ANNO del corso
      */
     public ANNO: number;
-    /*
-    CFU del corso
+    /**
+     * CFU del corso
      */
     public CFU: number;
-    /*
-    Codice corso
+    /**
+     * Codice corso
      */
     public CODICE: number;
-    /*
-    Il cognome nel JSON si riferisce al nome completo del docente titolare del corso
+    /**
+     * Il cognome nel JSON si riferisce al nome completo del docente titolare del corso
      */
     public COGNOME: string;
-    /*
-    Data esame in forma contratta 22-FEB-18
+    /**
+     * Data esame in forma contratta 22-FEB-18
      */
     public DATA_ESAME: string;
-    /*
-    Data esame estesa 22/02/2018
+    /**
+     * Data esame estesa 22/02/2018
      */
     public DATA_ESTESA: string;
-    /*
-   Descrizione corso
+    /**
+     * Descrizione corso
     */
     public DESCRIZIONE: string;
-    /*
-    Docenti appartenenti al corso
+    /**
+     * Docenti appartenenti al corso
      */
     public DOCENTI: string;
-    /*
-   GIUDIZIO riguarda gli esami in cui non si ha una valutazione in trentesimi ma ad esempio un idonietà
+    /**
+     * GIUDIZIO riguarda gli esami in cui non si ha una valutazione in trentesimi ma ad esempio un idonietà
     */
     public GIUDIZIO: number;
-    /*
-    Lode inerente all'esame svolto
+    /**
+     * Lode inerente all'esame svolto
      */
     public LODE: number;
-    /*
-   NOME nel JSON riguarda un secondo docente appartenente al corso (ES. 2 moduli di un esame e 2 docenti differenti)
+    /**
+     * NOME nel JSON riguarda un secondo docente appartenente al corso (ES. 2 moduli di un esame e 2 docenti differenti)
     */
     public NOME: string;
-    /*
-    Parametro che indica se un esame fa o meno media
+    /**
+     * Parametro che indica se un esame fa o meno media
      */
     public NO_MEDIA: number;
-    /*
-   Scelta corso
+    /**
+     * Scelta corso
     */
     public SCELTA: number;
-    /*
-
+    /**
+     *
      */
     public SORGENTE: number;
-    /*
-
+    /**
+     *
     */
     public SOTTOSCRITTO: number;
-    /*
-
+    /**
+     *
      */
     public SOVRANNUMERARIA: number;
-    /*
-   Stato del corso
+    /**
+     * Stato del corso
     */
     public STATO: string;
-    /*
-    Valutazione del corso
+    /**
+     * Valutazione del corso
      */
     public VALUTAZIONE: string;
-    /*
-    Voto esame
+    /**
+     * Voto esame
      */
     public VOTO: number;
-
 
     constructor(AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string, GIUDIZIO?: number, NOME?: string) {
         this.AA_OFF_ID = AA_OFF_ID;
