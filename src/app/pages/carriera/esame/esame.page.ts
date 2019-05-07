@@ -3,6 +3,7 @@ import {GlobalDataService} from '../../../services/global-data.service';
 import {HttpService} from '../../../services/http.service';
 import {SyncService} from '../../../services/sync.service';
 import {ActivatedRoute} from '@angular/router';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 
 @Component({
     selector: 'app-esame',
@@ -19,8 +20,8 @@ export class EsamePage implements OnInit {
     constructor(
         public globalData: GlobalDataService,
         public http: HttpService,
-        private sync: SyncService,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private pianoDiStudioService: PianoDiStudioService) {
     }
 
     ngOnInit() {
@@ -33,8 +34,8 @@ export class EsamePage implements OnInit {
     }
 
     a() {
-        this.sync.getJson(12,null,true).then(
-            (data) =>{
+        this.pianoDiStudioService.getLibretto().then(
+            (data) => {
                 this.libretto = data[0];
                 this.esame = this.libretto.find( esame => esame.CODICE === this.codiceEsame);
             }

@@ -54,7 +54,7 @@
           <ion-grid>
             <ion-row><b>Corso</b>: {{corso.DESCRIZIONE}}</ion-row>
             <ion-row>
-              <ion-col><b>Voto</b>: {{corso.VOTO}}</ion-col>
+              <ion-col *ngIf="corso.VOTO"><b>Voto</b>: {{corso.VOTO}}</ion-col>
               <ion-col><b>CFU</b>:{{corso.CFU}}</ion-col>
             </ion-row>
           </ion-grid>
