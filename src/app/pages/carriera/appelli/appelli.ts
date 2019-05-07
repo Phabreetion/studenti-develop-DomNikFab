@@ -1,11 +1,13 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {LoadingController, ToastController, AlertController } from '@ionic/angular';
+import {LoadingController, ToastController, AlertController, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {Esse3Service} from '../../../services/esse3.service';
 import {HttpService} from '../../../services/http.service';
+import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 // import {cursorTo} from "readline";
 
 @Component({
@@ -45,7 +47,8 @@ export class AppelliPage implements OnChanges, OnInit {
         private loadingCtrl: LoadingController,
         public globalData: GlobalDataService,
         public account: AccountService,
-        public esse3: Esse3Service) {
+        public esse3: Esse3Service,
+        private modalController: ModalController) {
 
         if (this.sezioni == null) {
             this.sezioni = 'disponibili';
@@ -486,5 +489,18 @@ export class AppelliPage implements OnChanges, OnInit {
 
 
         return data_odierna.getTime() >= data_esame.getTime(); // && data_odierna <= data_fine;
+    }
+
+    async openFiltri() {
+        const modal = await this.modalController.create( {
+            component: GestoreListaAppelliDisponbiliComponent,
+            cssClass: 'gestore-lista-appelli-disponibili-css',
+            componentProps: {
+                'page': this
+            }
+        });
+
+
+        return await modal.present();
     }
 }

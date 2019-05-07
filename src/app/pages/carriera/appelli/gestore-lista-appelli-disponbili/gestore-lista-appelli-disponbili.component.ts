@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ModalController} from '@ionic/angular';
 
 @Component({
   selector: 'app-gestore-lista-appelli-disponbili',
@@ -7,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GestoreListaAppelliDisponbiliComponent implements OnInit {
 
-  constructor() { }
+  private ordinamento: number;
+
+  constructor(
+      private modalController: ModalController) { }
 
   ngOnInit() {}
+
+  closeAppelli() {
+    this.modalController.dismiss(
+        {result : null }
+    );
+  }
+
+  private reset() {
+    this.ordinamento = 0;
+  }
 
 }

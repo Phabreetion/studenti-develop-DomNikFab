@@ -23,6 +23,11 @@
   </ion-grid>
 </ion-header>
 
+<ion-item>
+  <ion-searchbar></ion-searchbar>
+  <ion-button  (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
+</ion-item>
+
 <ion-content [ngSwitch]="sezioni">
 
   <ion-refresher *ngIf="!insegnamento" (ionRefresh)="doRefresh($event)" slot="fixed">

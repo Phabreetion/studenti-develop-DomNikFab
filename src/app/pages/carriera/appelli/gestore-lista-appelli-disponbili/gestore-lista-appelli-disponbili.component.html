@@ -1,3 +1,94 @@
-<p>
-  gestore-lista-appelli-disponbili works!
-</p>
+<ion-content>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="ordinamento">
+      <ion-title text-center>
+        Ordina per:
+      </ion-title>
+
+      <ion-item>
+        <ion-buttons>
+          <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+        </ion-buttons>
+        <ion-label>Alfabetico</ion-label>
+        <ion-radio value="0"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-buttons>
+          <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+        </ion-buttons>
+        <ion-label>Data</ion-label>
+        <ion-radio value="2"></ion-radio>
+      </ion-item>
+
+      <ion-item>
+        <ion-buttons>
+          <ion-button icon-only><ion-icon name="arrow-up"></ion-icon> </ion-button>
+        </ion-buttons>
+        <ion-label>CFU</ion-label>
+        <ion-radio value="6"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-title text-center>Filtra per:</ion-title>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-text>Anno</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-select cancelText="Annulla" value="0">
+          <ion-select-option value="0">Nessuno</ion-select-option>
+          <ion-select-option value="1">1° Anno</ion-select-option>
+          <ion-select-option value="2">2° Anno</ion-select-option>
+          <ion-select-option value="3">3° Anno</ion-select-option>
+          <ion-select-option value="4">4° Anno</ion-select-option>
+          <ion-select-option value="5">5° Anno</ion-select-option>
+          <ion-select-option value="6">6° Anno</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-text>Tipologia</ion-text>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-select cancelText="Annulla" value="0">
+          <ion-select-option value="0">Nessuno</ion-select-option>
+          <ion-select-option value="1">Scritto</ion-select-option>
+          <ion-select-option value="2">Orale</ion-select-option>
+          <ion-select-option value="3">Scritto/Orale</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button style="width:100%" (click)="reset()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button (click)="closeAppelli()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col >
+        <ion-button style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

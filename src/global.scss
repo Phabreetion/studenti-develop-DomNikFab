@@ -257,7 +257,7 @@ ion-icon {
 
 
 .gestore-lista-piano-di-studio-css .modal-wrapper {
-  height: 80%;
+  height: 85%;
   width: 80%;
   position: absolute;
   display: block;
@@ -268,3 +268,17 @@ ion-icon {
   //--background: rgba(0,0,0,0);
   //background-color: rgba(0, 0, 0, 0);
 }
+.gestore-lista-appelli-disponibili-css .modal-wrapper {
+  height: 70%;
+  width: 80%;
+  position: absolute;
+  display: block;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  //--background: rgba(0,0,0,0);
+  //background-color: rgba(0, 0, 0, 0);
+}
+
+
