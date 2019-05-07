@@ -46,13 +46,10 @@
     <ion-searchbar></ion-searchbar>
     <ion-button (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
   </ion-item>
-  <ion-item>
-  <ion-button (click)="presentActionSheet()"><ion-icon name="alert"></ion-icon></ion-button>
-  </ion-item>
 
   <ion-list *ngIf="corsi">
       <ion-item-sliding *ngFor="let corso of corsi">
-        <ion-item>
+        <ion-item (click)="presentActionSheet()">
           <ion-grid>
             <ion-row><b>Corso</b>: {{corso.DESCRIZIONE}}</ion-row>
             <ion-row>
