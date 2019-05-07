@@ -1,9 +1,9 @@
 <ion-content>
     <ion-list>
         <ion-radio-group>
-            <ion-list-header>
-                Ordina esami per:
-            </ion-list-header>
+            <ion-title text-center>
+                Ordina per:
+            </ion-title>
 
             <ion-item>
                 <ion-buttons>
@@ -79,7 +79,7 @@
                 </ion-item>
             </ion-col>
             <ion-col>
-                <ion-select value="0">
+                <ion-select cancelText="Annulla" value="0">
                     <ion-select-option value="0">Nessuno</ion-select-option>
                     <ion-select-option value="1">1° Anno</ion-select-option>
                     <ion-select-option value="2">2° Anno</ion-select-option>
@@ -98,7 +98,7 @@
                 <ion-button style="width:100%"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
             </ion-col>
             <ion-col>
-                <ion-button (click)="closeFiltri()" style="width:100%"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
+                <ion-button (click)="closeFiltri()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
             </ion-col>
         </ion-row>
         <ion-row>
