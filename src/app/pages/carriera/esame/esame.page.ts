@@ -14,9 +14,9 @@ import {Corso} from '../../../models/Corso';
 export class EsamePage implements OnInit {
 
     srcPage: string;
-    esame: Corso;
+    corso: Corso;
     private libretto: any[];
-    private codiceEsame: string;
+    private codiceEsame: number;
 
     constructor(
         public globalData: GlobalDataService,
@@ -25,23 +25,14 @@ export class EsamePage implements OnInit {
         private pianoDiStudioService: PianoDiStudioService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.srcPage = this.globalData.srcPage;
-        //this.esame = this.globalData.esame;
+        //this.corso = this.globalData.corso;
         this.http.getConnected();
-        this.codiceEsame = this.activatedRoute.snapshot.paramMap.get('id');
+        this.codiceEsame = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
-        this.a();
-    }
-
-    a() {
-        this.pianoDiStudioService.getLibretto().then(
-            (data) => {
-                this.libretto = data[0];
-                this.esame = this.libretto.find( esame => esame.CODICE === this.codiceEsame);
-                this.esame = Corso.toObj(this.esame);
-            }
-        );
+        this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
+        console.log(this.corso);
     }
 
     onGoBack()  {
@@ -50,7 +41,7 @@ export class EsamePage implements OnInit {
 
     asDueProfessori() {
 
-        if (this.esame.COGNOME && this.esame.NOME !== ' ' && this.esame.NOME) {
+        if (this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME) {
 
             return true;
 

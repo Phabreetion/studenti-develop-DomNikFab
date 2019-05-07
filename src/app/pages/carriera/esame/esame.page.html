@@ -24,12 +24,12 @@
   </ion-grid>
 </ion-header>
 
-<ion-content *ngIf="esame">
+<ion-content *ngIf="corso">
 
   <ion-card text-wrap>
     <ion-card-header>
-      <ion-card-subtitle text-left ><b>{{esame.ANNO}}° ANNO</b></ion-card-subtitle>
-      <ion-card-title text-center ><b><I>{{esame.DESCRIZIONE}}</I></b></ion-card-title>
+      <ion-card-subtitle text-left ><b>{{corso.ANNO}}° ANNO</b></ion-card-subtitle>
+      <ion-card-title text-center ><b><I>{{corso.DESCRIZIONE}}</I></b></ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
@@ -37,67 +37,67 @@
         <ion-row>
           <ion-col *ngIf=" !asDueProfessori() ">
              <b><I>Docente</I></b>
-              <br>{{esame.COGNOME}}
+              <br>{{corso.COGNOME}}
           </ion-col>
         </ion-row>
         <ion-row>
           <ion-col *ngIf=" asDueProfessori()" >
             <b><I>Docenti</I></b>
-            <br> {{esame.NOME}}
-            <br>{{esame.COGNOME}}
+            <br> {{corso.NOME}}
+            <br>{{corso.COGNOME}}
           </ion-col>
         </ion-row>
 
 
-        <ion-row *ngIf="esame.CFU">
+        <ion-row *ngIf="corso.CFU">
           <ion-col>
             <b><I>CFU</I></b>
-            <br>{{esame.CFU}}
+            <br>{{corso.CFU}}
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="esame.DATA_ESAME">
+        <ion-row *ngIf="corso.DATA_ESAME">
           <ion-col>
-            <b><I>Data esame:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{esame.DATA_ESAME}}
+            <b><I>Data esame:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{corso.DATA_ESAME}}
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="esame.DATA_VERBALE">
+        <ion-row *ngIf="corso.DATA_VERBALE">
           <ion-col>
-            <b><I>Data verbale:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{esame.DATA_VERBALE}}
+            <b><I>Data verbale:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{corso.DATA_VERBALE}}
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="esame.VOTO">
+        <ion-row *ngIf="corso.VOTO">
           <ion-col>
             <b><I>Voto</I></b>
-            <br>{{esame.VOTO}} <span *ngIf="esame.LODE == 1">e lode</span>
+            <br>{{corso.VOTO}} <span *ngIf="corso.LODE == 1">e lode</span>
           </ion-col>
 
         </ion-row>
-        <ion-row *ngIf="esame.GIUDIZIO">
+        <ion-row *ngIf="corso.GIUDIZIO">
           <ion-col>
             <b><I>Esito</I></b>
-            <br>{{esame.GIUDIZIO}}
+            <br>{{corso.GIUDIZIO}}
           </ion-col>
         </ion-row>
 
-        <ion-row *ngIf="esame.PREREQUISITI">
+        <ion-row *ngIf="corso.PREREQUISITI">
           <ion-col>
             <b><I>Prerequisiti</I></b>
-            <br>{{esame.PREREQUISITI}}<ion-icon name="checkbox"></ion-icon>
+            <br>{{corso.PREREQUISITI}}<ion-icon name="checkbox"></ion-icon>
           </ion-col>
 
         </ion-row>
 
-        <ion-row *ngIf="esame.SOVRANNUMERARIA == 1 || esame.NO_MEDIA == 1">
+        <ion-row *ngIf="corso.SOVRANNUMERARIA == 1 || corso.NO_MEDIA == 1">
           <ion-col>
             <strong>Informazioni agguntive</strong>
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="esame.SOVRANNUMERARIA == 1">
+        <ion-row *ngIf="corso.SOVRANNUMERARIA == 1">
           <ion-col>
             Esame in sovrannumero
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="esame.NO_MEDIA == 1">
+        <ion-row *ngIf="corso.NO_MEDIA == 1">
           <ion-col>
             Questo esame non è incluso nel calcolo della media
           </ion-col>
@@ -109,11 +109,11 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col *ngIf="!esame.VOTO && !esame.GIUDIZIO">
-        <ion-button expand="block"  [routerLink]="['/appelli/', esame.CODICE]" routerDirection="forward">Appelli</ion-button>
+      <ion-col *ngIf="!corso.VOTO && !corso.GIUDIZIO">
+        <ion-button expand="block"  [routerLink]="['/appelli/', corso.CODICE]" routerDirection="forward">Appelli</ion-button>
       </ion-col>
       <ion-col>
-        <ion-button expand="block" [routerLink]="['/materiale-didattico/', esame.AD_ID]" routerDirection="forward">Materiale didattico</ion-button>
+        <ion-button expand="block" [routerLink]="['/materiale-didattico/', corso.AD_ID]" routerDirection="forward">Materiale didattico</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -121,7 +121,7 @@
 
 
 
-  <ion-card text-wrap *ngIf="!esame">
+  <ion-card text-wrap *ngIf="!corso">
     <ion-card-header text-center text-wrap ng-bind-html="snippet">
       <ion-label color="primary"><h1>Ops!</h1></ion-label>
     </ion-card-header>

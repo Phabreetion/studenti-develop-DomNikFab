@@ -52,14 +52,8 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     async ngOnInit() {
-        await this.pianoDiStudioService.getLibretto().then((data) => {
-            this.corsi = data[0] as any[];
-            for(let i = 0; i < this.corsi.length; i++) {
-                this.corsi[i] = Corso.toObj(this.corsi[i]);
-            }
+        this.corsi = await this.pianoDiStudioService.getLibretto();
 
-            console.log(this.corsi);
-        });
         this.corsiFiltrati = this.corsi;
         this.filtra(false, false);
     }

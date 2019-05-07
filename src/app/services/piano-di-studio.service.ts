@@ -13,17 +13,36 @@ export class PianoDiStudioService {
   constructor(private sync: SyncService) {
   }
 
-  public async getLibretto(): Promise<any> {
-    return this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false);
-     /*   .then((data) => {
-      const corsi: Corso[] = data[0];
+  public async getLibretto(): Promise<Corso[]> {
+    return new Promise<Corso[]>(resolve => {
+      this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((data) => {
+        const corsi: Corso[] = data[0];
 
-      corsi.forEach(corso => Corso.toObj(corso));
-      //resolve(corsi);
-    });*/
+        for(let i = 0; i < corsi.length; i++) {
+          corsi[i] = Corso.toObj(corsi[i]);
+        }
+
+        console.log(corsi);
+        resolve(corsi);
+      });
+    });
   }
 
-  public async getEsame() {
-    return this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false);
+  public async getCorso(codiceEsame: number): Promise<Corso>  {
+    return new Promise<Corso>((resolve, reject) => {
+      this.getLibretto().then( (corsi) => {
+        let i = 0;
+        while(i < corsi.length && corsi[i].CODICE != codiceEsame) {
+          i++;
+        }
+
+        if(i >= corsi.length) {
+          reject();
+        } else {
+          resolve(corsi[i]);
+        }
+
+      });
+    });
   }
 }
