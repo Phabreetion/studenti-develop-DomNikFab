@@ -216,6 +216,7 @@ export class MaterialeDidatticoPage implements OnInit {
         // );
 
         this.globalData.allegato = item;
+
         this.globalData.srcPage = '/materiale-didattico';
         this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
     }
@@ -241,6 +242,7 @@ export class MaterialeDidatticoPage implements OnInit {
                     text: 'Si',
                     handler: () => {
                         this.download(item);
+
                     }
                 },
                 {

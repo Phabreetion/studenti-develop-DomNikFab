@@ -24,9 +24,13 @@ export class AllegatoPage implements OnInit {
 
     ngOnInit() {
         this.allegato = this.globalData.allegato;
+        //console.log(this.allegato);
         if (this.allegato) {
             this.ad_id = this.allegato.AD_ID;
         }
+
+
+
         // Se non è presente l'id dell'attività didattica (nessun allegato)
         // Lo recuperiamo dai dati globali
         if (!this.ad_id) {
@@ -63,6 +67,7 @@ export class AllegatoPage implements OnInit {
                     text: 'Si',
                     handler: () => {
                         this.download();
+
                     }
                 },
                 {
