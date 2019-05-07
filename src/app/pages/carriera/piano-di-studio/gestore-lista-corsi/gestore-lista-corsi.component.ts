@@ -16,11 +16,12 @@ export class GestoreListaCorsiComponent implements OnInit {
   ngOnInit() {}
 
   // non restituisce nessun valore.. da implementare
-  closeFiltri(){
+  closeFiltri() {
     this.modalController.dismiss(
         {result : null }
     );
 
   }
+
 
 }

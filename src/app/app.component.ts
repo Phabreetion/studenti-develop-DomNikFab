@@ -3,8 +3,8 @@ import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
 import {
     ActionSheetController,
     AlertController,
-    IonRouterOutlet, MenuController, NavController,
-    Platform
+    IonRouterOutlet, MenuController, ModalController, NavController,
+    Platform, PopoverController
 } from '@ionic/angular';
 
 import { Network} from '@ionic-native/network/ngx';
@@ -27,8 +27,6 @@ import {Router} from '@angular/router';
 // import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 // import {Firebase} from '@ionic-native/firebase/ngx';
 // import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
-
-// import {isCombinedNodeFlagSet} from 'tslint';
 
 @Component({
     selector: 'app-root',
@@ -148,8 +146,8 @@ export class AppComponent {
     ];
 
     // set up hardware back button event.
-    lastTimeBackPress = 0;
-    timePeriodToExit = 2000;
+    private lastTimeBackPress = 0;
+    private TIME_PERIOD_TO_EXIT = 2000;
 
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
@@ -158,6 +156,8 @@ export class AppComponent {
         public navController: NavController,
         public alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
+        public popoverCtrl: PopoverController,
+        public modalCtrl: ModalController,
         public toast: Toast,
         public router: Router,
         public menu: MenuController,
@@ -244,39 +244,7 @@ export class AppComponent {
 
             // moment.locale('it');
 
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            // // IONIC 4 registerBackButtonAction non c'è!
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            //
-            // this.platform.registerBackButtonAction(() => {
-            //     // get current active page
-            //     // TODO: questa soluzione non è ottimale, la versione commentata è invece funzionante,
-            //     // ma non riporta alla Home in caso di sotto-pagine
-            //     // Purtroppo, al momento, la generazione della versione ottimizzata (flag --prod)
-            //     // minimizza il codice per cui il nome della pagina non corrisponde
-            //     const view = this.nav.getActive();
-            //     const componentName = view.component.toString();
-            //     if (componentName.indexOf('idServizio=9') > -1) {
-            //         // Double check to exit app
-            //         if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
-            //             this.platform.exitApp(); // Exit from app
-            //         } else {
-            //             const toast = this.toastCtrl.create({
-            //                 message: 'Premi di nuovo per uscire',
-            //                 duration: 2000,
-            //                 position: 'bottom'
-            //             });
-            //             toast.present();
-            //             lastTimeBackPress = new Date().getTime();
-            //         }
-            //     } else {
-            //         // go to previous page
-            //         this.navCtrl.navigateRoot('/home');
-            //     }
-            //
-            // });
+
 
             this.http.checkConnection();
 
@@ -548,48 +516,74 @@ export class AppComponent {
     }
 
 
-
-    // active hardware back button
+    /**
+     * Questa funzione gestisce l'evento generato dal back-button di Android.
+     * Gli ActionSheet, i Popover, i Modal e i SideMenu verrano chiusi se erano precedentemente aperti
+     * Il back-button inoltre tornerà indetro alla schermanta precedente fino alla home.
+     * Se nella schermata home dopo due click ravvicinati chiuderà l'app
+     */
     async backButtonEvent() {
-        //@TODO sistemare da quale schermata è possibile tornare alla home
-        //su iPhone il problema non si pone perche non hanno il back button
-        //su android bisognerebbe implementare un meccanismo per gestire il back button
-        //ionic di base con il back button chiude solo gli actionsheet ma non il side menu.
-        this.platform.backButton.subscribe(async () => {
-            try {
-                const element = await this.actionSheetCtrl.getTop();
-                if (element) {
-                    element.dismiss();
-                }
-            } catch (error) {
-            }
-
+        this.platform.backButton.subscribeWithPriority(0, async () => {
             // close side menu
             try {
                 const element = await this.menu.getOpen();
                 if (element) {
                     this.menu.close();
+                    return;
                 }
             } catch (error) {
             }
 
-            if (this.router.url === '/home') {
-                if ((new Date().getTime() - this.lastTimeBackPress) < this.timePeriodToExit) {
-                    // this.platform.exitApp(); // Exit from app
-                    navigator['app'].exitApp(); // work for ionic 4
-                } else {
-                    this.toast.show(
-                        'Premi ancora per uscire.',
-                        '2000',
-                        'center')
-                        .subscribe(() => {
-                            // console.log(JSON.stringify(toast));
-                        });
-                    this.lastTimeBackPress = new Date().getTime();
+            // close action sheet
+            try {
+                const element = await this.actionSheetCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
                 }
-            } else {
-                this.navController.pop();
+            } catch (error) {
             }
+
+            // close popover
+            try {
+                const element = await this.popoverCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            // close modal
+            try {
+                const element = await this.modalCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+                if (outlet && outlet.canGoBack()) {
+                    // torna indetro fino alla home
+                    outlet.pop(); //la pop richiama l'ultima schermata dallo stack delle pagine
+                } else if (this.router.url === '/home') {
+                    // prova ad uscire dall'app con due tap ravvicinati
+                    if (new Date().getTime() - this.lastTimeBackPress < this.TIME_PERIOD_TO_EXIT) {
+                        navigator['app'].exitApp(); // Exit from app, work for ionic 4
+                    } else {
+                        this.toast.show(
+                            `Premi ancora per uscire`,
+                            '2000',
+                            'center')
+                            .subscribe(toast => {
+                                // console.log(JSON.stringify(toast));
+                            });
+                        this.lastTimeBackPress = new Date().getTime();
+                    }
+                }
+            });
         });
     }
 }
