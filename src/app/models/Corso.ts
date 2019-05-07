@@ -112,7 +112,12 @@ export class Corso{
         this.VOTO = VOTO;
     }
 
-    public static toObj(j: Object): Corso {
-        return Object.assign(new Corso(), j);
+    /**
+     * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
+     *
+     * @param obj: L'oggetto generico da convertire in istanza della classe Corso
+     */
+    public static toObj(obj: Object): Corso {
+        return Object.assign(new Corso(), obj);
     }
 }
