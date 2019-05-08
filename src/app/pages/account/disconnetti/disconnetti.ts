@@ -88,6 +88,8 @@ export class DisconnettiPage implements OnInit {
                             // Conserviamo il valore dell'URL del backend in caso di riavvio dell'app
                             this.storage.set('baseurl', this.globalData.baseurl);
                             this.globalData.logged = false;
+                            this.globalData.userRole = '';
+                            this.globalData.archive = [];
                             this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
                             this.toastCtrl.create({
                                 message: response.toString(),
@@ -141,13 +143,10 @@ export class DisconnettiPage implements OnInit {
                         // Conserviamo il valore dell'URL del backend in caso di riavvio dell'app
                         this.storage.set('baseurl', this.globalData.baseurl);
                         this.globalData.logged = false;
-
-                        this.notificheService.rimuoviSottoscrizioni().then(
-                            () => {
-                                this.globalData.goTo('/login', '/login', 'root', false);
-
-                            }
-                        );
+                        this.globalData.userRole = '';
+                        this.globalData.archive = [];
+                        this.notificheService.rimuoviSottoscrizioni();
+                        this.globalData.goTo('/login', '/login', 'root', false);
                     }
                 },
                 {

@@ -87,7 +87,7 @@ export class PianoDiStudioPage implements OnInit {
       //  this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
     }
 
-    private toggleInOut() {
+    public toggleInOut() {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
         this.showSearchBar = !this.showSearchBar;
     }
