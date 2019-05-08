@@ -19,6 +19,7 @@ export class GlobalDataService {
     apiurl =  this.dir + '/api/';
     baseurl: string = this.schema + this.ip + this.apiurl;
 
+
     utente_test = false;
 
     android = false;

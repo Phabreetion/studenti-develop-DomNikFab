@@ -282,7 +282,7 @@ export class AccountService {
                                     GlobalDataService.log(0, 'Esito Registrazione', esitoRegistrazione);
                                     const codice = esitoRegistrazione['codice'];
                                     if (codice === 0) {
-                                        //console.log(esitoRegistrazione['cifrato']);
+                                        console.log(esitoRegistrazione['cifrato']);
                                         const dec=this.crypto.CryptoJSAesDecrypt(this.passphrase,esitoRegistrazione['cifrato']);
                                         const carriera = JSON.parse(dec);
 

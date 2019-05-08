@@ -10,6 +10,7 @@ import 'rxjs/add/operator/map';
 import {GlobalDataService} from './global-data.service';
 import {NotificheService} from './notifiche.service';
 import {HttpService} from './http.service';
+import {CryptoService} from './crypto.service';
 // import {timeout} from 'rxjs/operators';
 
 /*
@@ -41,7 +42,7 @@ ID SERVIZI
 
 export class SyncService {
 
-    
+
      urlCheckToken: string = this.globalData.baseurl + 'checkToken.php';
      urlSync: string = this.globalData.baseurl + 'sincronizza.php';
      urlConfermaRegistra: string = this.globalData.baseurl + 'confermaRegistrazione.php';
@@ -64,6 +65,7 @@ export class SyncService {
 
 
     loading = [];
+    private passphrase: string;
 
     private elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
     // private elencoServizi = [1,2];
@@ -95,9 +97,15 @@ export class SyncService {
                 public alertCtrl: AlertController,
                 public loadingCtrl: LoadingController,
                 public ngZone: NgZone,
-                public globalData: GlobalDataService ) {
-         // this.http.setHeader('*', 'Content-Type', 'application/json');
-         // this.http.setDataSerializer('json');
+                public globalData: GlobalDataService,
+                public crypto: CryptoService) {
+
+                this.storage.get('passphrase_key').then(
+                (key) => {
+                    this.passphrase = key;
+                });
+
+
     }
 
     getTimeout() {
@@ -184,7 +192,7 @@ export class SyncService {
         }
 
         for (const i of this.elencoServizi) {
-            this.getJson(i, null,true).then(
+            this.getJson(i, null, true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
@@ -195,8 +203,8 @@ export class SyncService {
     }
 
 
-    getJson(id: number, params: string[] ,sync: boolean) {
-        this.params=params;
+    getJson(id: number, params: string[] , sync: boolean) {
+        this.params = params;
 
         return new Promise((resolve, reject) => {
             this.storage.get(id.toString()).then(
@@ -228,95 +236,101 @@ export class SyncService {
 
         return new Promise((resolve, reject) => {
             this.loading[id] = true;
-            this.storage.get('token').then(
-                (val) => {
-                    this.token = val;
-                    this.storage.get('uuid').then(
-                        (uuid) => {
 
-                            this.uuid = uuid;
-                            if (this.uuid === undefined || this.uuid == null) {
-                                this.uuid = 'uuid';
-                            }
+                    console.log(this.passphrase);
+                        this.storage.get('token').then(
+                            (val) => {
+                                this.token = val;
+                                this.storage.get('uuid').then(
+                                    (uuid) => {
 
-                            let url = this.getUrlSync();
+                                        this.uuid = uuid;
+                                        if (this.uuid === undefined || this.uuid == null) {
+                                            this.uuid = 'uuid';
+                                        }
 
-                            // const body = JSON.stringify({
-                            //     token: this.token,
-                            //     uuid: this.uuid,
-                            //     id_servizio: id
-                            // });
-
-                            const body = {
-                                token: this.token,
-                                uuid: this.uuid,
-                                id_servizio: id,
-                                parametri: this.params
-                            };
-
-                            console.log(body);
+                                        let url = this.getUrlSync();
 
 
-                            this.services.getJSON(url, body).then(
-                                (dati) => {
 
-                                    // Salvo i json nello storage
-                                    if (dati) {
-                                        this.storage.set(id.toString(), dati).then(
-                                            () => {
-                                            }, (storageErr) => {
-                                                GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                                            }
-                                        );
-                                        // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
-                                    }
 
-                                    this.loading[id] = false;
-                                    resolve(dati);
-                                },
-                                (rej) => {
-                                    this.loading[id] = false;
-                                    if (rej.error) {
-                                        const errore = JSON.parse(rej.error);
-                                        const stato = rej.status;
-                                        const codice = errore.codice;
+                             const token_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.token);
+                             const uuid_cifrato =  this.crypto.CryptoJSAesEncrypt(this.passphrase, this.uuid);
+                             const id_servizio_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, id.toString());
+                             const parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params);
 
-                                        if (stato === 401 && codice === -2) {
-                                            GlobalDataService.log(1, 'Token scaduto', null);
+                             console.log(token_cifrato);
 
-                                            let storedUsername = this.storage.get('username');
-                                            let storedPassword = this.storage.get('password');
 
-                                            Promise.all([storedUsername, storedPassword]).then(
-                                                data => {
-                                                    storedUsername = data[0];
-                                                    storedPassword = data[1];
 
-                                                    url = this.urlCheckToken;
-                                                    const bodyCheckToken = {
-                                                        token: this.token,
-                                                        username: storedUsername,
-                                                        password: storedPassword
-                                                    };
+                             const body = {
+                                 token: token_cifrato,
+                                 uuid: uuid_cifrato,
+                                 id_servizio: id_servizio_cifrato,
+                                 parametri: parametri_cifrati
+                             };
 
-                                                    // TODO: Gestire cambio password da ESSE3
-                                                    this.ngZone.run(() => {
-                                                        this.services.post(url, bodyCheckToken).then(
-                                                            () => {
-                                                                this.getJsonLista(id).then(
-                                                                    (res) => {
-                                                                        GlobalDataService.log(0, 'getJsonLista', res);
-                                                                    }, (err) => {
-                                                                        GlobalDataService.log(2, 'getJsonLista reject', err);
-                                                                    }
-                                                                );
-                                                            }
-                                                        );
 
-                        
-                                                    });
-                                                }, (err) => {
-                                                    GlobalDataService.log(2, 'Credenziali non accessibili', err);
+                             this.services.getJSON(url, body).then(
+                                    (dati) => {
+                                        let dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, dati['cifrato']);
+                                        dec = JSON.parse(dec);
+                                        if (dec) {
+                                            this.storage.set(id.toString(), dec).then(
+                                                () => {
+                                                }, (storageErr) => {
+                                                    GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                                                }
+                                            );
+                                            // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
+                                        }
+
+                                        this.loading[id] = false;
+                                        resolve(dec);
+                                    },
+                                    (rej) => {
+                                        this.loading[id] = false;
+                                        if (rej.error) {
+                                            const errore = JSON.parse(rej.error);
+                                            const stato = rej.status;
+                                            const codice = errore.codice;
+
+                                            if (stato === 401 && codice === -2) {
+                                                GlobalDataService.log(1, 'Token scaduto', null);
+
+                                                let storedUsername = this.storage.get('username');
+                                                let storedPassword = this.storage.get('password');
+
+                                                Promise.all([storedUsername, storedPassword]).then(
+                                                    data => {
+                                                        storedUsername = data[0];
+                                                        storedPassword = data[1];
+
+                                                        url = this.urlCheckToken;
+                                                        const bodyCheckToken = {
+                                                            token: this.token,
+                                                            username: storedUsername,
+                                                            password: storedPassword
+                                                        };
+
+                                                        // TODO: Gestire cambio password da ESSE3
+                                                        this.ngZone.run(() => {
+                                                            this.services.post(url, bodyCheckToken).then(
+                                                                () => {
+                                                                    this.getJsonLista(id).then(
+                                                                        (res) => {
+                                                                            GlobalDataService.log(0, 'getJsonLista', res);
+                                                                        }, (err) => {
+                                                                            GlobalDataService.log(2, 'getJsonLista reject', err);
+                                                                        }
+                                                                    );
+                                                                }
+                                                            );
+
+
+                                                        });
+                                                    }, (err) => {
+                                                        GlobalDataService.log(2, 'Credenziali non accessibili', err);
                                                 });
 
                                         } else {
@@ -334,8 +348,6 @@ export class SyncService {
                                     }
                                 }
                             ).catch(() => { this.loading[id] = false; });
-
-                     
                         }, (err) => {
                             // Nessun uuid - probabile versione web
                             this.storage.set('uuid', 'uuid').then(
@@ -399,7 +411,7 @@ export class SyncService {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
                 }
             );
-   
+
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
