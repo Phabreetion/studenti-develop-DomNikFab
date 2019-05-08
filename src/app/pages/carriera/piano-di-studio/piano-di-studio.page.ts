@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {ModalController} from '@ionic/angular';
+import {ActionSheetController, ModalController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {forEach} from '@angular-devkit/schematics';
+import {Corso} from '../../../models/Corso';
 
 const ALFABETICO_CRESCENTE: number = 1;
 const ALFABETICO_DECRESCENTE: number = 2;
@@ -31,38 +33,29 @@ const CFU_DECRESCENTE: number = 8;
 
 export class PianoDiStudioPage implements OnInit {
 
-    private corsi: any[];
-    corsiFiltrati: any[];
+    private corsi: Corso[];
+    private corsiFiltrati: Corso[];
     private searchKey: String;
     showSearchBar = false;
     flyInOutState = 'in';
 
-    private filtroSuperatiAttivo: boolean;
-    private filtroNonSuperatiAttivo: boolean;
+
     private anno: number;
 
 
     constructor(public globalData: GlobalDataService,
-                private modalController: ModalController) {
+                private modalController: ModalController,
+                private actionSheetController: ActionSheetController,
+                private pianoDiStudioService: PianoDiStudioService) {
         this.searchKey = '';
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
         this.anno = 0;
     }
 
-    ngOnInit() {
-        this.corsi = [
-            {id: 1, anno: 1, nome: 'Programmazione', cfu: 12, voto: 30},
-            {id: 2, anno: 1, nome: 'Matematica', cfu: 12, voto: 20},
-            {id: 3, anno: 1, nome: 'Informatica giuridica', cfu: 6, voto: 20},
-            {id: 4, anno: 2, nome: 'Storia della matematica', cfu: 6, voto: 18},
-            {id: 5, anno: 2, nome: 'Ingegneria del software', cfu: 9, voto: 27},
-            {id: 6, anno: 2, nome: 'Basi di dati e sistemi informativi', cfu: 12, voto: 28},
-            {id: 7, anno: 3, nome: 'Informatica territoriale', cfu: 8,},
-            {id: 8, anno: 3, nome: 'Ricerca operativa', cfu: 7,},
-        ]; // Prova per testare
+    async ngOnInit() {
+        this.corsi = await this.pianoDiStudioService.getLibretto();
+
         this.corsiFiltrati = this.corsi;
-        this.filtra();
+        this.filtra(false, false);
     }
 
     doRefresh(event) {
@@ -73,25 +66,25 @@ export class PianoDiStudioPage implements OnInit {
         }, 2000);
     }
 
-    private filtra(): void {
+    public filtra(filtroSuperatiAttivo: boolean, filtroNonSuperatiAttivo: boolean): void {
         this.corsiFiltrati = this.corsi;
-        if (this.filtroSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto != null);
+        if (filtroSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO != null);
         }
 
-        if (this.filtroNonSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.voto == null);
+        if (filtroNonSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO == null);
         }
 
         if (this.anno != 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.anno == this.anno);
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.anno);
         }
 
-        this.search();
+        //this.search();
     }
 
     private search() {
-        this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
+      //  this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
     }
 
     public toggleInOut() {
@@ -99,7 +92,7 @@ export class PianoDiStudioPage implements OnInit {
         this.showSearchBar = !this.showSearchBar;
     }
 
-    private ordina(idOrdinamento: number): void {
+    /*private ordina(idOrdinamento: number): void {
         switch (idOrdinamento) {
             case ALFABETICO_CRESCENTE: //alfabetico crescente
                 this.corsi.sort((one, two) => (one.nome.toString() < two.nome.toString() ? -1 : 1));
@@ -136,13 +129,50 @@ export class PianoDiStudioPage implements OnInit {
 
         this.filtra();
 
+    }*/
+
+    async presentActionSheet() { //
+        const actionSheet = await this.actionSheetController.create({
+            header: 'Operazioni', // da sostituire con il nome del corso
+            buttons: [{
+
+                text: 'Appelli',
+                icon: 'book',
+                handler: () => {
+                    console.log('Appelli cliccato');
+                }
+            }, {
+                text: 'Materiale didattico',
+                icon: 'archive',
+                handler: () => {
+                    console.log('Materiale didattico cliccato');
+                }
+            }, {
+                text: 'Dettagli corso',
+                icon: 'alert',
+                handler: () => {
+                    console.log('Dettagli corso cliccato');
+                }
+            }, {
+                text: 'Chiudi',
+                role: 'cancel',
+                icon: 'close',
+                handler: () => {
+                    console.log('Chiudi cliccato');
+                }
+            }]
+        });
+        await actionSheet.present();
     }
 
 
     async openFiltri() {
         const modal = await this.modalController.create( {
             component: GestoreListaCorsiComponent,
-            cssClass: 'gestore-lista-piano-di-studio-css'
+            cssClass: 'gestore-lista-piano-di-studio-css',
+            componentProps: {
+                'page': this
+            }
         });
 
 

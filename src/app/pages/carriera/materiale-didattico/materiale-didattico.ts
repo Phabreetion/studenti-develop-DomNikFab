@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {
-    ActionSheetController,
+    ActionSheetController, AlertController,
     ModalController, NavController, ToastController
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
@@ -9,6 +9,7 @@ import {DBService} from '../../../services/db-service';
 import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
+import {ToastsService} from '../../../services/toasts.service';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -53,12 +54,14 @@ export class MaterialeDidatticoPage implements OnInit {
     constructor(
         private toastCtrl: ToastController,
         public route: ActivatedRoute,
+        public alertController: AlertController,
         public sync: SyncService,
         public http: HttpService,
         public globalData: GlobalDataService,
         public modalCtrl: ModalController,
         public actionSheetCtrl: ActionSheetController,
         public localdb: DBService,
+        public toastsService: ToastsService,
         public account: AccountService) {
     }
 
@@ -213,6 +216,7 @@ export class MaterialeDidatticoPage implements OnInit {
         // );
 
         this.globalData.allegato = item;
+
         this.globalData.srcPage = '/materiale-didattico';
         this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
     }
@@ -227,6 +231,78 @@ export class MaterialeDidatticoPage implements OnInit {
 
     eliminaFile(item) {
         this.localdb.eliminaFile(item);
+    }
+
+    async presentAlertConfermaDownload(item) {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Download file',
+            message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.download(item);
+
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
+    }
+
+
+    newApriFile(item) {
+        if ( this.localdb.isPiattaformaSupportata()) {
+
+            this.localdb.isAllegatoScaricato(item).then(
+                () => this.apriFile(item),
+                () => this.presentAlertConfermaDownload(item)
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+    async newRimuoviFile(item) {
+        if (this.localdb.isPiattaformaSupportata()) {
+            await this.localdb.isAllegatoScaricato(item).then(
+                () => this.presentAlertConfermaRimozione(item),
+                () => this.toastsService.fileNonScaricato()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+
+    async presentAlertConfermaRimozione(item) {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Rimozione file',
+            message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.eliminaFile(item);
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
     }
 
 
@@ -276,7 +352,7 @@ export class MaterialeDidatticoPage implements OnInit {
                     text: 'Apri',
                     icon: 'easel',
                     handler: () => {
-                        this.apriFile(item);
+                        this.newApriFile(item);
                     }
                 }, {
                     text: 'Dettagli',
@@ -288,7 +364,7 @@ export class MaterialeDidatticoPage implements OnInit {
                     text: 'Rimuovi',
                     icon: 'trash',
                     handler: () => {
-                        this.eliminaFile(item);
+                        this.newRimuoviFile(item);
                     }
                 }, {
                     text: 'Chiudi',

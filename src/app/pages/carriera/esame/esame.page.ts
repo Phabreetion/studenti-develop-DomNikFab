@@ -3,6 +3,8 @@ import {GlobalDataService} from '../../../services/global-data.service';
 import {HttpService} from '../../../services/http.service';
 import {SyncService} from '../../../services/sync.service';
 import {ActivatedRoute} from '@angular/router';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {Corso} from '../../../models/Corso';
 
 @Component({
     selector: 'app-esame',
@@ -12,33 +14,25 @@ import {ActivatedRoute} from '@angular/router';
 export class EsamePage implements OnInit {
 
     srcPage: string;
-    esame: any;
+    corso: Corso;
     private libretto: any[];
-    private codiceEsame: string;
+    private codiceEsame: number;
 
     constructor(
         public globalData: GlobalDataService,
         public http: HttpService,
-        private sync: SyncService,
-        private activatedRoute: ActivatedRoute) {
+        private activatedRoute: ActivatedRoute,
+        private pianoDiStudioService: PianoDiStudioService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.srcPage = this.globalData.srcPage;
-        //this.esame = this.globalData.esame;
+        //this.corso = this.globalData.corso;
         this.http.getConnected();
-        this.codiceEsame = this.activatedRoute.snapshot.paramMap.get('id');
+        this.codiceEsame = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
-        this.a();
-    }
-
-    a() {
-        this.sync.getJson(12,null,true).then(
-            (data) =>{
-                this.libretto = data[0];
-                this.esame = this.libretto.find( esame => esame.CODICE === this.codiceEsame);
-            }
-        );
+        this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
+        console.log(this.corso);
     }
 
     onGoBack()  {
@@ -47,7 +41,7 @@ export class EsamePage implements OnInit {
 
     asDueProfessori() {
 
-        if (this.esame.COGNOME && this.esame.NOME !== ' ' && this.esame.NOME) {
+        if (this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME) {
 
             return true;
 

@@ -42,7 +42,7 @@ export class DBService {
         presentationstyle : 'pagesheet', // iOS only
         fullscreen : 'yes', // Windows only
     };
-
+// remove commento, only for push
     constructor(
         public sqlite: SQLite,
         public platform: Platform,

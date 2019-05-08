@@ -23,6 +23,11 @@
   </ion-grid>
 </ion-header>
 
+<ion-item>
+  <ion-searchbar></ion-searchbar>
+  <ion-button  (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
+</ion-item>
+
 <ion-content [ngSwitch]="sezioni">
 
   <ion-refresher *ngIf="!insegnamento" (ionRefresh)="doRefresh($event)" slot="fixed">
@@ -223,12 +228,13 @@
                   </ion-col>
                 </ion-row>
 
-
+                <!--
                 <ion-row *ngIf="isOutOfTime(prenotazione)" text-center>
                   <ion-col>
                     <div>L'esame è stato sostenuto {{giorniRimanentiPerEsame(prenotazione)}} giorni fa</div>
                   </ion-col>
                 </ion-row>
+                -->
 
                 <ion-row *ngIf="!isOutOfTime(prenotazione)" text-center>
                   <ion-col>

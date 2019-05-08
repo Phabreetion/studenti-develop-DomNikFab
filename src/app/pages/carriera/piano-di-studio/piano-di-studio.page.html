@@ -47,19 +47,22 @@
     <ion-button (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
   </ion-item>
 
-
-  <ion-list>
+  <ion-list *ngIf="corsi">
       <ion-item-sliding *ngFor="let corso of corsiFiltrati">
-        <ion-item>{{corso.nome}}  CFU:"{{corso.cfu}}  Anno:{{corso.anno}}   Voto{{corso.voto}} </ion-item>
-
+        <ion-item (click)="presentActionSheet()">
+          <ion-grid>
+            <ion-row><b>Corso</b>:{{corso.DESCRIZIONE}}</ion-row>
+            <ion-row>
+              <ion-col *ngIf="corso.GIUDIZIO"><strong>Esito</strong>:{{corso.GIUDIZIO}}</ion-col>
+              <ion-col *ngIf="corso.VOTO"><strong>Voto</strong>: {{corso.VOTO}}</ion-col>
+              <ion-col><strong>CFU</strong>:{{corso.CFU}}</ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+<!--only for push, remove -->
         <ion-item-options>
-          <ion-item-option>
-            Dettagli corso
-          </ion-item-option>
-
-          <ion-item-option color="danger">
-            Materiale didattico
-          </ion-item-option>
+          <ion-item-option [routerLink]="'/esame/' + corso.CODICE">Dettagli corso</ion-item-option>
+          <ion-item-option color="danger" [routerLink]="'/materiale-didattico/' + corso.AD_ID">Materiale didattico</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
   </ion-list>

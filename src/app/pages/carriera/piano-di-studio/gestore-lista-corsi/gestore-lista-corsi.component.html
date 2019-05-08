@@ -1,41 +1,31 @@
-<ion-card>
-
+<ion-content>
     <ion-list>
-        <ion-radio-group>
-            <ion-list-header>
-                Ordina esami per:
-            </ion-list-header>
-
+        <ion-radio-group [(ngModel)]="ordinamento">
+            <ion-title text-center>
+                Ordina per:
+            </ion-title>
+            <ion-col>
+                <ion-select cancelText="Annulla" value="0">
+                    <ion-select-option value="0">Crescente</ion-select-option>
+                    <ion-select-option value="1">Decrescente</ion-select-option>
+                </ion-select>
+            </ion-col>
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
                 <ion-label>Alfabetico</ion-label>
-                <ion-radio value="0"></ion-radio>
-            </ion-item>
-
-            <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
-                <ion-label>Anno</ion-label>
                 <ion-radio value="2"></ion-radio>
             </ion-item>
-
             <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
-                <ion-label>Voto</ion-label>
+                <ion-label>Anno</ion-label>
                 <ion-radio value="4"></ion-radio>
             </ion-item>
 
-            <ion-item>
-                <ion-button>
-                    <ion-icon name="arrow-up"></ion-icon>
-                </ion-button>
-                <ion-label>CFU</ion-label>
+            <ion-item><ion-label>Voto</ion-label>
                 <ion-radio value="6"></ion-radio>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>CFU</ion-label>
+                <ion-radio value="8"></ion-radio>
             </ion-item>
         </ion-radio-group>
     </ion-list>
@@ -56,7 +46,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="filtroSupertati" (click)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -68,10 +58,11 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="filtroNonSupertati" (click)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
+
         <ion-row>
             <ion-col>
                 <ion-item>
@@ -79,7 +70,7 @@
                 </ion-item>
             </ion-col>
             <ion-col>
-                <ion-select value="0">
+                <ion-select cancelText="Annulla" value="0">
                     <ion-select-option value="0">Nessuno</ion-select-option>
                     <ion-select-option value="1">1° Anno</ion-select-option>
                     <ion-select-option value="2">2° Anno</ion-select-option>
@@ -91,6 +82,22 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+    <ion-grid>
+        <ion-row>
 
-    <ion-button (click)="closeFiltri()"> Chiudi</ion-button>
-</ion-card>
+            <ion-col>
+                <ion-button style="width:100%" (click)="reset()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
+            </ion-col>
+            <ion-col>
+                <ion-button (click)="closeFiltri()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col >
+                <ion-button style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
+
+
