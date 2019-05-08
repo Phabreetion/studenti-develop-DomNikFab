@@ -58,16 +58,14 @@
                 <ion-icon name="calendar"></ion-icon>{{corso.DATA_ESAME}}
               </ion-col>
               <ion-col *ngIf="corso.STATO !== 'S'">
-                <!-- <ion-icon name="information-circle"></ion-icon>{{corso.CODICE}} -->
               </ion-col>
 
             </ion-row>
           </ion-grid>
-          <ion-note *ngIf="corso.VOTO && corso.LODE==0" slot="end" color="success">{{corso.VOTO | slice:0:3}}</ion-note>
-          <ion-note *ngIf="corso.VOTO && corso.LODE==1" slot="end" color="success">30L</ion-note>
-          <ion-note *ngIf="!corso.VOTO" slot="end" color="success">{{corso.GIUDIZIO | slice:0:3}}</ion-note>
+          <ion-text *ngIf="corso.VOTO && corso.LODE==0" slot="end"><strong>{{corso.VOTO | slice:0:3}}</strong></ion-text>
+          <ion-text *ngIf="corso.VOTO && corso.LODE==1" slot="end"><strong>30L</strong></ion-text>
+          <ion-text *ngIf="!corso.VOTO" slot="end" ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
         </ion-item>
-<!--only for push, remove -->
         <ion-item-options>
           <ion-item-option [routerLink]="'/esame/' + corso.CODICE">Dettagli corso</ion-item-option>
           <ion-item-option color="danger" [routerLink]="'/materiale-didattico/' + corso.AD_ID">Materiale didattico</ion-item-option>
@@ -75,3 +73,20 @@
       </ion-item-sliding>
   </ion-list>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <!--<ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner> -->
+      <!--<fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>-->
+      <!--<fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>-->
+    </ion-buttons>
+
+    <div class="testo-footer">
+      <!-- Aggiornato al: {{dataAggiornamento}}-->
+     </div>
+
+     <ion-buttons slot="end">
+       <!-- <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>-->
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-footer>
