@@ -17,6 +17,7 @@ export class EsamePage implements OnInit {
     corso: Corso;
     private libretto: any[];
     private codiceEsame: number;
+    private corsiPropedeutici: Corso[];
 
     constructor(
         public globalData: GlobalDataService,
@@ -32,6 +33,7 @@ export class EsamePage implements OnInit {
         this.codiceEsame = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
         this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
+        this.corsiPropedeutici = await this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID);
         console.log(this.corso);
     }
 
@@ -40,15 +42,7 @@ export class EsamePage implements OnInit {
     }
 
     asDueProfessori() {
-
-        if (this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME) {
-
-            return true;
-
-        }
-
-        return false;
-
+        return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
     }
 
 

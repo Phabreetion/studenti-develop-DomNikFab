@@ -12,7 +12,7 @@ export class Corso{
 
 
     /**
-     * Non ne ho la benchè minima idea, serve per passare a materiale didattico
+     * Identificativo dell'attività didattiva. A volte potrebbe essere null.
      */
     public AD_ID: number;
 
