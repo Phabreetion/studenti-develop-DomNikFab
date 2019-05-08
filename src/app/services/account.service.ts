@@ -14,7 +14,7 @@ import {CryptoService} from './crypto.service';
 export class AccountService {
 
     logged: boolean;
-    baseurl = this.sync.baseurl;
+    baseurl = this.globalData.baseurl;
     urlRegistra: string = this.baseurl + 'registra.php';
     urlDisconnetti: string = this.baseurl + 'disconnetti.php';
 

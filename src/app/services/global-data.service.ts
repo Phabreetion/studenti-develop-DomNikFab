@@ -1,16 +1,23 @@
-import {Injectable, NgZone} from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
-import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
-import {NavController, Platform} from '@ionic/angular';
+import { ScreenOrientation } from '@ionic-native/screen-orientation/ngx';
+import { NavController, Platform } from '@ionic/angular';
 
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
-import {mapStackTrace} from 'sourcemapped-stacktrace';
-import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
+import { mapStackTrace } from 'sourcemapped-stacktrace';
+import { faWifi, faLink, faUnlink } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({
     providedIn: 'root'
 })
 export class GlobalDataService {
+
+    schema = 'http://';
+    ip = 'localhost/sincronizzatore';
+    dir = '';
+
+    apiurl =  this.dir + '/api/';
+    baseurl: string = this.schema + this.ip + this.apiurl;
 
     utente_test = false;
 
@@ -80,11 +87,11 @@ export class GlobalDataService {
                         if (reason) { console.log(reason + ' (' + trace + ')'); }
                         if (msg) { console.dir(msg); }
                     }, {
-                        filter: function (line) {
-                            // process only sources containing typescript sources
-                            // return /(\.ts)/.test(line);
-                        }
-                    });
+                            filter: function (line) {
+                                // process only sources containing typescript sources
+                                // return /(\.ts)/.test(line);
+                            }
+                        });
                 } else {
                     if (reason) { console.log(reason); }
                     if (msg) { console.dir(msg); }
@@ -98,7 +105,7 @@ export class GlobalDataService {
     }
 
     static toTitleCase(str) {
-        return str.replace(/\w\S*/g, function(txt) {
+        return str.replace(/\w\S*/g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
     }
@@ -123,7 +130,7 @@ export class GlobalDataService {
         const hour = stringDate.slice(11, 19);
         const dayParts = day.split('-');
         const hourParts = hour.split(':');
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
@@ -151,7 +158,7 @@ export class GlobalDataService {
 
         if (dataFormattata) {
             return dataFormattata;
-        } else  {
+        } else {
             return '';
         }
     }
@@ -161,7 +168,7 @@ export class GlobalDataService {
         const hour = stringDate.slice(11, 19);
         const dayParts = day.split(daySeparator);
         const hourParts = hour.split(hourSeparator);
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
@@ -223,7 +230,7 @@ export class GlobalDataService {
                             }));
                         break;
                     }
-                    default : {
+                    default: {
                         this.srcPage = toPage; // Navigate Root
                         this.navCtrl.navigateRoot(toPage).then(
                             () => {
@@ -265,7 +272,7 @@ export class GlobalDataService {
                         }));
                     break;
                 }
-                default : {
+                default: {
                     this.srcPage = toPage; // Navigate Root
                     this.navCtrl.navigateRoot(toPage).then(
                         () => {

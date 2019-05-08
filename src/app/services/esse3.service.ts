@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import {GlobalDataService} from './global-data.service';
-import {SyncService} from './sync.service';
-import {Storage} from '@ionic/storage';
-import {HttpService} from './http.service';
+import { GlobalDataService } from './global-data.service';
+import { SyncService } from './sync.service';
+import { Storage } from '@ionic/storage';
+import { HttpService } from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class Esse3Service {
 
-    baseurl = this.sync.baseurl;
+    baseurl = this.globalData.baseurl;
     urlPrenotaAppello: string = this.baseurl + 'prenotaAppello.php';
     urlCancellaPrenotazione: string = this.baseurl + 'cancellaPrenotazione.php';
     urlSession: string = this.baseurl + 'getSession.php';
@@ -19,7 +19,7 @@ export class Esse3Service {
         public storage: Storage,
         public services: HttpService,
         public sync: SyncService,
-
+        public globalData: GlobalDataService
     ) { }
 
     getUrlPrenotaAppello() {
@@ -37,28 +37,28 @@ export class Esse3Service {
     // Sembra non essere mai usata!
     getSid(): Promise<string> {
         return new Promise(resolve => {
-                this.storage.get('token').then(
-                    (token) => {
-                        let body;
-                        const url = this.getUrlSession();
-                        body = {
-                            token: token,
-                        };
-                        this.services.getJSON(url, body).then(
-                            (json) => {
-                                const sid = json['sid'];
-                                resolve(sid);
-                            },
-                            (err) => {
-                                // TO BE CHECKED!
-                                GlobalDataService.log(2, url, err);
-                            });
-                    }, (err) => {
-                        // Dovremmo fare redirect a /login
-                        GlobalDataService.log(2, 'Token non presente', err);
-                    }
-                );
-            }
+            this.storage.get('token').then(
+                (token) => {
+                    let body;
+                    const url = this.getUrlSession();
+                    body = {
+                        token: token,
+                    };
+                    this.services.getJSON(url, body).then(
+                        (json) => {
+                            const sid = json['sid'];
+                            resolve(sid);
+                        },
+                        (err) => {
+                            // TO BE CHECKED!
+                            GlobalDataService.log(2, url, err);
+                        });
+                }, (err) => {
+                    // Dovremmo fare redirect a /login
+                    GlobalDataService.log(2, 'Token non presente', err);
+                }
+            );
+        }
         );
     }
 

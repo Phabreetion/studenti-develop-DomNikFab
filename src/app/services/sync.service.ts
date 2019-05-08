@@ -41,28 +41,18 @@ ID SERVIZI
 
 export class SyncService {
 
-     // schema = 'https://';
-     // ip = 'service.unimol.it';
-     // dir = '/studenti';
-
-     schema = 'http://';
-     ip = '192.168.0.5/sync';
-     dir = '';
-
-
-     apiurl =  this.dir + '/api/';
-     baseurl: string = this.schema + this.ip + this.apiurl;
-     urlCheckToken: string = this.baseurl + 'checkToken.php';
-     urlSync: string = this.baseurl + 'sincronizza.php';
-     urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
-     urlAppelliPrenotabili: string = this.baseurl + 'appelliPrenotabili.php';
-     urlPreferenzeNotifiche: string = this.baseurl + 'salvaPreferenzeNotifiche.php';
-     urlAggiornaTokenNotifiche: string = this.baseurl + 'aggiornaTokenNotifiche.php';
-     urlAggiornaDeviceInfo: string = this.baseurl + 'aggiornaDeviceInfo.php';
-     urlControllaMessaggi: string = this.baseurl + 'controllaMessaggi.php';
-     urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
-     urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
-     urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
+    
+     urlCheckToken: string = this.globalData.baseurl + 'checkToken.php';
+     urlSync: string = this.globalData.baseurl + 'sincronizza.php';
+     urlConfermaRegistra: string = this.globalData.baseurl + 'confermaRegistrazione.php';
+     urlAppelliPrenotabili: string = this.globalData.baseurl + 'appelliPrenotabili.php';
+     urlPreferenzeNotifiche: string = this.globalData.baseurl + 'salvaPreferenzeNotifiche.php';
+     urlAggiornaTokenNotifiche: string = this.globalData.baseurl + 'aggiornaTokenNotifiche.php';
+     urlAggiornaDeviceInfo: string = this.globalData.baseurl + 'aggiornaDeviceInfo.php';
+     urlControllaMessaggi: string = this.globalData.baseurl + 'controllaMessaggi.php';
+     urlReimpostaMessaggi: string = this.globalData.baseurl + 'reimpostaMessaggi.php';
+     urlUltimaVersione: string = this.globalData.baseurl + 'ultimaVersione.php';
+     urlSottoscrizioneCalendario: string = this.globalData.baseurl + 'sottoscrizioneCalendario.php';
 
     private user = 'username';
     private mat_id = 'matid';
@@ -70,6 +60,7 @@ export class SyncService {
     private uuid = 'virtual';
     private token = 'token';
     private tokenNotifiche = 'tokenNotifiche';
+    private params: string[];
 
 
     loading = [];
@@ -193,7 +184,7 @@ export class SyncService {
         }
 
         for (const i of this.elencoServizi) {
-            this.getJson(i, true).then(
+            this.getJson(i, null,true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
@@ -204,7 +195,8 @@ export class SyncService {
     }
 
 
-    getJson(id: number, sync: boolean) {
+    getJson(id: number, params: string[] ,sync: boolean) {
+        this.params=params;
 
         return new Promise((resolve, reject) => {
             this.storage.get(id.toString()).then(
@@ -258,8 +250,11 @@ export class SyncService {
                             const body = {
                                 token: this.token,
                                 uuid: this.uuid,
-                                id_servizio: id
+                                id_servizio: id,
+                                parametri: this.params
                             };
+
+                            console.log(body);
 
 
                             this.services.getJSON(url, body).then(
@@ -318,21 +313,7 @@ export class SyncService {
                                                             }
                                                         );
 
-                                                        // // Aggiorniamo la validità del token
-                                                        // this.http.post(url, bodyCheckToken, {})
-                                                        //     .then(response => {
-                                                        //             GlobalDataService.log(0, url, response);
-                                                        //             this.getJsonLista(id).then(
-                                                        //                 (res) => {
-                                                        //                     GlobalDataService.log(0, 'getJsonLista', res);
-                                                        //                 }, (err) => {
-                                                        //                     GlobalDataService.log(2, 'getJsonLista reject', err);
-                                                        //                 }
-                                                        //             );
-                                                        //         },
-                                                        //         (err) => {
-                                                        //             GlobalDataService.log(2, url, err);
-                                                        //         });
+                        
                                                     });
                                                 }, (err) => {
                                                     GlobalDataService.log(2, 'Credenziali non accessibili', err);
@@ -354,90 +335,7 @@ export class SyncService {
                                 }
                             ).catch(() => { this.loading[id] = false; });
 
-                            //
-                            // this.http.post(url, body, {})
-                            //     .then(response => {
-                            //         GlobalDataService.log(0, url, response);
-                            //
-                            //         const dati = JSON.parse(response.data);
-                            //
-                            //         // Salvo i json nello storage
-                            //         if (dati) {
-                            //             this.storage.set(id.toString(), dati).then(
-                            //                 () => {
-                            //                 }, (storageErr) => {
-                            //                     GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                            //                 }
-                            //             );
-                            //             // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
-                            //         }
-                            //
-                            //         this.loading[id] = false;
-                            //         resolve(dati);
-                            //     }, (rej) => {
-                            //         GlobalDataService.log(2, 'Rejected', rej);
-                            //
-                            //         this.loading[id] = false;
-                            //         if (rej.error) {
-                            //             const errore = JSON.parse(rej.error);
-                            //             const stato = rej.status;
-                            //             const codice = errore.codice;
-                            //
-                            //             if (stato === 401 && codice === -2) {
-                            //                 GlobalDataService.log(1, 'Token scaduto', null);
-                            //
-                            //                 let storedUsername = this.storage.get('username');
-                            //                 let storedPassword = this.storage.get('password');
-                            //
-                            //                 Promise.all([storedUsername, storedPassword]).then(
-                            //                     data => {
-                            //                         storedUsername = data[0];
-                            //                         storedPassword = data[1];
-                            //
-                            //                         url = this.urlCheckToken;
-                            //                         const bodyCheckToken = {
-                            //                             token: this.token,
-                            //                             username: storedUsername,
-                            //                             password: storedPassword
-                            //                         };
-                            //
-                            //                         // TODO: Gestire cambio password da ESSE3
-                            //                         this.ngZone.run(() => {
-                            //                             // Aggiorniamo la validità del token
-                            //                             this.http.post(url, bodyCheckToken, {})
-                            //                                 .then(response => {
-                            //                                         GlobalDataService.log(0, url, response);
-                            //                                         this.getJsonLista(id).then(
-                            //                                             (res) => {
-                            //                                                 GlobalDataService.log(0, 'getJsonLista', res);
-                            //                                             }, (err) => {
-                            //                                                 GlobalDataService.log(2, 'getJsonLista reject', err);
-                            //                                             }
-                            //                                         );
-                            //                                     },
-                            //                                     (err) => {
-                            //                                         GlobalDataService.log(2, url, err);
-                            //                                     });
-                            //                         });
-                            //                     }, (err) => {
-                            //                         GlobalDataService.log(2, 'Credenziali non accessibili', err);
-                            //                     });
-                            //
-                            //             } else {
-                            //                 this.toastCtrl.create({
-                            //                     message: errore.msg,
-                            //                     duration: 3000
-                            //                 }).then(
-                            //                     (toast) => { toast.present(); },
-                            //                     (err) => { GlobalDataService.log(2, 'Toast fallito', err); });
-                            //             }
-                            //         }
-                            //
-                            //     })
-                            //     .catch(exception => {
-                            //         this.loading[id] = false;
-                            //         GlobalDataService.log(2, 'Catch', exception);
-                            //     });
+                     
                         }, (err) => {
                             // Nessun uuid - probabile versione web
                             this.storage.set('uuid', 'uuid').then(
@@ -501,16 +399,7 @@ export class SyncService {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
                 }
             );
-            //
-            // this.http.post(url, body, {}).then(
-            //     (response) => {
-            //         // SALVA LE PREFERENZE IN LOCALE
-            //         GlobalDataService.log(0, url, response);
-            //         this.notificheService.aggiornaSottoscrizioni();
-            //     },
-            //     (err) => {
-            //         GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
-            //     });
+   
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
@@ -707,13 +596,6 @@ export class SyncService {
                                     const body = {
                                         platform: this.device.platform
                                     };
-
-                                    // const header = {
-                                    //     headers: { 'Content-Type': 'application/json' }
-                                    // };
-
-                                    // this.http.setHeader('*', 'Content-Type', 'application/json');
-                                    // this.http.setDataSerializer('json');
 
                                     this.services.post(urlUltimaVersione, body)
                                         .then(

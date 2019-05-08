@@ -167,7 +167,7 @@ export class PianoDiStudiPage implements OnInit {
         }
         this.rinvioAggiornamento = false;
 
-        this.sync.getJson(this.idServizio, true).then(
+        this.sync.getJson(this.idServizio,null, true).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.libretto, data[0]) ) {
                     this.libretto = data[0];

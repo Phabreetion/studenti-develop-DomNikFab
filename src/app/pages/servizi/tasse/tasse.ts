@@ -78,7 +78,7 @@ export class TassePage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, true).then(
+        this.sync.getJson(this.idServizio,null, true).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.tasse, data[0]) ) {
                     this.tasse = data[0];

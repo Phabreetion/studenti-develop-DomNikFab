@@ -16,7 +16,7 @@ import {ToastController} from '@ionic/angular';
 export class CryptoService {
 
     passphrase_private_key: string = 'faustofasano2019_appunimol';
-    urlScambioChiavi: string = 'http://127.0.0.1/sync/api/scambioChiavi.php';
+    urlScambioChiavi: string = this.globalData.baseurl +'scambioChiavi.php';
     private_key: string;
     public_key: string;
     passphrase_key: string;
@@ -24,7 +24,8 @@ export class CryptoService {
     constructor(
         public storage: Storage,
         public services: HttpService,
-        public toastCtrl: ToastController)
+        public toastCtrl: ToastController,
+        public globalData: GlobalDataService)
     { }
 
         getChiavi() {

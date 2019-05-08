@@ -90,7 +90,7 @@ export class MediePage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, true).then(
+        this.sync.getJson(this.idServizio,null, true).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.items, data[0]) ) {
                     this.items = data[0];

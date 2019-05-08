@@ -218,7 +218,7 @@ export class NotifichePage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, sync).then(
+        this.sync.getJson(this.idServizio,null, sync).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.notifiche, data['notifiche']) ) {
                     this.notifiche = data['notifiche'];
