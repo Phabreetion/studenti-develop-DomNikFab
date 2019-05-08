@@ -6,24 +6,16 @@ import {Storage} from '@ionic/storage';
 import {NotificheService} from './notifiche.service';
 import {SyncService} from './sync.service';
 import {HttpService} from './http.service';
-import {CryptoService} from './crypto.service';
 
-
-
-
-// @ts-ignore
 @Injectable({
     providedIn: 'root'
 })
 export class AccountService {
 
     logged: boolean;
-    urlRegistra: string = this.globalData.baseurl + 'registra.php';
-    urlDisconnetti: string = this.globalData.baseurl + 'disconnetti.php';
-
-    public_key : string;
-    private_key: string;
-    passphrase: string;
+    baseurl = this.sync.baseurl;
+    urlRegistra: string = this.baseurl + 'registra.php';
+    urlDisconnetti: string = this.baseurl + 'disconnetti.php';
 
     constructor(
         public storage: Storage,
@@ -33,7 +25,6 @@ export class AccountService {
         public sync: SyncService,
         public globalData: GlobalDataService,
         public notificheService: NotificheService,
-        public crypto: CryptoService
     ) { }
 
     getUrlDisconnetti() {
@@ -50,16 +41,6 @@ export class AccountService {
                 (logged) => {
                     GlobalDataService.log(0, 'Logged', logged);
                     this.logged = logged;
-                    this.storage.get('passphrase_key').then(
-                        (value) => {
-                            if (value == null) {
-                                this.crypto.getChiavi();
-                            }
-                            else{
-                                //this.crypto.checkChiavi();
-                                console.log(value);
-                            }
-                        });
                     if (logged) {
                         resolve(this.logged);
                     } else {
@@ -107,16 +88,11 @@ export class AccountService {
                     promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged]).then(
                     (datiStorage) => {
                         GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
-                        // console.log(this.storage.get('chiave_pubblica'));
                         this.notificheService.aggiornaSottoscrizioni();
                     }, (storageErr) => {
                         GlobalDataService.log(2, 'Errore in local storage', storageErr);
                     });
-
-
                 break;
-
-
             }
             case 'teacher': {
 
@@ -141,6 +117,7 @@ export class AccountService {
 
 
 
+
     }
 
     /**
@@ -150,27 +127,11 @@ export class AccountService {
      * @return Array<Carriera> se sono presenti più carriere attive assicare all'utente e non è stat indicata una matricola
      */
     login(username, password, matricola, cds_id, dip_id) {
-
-
-            this.storage.get('public_key').then((data) => {
-                this.public_key = data;
-            });
-
-            this.storage.get('private_key').then((private_key) => {
-                this.private_key=private_key;
-             });
-
-            this.storage.get('passphrase_key').then((pass) => {
-                this.passphrase=pass;
-            });
-
-
-
-            GlobalDataService.log(0, 'Login ' + username + ' ' + matricola + ' ' + cds_id + ' ' + dip_id, null);
-
+        GlobalDataService.log(0, 'Login ' + username + ' ' + matricola + ' ' + cds_id + ' ' + dip_id, null);
 
         return new Promise((resolve, reject) => {
             const url = this.urlRegistra;
+
             const storedUsernamePromise = this.storage.get('username');
             const storedPasswordPromise = this.storage.get('password');
             const storedMatricolaPromise = this.storage.get('matricola');
@@ -267,43 +228,37 @@ export class AccountService {
                             });
                     }
                 } else {
-
                     // Nessun utente connesso. Effettuiamo la registazione
                     this.storage.get('tokenNotifiche').then(
                         (tokenNotifiche) => {
 
-                            const encoded_user=this.crypto.CryptoJSAesEncrypt(this.passphrase,username);
-                            const encoded_password=this.crypto.CryptoJSAesEncrypt(this.passphrase,password);
-
-                            console.log(encoded_password);
-
+                            // const body = JSON.stringify({
                             const body = {
-                                username: encoded_user, // da cifrare con la public_key del server
-                                password: encoded_password, // da cifrare con la public_key del server
+                                username: username,
+                                password: password,
                                 matricola: matricola,
                                 cds_id: cds_id,
                                 dip_id: dip_id,
-                                tokenNotifiche: tokenNotifiche,
-                                publicKey: this.public_key
+                                tokenNotifiche: tokenNotifiche
                             };
 
                             GlobalDataService.log(0, 'Chiamo ' + url, body);
 
-
+                            // this.http.post(url, body)
+                            //     .pipe(timeout(this.getTimeout()))
+                            //     .subscribe(
                             this.services.getJSON(url, body).then(
                                 (esitoRegistrazione) => {
                                     GlobalDataService.log(0, 'Esito Registrazione', esitoRegistrazione);
-                                    const codice = esitoRegistrazione['codice'];
 
+                                    // const cod = esitoRegistrazione.json();
+                                    const codice = esitoRegistrazione['codice'];
+                                    const carriera = esitoRegistrazione;
+                                    const carriere = esitoRegistrazione['carriere'];
 
 
 
                                     if (codice === 0) {
-
-                                        //console.log(esitoRegistrazione['cifrato']);
-                                        const dec=this.crypto.CryptoJSAesDecrypt(this.passphrase,esitoRegistrazione['cifrato']);
-                                        const carriera = JSON.parse(dec);
-
                                         // Se l'utente è valido ma è diverso dall'utente connesso
                                         // cancelliamo i dati precedentemente memorizzati
                                         if ((username !== storedUsername)) {
@@ -312,15 +267,9 @@ export class AccountService {
                                                     this.notificheService.rimuoviSottoscrizioni().then(
                                                         () => {
                                                             this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
-<<<<<<< Updated upstream
                                                             // console.log('[+] account.service.ts -> getJson -> codice = 0 -> salvaDatiLogin');
                                                             resolve ('logged');
                                                             this.sync.aggiornaDeviceInfo(tokenNotifiche);
-=======
-                                                            this.sync.aggiornaDeviceInfo();
-                                                            resolve ('logged');
-
->>>>>>> Stashed changes
                                                         }, (err => {
                                                             GlobalDataService.log(2, 'Errore rimozione sottoscrizioni', err);
                                                             reject(err);
@@ -332,24 +281,15 @@ export class AccountService {
                                                 }
                                             );
                                         } else {
-<<<<<<< Updated upstream
                                             console.log('[+] account.service.ts -> getJson -> codice != 0 -> salvaDatiLogin');
                                             this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
                                             resolve ('logged');
                                             this.sync.aggiornaDeviceInfo(tokenNotifiche);
-=======
-                                            this.sync.aggiornaDeviceInfo();
-                                            this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
-                                            resolve ('logged');
-
->>>>>>> Stashed changes
                                         }
 
 
                                     } else {
                                         if (codice === 2) {
-                                            const dec_carriere=this.crypto.CryptoJSAesDecrypt(this.passphrase,esitoRegistrazione['carriere']);
-                                            const carriere = JSON.parse(dec_carriere);
                                             GlobalDataService.log(1, 'Carriere multiple', carriere);
                                             resolve ( carriere );
                                         } else {
@@ -416,7 +356,6 @@ export class AccountService {
                             GlobalDataService.log(2, 'Nessun Token Notifiche' + url, rej);
                             reject(rej);
                         }).catch((ex) => {
-                            console.log('ecc');
                         GlobalDataService.log(2, 'Eccezione in ' + url, ex);
                         reject(ex);
                     });
