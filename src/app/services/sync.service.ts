@@ -12,9 +12,6 @@ import {NotificheService} from './notifiche.service';
 import {HttpService} from './http.service';
 // import {timeout} from 'rxjs/operators';
 
-
-
-
 /*
 ID SERVIZI
 "APPELLI', 1
@@ -44,7 +41,6 @@ ID SERVIZI
 
 export class SyncService {
 
-<<<<<<< Updated upstream
      // schema = 'https://';
      // ip = 'service.unimol.it';
      // dir = '/studenti';
@@ -56,10 +52,6 @@ export class SyncService {
 
      apiurl =  this.dir + '/api/';
      baseurl: string = this.schema + this.ip + this.apiurl;
-=======
-    baseurl = this.globalData.baseurl;
-
->>>>>>> Stashed changes
      urlCheckToken: string = this.baseurl + 'checkToken.php';
      urlSync: string = this.baseurl + 'sincronizza.php';
      urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
@@ -71,10 +63,6 @@ export class SyncService {
      urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
      urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
      urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
-<<<<<<< Updated upstream
-=======
-     urlDettaglioAppello: string = this.baseurl + 'dettaglioAppello.php';
->>>>>>> Stashed changes
 
     private user = 'username';
     private mat_id = 'matid';
@@ -90,8 +78,6 @@ export class SyncService {
     // private elencoServizi = [1,2];
 
     private timeout = 30000;
-
-
 
 
     static dataAggiornamento(json): string {
@@ -275,20 +261,12 @@ export class SyncService {
                                 id_servizio: id
                             };
 
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
                             this.services.getJSON(url, body).then(
                                 (dati) => {
 
                                     // Salvo i json nello storage
                                     if (dati) {
-<<<<<<< Updated upstream
-=======
-                                        console.log("[+]dati-->");
-
->>>>>>> Stashed changes
                                         this.storage.set(id.toString(), dati).then(
                                             () => {
                                             }, (storageErr) => {
@@ -302,10 +280,6 @@ export class SyncService {
                                     resolve(dati);
                                 },
                                 (rej) => {
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
                                     this.loading[id] = false;
                                     if (rej.error) {
                                         const errore = JSON.parse(rej.error);
@@ -527,7 +501,16 @@ export class SyncService {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
                 }
             );
-
+            //
+            // this.http.post(url, body, {}).then(
+            //     (response) => {
+            //         // SALVA LE PREFERENZE IN LOCALE
+            //         GlobalDataService.log(0, url, response);
+            //         this.notificheService.aggiornaSottoscrizioni();
+            //     },
+            //     (err) => {
+            //         GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
+            //     });
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
@@ -536,7 +519,6 @@ export class SyncService {
 
     aggiornaDeviceInfo(tokenNotifichePar: string) {
 
-     
         return new Promise((resolve, reject) => {
             if (this.platform.is('ios') || (this.platform.is('android'))) {
                 const url = this.getUrlAggiornaDeviceInfo();
@@ -584,11 +566,7 @@ export class SyncService {
                                         manufacturer: this.device.manufacturer,
                                         isVirtual: this.device.isVirtual,
                                         uuid: this.device.uuid,
-<<<<<<< Updated upstream
                                         tokenNotifiche: tokenNotifichePar
-=======
-                                        tokenNotifiche: this.tokenNotifiche
->>>>>>> Stashed changes
                                     };
 
 
@@ -730,7 +708,12 @@ export class SyncService {
                                         platform: this.device.platform
                                     };
 
+                                    // const header = {
+                                    //     headers: { 'Content-Type': 'application/json' }
+                                    // };
 
+                                    // this.http.setHeader('*', 'Content-Type', 'application/json');
+                                    // this.http.setDataSerializer('json');
 
                                     this.services.post(urlUltimaVersione, body)
                                         .then(
@@ -990,5 +973,4 @@ export class SyncService {
 
         return false;
     }
-
 }
