@@ -55,6 +55,14 @@
             <br>{{corso.CFU}}
           </ion-col>
         </ion-row>
+
+        <ion-row *ngIf="corso.VOTO">
+          <ion-col>
+            <b><I>Voto</I></b>
+            <br>{{corso.VOTO}} <span *ngIf="corso.LODE == 1">e lode</span>
+          </ion-col>
+
+        </ion-row>
         <ion-row *ngIf="corso.DATA_ESAME">
           <ion-col>
             <b><I>Data esame:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{corso.DATA_ESAME}}
@@ -65,13 +73,7 @@
             <b><I>Data verbale:</I></b>&nbsp;&nbsp;&nbsp;&nbsp;{{corso.DATA_VERBALE}}
           </ion-col>
         </ion-row>
-        <ion-row *ngIf="corso.VOTO">
-          <ion-col>
-            <b><I>Voto</I></b>
-            <br>{{corso.VOTO}} <span *ngIf="corso.LODE == 1">e lode</span>
-          </ion-col>
 
-        </ion-row>
         <ion-row *ngIf="corso.GIUDIZIO">
           <ion-col>
             <b><I>Esito</I></b>
@@ -137,6 +139,10 @@
 
 </ion-content>
 
+<app-footer></app-footer>
+
+<!--
+<ion-component>
 <ion-footer  no-padding>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -150,3 +156,5 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+</ion-component>
+-->

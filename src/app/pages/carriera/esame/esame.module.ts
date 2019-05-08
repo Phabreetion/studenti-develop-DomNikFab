@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { EsamePage } from './esame.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {AppModule} from '../../../app.module';
+import {FooterComponent} from '../../footer/footer.component';
 
 const routes: Routes = [
   {
@@ -16,13 +18,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    FontAwesomeModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [EsamePage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        FontAwesomeModule,
+        RouterModule.forChild(routes)
+    ],
+  declarations: [EsamePage, FooterComponent]
 })
 export class EsamePageModule {}

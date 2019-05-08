@@ -43,6 +43,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FiltroPageModule} from './pages/docente/appelli/filtro/filtro.module';
 import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
 import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {FooterComponent} from './pages/footer/footer.component';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
@@ -91,7 +92,9 @@ import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gesto
         SyncService,
         Toast,
         // Transfer,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
+    exports: [
     ],
     bootstrap: [AppComponent]
 })

@@ -8,6 +8,8 @@ import { AppelliPage } from './appelli';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {EsamePage} from '../esame/esame.page';
+import {FooterComponent} from '../../footer/footer.component';
 
 @NgModule({
     entryComponents: [GestoreListaAppelliDisponbiliComponent],
