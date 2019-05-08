@@ -52,7 +52,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     async ngOnInit() {
-        this.corsi = await this.pianoDiStudioService.getLibretto();
+        this.corsi = await this.pianoDiStudioService.getCorsi();
 
         this.corsiFiltrati = this.corsi;
         this.filtra(false, false);
