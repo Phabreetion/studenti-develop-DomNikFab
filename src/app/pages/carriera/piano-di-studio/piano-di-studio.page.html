@@ -51,13 +51,21 @@
       <ion-item-sliding *ngFor="let corso of corsiFiltrati">
         <ion-item (click)="presentActionSheet()">
           <ion-grid>
-            <ion-row><b>Corso</b>:{{corso.DESCRIZIONE}}</ion-row>
+            <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
             <ion-row>
-              <ion-col *ngIf="corso.GIUDIZIO"><strong>Esito</strong>:{{corso.GIUDIZIO}}</ion-col>
-              <ion-col *ngIf="corso.VOTO"><strong>Voto</strong>: {{corso.VOTO}}</ion-col>
-              <ion-col><strong>CFU</strong>:{{corso.CFU}}</ion-col>
+              <ion-col align-self-start><strong>CFU</strong>: {{corso.CFU}}</ion-col>
+              <ion-col *ngIf="corso.STATO === 'S'">
+                <ion-icon name="calendar"></ion-icon>{{corso.DATA_ESAME}}
+              </ion-col>
+              <ion-col *ngIf="corso.STATO !== 'S'">
+                <!-- <ion-icon name="information-circle"></ion-icon>{{corso.CODICE}} -->
+              </ion-col>
+
             </ion-row>
           </ion-grid>
+          <ion-note *ngIf="corso.VOTO && corso.LODE==0" slot="end" color="success">{{corso.VOTO | slice:0:3}}</ion-note>
+          <ion-note *ngIf="corso.VOTO && corso.LODE==1" slot="end" color="success">30L</ion-note>
+          <ion-note *ngIf="!corso.VOTO" slot="end" color="success">{{corso.GIUDIZIO | slice:0:3}}</ion-note>
         </ion-item>
 <!--only for push, remove -->
         <ion-item-options>

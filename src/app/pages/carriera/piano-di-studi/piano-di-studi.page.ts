@@ -85,6 +85,7 @@ export class PianoDiStudiPage implements OnInit {
         this.account.controllaAccount().then(
             (ok) => {
                 this.srcPage = this.globalData.srcPage;
+
                 this.globalData.srcPage = this.currentPage;
                 if (this.srcPage === this.globalData.srcPage) {
                     this.srcPage = null;
