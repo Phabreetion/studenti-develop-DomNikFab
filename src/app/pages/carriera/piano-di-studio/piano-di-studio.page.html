@@ -68,9 +68,10 @@
           <ion-text *ngIf="corso.VOTO && corso.LODE==1" slot="end"><strong>30L</strong></ion-text>
           <ion-text *ngIf="!corso.VOTO" slot="end" ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
         </ion-item>
+
         <ion-item-options>
-          <ion-item-option [routerLink]="'/esame/' + corso.CODICE">Dettagli corso</ion-item-option>
-          <ion-item-option color="danger" [routerLink]="'/materiale-didattico/' + corso.AD_ID">Materiale didattico</ion-item-option>
+          <ion-item-option [routerLink]="['/esame/' , corso.CODICE]" routerDirection="forward">Dettagli corso</ion-item-option>
+          <ion-item-option color="danger" [routerLink]="['/materiale-didattico/' , corso.AD_ID]" routerDirection="forward">Materiale didattico</ion-item-option>
         </ion-item-options>
       </ion-item-sliding>
   </ion-list>
