@@ -8,6 +8,8 @@ import {Esse3Service} from '../../../services/esse3.service';
 import {HttpService} from '../../../services/http.service';
 import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
 import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {Corso} from '../../../models/Corso';
 // import {cursorTo} from "readline";
 
 @Component({
@@ -38,6 +40,8 @@ export class AppelliPage implements OnChanges, OnInit {
     nrRinvii = 0;
     maxNrRinvii = 5;
 
+    corsi: Corso[];
+
     constructor(
         private route: ActivatedRoute,
         private sync: SyncService,
@@ -48,7 +52,8 @@ export class AppelliPage implements OnChanges, OnInit {
         public globalData: GlobalDataService,
         public account: AccountService,
         public esse3: Esse3Service,
-        private modalController: ModalController) {
+        private modalController: ModalController,
+        private pianoDiStudioService: PianoDiStudioService) {
 
         if (this.sezioni == null) {
             this.sezioni = 'disponibili';
@@ -63,9 +68,10 @@ export class AppelliPage implements OnChanges, OnInit {
         this.ngOnInit();
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.globalData.srcPage = this.currentPage;
-
+        console.log(this.appelli);
+        this.corsi = await this.pianoDiStudioService.getCorsi();
         this.account.controllaAccount().then(
             (ok) => {
                 this.http.getConnected();
@@ -169,7 +175,8 @@ export class AppelliPage implements OnChanges, OnInit {
                 // console.dir(newData);
                 if (JSON.stringify(this.prenotazioni) !== JSON.stringify(newData)) {
                     this.prenotazioni = data[0];
-                    this.controllaPrenotazioniOutOfTime();
+                    this.controllaPrenotazioni();
+                    //this.controllaPrenotazioniOutOfTime();
                     console.log(this.prenotazioni);
                     // console.dir(this.prenotazioni);
                     this.dataAggiornamentoPrenotati = SyncService.dataAggiornamento(data);
@@ -503,4 +510,23 @@ export class AppelliPage implements OnChanges, OnInit {
 
         return await modal.present();
     }
+
+
+    controllaPrenotazioni(){
+        this.prenotazioni = this.prenotazioni.filter( (appello) => {
+            return this.isSuperato(appello)
+        });
+    }
+
+
+    isSuperato(prenotazione): boolean {
+        console.log(prenotazione.ad_id);
+        let i = 0;
+        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].STATO == 'S')){
+            i++;
+        }
+        return i < this.corsi.length;
+    }
+
+
 }
