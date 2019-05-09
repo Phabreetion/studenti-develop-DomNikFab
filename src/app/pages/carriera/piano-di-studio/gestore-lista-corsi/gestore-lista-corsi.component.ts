@@ -10,34 +10,65 @@ import {PianoDiStudioPage} from '../piano-di-studio.page';
 export class GestoreListaCorsiComponent implements OnInit {
   private sourcePage: PianoDiStudioPage;
 
-  private ordinamento: number;
+
+  //filtri
   private filtroSupertati: boolean;
   private filtroNonSupertati: boolean;
+  private filtroPerAnno: number;
+
+  //ordinamento
+  private ordinamentoOffset: number;
+  private ordinamentoSelected: number;
+
+  private idOrdinamento: number; // ordinamentoSelected + ordinamentoOffset
 
   constructor(
       private modalController: ModalController,
       private navParam: NavParams) {
-    this.filtroSupertati = false;
-    this.filtroNonSupertati = false;
+    this.resetFiltri();
   }
 
   ngOnInit() {
     this.sourcePage = this.navParam.get('page');
+    this.filtroSupertati = this.sourcePage.filtroSuperatiAttivo;
+    this.filtroNonSupertati = this.sourcePage.filtroNonSuperatiAttivo;
+    this.filtroPerAnno = this.sourcePage.filtroPerAnno;
+
+    this.ordinamentoSelected = this.sourcePage.idOrdinamento/2;
+    this.ordinamentoOffset = this.sourcePage.idOrdinamento%2;
+    this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
   }
 
   private updateSourcePage() {
-    this.sourcePage.filtra(this.filtroSupertati, this.filtroNonSupertati);
+    console.log(this.filtroSupertati);
+    console.log(this.filtroNonSupertati);
+    console.log(this.ordinamentoSelected);
+    console.log(this.ordinamentoOffset);
+
+    this.sourcePage.filtroSuperatiAttivo = this.filtroSupertati;
+    this.sourcePage.filtroNonSuperatiAttivo = this.filtroNonSupertati;
+    this.sourcePage.filtroPerAnno = this.filtroPerAnno;
+    this.sourcePage.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
+
+    console.log(this.sourcePage.idOrdinamento);
+
+    this.sourcePage.updateFiltri();
   }
 
-  // non restituisce nessun valore.. da implementare
+  //
   closeFiltri() {
-    this.modalController.dismiss(
-        {result : null }
-    );
+    this.modalController.dismiss();
   }
 
-  private reset() {
-    this.ordinamento = 0;
+  private resetFiltri() {
+    this.filtroNonSupertati = false;
+    this.filtroSupertati = false;
+    this.filtroPerAnno = -1;
+
+
+    this.ordinamentoSelected = 0;
+    this.ordinamentoOffset = 0;
+    this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
   }
 
 

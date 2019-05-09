@@ -1,34 +1,33 @@
 <ion-content>
     <ion-list>
-        <ion-radio-group [(ngModel)]="ordinamento">
-            <ion-title text-center>
+        <ion-radio-group [(ngModel)]="ordinamentoSelected" (ngModelChange)="updateSourcePage()">
+            <ion-list-header text-center>
                 Ordina per:
-            </ion-title>
-            <ion-col>
-                <ion-select cancelText="Annulla" value="0">
-                    <ion-select-option value="0">Crescente</ion-select-option>
-                    <ion-select-option value="1">Decrescente</ion-select-option>
-                </ion-select>
-            </ion-col>
+            </ion-list-header>
             <ion-item>
                 <ion-label>Alfabetico</ion-label>
-                <ion-radio value="2"></ion-radio>
+                <ion-radio value="0"></ion-radio>
             </ion-item>
             <ion-item>
                 <ion-label>Anno</ion-label>
-                <ion-radio value="4"></ion-radio>
+                <ion-radio value="2"></ion-radio>
             </ion-item>
 
             <ion-item><ion-label>Voto</ion-label>
-                <ion-radio value="6"></ion-radio>
+                <ion-radio value="4"></ion-radio>
             </ion-item>
 
             <ion-item>
                 <ion-label>CFU</ion-label>
-                <ion-radio value="8"></ion-radio>
+                <ion-radio value="6"></ion-radio>
             </ion-item>
         </ion-radio-group>
     </ion-list>
+
+    <ion-select [(ngModel)]="ordinamentoOffset" (ngModelChange)="updateSourcePage()" cancelText="Annulla">
+        <ion-select-option value="0">Crescente</ion-select-option>
+        <ion-select-option value="1">Decrescente</ion-select-option>
+    </ion-select>
 
     <ion-grid>
         <ion-row>
@@ -46,7 +45,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="filtroSupertati" (click)="updateSourcePage()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="filtroSupertati" (ngModelChange)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -58,7 +57,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="filtroNonSupertati" (click)="updateSourcePage()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="filtroNonSupertati" (ngModelChange)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -70,8 +69,8 @@
                 </ion-item>
             </ion-col>
             <ion-col>
-                <ion-select cancelText="Annulla" value="0">
-                    <ion-select-option value="0">Nessuno</ion-select-option>
+                <ion-select [(ngModel)]="filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
+                    <ion-select-option value="-1">Nessuno</ion-select-option>
                     <ion-select-option value="1">1° Anno</ion-select-option>
                     <ion-select-option value="2">2° Anno</ion-select-option>
                     <ion-select-option value="3">3° Anno</ion-select-option>
@@ -86,7 +85,7 @@
         <ion-row>
 
             <ion-col>
-                <ion-button style="width:100%" (click)="reset()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
+                <ion-button style="width:100%" (click)="resetFiltri()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
             </ion-col>
             <ion-col>
                 <ion-button (click)="closeFiltri()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
