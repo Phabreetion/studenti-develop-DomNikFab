@@ -514,12 +514,12 @@ export class AppelliPage implements OnChanges, OnInit {
 
     controllaPrenotazioni(){
         this.prenotazioni = this.prenotazioni.filter( (appello) => {
-            return this.isSuperato(appello)
+            return this.isPrenotazioneSuperata(appello)
         });
     }
 
 
-    isSuperato(prenotazione): boolean {
+    isPrenotazioneSuperata(prenotazione): boolean {
         console.log(prenotazione.ad_id);
         let i = 0;
         while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].STATO == 'S')){
