@@ -8,13 +8,7 @@ import {PianoDiStudioPage} from '../piano-di-studio.page';
   styleUrls: ['./gestore-lista-corsi.component.scss'],
 })
 export class GestoreListaCorsiComponent implements OnInit {
-  private sourcePage: PianoDiStudioPage;
-
-
-  //filtri
-  private filtroSupertati: boolean;
-  private filtroNonSupertati: boolean;
-  private filtroPerAnno: number;
+  public sourcePage: PianoDiStudioPage;
 
   //ordinamento
   private ordinamentoOffset: number;
@@ -25,32 +19,19 @@ export class GestoreListaCorsiComponent implements OnInit {
   constructor(
       private modalController: ModalController,
       private navParam: NavParams) {
-    this.resetFiltri();
   }
 
   ngOnInit() {
     this.sourcePage = this.navParam.get('page');
-    this.filtroSupertati = this.sourcePage.filtroSuperatiAttivo;
-    this.filtroNonSupertati = this.sourcePage.filtroNonSuperatiAttivo;
-    this.filtroPerAnno = this.sourcePage.filtroPerAnno;
-
-    this.ordinamentoSelected = this.sourcePage.idOrdinamento/2;
-    this.ordinamentoOffset = this.sourcePage.idOrdinamento%2;
-    this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
   }
 
   private updateSourcePage() {
-    console.log(this.filtroSupertati);
-    console.log(this.filtroNonSupertati);
-    console.log(this.ordinamentoSelected);
-    console.log(this.ordinamentoOffset);
-
-    this.sourcePage.filtroSuperatiAttivo = this.filtroSupertati;
-    this.sourcePage.filtroNonSuperatiAttivo = this.filtroNonSupertati;
-    this.sourcePage.filtroPerAnno = this.filtroPerAnno;
-    this.sourcePage.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
-
-    console.log(this.sourcePage.idOrdinamento);
+    console.log(this.sourcePage.filtroSuperatiAttivo);
+    console.log(this.sourcePage.filtroNonSuperatiAttivo);
+    console.log(this.sourcePage.filtroPerAnno);
+    //console.log(this.ordinamentoSelected);
+    //console.log(this.ordinamentoOffset);
+    //console.log(this.sourcePage.idOrdinamento);
 
     this.sourcePage.updateFiltri();
   }
@@ -61,14 +42,14 @@ export class GestoreListaCorsiComponent implements OnInit {
   }
 
   private resetFiltri() {
-    this.filtroNonSupertati = false;
-    this.filtroSupertati = false;
-    this.filtroPerAnno = -1;
+    this.sourcePage.filtroSuperatiAttivo = false;
+    this.sourcePage.filtroNonSuperatiAttivo = false;
+    this.sourcePage.filtroPerAnno = -1;
 
 
-    this.ordinamentoSelected = 0;
-    this.ordinamentoOffset = 0;
-    this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
+    //this.ordinamentoSelected = 0;
+    //this.ordinamentoOffset = 0;
+    //this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
   }
 
 

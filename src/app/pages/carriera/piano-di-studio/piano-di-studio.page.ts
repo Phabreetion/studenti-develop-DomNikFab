@@ -39,7 +39,7 @@ export class PianoDiStudioPage implements OnInit {
     flyInOutState = 'in';
 
 
-    //per filtri
+    //per filtri e ordinamento
     public filtroSuperatiAttivo:boolean;
     public filtroNonSuperatiAttivo: boolean;
     public filtroPerAnno: number; //-1 non attivo -> altrimenti gli altri
