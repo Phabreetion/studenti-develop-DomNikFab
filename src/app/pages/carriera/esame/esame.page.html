@@ -81,7 +81,7 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corsiPropedeutici">
+                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0">
                     <ion-col>
                         <b><I>Propedeuticità</I></b> <br>
                         <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">

@@ -14,8 +14,6 @@ export class GestoreListaCorsiComponent implements OnInit {
   private ordinamentoOffset: number;
   private ordinamentoSelected: number;
 
-  private idOrdinamento: number; // ordinamentoSelected + ordinamentoOffset
-
   constructor(
       private modalController: ModalController,
       private navParam: NavParams) {
@@ -29,9 +27,7 @@ export class GestoreListaCorsiComponent implements OnInit {
     console.log(this.sourcePage.filtroSuperatiAttivo);
     console.log(this.sourcePage.filtroNonSuperatiAttivo);
     console.log(this.sourcePage.filtroPerAnno);
-    //console.log(this.ordinamentoSelected);
-    //console.log(this.ordinamentoOffset);
-    //console.log(this.sourcePage.idOrdinamento);
+    console.log(this.sourcePage.idOrdinamento);
 
     this.sourcePage.updateFiltri();
   }

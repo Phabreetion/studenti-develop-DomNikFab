@@ -6,14 +6,14 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 
-const ALFABETICO_CRESCENTE: number = 1;
-const ALFABETICO_DECRESCENTE: number = 2;
-const VOTO_CRESCENTE: number = 3;
-const VOTO_DECRESCENTE: number = 4;
-const ANNO_CRESCENTE: number = 5;
-const ANNO_DECRESCENTE: number = 6;
-const CFU_CRESCENTE: number = 7;
-const CFU_DECRESCENTE: number = 8;
+const ALFABETICO_CRESCENTE = 1;
+const ALFABETICO_DECRESCENTE = 2;
+const VOTO_CRESCENTE = 3;
+const VOTO_DECRESCENTE = 4;
+const ANNO_CRESCENTE = 5;
+const ANNO_DECRESCENTE = 6;
+const CFU_CRESCENTE = 7;
+const CFU_DECRESCENTE = 8;
 
 @Component({
     selector: 'app-piano-di-studio',
@@ -40,7 +40,7 @@ export class PianoDiStudioPage implements OnInit {
 
 
     //per filtri e ordinamento
-    public filtroSuperatiAttivo:boolean;
+    public filtroSuperatiAttivo: boolean;
     public filtroNonSuperatiAttivo: boolean;
     public filtroPerAnno: number; //-1 non attivo -> altrimenti gli altri
     public idOrdinamento: number;
@@ -55,6 +55,7 @@ export class PianoDiStudioPage implements OnInit {
         this.filtroPerAnno = -1;
         this.filtroSuperatiAttivo = false;
         this.filtroNonSuperatiAttivo = false;
+        this.idOrdinamento = 3;
     }
 
     async ngOnInit() {
@@ -74,11 +75,11 @@ export class PianoDiStudioPage implements OnInit {
     private filtra(): void {
         this.corsiFiltrati = this.corsi;
         if (this.filtroSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO != null);
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO == 'S');
         }
 
         if (this.filtroNonSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.VOTO == null);
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO != 'S');
         }
 
         if (this.filtroPerAnno >= 0) {
@@ -98,35 +99,67 @@ export class PianoDiStudioPage implements OnInit {
     private ordina(): void {
         switch (this.idOrdinamento) {
             case ALFABETICO_CRESCENTE: //alfabetico crescente
-                this.corsi.sort((one, two) => (one.DESCRIZIONE.toString() < two.DESCRIZIONE.toString() ? -1 : 1));
+                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE.toString() < two.DESCRIZIONE.toString() ? -1 : 1));
                 break;
 
             case ALFABETICO_DECRESCENTE: //alfabetico crescente
-                this.corsi.sort((one, two) => (one.DESCRIZIONE.toString() > two.DESCRIZIONE.toString() ? -1 : 1));
-                break;
-
-            case VOTO_CRESCENTE: //voto crescente
-                this.corsi.sort((one, two) => one.VOTO < two.VOTO ? -1 : 1);
-                break;
-
-            case VOTO_DECRESCENTE: //voto decrescente
-                this.corsi.sort((one, two) => one.VOTO > two.VOTO ? -1 : 1);
+                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE.toString() > two.DESCRIZIONE.toString() ? -1 : 1));
                 break;
 
             case ANNO_CRESCENTE: //anno crescente
-                this.corsi.sort((one, two) => one.ANNO < two.ANNO ? -1 : 1);
+                this.corsiFiltrati.sort((one, two) => one.ANNO < two.ANNO ? -1 : 1);
                 break;
 
             case ANNO_DECRESCENTE: //anno decrescente
-                this.corsi.sort((one, two) => one.ANNO > two.ANNO ? -1 : 1);
+                this.corsiFiltrati.sort((one, two) => one.ANNO > two.ANNO ? -1 : 1);
                 break;
 
             case CFU_CRESCENTE: //anno crescente
-                this.corsi.sort((one, two) => one.CFU < two.CFU ? -1 : 1);
+                this.corsiFiltrati.sort((one, two) => one.CFU < two.CFU ? -1 : 1);
                 break;
 
             case CFU_DECRESCENTE: //anno decrescente
-                this.corsi.sort((one, two) => one.CFU > two.CFU ? -1 : 1);
+                this.corsiFiltrati.sort((one, two) => one.CFU > two.CFU ? -1 : 1);
+                break;
+
+            case VOTO_CRESCENTE: //voto crescente
+                this.corsiFiltrati.sort((one, two) => {
+                    if (one.VOTO < two.VOTO) {
+                        return -1;
+                    }
+                    if (one.VOTO > two.VOTO) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
+                        return -1;
+                    }
+                    /*if (!one.VOTO && !two.VOTO && one.STATO === 'S' && two.STATO === 'F') {
+                        return -1;
+                    }
+                    if (!one.VOTO && !two.VOTO && one.STATO === 'F' && two.STATO === 'S') {
+                        return 1;
+                    }*/
+                });
+                break;
+
+            case VOTO_DECRESCENTE: //voto decrescente
+                this.corsiFiltrati.sort((one, two) => {
+                    if (one.VOTO > two.VOTO) {
+                        return -1;
+                    }
+                    if (one.VOTO < two.VOTO) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+                        return -1;
+                    }
+                });
                 break;
         }
     }
@@ -179,6 +212,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     public updateFiltri() {
+        this.corsiFiltrati = this.corsi;
         this.ordina();
         this.filtra();
     }
