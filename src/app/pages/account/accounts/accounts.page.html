@@ -2,7 +2,7 @@
   <ion-grid no-padding>
     <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
       <ion-col>
-        <ion-label> </ion-label>
+        <p> </p>
       </ion-col>
     </ion-row>
     <ion-row no-padding>
@@ -42,7 +42,7 @@
     </ion-row>
     <ion-row>
       <ion-col text-center>
-        <ion-label>un attimo di pazienza</ion-label>
+        <p>un attimo di pazienza</p>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -52,82 +52,21 @@
   </ion-item>
 
   <ion-list *ngIf="accounts?.length > 0" >
+
     <ion-item-sliding no-padding  *ngFor="let account of accounts">
-
-      <ion-item (click)="onPress(account)" [ngClass]="{'locale' : account.token == tokenLocale}">
-
-        <ion-grid no-padding fixed>
-          <ion-row>
-            <ion-col size="2" align-items-start="true" align-self-center="true">
-              <img class="logo-mini" src="./assets/img/{{this.selezionaIcona(account)}}" />
-            </ion-col>
-            <ion-col size="10">
-              <ion-grid no-padding>
-                <ion-row>
-                  <ion-col size="4">Data</ion-col>
-                  <ion-col text-wrap>{{this.timestamp2string(account.ultimo_accesso)}}</ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col size="4">Matr.</ion-col>
-                  <ion-col text-wrap>{{account.matricola}}</ion-col>
-                </ion-row>
-                <ion-row *ngIf="account.virtual">
-                  <ion-col >Dispositivo virtuale</ion-col>
-                </ion-row>
-                <ion-row *ngIf="account.manufacturer">
-                  <ion-col size="4">Device</ion-col>
-                  <ion-col text-wrap>{{account.manufacturer}} {{account.model}}</ion-col>
-                </ion-row>
-                <ion-row *ngIf="account.platform">
-                  <ion-col size="4">S.O.</ion-col>
-                  <ion-col text-wrap>{{account.platform}} {{account.os_version}}</ion-col>
-                </ion-row>
-                <ion-row *ngIf="account.app_version">
-                  <ion-col size="4">Ver. App</ion-col>
-                  <ion-col text-wrap>{{account.app_version}}</ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+      <ion-item detail (click)="onPress(account)" [ngClass]="{'locale' : account.token === tokenLocale}">
+        <ion-thumbnail slot="start">
+            <img class="logo-mini" src="./assets/img/{{this.selezionaIcona(account)}}" />
+        </ion-thumbnail>
+        <ion-label>
+            <p><b>Data: </b>{{this.timestamp2string(account.ultimo_accesso)}}</p>
+            <p><b>Matricola: </b>{{account.matricola}}</p>
+            <p *ngIf="account.manufacturer"><b>Device: </b>{{account.manufacturer}} {{account.model}}</p>
+            <p *ngIf="account.platform"><b>S.O. </b>{{account.platform}} {{account.os_version}}</p>
+            <p *ngIf="account.app_version"><b>Ver. App: </b>{{account.app_version}}</p>
+            <p *ngIf="account.virtual"><b>Dispositivo virtuale</b></p>
+        </ion-label>
       </ion-item>
-
-
-      <!--<ion-list [hidden]="accounts?.length == 0"  *ngFor="let account of accounts">
-        <ion-item (press)="onPress(account)" [ngClass]="{'locale' : account.token == tokenLocale}">
-          <ion-grid>
-            <ion-row>
-              <ion-col>Ultimo Accesso:</ion-col>
-              <ion-col text-wrap>{{this.timestamp2string(account.ultimo_accesso)}}</ion-col>
-            </ion-row>
-            <ion-row>
-              <ion-col>Matricola:</ion-col>
-              <ion-col text-wrap>{{account.matricola}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="!account.virtual">
-              <ion-col>Dispositivo virtuale</ion-col>
-            </ion-row>
-            <ion-row *ngIf="account.manufacturer">
-              <ion-col>Produttore:</ion-col>
-              <ion-col text-wrap>{{account.manufacturer}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="account.model">
-              <ion-col>Modello:</ion-col>
-              <ion-col text-wrap>{{account.model}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="account.platform">
-              <ion-col>SO:</ion-col>
-              <ion-col text-wrap>{{account.platform}} {{account.os_version}}</ion-col>
-            </ion-row>
-            <ion-row *ngIf="account.app_version">
-              <ion-col>Versione App:</ion-col>
-              <ion-col text-wrap>{{account.app_version}}</ion-col>
-            </ion-row>
-          </ion-grid>
-
-        </ion-item>
-      <!--</ion-list>-->
-
       <ion-item-options side="end" slot="top">
         <ion-item-option *ngIf="account.token != tokenLocale" (click)="disconnetti(account)">
           <ion-icon slot="icon-only" name="trash"></ion-icon>

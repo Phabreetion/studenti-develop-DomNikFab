@@ -1,6 +1,6 @@
 import {Storage} from '@ionic/storage';
 import {Component, OnInit} from '@angular/core';
-import {MenuController} from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
@@ -79,7 +79,8 @@ export class TutorialPage implements OnInit {
         private menu: MenuController,
         private storage: Storage,
         public globalData: GlobalDataService,
-        public account: AccountService) {
+        public account: AccountService,
+        public alertController: AlertController) {
     }
 
     // ionViewWillEnter() {
@@ -132,6 +133,7 @@ export class TutorialPage implements OnInit {
     }
 
     doContinua() {
+        this.account.controlloDispositiviConnessi();
         this.globalData.goHome(this.currentPage);
     }
 
