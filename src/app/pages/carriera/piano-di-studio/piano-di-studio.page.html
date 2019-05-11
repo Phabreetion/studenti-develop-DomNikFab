@@ -50,9 +50,9 @@
 
 
   <ion-list *ngIf="corsi">
-      <ion-item-sliding *ngFor="let corso of corsiFiltrati">
-        <ion-item (click)="presentActionSheet()">
-          <ion-grid>
+      <ion-item-sliding *ngFor="let corso of corsiFiltrati" >
+        <ion-item   (click)="presentActionSheet()">
+          <ion-grid [ngClass] ="{'superato' : corso.VOTO&&corso.LODE==0 }">
             <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
             <ion-row>
               <ion-col align-self-start><strong>CFU</strong>: {{corso.CFU}}</ion-col>
@@ -61,10 +61,10 @@
               </ion-col>
               <ion-col *ngIf="corso.STATO !== 'S'">
               </ion-col>
-
             </ion-row>
           </ion-grid>
-          <ion-text *ngIf="corso.VOTO && corso.LODE==0" slot="end"><strong>{{corso.VOTO | slice:0:3}}</strong></ion-text>
+
+          <ion-text *ngIf="corso.VOTO && corso.LODE==0" slot="end" [ngClass] ="{ 'superato' : corso.VOTO&&corso.LODE==0 }" ><strong>{{corso.VOTO | slice:0:3}}</strong></ion-text>
           <ion-text *ngIf="corso.VOTO && corso.LODE==1" slot="end"><strong>30L</strong></ion-text>
           <ion-text *ngIf="!corso.VOTO" slot="end" ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
         </ion-item>
@@ -78,11 +78,13 @@
 </ion-content>
 <ion-footer>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <!--<ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner> -->
-      <!--<fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>-->
-      <!--<fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>-->
-    </ion-buttons>
+   <!-- <ion-buttons slot="start">
+      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+      <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+      <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+    </ion-buttons> -->
+
+    <ion-icon name="checkmark"></ion-icon>
 
     <div class="testo-footer">
       <!-- Aggiornato al: {{dataAggiornamento}}-->

@@ -49,7 +49,7 @@
     "@ionic-native/sqlite": "^5.5.1",
     "@ionic-native/status-bar": "^5.5.1",
     "@ionic-native/toast": "^5.5.1",
-    "@ionic/angular": "^4.3.1",
+    "@ionic/angular": "^4.4.0",
     "@ionic/storage": "^2.2.0",
     "angular-chart.js": "^1.1.1",
     "chart.js": "^2.8.0",
@@ -82,7 +82,7 @@
     "es7-object-polyfill": "0.0.7",
     "karma": "^4.1.0",
     "rxjs": "6.3.3",
-    "rxjs-compat": "^6.5.1",
+    "rxjs-compat": "^6.5.2",
     "sourcemapped-stacktrace": "^1.1.9",
     "ts-md5": "^1.2.4",
     "zone.js": "^0.8.29"
