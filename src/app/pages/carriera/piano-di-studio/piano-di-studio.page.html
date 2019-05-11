@@ -43,7 +43,7 @@
     [@flyInOut]="flyInOutState"
     [(ngModel)]="searchKey"
     (ionChange)="search()" ></ion-searchbar>
-    <ion-button (click)="openFiltri()" ><ion-icon name="switch" ></ion-icon></ion-button>  <!-- icona precedente "funnel" -->
+
   </ion-item>
 
 
@@ -52,7 +52,7 @@
   <ion-list *ngIf="corsi">
       <ion-item-sliding *ngFor="let corso of corsiFiltrati" >
         <ion-item   (click)="presentActionSheet()">
-          <ion-grid [ngClass] ="{'superato' : corso.VOTO&&corso.LODE==0 }">
+          <ion-grid [ngClass] ="{'superato' : corso.VOTO&&corso.LODE==0 }" fixed no-padding>
             <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
             <ion-row>
               <ion-col align-self-start><strong>CFU</strong>: {{corso.CFU}}</ion-col>
@@ -62,11 +62,14 @@
               <ion-col *ngIf="corso.STATO !== 'S'">
               </ion-col>
             </ion-row>
+
           </ion-grid>
 
           <ion-text *ngIf="corso.VOTO && corso.LODE==0" slot="end" [ngClass] ="{ 'superato' : corso.VOTO&&corso.LODE==0 }" ><strong>{{corso.VOTO | slice:0:3}}</strong></ion-text>
           <ion-text *ngIf="corso.VOTO && corso.LODE==1" slot="end"><strong>30L</strong></ion-text>
-          <ion-text *ngIf="!corso.VOTO" slot="end" ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
+          <ion-text *ngIf="!corso.VOTO" slot="end"  ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
+
+
         </ion-item>
 
         <ion-item-options>
@@ -86,8 +89,9 @@
 
     <ion-icon name="checkmark"></ion-icon>
 
-    <div class="testo-footer">
+    <div class="testo-footer" text-right>
       <!-- Aggiornato al: {{dataAggiornamento}}-->
+      <ion-button (click)="openFiltri()" ><ion-icon name="switch" ></ion-icon></ion-button>  <!-- icona precedente "funnel" -->
      </div>
 
      <ion-buttons slot="end">
