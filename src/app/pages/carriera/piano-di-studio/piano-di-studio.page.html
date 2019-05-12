@@ -37,8 +37,7 @@
     </ion-refresher-content>
   </ion-refresher>
 
-
-  <ion-item >
+  <ion-item>
     <ion-searchbar *ngIf='showSearchBar'
     [@flyInOut]="flyInOutState"
     [(ngModel)]="searchKey"
@@ -46,30 +45,24 @@
 
   </ion-item>
 
-
-
-
   <ion-list *ngIf="corsi">
       <ion-item-sliding *ngFor="let corso of corsiFiltrati" >
-        <ion-item   (click)="presentActionSheet()">
-          <ion-grid [ngClass] ="{'superato' : corso.VOTO&&corso.LODE==0 }" fixed no-padding>
+        <ion-item   (click)="presentActionSheet()" >
+          <ion-grid  fixed no-padding [ngClass] ="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
             <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
             <ion-row>
               <ion-col align-self-start><strong>CFU</strong>: {{corso.CFU}}</ion-col>
               <ion-col *ngIf="corso.STATO === 'S'">
                 <ion-icon name="calendar"></ion-icon>{{corso.DATA_ESAME}}
               </ion-col>
-              <ion-col *ngIf="corso.STATO !== 'S'">
+              <ion-col *ngIf="corso.STATO !== 'S'"></ion-col>
+              <ion-col size="4" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
+                <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
+                <div *ngIf="corso.VOTO && corso.LODE==1" class="voto">30L</div>
+                <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>
               </ion-col>
             </ion-row>
-
           </ion-grid>
-
-          <ion-text *ngIf="corso.VOTO && corso.LODE==0" slot="end" [ngClass] ="{ 'superato' : corso.VOTO&&corso.LODE==0 }" ><strong>{{corso.VOTO | slice:0:3}}</strong></ion-text>
-          <ion-text *ngIf="corso.VOTO && corso.LODE==1" slot="end"><strong>30L</strong></ion-text>
-          <ion-text *ngIf="!corso.VOTO" slot="end"  ><strong>{{corso.GIUDIZIO | slice:0:3}}</strong></ion-text>
-
-
         </ion-item>
 
         <ion-item-options>
@@ -91,10 +84,11 @@
 
     <div class="testo-footer" text-right>
       <!-- Aggiornato al: {{dataAggiornamento}}-->
-      <ion-button (click)="openFiltri()" ><ion-icon name="switch" ></ion-icon></ion-button>  <!-- icona precedente "funnel" -->
      </div>
 
-     <ion-buttons slot="end">
+    <ion-button slot="end" icon-only (click)="openFiltri()" ><ion-icon name="switch" ></ion-icon></ion-button>  <!-- icona precedente "funnel" -->
+
+     <ion-buttons >
        <!-- <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>-->
       </ion-buttons>
     </ion-toolbar>
