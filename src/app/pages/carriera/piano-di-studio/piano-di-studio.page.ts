@@ -30,7 +30,6 @@ export class PianoDiStudioPage implements OnInit {
     private corsiTrovati: Corso[];
     private searchKey: string;
     public isSearchbarOpened = false;
-    flyInOutState = 'in';
 
 
     //per filtri e ordinamento
@@ -143,15 +142,15 @@ export class PianoDiStudioPage implements OnInit {
     filtra(): void {
         this.corsiFiltrati = this.corsi;
         if (this.filtroSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO == 'S');
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.isSuperato());
         }
 
         if (this.filtroNonSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO != 'S');
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => !corso.isSuperato());
         }
 
         if (this.filtroPerAnno >= 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.filtroPerAnno);
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO === this.filtroPerAnno);
         }
     }
 
