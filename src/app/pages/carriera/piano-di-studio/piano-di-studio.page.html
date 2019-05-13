@@ -31,7 +31,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content fixed no-padding>
   <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
@@ -92,7 +92,7 @@
 
 
 
-     <ion-buttons >
+     <ion-buttons>
        <!-- <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>-->
       </ion-buttons>
     </ion-toolbar>
