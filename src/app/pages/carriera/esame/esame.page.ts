@@ -46,8 +46,8 @@ export class EsamePage implements OnInit {
         return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
     }
 
-    public mostraContenuti(){
-        if(this.evento == 0) {
+    public mostraContenuti() {
+        if (this.evento === 0) {
             this.evento = this.evento + 1;
             return this.evento;
         } else {

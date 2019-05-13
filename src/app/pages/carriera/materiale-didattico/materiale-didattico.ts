@@ -80,10 +80,6 @@ export class MaterialeDidatticoPage implements OnInit {
         );
     }
 
-    // ngAfterContentInit() {
-    //     this.aggiorna(false, true);
-    // }
-
     aggiorna(interattivo: boolean, sync: boolean) {
 
         if (this.sync.loading[this.idServizio]) {

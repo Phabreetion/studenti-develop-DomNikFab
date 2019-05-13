@@ -170,7 +170,7 @@ export class Corso{
      * @param NOME
      */
 
-    constructor(CONTENUTI?: string,AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
+    constructor(CONTENUTI?: string, AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
         this.CONTENUTI = CONTENUTI;
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
@@ -196,12 +196,18 @@ export class Corso{
         this.VOTO = VOTO;
     }
 
+    public getFormatedContenutiCorso() {
+        let contenutiFormatted = this.CONTENUTI;
+        contenutiFormatted = contenutiFormatted.replace('CFU', '<br>CFU');
+        return contenutiFormatted;
+    }
+
     /**
      * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
      *
      * @param obj: L'oggetto generico da convertire in istanza della classe Corso
      */
-    public static toObj(obj: Object): Corso {
+    static toObj(obj: Object): Corso {
         return Object.assign(new Corso(), obj);
     }
 
