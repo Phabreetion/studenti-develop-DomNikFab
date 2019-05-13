@@ -63,7 +63,7 @@ export class PianoDiStudioPage implements OnInit {
         //chiama subito le funzioni filtra e ordina
     }
 
-    private doRefresh(event) {
+    doRefresh(event) {
         // @TODO sostituire con la funzione di aggionramento del libretto
         setTimeout(() => {
             console.log('Async operation has ended');
@@ -71,32 +71,8 @@ export class PianoDiStudioPage implements OnInit {
         }, 2000);
     }
 
-    private filtra(): void {
-        this.corsiFiltrati = this.corsi;
-        if (this.filtroSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO == 'S');
-        }
 
-        if (this.filtroNonSuperatiAttivo) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO != 'S');
-        }
-
-        if (this.filtroPerAnno >= 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.filtroPerAnno);
-        }
-    }
-
-    private search() {
-        const searchKeyLowered = this.searchKey.toLowerCase();
-        this.corsiTrovati = this.corsiFiltrati.filter(corso => corso.DESCRIZIONE.toLowerCase().search(searchKeyLowered) >= 0);
-    }
-
-    public toggleInOut() {
-        this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
-        this.isSearchbarOpened = !this.isSearchbarOpened;
-    }
-
-    private ordina(): void {
+    ordina(): void {
         switch (this.idOrdinamento) {
             case ALFABETICO_CRESCENTE: //alfabetico crescente
                 this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE.toString() < two.DESCRIZIONE.toString() ? -1 : 1));
@@ -164,37 +140,71 @@ export class PianoDiStudioPage implements OnInit {
         }
     }
 
-    async presentActionSheet() { //
-        const actionSheet = await this.actionSheetController.create({
-            header: 'Operazioni', // da sostituire con il nome del corso
-            buttons: [{
+    filtra(): void {
+        this.corsiFiltrati = this.corsi;
+        if (this.filtroSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO == 'S');
+        }
 
-                text: 'Appelli',
-                icon: 'book',
-                handler: () => {
-                    console.log('Appelli cliccato');
-                }
-            }, {
-                text: 'Materiale didattico',
-                icon: 'archive',
-                handler: () => {
-                    console.log('Materiale didattico cliccato');
-                }
-            }, {
-                text: 'Dettagli corso',
-                icon: 'alert',
-                handler: () => {
-                    console.log('Dettagli corso cliccato');
-                }
-            }, {
-                text: 'Chiudi',
-                role: 'cancel',
-                icon: 'close',
-                handler: () => {
-                    console.log('Chiudi cliccato');
-                }
-            }]
-        });
+        if (this.filtroNonSuperatiAttivo) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.STATO != 'S');
+        }
+
+        if (this.filtroPerAnno >= 0) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.filtroPerAnno);
+        }
+    }
+
+    search() {
+        const searchKeyLowered = this.searchKey.toLowerCase();
+        this.corsiTrovati = this.corsiFiltrati.filter(corso => corso.DESCRIZIONE.toLowerCase().search(searchKeyLowered) >= 0);
+    }
+
+
+
+    async presentActionSheet(corso: Corso) { //
+        let actionSheet;
+
+        if (corso.isSuperato()) {
+            actionSheet = await this.actionSheetController.create({
+                header: corso.DESCRIZIONE,
+                buttons: [ {
+                    text: 'Materiale didattico',
+                    icon: 'archive',
+                    handler: () => { this.goToMaterialeDidattico(corso); }
+                }, {
+                    text: 'Dettagli corso',
+                    icon: 'alert',
+                    handler: () => { this.goToDettagliCorso(corso); }
+                }, {
+                    text: 'Chiudi',
+                    icon: 'close',
+                    handler: () => { this.actionSheetController.dismiss(); }
+                }]
+            });
+        } else {
+            actionSheet = await this.actionSheetController.create({
+                header: corso.DESCRIZIONE,
+                buttons: [{
+                    text: 'Appelli',
+                    icon: 'book',
+                    handler: () => { this.goToAppelli(corso); }
+                }, {
+                    text: 'Materiale didattico',
+                    icon: 'archive',
+                    handler: () => { this.goToMaterialeDidattico(corso); }
+                }, {
+                    text: 'Dettagli corso',
+                    icon: 'alert',
+                    handler: () => { this.goToDettagliCorso(corso); }
+                }, {
+                    text: 'Chiudi',
+                    icon: 'close',
+                    handler: () => { this.actionSheetController.dismiss(); }
+                }]
+            });
+        }
+
         await actionSheet.present();
     }
 
@@ -216,6 +226,21 @@ export class PianoDiStudioPage implements OnInit {
         this.ordina();
         this.filtra();
         this.search();
+    }
+
+    goToAppelli(corso: Corso) {
+        this.globalData.goTo(this, ['/appelli/', corso.CODICE], 'forward', false);
+    }
+
+
+    goToMaterialeDidattico(corso: Corso) {
+        this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID], 'forward', false);
+    }
+
+    goToDettagliCorso(corso: Corso) {
+        this.globalData.goTo(this, ['/esame/', corso.CODICE], 'forward', false);
+        //this.globalData.esame = esame;
+        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }
 
 

@@ -202,6 +202,10 @@ export class Corso{
         return contenutiFormatted;
     }
 
+    public isSuperato(): boolean {
+        return this.STATO === 'S';
+    }
+
     /**
      * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
      *

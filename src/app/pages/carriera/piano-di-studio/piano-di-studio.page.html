@@ -48,7 +48,7 @@
 
   <ion-list *ngIf="corsi">
       <ion-item-sliding *ngFor="let corso of corsiTrovati" >
-        <ion-item   (click)="presentActionSheet()" >
+        <ion-item   (click)="presentActionSheet(corso)" >
           <ion-grid  fixed no-padding [ngClass] ="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
             <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
             <ion-row>
