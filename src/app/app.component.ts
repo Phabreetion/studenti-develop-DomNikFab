@@ -63,11 +63,11 @@ export class AppComponent {
             url: '/news',
             icon: 'information-circle'
         },
-        // {
-        //     title: 'Calendario',
-        //     url: '/calendario',
-        //     icon: 'calendar'
-        // },
+        {
+            title: 'Orario',
+            url: '/orario',
+            icon: 'calendar'
+        },
         {
             title: 'Notifiche',
             url: '/notifiche',

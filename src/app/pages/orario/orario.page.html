@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-grid no-padding>
+
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Orario
+          </ion-title>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="rinvioAggiornamento && !orario" text-center>
+    <ion-row>
+      <ion-col text-center>
+        <img class="progress" src="assets/img/progress.gif" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>un attimo di pazienza</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!rinvioAggiornamento && !inizializzato" text-center>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Nessun dato disponibile</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <img class="progress" src="assets/img/progress.gif" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>L'elaborazione sta impiegando più tempo del previsto. Attendi il completamento della procedura.
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!--         code here       -->
+
+
+  <ion-grid *ngIf="!rinvioAggiornamento && inizializzato" text-center>
+
+    <ion-list *ngFor="let item of orario">
+      <ion-item>
+        <ion-col>
+          <div text-wrap>{{item.description}} </div>
+        </ion-col>
+        <ion-col>
+          <div text-wrap>{{item.start}} </div>
+        </ion-col>
+        <ion-col>
+          <div text-wrap>{{item.end}} </div>
+        </ion-col>
+
+      </ion-item>
+
+    </ion-list>
+  </ion-grid>
+
+
+
+  <!--       ---------------   -->
+
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button>
+          <ion-icon name="add" (click)="modificaOrario()"></ion-icon>
+        </ion-fab-button>
+        
+  </ion-fab>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+    </ion-buttons>
+
+    <div class="testo-footer">
+      Aggiornato al: {{dataAggiornamento}}
+    </div>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>

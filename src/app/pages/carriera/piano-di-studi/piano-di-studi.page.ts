@@ -248,12 +248,6 @@ export class PianoDiStudiPage implements OnInit {
                         this.globalData.goTo(this.currentPage, '/appelli/' + item.CODICE, 'forward', false);
                     }
                 }, {
-                    text: etichettaSottoscrizione,
-                    icon: 'calendar',
-                    handler: () => {
-                        this.inviaACalendario(item);
-                    }
-                }, {
                     text: 'Materiale didattico',
                     icon: 'archive',
                     handler: () => {
@@ -404,7 +398,7 @@ export class PianoDiStudiPage implements OnInit {
         this.globalData.ad_id = ad_id;
         this.globalData.goTo(this.currentPage, '/materiale-didattico/' + ad_id, 'forward', false);
     }
-
+/*
     inviaACalendario(item) {
         let stato = 'true';
         if (item.SOTTOSCRITTO) {
@@ -433,7 +427,7 @@ export class PianoDiStudiPage implements OnInit {
             }
         );
     }
-
+*/
     async mostraOpzioni(esame) {
         const actionSheet = await this.actionSheetCtrl.create({
             header: esame.DESCRIZIONE,

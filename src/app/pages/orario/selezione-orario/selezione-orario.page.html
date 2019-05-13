@@ -1,0 +1,96 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Modifica orario</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button defaultHref="/orario" text="Indietro"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-grid *ngIf="rinvioAggiornamento && !listaCorsi" text-center>
+    <ion-row>
+      <ion-col text-center>
+        <img class="progress" src="assets/img/progress.gif" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>un attimo di pazienza</ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!rinvioAggiornamento && !inizializzato" text-center>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Nessun dato disponibile</strong></ion-title>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <img class="progress" src="assets/img/progress.gif" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-label>L'elaborazione sta impiegando più tempo del previsto. Attendi il completamento della procedura.
+        </ion-label>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+
+  <ion-grid *ngIf="!rinvioAggiornamento && inizializzato" text-center>
+    <ion-row>
+      <ion-col text-center>
+        <ion-title><strong>Seleziona i corsi da aggiungere in orario</strong></ion-title>
+      </ion-col>
+    </ion-row>
+
+    <ion-list *ngFor="let item of listaCorsi">
+      <ion-item (click)="aggiungiCorso(item.CODICE)">
+        <ion-col >
+            <div text-wrap >{{item.DESCRIZIONE}}</div>
+        </ion-col>
+        <ion-col size="2" no-padding  class="voto" align-self-center="true">
+            <ion-icon float-right [class.hide]="!item.SOTTOSCRITTO" name="calendar"></ion-icon>
+          </ion-col>
+       
+      </ion-item>
+
+    </ion-list>
+  </ion-grid>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-button expand="block" (click)="confermaSelezione()">Crea orario</ion-button>
+
+  </ion-fab>
+  <ion-item></ion-item>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+    </ion-buttons>
+
+    <div class="testo-footer">
+      Aggiornato al: {{dataAggiornamento}}
+    </div>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+
+</ion-footer>
