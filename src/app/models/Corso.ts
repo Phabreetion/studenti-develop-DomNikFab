@@ -141,8 +141,37 @@ export class Corso{
      */
     public PREREQUISITI: string;
 
+    public CONTENUTI: string;
 
-    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
+
+    /**
+     *
+     * @param AA_OFF_ID
+     * @param ADSCE_ID
+     * @param ANNO
+     * @param CFU
+     * @param CODICE
+     * @param COGNOME
+     * @param DESCRIZIONE
+     * @param DOCENTI
+     * @param LODE
+     * @param NO_MEDIA
+     * @param SCELTA
+     * @param SORGENTE
+     * @param SOTTOSCRITTO
+     * @param SOVRANNUMERARIA
+     * @param STATO
+     * @param VALUTAZIONE
+     * @param VOTO
+     * @param DATA_ESAME
+     * @param DATA_ESTESA
+     * @param DATA_VERBALE
+     * @param GIUDIZIO
+     * @param NOME
+     */
+
+    constructor(CONTENUTI?: string,AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
+        this.CONTENUTI = CONTENUTI;
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
         this.ANNO = ANNO;
@@ -175,4 +204,6 @@ export class Corso{
     public static toObj(obj: Object): Corso {
         return Object.assign(new Corso(), obj);
     }
+
+
 }

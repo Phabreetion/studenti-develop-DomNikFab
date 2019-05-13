@@ -18,6 +18,7 @@ export class EsamePage implements OnInit {
     private libretto: any[];
     private codiceEsame: number;
     private corsiPropedeutici: Corso[];
+    public evento: number;
 
     constructor(
         public globalData: GlobalDataService,
@@ -45,7 +46,15 @@ export class EsamePage implements OnInit {
         return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
     }
 
-
+    public mostraContenuti(){
+        if(this.evento == 0) {
+            this.evento = this.evento + 1;
+            return this.evento;
+        } else {
+            this.evento = 0;
+            return this.evento;
+        }
+    }
 
 
 
