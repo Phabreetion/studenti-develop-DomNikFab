@@ -41,12 +41,8 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-item *ngIf='showSearchBar'>
-    <ion-searchbar *ngIf='showSearchBar'
-    [@flyInOut]="flyInOutState"
-    [(ngModel)]="searchKey"
-    (ionChange)="search()" ></ion-searchbar>
-
+  <ion-item *ngIf='isSearchbarOpened'>
+    <ion-searchbar *ngIf='isSearchbarOpened' placeholder="Search"></ion-searchbar>
   </ion-item>
 
   <ion-list *ngIf="corsi">

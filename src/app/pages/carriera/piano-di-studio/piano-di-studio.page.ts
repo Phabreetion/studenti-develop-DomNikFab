@@ -21,15 +21,6 @@ const CFU_DECRESCENTE = 8;
     selector: 'app-piano-di-studio',
     templateUrl: './piano-di-studio.page.html',
     styleUrls: ['./piano-di-studio.page.scss'],
-    animations: [
-        trigger('flyInOut', [
-            state('in', style({transform: 'translateY(0)'})),
-            transition('void => *', [
-                style({transform: 'translateY(100%)'}),
-                animate(300)
-            ])
-        ])
-    ]
 })
 
 export class PianoDiStudioPage implements OnInit {
@@ -37,7 +28,7 @@ export class PianoDiStudioPage implements OnInit {
     private corsi: Corso[];
     private corsiFiltrati: Corso[];
     private searchKey: string;
-    showSearchBar = false;
+    public isSearchbarOpened = false;
     flyInOutState = 'in';
 
 
@@ -95,7 +86,7 @@ export class PianoDiStudioPage implements OnInit {
 
     public toggleInOut() {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
-        this.showSearchBar = !this.showSearchBar;
+        this.isSearchbarOpened = !this.isSearchbarOpened;
     }
 
     private ordina(): void {
@@ -218,5 +209,6 @@ export class PianoDiStudioPage implements OnInit {
         this.ordina();
         this.filtra();
     }
+
 
 }
