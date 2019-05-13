@@ -67,6 +67,21 @@ export class PianoDiStudioService {
         });
     }
 
+    public async getCorsiAsMap(): Promise<Map<string,Corso>> {
+        return new Promise<Map<string,Corso>>(resolve => {
+            this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((corsi) => {
+                let map = new Map<string, Corso>();
+
+                for (let i = 0; i < corsi[0].length; i++) {
+                    map.set(corsi[0][i].DESCRIZIONE, Corso.toObj(corsi[0][i]));
+                }
+
+                console.log(map);
+                resolve(map);
+            });
+        });
+    }
+
     public async getCorso(codiceEsame: number): Promise<Corso> {
         return new Promise<Corso>((resolve, reject) => {
             this.getCorsi().then((corsi) => {
