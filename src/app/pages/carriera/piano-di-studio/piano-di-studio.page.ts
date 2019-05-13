@@ -27,6 +27,7 @@ export class PianoDiStudioPage implements OnInit {
 
     private corsi: Corso[];
     private corsiFiltrati: Corso[];
+    private corsiTrovati: Corso[];
     private searchKey: string;
     public isSearchbarOpened = false;
     flyInOutState = 'in';
@@ -55,6 +56,11 @@ export class PianoDiStudioPage implements OnInit {
         this.corsi = await this.pianoDiStudioService.getCorsi();
 
         this.corsiFiltrati = this.corsi;
+        this.corsiTrovati = this.corsiFiltrati;
+
+        //load filtri dallo storage
+        //se i filtri sono salvati nello storage
+        //chiama subito le funzioni filtra e ordina
     }
 
     private doRefresh(event) {
@@ -81,7 +87,8 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     private search() {
-      //  this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.nome.toString().toLowerCase().search(this.searchKey.toLowerCase())>=0);
+        const searchKeyLowered = this.searchKey.toLowerCase();
+        this.corsiTrovati = this.corsiFiltrati.filter(corso => corso.DESCRIZIONE.toLowerCase().search(searchKeyLowered) >= 0);
     }
 
     public toggleInOut() {
@@ -208,6 +215,7 @@ export class PianoDiStudioPage implements OnInit {
         this.corsiFiltrati = this.corsi;
         this.ordina();
         this.filtra();
+        this.search();
     }
 
 

@@ -27,6 +27,9 @@
         </ion-toolbar>
       </ion-col>
     </ion-row>
+    <ion-row *ngIf='isSearchbarOpened'>
+      <ion-searchbar *ngIf='isSearchbarOpened'  [(ngModel)]="searchKey" placeholder="Cerca" (ngModelChange)="search()"></ion-searchbar>
+    </ion-row>
   </ion-grid>
 </ion-header>
 
@@ -41,12 +44,10 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-item *ngIf='isSearchbarOpened'>
-    <ion-searchbar *ngIf='isSearchbarOpened' placeholder="Search"></ion-searchbar>
-  </ion-item>
+
 
   <ion-list *ngIf="corsi">
-      <ion-item-sliding *ngFor="let corso of corsiFiltrati" >
+      <ion-item-sliding *ngFor="let corso of corsiTrovati" >
         <ion-item   (click)="presentActionSheet()" >
           <ion-grid  fixed no-padding [ngClass] ="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
             <ion-row> <b>{{corso.DESCRIZIONE}}  &#40;{{corso.CODICE}}&#41;</b></ion-row>
