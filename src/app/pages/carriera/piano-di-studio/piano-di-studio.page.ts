@@ -6,7 +6,7 @@ import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 
-import {faCoins} from '@fortawesome/free-solid-svg-icons';
+
 
 const ALFABETICO_CRESCENTE = 1;
 const ALFABETICO_DECRESCENTE = 2;
