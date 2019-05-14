@@ -81,6 +81,7 @@
     "crypto-js": "^3.1.9-1",
     "es6-promise-plugin": "^4.2.2",
     "es7-object-polyfill": "0.0.7",
+    "ionic2-calendar": "^0.5.2",
     "jsencrypt": "^3.0.0-rc.1",
     "karma": "^4.1.0",
     "rxjs": "6.3.3",

@@ -44,6 +44,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
 // import 'hammerjs';
+import { NgCalendarModule  } from 'ionic2-calendar';
 
 @NgModule({
     declarations: [AppComponent],
@@ -57,6 +58,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         AppRoutingModule,
         DettagliUtentePageModule,
         NotiziaPageModule,
+        NgCalendarModule,
         EsamePageModule,
         HttpClientModule,
         FontAwesomeModule

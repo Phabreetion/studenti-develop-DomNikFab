@@ -8,8 +8,11 @@
             <ion-menu-button></ion-menu-button>
           </ion-buttons>
           <ion-title>
-            Orario
+            {{ viewTitle }}
           </ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="today()">Today</ion-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-col>
     </ion-row>
@@ -59,25 +62,77 @@
   </ion-grid>
 
   <!--         code here       -->
+  <ion-grid *ngIf="inizializzato" text-center>
 
-
-  <ion-grid *ngIf="!rinvioAggiornamento && inizializzato" text-center>
-
-    <ion-list *ngFor="let item of orario">
+    <!-- Card for adding a new event -->
+  <ion-card>
+    <ion-card-header tappable (click)="collapseCard = !collapseCard">
+      <ion-card-title>New Event</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="!collapseCard">
+ 
       <ion-item>
-        <ion-col>
-          <div text-wrap>{{item.description}} </div>
-        </ion-col>
-        <ion-col>
-          <div text-wrap>{{item.start}} </div>
-        </ion-col>
-        <ion-col>
-          <div text-wrap>{{item.end}} </div>
-        </ion-col>
-
+        <ion-input type="text" placeholder="Title" [(ngModel)]="event.title"></ion-input>
       </ion-item>
-
-    </ion-list>
+      <ion-item>
+        <ion-input type="text" placeholder="Description" [(ngModel)]="event.desc"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Start</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>End</ion-label>
+        <ion-datetime displayFormat="MM/DD/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime" [min]="minDate"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>All Day?</ion-label>
+        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
+      </ion-item>
+      <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Add Event</ion-button>
+ 
+    </ion-card-content>
+  </ion-card>
+ 
+  <ion-row>
+    <!-- Change the displayed calendar mode -->
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Month</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'" (click)="changeMode('week')">Week</ion-button>
+    </ion-col>
+    <ion-col size="4">
+      <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'" (click)="changeMode('day')">Day</ion-button>
+    </ion-col>
+ 
+    <!-- Move back one screen of the slides -->
+    <ion-col size="6" text-left>
+      <ion-button fill="clear" (click)="back()">
+        <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+ 
+    <!-- Move forward one screen of the slides -->
+    <ion-col size="6" text-right>
+      <ion-button fill="clear" (click)="next()">
+        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-col>
+  </ion-row>
+ 
+  <calendar 
+  [eventSource]="eventSource" 
+  [calendarMode]="calendar.mode" 
+  [currentDate]="calendar.currentDate"
+  (onEventSelected)="onEventSelected($event)"
+  (onTitleChanged)="onViewTitleChanged($event)"
+  (onTimeSelected)="onTimeSelected($event)" 
+  startHour="6"
+  endHour="20"
+  step="30"
+  startingDayWeek="1">
+  </calendar>
   </ion-grid>
 
 
@@ -86,10 +141,10 @@
 
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button>
-          <ion-icon name="add" (click)="modificaOrario()"></ion-icon>
-        </ion-fab-button>
-        
+    <ion-fab-button>
+      <ion-icon name="add" (click)="modificaOrario()"></ion-icon>
+    </ion-fab-button>
+
   </ion-fab>
 
 </ion-content>
@@ -97,7 +152,7 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+      <ion-spinner [hidden]="!http.getConnected()"></ion-spinner>
     </ion-buttons>
 
     <div class="testo-footer">

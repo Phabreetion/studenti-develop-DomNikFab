@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, LOCALE_ID } from '@angular/core';
 import { Storage } from '@ionic/storage';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { SyncService } from '../../services/sync.service';
 import { GlobalDataService } from '../../services/global-data.service';
 import { NotificheService } from '../../services/notifiche.service';
 import { AccountService } from '../../services/account.service';
 import { HttpService } from '../../services/http.service';
+
+import { CalendarComponent } from 'ionic2-calendar/calendar';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -32,8 +35,30 @@ export class OrarioPage implements OnInit {
   listaCorsiSeguiti = null;
   orario = null;
 
+  // test cal
+  event = {
+    title: '',
+    desc: '',
+    startTime: '',
+    endTime: '',
+    allDay: false
+  };
+
+  minDate = new Date().toISOString();
+
+  eventSource = [];
+  viewTitle;
+
+  calendar = {
+    mode: 'month',
+    currentDate: new Date(),
+  };
+
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
   constructor(
+    private alertCtrl: AlertController,
+    @Inject(LOCALE_ID) private locale: string,
     public toastCtrl: ToastController,
     public sync: SyncService,
     public http: HttpService,
@@ -46,117 +71,66 @@ export class OrarioPage implements OnInit {
 
   ngOnInit() {
     this.globalData.srcPage = '/orario';
-
-  
+   
   }
 
   ionViewDidEnter() {
-    this.aggiorna(true, true);
 
+    this.aggiorna(false, true);
   }
 
 
   aggiorna(interattivo: boolean, sync: boolean) {
-    if (this.sync.loading[this.idServizioOrario]) {
-      this.rinvioAggiornamento = true;
-      this.dataAggiornamento = 'in corso';
-      this.nrRinvii++;
-
-      GlobalDataService.log(0, 'Rinvio' + this.nrRinvii, null);
-
-      if (this.nrRinvii < this.maxNrRinvii) {
-        setTimeout(() => {
-          this.aggiorna(interattivo, sync);
-        }, 2000);
-        return;
-      } else {
-        if (this.http.connessioneLenta) {
-          this.toastCtrl.create({
-            message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
-            duration: 3000,
-            position: 'bottom'
-          }).then(
-            (toast) => { toast.present(); },
-            (err) => { GlobalDataService.log(2, 'Errore in aggiorna', err); });
-        }
-      }
-    }
-    this.rinvioAggiornamento = false;
-    this.nrRinvii = 0;
-
+    
 
     this.storage.get('CorsiSeguiti').then(
       (dati) => {
+        console.log(this.listaCorsiSeguiti);
         this.listaCorsiSeguiti = dati;
 
-        console.log("listaOrario ->");
-        console.log(this.listaCorsiSeguiti);
-        if (this.listaCorsiSeguiti == null) {
+        if (this.listaCorsiSeguiti == null || this.listaCorsiSeguiti == []) {
           this.primoAvvio();
 
         } else {
 
           // Otteniamo l'orario
-          this.sync.getJson(17, this.listaCorsiSeguiti, true).then(
+          this.sync.getJson(this.idServizioOrario, this.listaCorsiSeguiti, true).then(
             (data) => {
-              this.setOrario(data);
+
+              this.orario = data[0];
+
+              console.log(this.orario);
+              this.orario.forEach(lesson => {
+                let event = {
+                  title: lesson["description"],
+                  startTime: new Date(lesson["start"]),
+                  endTime: new Date(lesson["end"]),
+                  desc: lesson["name"]
+                }
+                this.eventSource.push(event);
+
+              });
+
+              this.inizializzato = true;
+
               this.dataAggiornamento = SyncService.dataAggiornamento(data);
+              this.myCal.loadEvents();
+
             },
             (err) => {
               GlobalDataService.log(2, 'Errore in aggiorna', err);
             }).catch(ex => {
               GlobalDataService.log(2, 'Eccezione in aggiorna', ex);
-              setTimeout(() => {
-                this.controllaAggiornamento();
-              }, 1000);
+
             });
         }
       }
     )
   }
 
-  controllaAggiornamento() {
-    // La verifica dell'aggiornamento in background la facciamo solo una volta
-    if (this.aggiornamentoVerificato) {
-      return;
-    }
-
-    // Se stiamo caricando dati dal server rimandiamo la verifica
-    if (this.sync.loading[this.idServizioOrario]) {
-      setTimeout(() => {
-        this.controllaAggiornamento();
-      }, 1000);
-    } else {
-      this.aggiornamentoVerificato = true;
-      this.aggiorna(true, true);
-    }
-  }
-
   primoAvvio() {
+    console.log("3");
     this.globalData.goTo(this.currentPage, '/selezione-orario', 'forward', false);
-  }
-
-  setOrario(orario: any) {
-
-    if (!orario || !orario[0]) {
-      return this.aggiorna(true, true);
-    }
-
-   
-    this.dataAggiornamento = SyncService.dataAggiornamento(orario);
-    this.orario = orario[0];
-
-    console.log("set orario inizializzato = true");
-    this.inizializzato = true;
-
-    if (!this.orario) {
-      this.orario = [];
-    }
-  }
-
-  isLoading() {
-    // console.log("isloading");
-    return this.sync.loading[this.idServizioOrario];
   }
 
   doRefresh(refresher) {
@@ -168,9 +142,50 @@ export class OrarioPage implements OnInit {
   }
 
   modificaOrario() {
-    console.log("mod orario inizializzato = false");
+    console.log("2");
     this.inizializzato = false;
     this.storage.set("CorsiSeguiti", this.listaCorsiSeguiti);
     this.globalData.goTo(this.currentPage, '/selezione-orario', 'forward', false);
   }
+
+  // test cal
+
+  // Change between month/week/day
+  changeMode(mode) {
+    this.calendar.mode = mode;
+  }
+
+  // Focus today
+  today() {
+    this.calendar.currentDate = new Date();
+  }
+
+  // Selected date reange and hence title changed
+  onViewTitleChanged(title) {
+    this.viewTitle = title;
+  }
+
+  // Calendar event was clicked
+  async onEventSelected(event) {
+    // Use Angular date pipe for conversion
+    let start = formatDate(event.startTime, 'medium', this.locale);
+    let end = formatDate(event.endTime, 'medium', this.locale);
+
+    const alert = await this.alertCtrl.create({
+      header: event.title,
+      subHeader: event.desc,
+      message: 'From: ' + start + '<br><br>To: ' + end,
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  // Time slot was clicked
+  onTimeSelected(ev) {
+    let selected = new Date(ev.selectedTime);
+    this.event.startTime = selected.toISOString();
+    selected.setHours(selected.getHours() + 1);
+    this.event.endTime = (selected.toISOString());
+  }
 }
+
