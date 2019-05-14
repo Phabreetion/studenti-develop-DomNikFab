@@ -201,7 +201,7 @@ export class Corso{
 
     public getFormatedContenutiCorso() {
         let contenutiFormatted = this.CONTENUTI;
-        contenutiFormatted = contenutiFormatted.replace('CFU', '<br>CFU');
+        contenutiFormatted = contenutiFormatted.replace(/\\r\\n|\\r|\\n/g, '</br>');
         return contenutiFormatted;
     }
 

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {SyncService} from './sync.service';
 import {Corso} from '../models/Corso';
 import {Storage} from '@ionic/storage';
+import {FiltroPianoDiStudio} from '../models/FiltroPianoDiStudio';
 
 const ID_SERVIZIO_PIANO_DI_STUDIO = 112;
 const ID_SERVIZIO_PROPEDEUTICITA = 113;
@@ -102,15 +103,18 @@ export class PianoDiStudioService {
         });
     }
 
-    public memorizzaFiltri(a) {
-        this.storage.set('filtriPianoDiStudio', a);
+    public memorizzaFiltri(filtro: FiltroPianoDiStudio) {
+        this.storage.set('filtroPianoDiStudio', filtro);
     }
 
-    public loadFiltriFromStorage(a) {
-        this.storage.get('filtriPianoDiStudio');
-    }
+    public async loadFiltriFromStorage(): Promise<FiltroPianoDiStudio> {
+        return new Promise<FiltroPianoDiStudio>((resolve, reject) => {
+            this.storage.get('filtroPianoDiStudio').then(
+                filtro => {
+                    resolve(FiltroPianoDiStudio.toObj(filtro));
+                }
+            );
+        });
 
-    public resetFiltri() {
-        this.storage.remove('filtriPianoDiStudio');
     }
 }

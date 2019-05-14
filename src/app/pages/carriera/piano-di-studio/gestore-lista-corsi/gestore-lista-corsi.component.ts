@@ -24,10 +24,10 @@ export class GestoreListaCorsiComponent implements OnInit {
   }
 
   private updateSourcePage() {
-    console.log(this.sourcePage.filtroSuperatiAttivo);
-    console.log(this.sourcePage.filtroNonSuperatiAttivo);
-    console.log(this.sourcePage.filtroPerAnno);
-    console.log(this.sourcePage.idOrdinamento);
+    console.log(this.sourcePage.filtro.filtroSuperatiAttivo);
+    console.log(this.sourcePage.filtro.filtroNonSuperatiAttivo);
+    console.log(this.sourcePage.filtro.filtroPerAnno);
+    console.log(this.sourcePage.filtro.idOrdinamento);
 
     this.sourcePage.updateFiltri();
   }

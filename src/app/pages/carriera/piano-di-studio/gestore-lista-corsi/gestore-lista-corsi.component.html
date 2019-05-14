@@ -1,6 +1,6 @@
 <ion-content>
     <ion-list>
-        <ion-radio-group [(ngModel)]="sourcePage.idOrdinamento" (ngModelChange)="updateSourcePage()">
+        <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
             <ion-list-header text-center>
                 Ordina per:
             </ion-list-header>
@@ -22,7 +22,7 @@
         </ion-radio-group>
     </ion-list>
 
-    <ion-select [(ngModel)]="sourcePage.isDescrescente" (ngModelChange)="updateSourcePage()" cancelText="Annulla">
+    <ion-select [(ngModel)]="sourcePage.filtro.isDescrescente" (ngModelChange)="updateSourcePage()" cancelText="Annulla">
         <ion-select-option [value]=false>Crescente</ion-select-option>
         <ion-select-option [value]=true>Decrescente</ion-select-option>
     </ion-select>
@@ -43,7 +43,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtroSuperatiAttivo" (ngModelChange)="updateSourcePage()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -55,7 +55,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtroNonSuperatiAttivo" (ngModelChange)="updateSourcePage()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="updateSourcePage()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -67,7 +67,7 @@
                 </ion-item>
             </ion-col>
             <ion-col>
-                <ion-select [(ngModel)]="sourcePage.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
+                <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
                     <ion-select-option value="-1">Nessuno</ion-select-option>
                     <ion-select-option value="1">1° Anno</ion-select-option>
                     <ion-select-option value="2">2° Anno</ion-select-option>
@@ -91,7 +91,7 @@
         </ion-row>
         <ion-row>
             <ion-col >
-                <ion-button style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
+                <ion-button (click)="sourcePage.memorizzaFiltri()" style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

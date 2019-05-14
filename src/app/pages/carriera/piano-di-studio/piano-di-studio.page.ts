@@ -5,6 +5,7 @@ import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-co
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
+import {FiltroPianoDiStudio} from '../../../models/FiltroPianoDiStudio';
 
 
 
@@ -29,11 +30,7 @@ export class PianoDiStudioPage implements OnInit {
 
 
     //per filtri e ordinamento
-    public filtroSuperatiAttivo: boolean;
-    public filtroNonSuperatiAttivo: boolean;
-    public filtroPerAnno: number; //-1 non attivo -> altrimenti gli altri
-    public idOrdinamento: number;
-    public isDescrescente: boolean;
+    filtro: FiltroPianoDiStudio;
 
 
 
@@ -41,6 +38,7 @@ export class PianoDiStudioPage implements OnInit {
                 private modalController: ModalController,
                 private actionSheetController: ActionSheetController,
                 private pianoDiStudioService: PianoDiStudioService) {
+        this.filtro = new FiltroPianoDiStudio();
     }
 
     async ngOnInit() {
@@ -51,9 +49,15 @@ export class PianoDiStudioPage implements OnInit {
 
         this.resetFiltri();
 
-        //load filtri dallo storage
-        //se i filtri sono salvati nello storage
-        //chiama subito le funzioni filtra e ordina
+        //carico i filtri dallo storage ed eseguo il filtraggio
+        this.pianoDiStudioService.loadFiltriFromStorage().then(
+            filtro => {
+                this.filtro = filtro;
+                this.updateFiltri();
+            }
+        );
+
+
     }
 
     doRefresh(event) {
@@ -67,7 +71,7 @@ export class PianoDiStudioPage implements OnInit {
 
     ordina(): void {
         //il primo ordinamento viene eseguito per crescente crescente
-        switch (this.idOrdinamento) {
+        switch (this.filtro.idOrdinamento) {
             case ORDINAMENTO_ALFABETICO: //alfabetico crescente
                 this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE < two.DESCRIZIONE ? -1 : 1) );
                 break;
@@ -105,23 +109,23 @@ export class PianoDiStudioPage implements OnInit {
         }
 
         //se viene selezionato decrescente viene effetuato il reverse dell'array
-        if(this.isDescrescente) {
+        if(this.filtro.isDescrescente) {
             this.corsiFiltrati.reverse();
         }
     }
 
     filtra(): void {
         this.corsiFiltrati = this.corsi;
-        if (this.filtroSuperatiAttivo) {
+        if (this.filtro.filtroSuperatiAttivo) {
             this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.isSuperato());
         }
 
-        if (this.filtroNonSuperatiAttivo) {
+        if (this.filtro.filtroNonSuperatiAttivo) {
             this.corsiFiltrati = this.corsiFiltrati.filter(corso => !corso.isSuperato());
         }
 
-        if (this.filtroPerAnno >= 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO === this.filtroPerAnno);
+        if (this.filtro.filtroPerAnno >= 0) {
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO === this.filtro.filtroPerAnno);
         }
     }
 
@@ -213,20 +217,18 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     memorizzaFiltri() {
-
+        this.pianoDiStudioService.memorizzaFiltri(this.filtro);
     }
 
     resetFiltri() {
         this.searchKey = '';
-        this.filtroPerAnno = -1;
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
-        this.idOrdinamento = 3;
-        this.isDescrescente = false;
+        this.filtro.filtroPerAnno = -1;
+        this.filtro.filtroSuperatiAttivo = false;
+        this.filtro.filtroNonSuperatiAttivo = false;
+        this.filtro.idOrdinamento = 3;
+        this.filtro.isDescrescente = false;
 
         this.updateFiltri();
-
-        this.pianoDiStudioService.resetFiltri();
     }
 
 }
