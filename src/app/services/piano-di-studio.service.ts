@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {SyncService} from './sync.service';
 import {Corso} from '../models/Corso';
+import {Storage} from '@ionic/storage';
 
 const ID_SERVIZIO_PIANO_DI_STUDIO = 112;
 const ID_SERVIZIO_PROPEDEUTICITA = 113;
@@ -11,7 +12,8 @@ const ID_SERVIZIO_PROPEDEUTICITA = 113;
 export class PianoDiStudioService {
 
 
-    constructor(private sync: SyncService) {
+    constructor(private sync: SyncService,
+                private storage: Storage) {
     }
 
     public async getPropedeuticita(ad_id: number): Promise<any[]> {
@@ -98,5 +100,17 @@ export class PianoDiStudioService {
 
             });
         });
+    }
+
+    public memorizzaFiltri(a) {
+        this.storage.set('filtriPianoDiStudio', a);
+    }
+
+    public loadFiltriFromStorage(a) {
+        this.storage.get('filtriPianoDiStudio');
+    }
+
+    public resetFiltri() {
+        this.storage.remove('filtriPianoDiStudio');
     }
 }

@@ -469,6 +469,8 @@ export class AppelliPage implements OnChanges, OnInit {
         return Math.ceil(Math.abs(data_odierna.getTime() - data_inizio.getTime()) / MS_GIORNO);
     }
 
+
+    //conteggio giorni rimanenti per prenotare l'esame
     giorniRimanentiPrimaDellaChiusura(appello): number {
         const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
 
@@ -480,6 +482,9 @@ export class AppelliPage implements OnChanges, OnInit {
         return Math.ceil(Math.abs(data_odierna.getTime() - data_fine.getTime()) / MS_GIORNO);
     }
 
+    /**
+     * Conteggio per i giorni rimanenti
+     */
     giorniRimanentiPerEsame(appello): number {
         const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
 

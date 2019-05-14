@@ -141,6 +141,9 @@ export class Corso{
      */
     public PREREQUISITI: string;
 
+    /**
+     * Contenuti del corso, descrizione del contenuto dei singoli CFU del corso
+     */
     public CONTENUTI: string;
 
 
@@ -169,7 +172,6 @@ export class Corso{
      * @param GIUDIZIO
      * @param NOME
      */
-
     constructor(CONTENUTI?: string, AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
         this.CONTENUTI = CONTENUTI;
         this.AA_OFF_ID = AA_OFF_ID;
@@ -214,6 +216,5 @@ export class Corso{
     static toObj(obj: Object): Corso {
         return Object.assign(new Corso(), obj);
     }
-
 
 }

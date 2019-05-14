@@ -38,11 +38,7 @@ export class GestoreListaCorsiComponent implements OnInit {
   }
 
   private resetFiltri() {
-    this.sourcePage.filtroSuperatiAttivo = false;
-    this.sourcePage.filtroNonSuperatiAttivo = false;
-    this.sourcePage.filtroPerAnno = -1;
-
-
+    this.sourcePage.resetFiltri();
     //this.ordinamentoSelected = 0;
     //this.ordinamentoOffset = 0;
     //this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;

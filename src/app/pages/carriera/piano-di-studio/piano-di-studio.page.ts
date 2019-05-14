@@ -44,11 +44,6 @@ export class PianoDiStudioPage implements OnInit {
                 private modalController: ModalController,
                 private actionSheetController: ActionSheetController,
                 private pianoDiStudioService: PianoDiStudioService) {
-        this.searchKey = '';
-        this.filtroPerAnno = -1;
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
-        this.idOrdinamento = 3;
     }
 
     async ngOnInit() {
@@ -56,6 +51,8 @@ export class PianoDiStudioPage implements OnInit {
 
         this.corsiFiltrati = this.corsi;
         this.corsiTrovati = this.corsiFiltrati;
+
+        this.resetFiltri();
 
         //load filtri dallo storage
         //se i filtri sono salvati nello storage
@@ -231,7 +228,6 @@ export class PianoDiStudioPage implements OnInit {
         this.globalData.goTo(this, ['/appelli/', corso.CODICE], 'forward', false);
     }
 
-
     goToMaterialeDidattico(corso: Corso) {
         this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID], 'forward', false);
     }
@@ -242,5 +238,18 @@ export class PianoDiStudioPage implements OnInit {
         //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }
 
+    memorizzaFiltri() {
+
+    }
+
+    resetFiltri() {
+        this.searchKey = '';
+        this.filtroPerAnno = -1;
+        this.filtroSuperatiAttivo = false;
+        this.filtroNonSuperatiAttivo = false;
+        this.idOrdinamento = 3;
+
+        this.pianoDiStudioService.resetFiltri();
+    }
 
 }
