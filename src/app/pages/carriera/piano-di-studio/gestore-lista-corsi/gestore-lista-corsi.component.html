@@ -1,9 +1,7 @@
 <ion-content>
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
-            <ion-list-header text-center>
-                Ordina per:
-            </ion-list-header>
+            <ion-list-header text-center> <b>Ordina per:</b> </ion-list-header>
             <ion-item>
                 <ion-label>Alfabetico</ion-label>
                 <ion-radio [value]=1></ion-radio>
@@ -29,11 +27,9 @@
 
     <ion-grid>
         <ion-row>
-            <ion-col>
-                <ion-item>
-                    <ion-title text-center>Filtra per:</ion-title>
-                </ion-item>
-            </ion-col>
+
+                    <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
+
         </ion-row>
         <ion-row justify-content-center align-items-center>
             <ion-col>
