@@ -1,11 +1,14 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {ActionSheetController, ModalController} from '@ionic/angular';
+import {ActionSheetController, ModalController, ToastController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 import {FiltroPianoDiStudio} from '../../../models/FiltroPianoDiStudio';
+import {SyncService} from '../../../services/sync.service';
+import {HttpService} from '../../../services/http.service';
+import {AccountService} from '../../../services/account.service';
 
 
 
@@ -13,6 +16,8 @@ const ORDINAMENTO_ALFABETICO = 1;
 const ORDINAMENTO_ANNO = 2;
 const ORDINAMENTO_CFU = 3;
 const ORDINAMENTO_VOTO = 4;
+
+const PAGE_URL = '/piano-di-studio';
 
 @Component({
     selector: 'app-piano-di-studio',
@@ -33,12 +38,28 @@ export class PianoDiStudioPage implements OnInit {
     filtro: FiltroPianoDiStudio;
 
 
+    //Aggiornamento
+    idServizio = 112;
+    loading: any;
+    dataAggiornamento: string;
+    aggiornamentoVerificato = false;
+    rinvioAggiornamento = false;
+    nrRinvii = 0;
+    maxNrRinvii = 5;
+
+
 
     constructor(public globalData: GlobalDataService,
                 private modalController: ModalController,
                 private actionSheetController: ActionSheetController,
-                private pianoDiStudioService: PianoDiStudioService) {
-        this.filtro = new FiltroPianoDiStudio();
+                private pianoDiStudioService: PianoDiStudioService,
+                public sync: SyncService,
+                public http: HttpService,
+                public toastCtrl: ToastController,
+                public account: AccountService) {
+    this.filtro = new FiltroPianoDiStudio();
+
+
     }
 
     async ngOnInit() {
@@ -58,14 +79,102 @@ export class PianoDiStudioPage implements OnInit {
         );
 
 
+
+        this.account.controllaAccount().then(
+            (ok) => {
+                this.http.getConnected();
+                this.aggiorna(false, true);
+            }, (err) => {
+                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
+            }
+        );
+
+        //load filtri dallo storage
+        //se i filtri sono salvati nello storage
+        //chiama subito le funzioni filtra e ordina
     }
 
+
+
+
+    aggiorna(interattivo: boolean, sync: boolean) {
+        if (this.sync.loading[this.idServizio]) {
+            this.rinvioAggiornamento = true;
+            this.dataAggiornamento = 'in corso';
+            this.nrRinvii++;
+
+            // console.log('Rinvio ' + this.nrRinvii);
+
+            if (this.nrRinvii < this.maxNrRinvii) {
+                setTimeout(() => {
+                    this.aggiorna(interattivo, sync);
+                }, 2000);
+                return;
+            } else {
+                if (this.http.connessioneLenta) {
+                    this.toastCtrl.create({
+                        message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
+                        duration: 3000,
+                        position: 'bottom'
+                    }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                }
+            }
+        }
+        this.rinvioAggiornamento = false;
+
+        this.sync.getJson(this.idServizio, null, true).then(
+            (data) => {
+                if ( this.sync.dataIsChanged(this.corsi, data[0]) ) {
+                    //this.libretto = data[0];
+                    //this.caricaAnni();
+                    setTimeout(() => {
+                        this.controllaAggiornamento();
+                    }, 1000);
+                }
+                this.dataAggiornamento = SyncService.dataAggiornamento(data);
+            },
+            (err) => {
+            }).catch(err => {
+            }
+        );
+
+    }
+
+
+    controllaAggiornamento() {
+        // La verifica dell'aggiornamento in background la facciamo solo una volta
+        if (this.aggiornamentoVerificato) {
+            return;
+        }
+
+        // Se stiamo caricando dati dal server rimandiamo la verifica
+        if (this.sync.loading[this.idServizio]) {
+            setTimeout(() => {
+                this.controllaAggiornamento();
+            }, 1000);
+        } else {
+            this.aggiornamentoVerificato = true;
+            this.aggiorna(false, false);
+        }
+    }
+
+    isLoading() {
+        return this.sync.loading[this.idServizio];
+    }
+
+
     doRefresh(event) {
-        // @TODO sostituire con la funzione di aggionramento del libretto
-        setTimeout(() => {
-            console.log('Async operation has ended');
+        this.sync.getJson(this.idServizio, null, true).then( (data) => {
+            if (this.sync.dataIsChanged(this.corsi, data[0])) {
+                //this.libretto = data[0];
+                //this.caricaAnni();
+                setTimeout(() => {
+                    this.controllaAggiornamento();
+                }, 1000);
+            }
+            this.dataAggiornamento = SyncService.dataAggiornamento(data);
             event.target.complete();
-        }, 2000);
+        });
     }
 
 
@@ -109,7 +218,7 @@ export class PianoDiStudioPage implements OnInit {
         }
 
         //se viene selezionato decrescente viene effetuato il reverse dell'array
-        if(this.filtro.isDescrescente) {
+        if (this.filtro.isDescrescente) {
             this.corsiFiltrati.reverse();
         }
     }
