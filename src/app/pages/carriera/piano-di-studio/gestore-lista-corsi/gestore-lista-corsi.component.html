@@ -68,13 +68,13 @@
             </ion-col>
             <ion-col>
                 <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
-                    <ion-select-option value="-1">Nessuno</ion-select-option>
-                    <ion-select-option value="1">1° Anno</ion-select-option>
-                    <ion-select-option value="2">2° Anno</ion-select-option>
-                    <ion-select-option value="3">3° Anno</ion-select-option>
-                    <ion-select-option value="4">4° Anno</ion-select-option>
-                    <ion-select-option value="5">5° Anno</ion-select-option>
-                    <ion-select-option value="6">6° Anno</ion-select-option>
+                    <ion-select-option [value]="-1">Nessuno</ion-select-option>
+                    <ion-select-option [value]="1">1° Anno</ion-select-option>
+                    <ion-select-option [value]="2">2° Anno</ion-select-option>
+                    <ion-select-option [value]="3">3° Anno</ion-select-option>
+                    <ion-select-option [value]="4">4° Anno</ion-select-option>
+                    <ion-select-option [value]="5">5° Anno</ion-select-option>
+                    <ion-select-option [value]="6">6° Anno</ion-select-option>
                 </ion-select>
             </ion-col>
         </ion-row>
