@@ -43,6 +43,7 @@
 
 <ion-content [ngSwitch]="sezioni" fixed no-padding>
 
+
     <ion-refresher *ngIf="!insegnamento" (ionRefresh)="doRefresh($event)" slot="fixed">
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>

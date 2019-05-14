@@ -204,7 +204,7 @@ export class HttpService {
                 // this.http.setHeader('*', 'Content-Type', 'application/json');
                 // this.http.setDataSerializer('json');
 
-                this.post(this.globalData.baseurl + '/ultimaVersione.php', {platform: 'Android'})
+                this.post(this.globalData.defaultBaseUrl + '/ultimaVersione.php', {platform: 'Android'})
                     .then(() => {
                         // console.dir(data);
                         this.connessioneInizializzata = true;

@@ -94,26 +94,15 @@
     </ion-list>
 </ion-content>
 <ion-footer>
+  <ion-toolbar>
+   <ion-buttons slot="start">
+      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+      <ion-icon [hidden]="isLoading() || !http.getConnected()" name="checkmark" ></ion-icon>
+      <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
+    </ion-buttons>
 
-
-
-    <ion-icon name="checkmark"> </ion-icon>
-   <!-- <ion-toolbar>
-     <ion-buttons slot="start">
-           <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
-           <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
-           <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
-         </ion-buttons> -->
-
-
-
-       <!-- <div class="testo-footer" text-right>
-            Aggiornato al: {{dataAggiornamento}}
-        </div>
-
-
-        <ion-buttons>
-          <ion-button icon-only (click)="selezionaTab()"><ion-icon name="more"></ion-icon></ion-button>
-        </ion-buttons>
-    </ion-toolbar> -->
+    <div class="testo-footer" text-center>
+      Aggiornato al: {{dataAggiornamento}}
+     </div>
+    </ion-toolbar>
 </ion-footer>
