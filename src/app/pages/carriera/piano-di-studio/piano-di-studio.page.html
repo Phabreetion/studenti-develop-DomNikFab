@@ -14,10 +14,7 @@
                     Piano di studio
                 </ion-title>
 
-
-
                 <ion-buttons slot="end">
-
                     <ion-button  color="#8c8c8c"  font-size="small" size="small" *ngIf="filtro.filtroSuperatiAttivo || filtro.filtroNonSuperatiAttivo || filtro.filtroPerAnno > 0">
                         Reset filtri
                     </ion-button>
@@ -25,10 +22,10 @@
                     <ion-button icon-only (click)="openFiltri()">
                         <ion-icon name="switch" color="primary"></ion-icon>
                     </ion-button>  <!-- icona precedente "funnel" -->
+
                     <ion-button icon-only (click)="isSearchbarOpened = !isSearchbarOpened">
                         <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
                     </ion-button>
-
                 </ion-buttons>
             </ion-toolbar>
         </ion-row>
@@ -43,6 +40,30 @@
 </ion-header>
 
 
+<!--
+<ion-content fixed no-padding>
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="Pull to refresh"
+                refreshingSpinner="circles"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list *ngIf="corsiGruppati.size">
+        <ion-item *ngFor="let index of corsiGruppati.keys()">
+            <ion-title text-center>{{index}} Chiave</ion-title>
+            <ion-item *ngFor="let corso of corsiGruppati.get(index)">
+                {{corso.DESCRIZIONE}}
+            </ion-item>
+        </ion-item>
+    </ion-list>
+
+
+
+</ion-content>
+-->
 <ion-content fixed no-padding>
     <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
@@ -93,6 +114,10 @@
         </ion-item-sliding>
     </ion-list>
 </ion-content>
+
+
+
+
 <ion-footer>
   <ion-toolbar>
    <ion-buttons slot="start">

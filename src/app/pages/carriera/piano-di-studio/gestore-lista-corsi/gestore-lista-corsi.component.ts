@@ -1,48 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
 import {PianoDiStudioPage} from '../piano-di-studio.page';
 
 @Component({
-  selector: 'app-gestore-lista-corsi',
-  templateUrl: './gestore-lista-corsi.component.html',
-  styleUrls: ['./gestore-lista-corsi.component.scss'],
+    selector: 'app-gestore-lista-corsi',
+    templateUrl: './gestore-lista-corsi.component.html',
+    styleUrls: ['./gestore-lista-corsi.component.scss'],
 })
 export class GestoreListaCorsiComponent implements OnInit {
-  public sourcePage: PianoDiStudioPage;
+    public sourcePage: PianoDiStudioPage;
 
-  //ordinamento
-  private ordinamentoOffset: number;
-  private ordinamentoSelected: number;
+    //ordinamento
+    private ordinamentoOffset: number;
+    private ordinamentoSelected: number;
 
-  constructor(
-      private modalController: ModalController,
-      private navParam: NavParams) {
-  }
+    constructor(
+        private modalController: ModalController,
+        private navParam: NavParams) {
+    }
 
-  ngOnInit() {
-    this.sourcePage = this.navParam.get('page');
-  }
+    ngOnInit() {
+        this.sourcePage = this.navParam.get('page');
+    }
 
-  private updateSourcePage() {
-    console.log(this.sourcePage.filtro.filtroSuperatiAttivo);
-    console.log(this.sourcePage.filtro.filtroNonSuperatiAttivo);
-    console.log(this.sourcePage.filtro.filtroPerAnno);
-    console.log(this.sourcePage.filtro.idOrdinamento);
+    private updateSourcePage() {
+        console.log(this.sourcePage.filtro.filtroSuperatiAttivo);
+        console.log(this.sourcePage.filtro.filtroNonSuperatiAttivo);
+        console.log(this.sourcePage.filtro.filtroPerAnno);
+        console.log(this.sourcePage.filtro.idOrdinamento);
+        console.log(this.sourcePage.filtro.tipoOrdinamento);
 
-    this.sourcePage.updateFiltri();
-  }
+        this.sourcePage.updateFiltri();
+    }
 
-  //
-  closeFiltri() {
-    this.modalController.dismiss();
-  }
+    //
+    closeFiltri() {
+        this.modalController.dismiss();
+    }
 
-  private resetFiltri() {
-    this.sourcePage.resetFiltri();
-    //this.ordinamentoSelected = 0;
-    //this.ordinamentoOffset = 0;
-    //this.idOrdinamento = this.ordinamentoSelected + this.ordinamentoOffset;
-  }
+    resetFiltri() {
+        this.sourcePage.resetFiltri();
+    }
 
-
+    memorizzaFiltri() {
+        this.sourcePage.memorizzaFiltri();
+    }
 }

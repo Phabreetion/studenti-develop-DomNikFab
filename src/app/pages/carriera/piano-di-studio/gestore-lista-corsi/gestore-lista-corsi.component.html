@@ -4,26 +4,24 @@
             <ion-list-header text-center> <b>Ordina per:</b> </ion-list-header>
             <ion-item>
                 <ion-label>Alfabetico</ion-label>
-                <ion-radio [value]=1></ion-radio>
+                <ion-radio [value]=0></ion-radio>
             </ion-item>
             <ion-item>
                 <ion-label>Anno</ion-label>
                 <ion-radio [value]=2></ion-radio>
             </ion-item>
             <ion-item><ion-label>CFU</ion-label>
-                <ion-radio [value]=3></ion-radio>
+                <ion-radio [value]=4></ion-radio>
             </ion-item>
             <ion-item>
                 <ion-label>Voto</ion-label>
-                <ion-radio [value]=4></ion-radio>
+                <ion-radio [value]=6></ion-radio>
             </ion-item>
         </ion-radio-group>
     </ion-list>
 
-    <ion-select [(ngModel)]="sourcePage.filtro.isDescrescente" (ngModelChange)="updateSourcePage()" cancelText="Annulla">
-        <ion-select-option [value]=false>Crescente</ion-select-option>
-        <ion-select-option [value]=true>Decrescente</ion-select-option>
-    </ion-select>
+    <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
+    <ion-button *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
 
     <ion-grid>
         <ion-row>
@@ -75,19 +73,25 @@
             </ion-col>
         </ion-row>
     </ion-grid>
+
     <ion-grid>
         <ion-row>
-
             <ion-col>
-                <ion-button style="width:100%" (click)="resetFiltri()"><ion-icon name="refresh"></ion-icon> Reset</ion-button>
+                <ion-button expand="block" color="danger" (click)="resetFiltri()">
+                    <ion-icon name="refresh"></ion-icon> Reset
+                </ion-button>
             </ion-col>
             <ion-col>
-                <ion-button (click)="closeFiltri()" style="width:100%" color="danger"><ion-icon name="close"></ion-icon> Chiudi</ion-button>
+                <ion-button expand="block" color="primary" (click)="closeFiltri()" >
+                    <ion-icon name="close"></ion-icon> Chiudi
+                </ion-button>
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col >
-                <ion-button (click)="sourcePage.memorizzaFiltri()" style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
+            <ion-col>
+                <ion-button expand="block" color="primary" (click)="memorizzaFiltri()">
+                    <ion-icon name="bookmark"></ion-icon> Memorizza
+                </ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
