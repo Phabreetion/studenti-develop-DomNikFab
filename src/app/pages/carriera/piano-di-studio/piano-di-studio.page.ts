@@ -231,4 +231,9 @@ export class PianoDiStudioPage implements OnInit {
         this.updateFiltri();
     }
 
+    hideSearchbar() {
+        this.isSearchbarOpened = false;
+        this.searchKey = '';
+        this.search();
+    }
 }

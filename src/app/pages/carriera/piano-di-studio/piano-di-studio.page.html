@@ -33,7 +33,10 @@
             </ion-toolbar>
         </ion-row>
         <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar *ngIf='isSearchbarOpened' [(ngModel)]="searchKey" placeholder="Cerca"
+            <ion-searchbar *ngIf='isSearchbarOpened'
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true" (ionCancel)="hideSearchbar()"
                            (ngModelChange)="search()"></ion-searchbar>
         </ion-row>
     </ion-grid>
