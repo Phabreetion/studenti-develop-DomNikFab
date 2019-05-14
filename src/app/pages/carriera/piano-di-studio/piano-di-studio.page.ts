@@ -105,7 +105,7 @@ export class PianoDiStudioPage implements OnInit {
         }
 
         //se viene selezionato decrescente viene effetuato il reverse dell'array
-        if(this.isDescrescente) {
+        if (this.isDescrescente) {
             this.corsiFiltrati.reverse();
         }
     }
@@ -229,4 +229,9 @@ export class PianoDiStudioPage implements OnInit {
         this.pianoDiStudioService.resetFiltri();
     }
 
+    hideSearchbar() {
+        this.isSearchbarOpened = false;
+        this.searchKey = '';
+        this.search();
+    }
 }
