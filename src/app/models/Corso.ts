@@ -149,6 +149,7 @@ export class Corso{
 
     /**
      *
+     * @param CONTENUTI
      * @param AA_OFF_ID
      * @param ADSCE_ID
      * @param ANNO

@@ -8,14 +8,10 @@ import {Corso} from '../../../models/Corso';
 
 
 
-const ALFABETICO_CRESCENTE = 1;
-const ALFABETICO_DECRESCENTE = 2;
-const VOTO_CRESCENTE = 3;
-const VOTO_DECRESCENTE = 4;
-const ANNO_CRESCENTE = 5;
-const ANNO_DECRESCENTE = 6;
-const CFU_CRESCENTE = 7;
-const CFU_DECRESCENTE = 8;
+const ORDINAMENTO_ALFABETICO = 1;
+const ORDINAMENTO_ANNO = 2;
+const ORDINAMENTO_CFU = 3;
+const ORDINAMENTO_VOTO = 4;
 
 @Component({
     selector: 'app-piano-di-studio',
@@ -37,6 +33,7 @@ export class PianoDiStudioPage implements OnInit {
     public filtroNonSuperatiAttivo: boolean;
     public filtroPerAnno: number; //-1 non attivo -> altrimenti gli altri
     public idOrdinamento: number;
+    public isDescrescente: boolean;
 
 
 
@@ -69,32 +66,21 @@ export class PianoDiStudioPage implements OnInit {
 
 
     ordina(): void {
+        //il primo ordinamento viene eseguito per crescente crescente
         switch (this.idOrdinamento) {
-            case ALFABETICO_CRESCENTE: //alfabetico crescente
-                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE.toString() < two.DESCRIZIONE.toString() ? -1 : 1));
+            case ORDINAMENTO_ALFABETICO: //alfabetico crescente
+                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE < two.DESCRIZIONE ? -1 : 1) );
                 break;
 
-            case ALFABETICO_DECRESCENTE: //alfabetico crescente
-                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE.toString() > two.DESCRIZIONE.toString() ? -1 : 1));
+            case ORDINAMENTO_ANNO: //anno crescente
+                this.corsiFiltrati.sort((one, two) => (one.ANNO < two.ANNO ? -1 : 1) );
                 break;
 
-            case ANNO_CRESCENTE: //anno crescente
-                this.corsiFiltrati.sort((one, two) => one.ANNO < two.ANNO ? -1 : 1);
+            case ORDINAMENTO_CFU: //CFU crescente
+                this.corsiFiltrati.sort((one, two) => (one.CFU < two.CFU ? -1 : 1) );
                 break;
 
-            case ANNO_DECRESCENTE: //anno decrescente
-                this.corsiFiltrati.sort((one, two) => one.ANNO > two.ANNO ? -1 : 1);
-                break;
-
-            case CFU_CRESCENTE: //anno crescente
-                this.corsiFiltrati.sort((one, two) => one.CFU < two.CFU ? -1 : 1);
-                break;
-
-            case CFU_DECRESCENTE: //anno decrescente
-                this.corsiFiltrati.sort((one, two) => one.CFU > two.CFU ? -1 : 1);
-                break;
-
-            case VOTO_CRESCENTE: //voto crescente
+            case ORDINAMENTO_VOTO: //voto crescente
                 this.corsiFiltrati.sort((one, two) => {
                     if (one.VOTO < two.VOTO) {
                         return -1;
@@ -116,23 +102,11 @@ export class PianoDiStudioPage implements OnInit {
                     }*/
                 });
                 break;
+        }
 
-            case VOTO_DECRESCENTE: //voto decrescente
-                this.corsiFiltrati.sort((one, two) => {
-                    if (one.VOTO > two.VOTO) {
-                        return -1;
-                    }
-                    if (one.VOTO < two.VOTO) {
-                        return 1;
-                    }
-                    if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
-                        return 1;
-                    }
-                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
-                        return -1;
-                    }
-                });
-                break;
+        //se viene selezionato decrescente viene effetuato il reverse dell'array
+        if(this.isDescrescente) {
+            this.corsiFiltrati.reverse();
         }
     }
 
@@ -248,6 +222,9 @@ export class PianoDiStudioPage implements OnInit {
         this.filtroSuperatiAttivo = false;
         this.filtroNonSuperatiAttivo = false;
         this.idOrdinamento = 3;
+        this.isDescrescente = false;
+
+        this.updateFiltri();
 
         this.pianoDiStudioService.resetFiltri();
     }
