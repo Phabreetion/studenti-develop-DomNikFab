@@ -14,32 +14,37 @@
           <ion-title>
             Appelli
           </ion-title>
+
           <ion-buttons slot="end">
             <ion-back-button *ngIf="insegnamento" defaultHref="/carriera" text="Indietro"></ion-back-button>
+            <ion-button  (click)="openFiltri()"><ion-icon name="switch" color="primary"></ion-icon></ion-button>
+            <ion-button icon-only (click)="isSearchbarOpened = !isSearchbarOpened">
+              <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
+            </ion-button>
           </ion-buttons>
         </ion-toolbar>
       </ion-col>
     </ion-row>
+
+    <ion-row>
+      <ion-segment [(ngModel)]="sezioni" (ionChange)="ngOnInit()">
+        <ion-segment-button value="disponibili">Disponibili {{nrAppelli}}</ion-segment-button>
+        <ion-segment-button value="prenotati">Prenotati {{nrPrenotazioni}}</ion-segment-button>
+      </ion-segment>
+    </ion-row>
+    <ion-row *ngIf='isSearchbarOpened'>
+      <ion-searchbar *ngIf='isSearchbarOpened'  placeholder="Cerca" ></ion-searchbar>
+    </ion-row>
   </ion-grid>
 </ion-header>
 
-<ion-item>
-  <ion-searchbar></ion-searchbar>
-  <ion-button  (click)="openFiltri()"><ion-icon name="funnel"></ion-icon></ion-button>
-</ion-item>
 
-<ion-content [ngSwitch]="sezioni">
+
+<ion-content [ngSwitch]="sezioni" fixed no-padding>
 
   <ion-refresher *ngIf="!insegnamento" (ionRefresh)="doRefresh($event)" slot="fixed">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
-  <ion-toolbar>
-    <ion-segment [(ngModel)]="sezioni" (ionChange)="ngOnInit()">
-      <ion-segment-button value="disponibili">Disponibili {{nrAppelli}}</ion-segment-button>
-      <ion-segment-button value="prenotati">Prenotati {{nrPrenotazioni}}</ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 
   <ion-list *ngSwitchCase="'disponibili'" >
     <ion-grid *ngIf="rinvioAggiornamento && appelli?.length == 0" text-center>

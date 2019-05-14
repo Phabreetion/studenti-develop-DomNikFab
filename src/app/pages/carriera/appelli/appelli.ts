@@ -42,6 +42,8 @@ export class AppelliPage implements OnChanges, OnInit {
 
     corsi: Corso[];
 
+    public isSearchbarOpened = false;
+
     constructor(
         private route: ActivatedRoute,
         private sync: SyncService,
