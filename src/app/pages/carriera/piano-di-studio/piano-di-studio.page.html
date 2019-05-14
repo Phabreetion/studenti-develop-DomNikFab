@@ -60,7 +60,7 @@
             <ion-item (click)="presentActionSheet(corso)">
                 <ion-grid fixed no-padding
                           [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
-                    <ion-row> <ion-icon name="md-attach"></ion-icon> &nbsp;&nbsp; <b>{{corso.DESCRIZIONE}}</b></ion-row>
+                    <ion-row> <ion-icon name="md-book"></ion-icon> &nbsp;&nbsp; <b>{{corso.DESCRIZIONE}}</b></ion-row>
                     <ion-row>
                         <ion-col color="lightgrey">
                           &nbsp; &nbsp; &nbsp;<fa-icon [icon]=globalData.faCoins></fa-icon>
