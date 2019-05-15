@@ -76,9 +76,8 @@
                                      [icon]="globalData.faBookOpen"></fa-icon>&nbsp;<b>{{corso.DESCRIZIONE}}</b>
                         </ion-row>
                         <ion-row>
-                            <ion-col color="lightgrey" no-padding>
-                                &nbsp; &nbsp; &nbsp;<fa-icon [icon]="globalData.faCoins"></fa-icon>
-                                &nbsp; CFU;&nbsp; {{corso.CFU}}
+                            <ion-col color="lightgrey"  fixed no-padding>
+                                &nbsp; &nbsp; &nbsp;<fa-icon [icon]="globalData.faCoins"></fa-icon> CFU:&nbsp; {{corso.CFU}}
                                 <ion-col *ngIf="corso.isSuperato()">
                                     <fa-icon [icon]="globalData.faCalendarDay"></fa-icon> &nbsp;{{corso.DATA_ESAME}}
                                 </ion-col>
