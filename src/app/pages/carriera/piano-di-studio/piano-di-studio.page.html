@@ -34,6 +34,7 @@
                            [(ngModel)]="searchKey"
                            placeholder="Cerca"
                            showCancelButton="true" (ionCancel)="hideSearchbar()"
+                           animated="true"
                            (ngModelChange)="search()"></ion-searchbar>
         </ion-row>
     </ion-grid>
