@@ -28,15 +28,16 @@
             </ion-col>
         </ion-row>
 
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar *ngIf='isSearchbarOpened' placeholder="Cerca"></ion-searchbar>
+        </ion-row>
         <ion-row>
             <ion-segment [(ngModel)]="sezioni" (ionChange)="ngOnInit()">
                 <ion-segment-button value="disponibili">Disponibili {{nrAppelli}}</ion-segment-button>
                 <ion-segment-button value="prenotati">Prenotati {{nrPrenotazioni}}</ion-segment-button>
             </ion-segment>
         </ion-row>
-        <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar *ngIf='isSearchbarOpened' placeholder="Cerca"></ion-searchbar>
-        </ion-row>
+
     </ion-grid>
 </ion-header>
 
