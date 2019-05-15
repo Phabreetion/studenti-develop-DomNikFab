@@ -10,6 +10,7 @@ import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi
 import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
+import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 // import {cursorTo} from "readline";
 
 @Component({
@@ -26,7 +27,7 @@ export class AppelliPage implements OnChanges, OnInit {
     insegnamento: string;
     dataAggiornamento: string;
     sezioni: string;
-    appelli: Array<any>;
+    appelli: AppelloDisponibile[];
     prenotazioni: Array<any>;
     nrAppelli = '';
     nrPrenotazioni = '';
@@ -117,27 +118,37 @@ export class AppelliPage implements OnChanges, OnInit {
         this.sync.getJson(this.idServizioDisponibili, null, sync).then(
             (data) => {
                 const newData = data[0];
+
+                this.appelli = data[0];
+
+                for (let i = 0; i < data[0].length; i++) {
+                    this.appelli[i] = AppelloDisponibile.toObj(this.appelli[i]);
+                }
+
+                console.log(this.appelli);
+
+                this.dataAggiornamentoDisponibili = SyncService.dataAggiornamento(data);
+                if (this.insegnamento != null) {
+                    const val = this.insegnamento;
+                    if (val && val.trim() !== '') {
+                        this.appelli = data[0].filter((item) => {
+                            return (item.codice === val);
+                        });
+                    }
+                }
+                if (this.appelli.length > 0 ) {
+                    this.nrAppelli = '(' + this.appelli.length + ')';
+                } else {
+                    this.nrAppelli = '';
+                }
+                setTimeout(() => {
+                    this.controllaAggiornamentoDisponibili();
+                }, 1000);
+
                 // Ottimizziamo il refresh ignorandolo in caso di dati non modificati
                 // TODO: si potrebbe ottimizzare il contronto tra array con qualcosa di più efficiente dello stringify
                 if (JSON.stringify(this.appelli) !== JSON.stringify(newData)) {
-                    this.appelli = data[0];
-                    this.dataAggiornamentoDisponibili = SyncService.dataAggiornamento(data);
-                    if (this.insegnamento != null) {
-                        const val = this.insegnamento;
-                        if (val && val.trim() !== '') {
-                            this.appelli = data[0].filter((item) => {
-                                return (item.codice === val);
-                            });
-                        }
-                    }
-                    if (this.appelli.length > 0 ) {
-                        this.nrAppelli = '(' + this.appelli.length + ')';
-                    } else {
-                        this.nrAppelli = '';
-                    }
-                    setTimeout(() => {
-                        this.controllaAggiornamentoDisponibili();
-                    }, 1000);
+                    //spostato tutto su... wip
                 }
             },
             (err) => {
@@ -234,11 +245,10 @@ export class AppelliPage implements OnChanges, OnInit {
     }
 
     isLoading() {
-        switch (this.sezioni) {
-            case 'disponibili':
-                return this.sync.loading[this.idServizioDisponibili];
-            default :
-                return this.sync.loading[this.idServizioPrenotati];
+        if (this.sezioni === 'disponibili') {
+            return this.sync.loading[this.idServizioDisponibili];
+        } else {
+            return this.sync.loading[this.idServizioPrenotati];
         }
     }
 
@@ -529,7 +539,7 @@ export class AppelliPage implements OnChanges, OnInit {
     isPrenotazioneSuperata(prenotazione): boolean {
         console.log(prenotazione.ad_id);
         let i = 0;
-        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].STATO == 'S')){
+        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].isSuperato())){
             i++;
         }
         return i < this.corsi.length;

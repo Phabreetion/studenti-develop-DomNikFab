@@ -57,7 +57,7 @@ export class File {
 
     }
 
-    public static toObj(j: Object): File {
-        return Object.assign(new File(), j);
+    public static toObj(obj: Object): File {
+        return Object.assign(new File(), obj);
     }
 }

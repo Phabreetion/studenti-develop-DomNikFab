@@ -3,7 +3,18 @@ export class FiltroPianoDiStudio {
     public filtroNonSuperatiAttivo: boolean;
     public filtroPerAnno: number; //-1 non attivo -> altrimenti gli altri
     public idOrdinamento: number;
-    public isDescrescente: boolean;
+    public tipoOrdinamento: number; //0 crescente --- 1 decrescente
+
+
+
+    isActive(): boolean {
+        return this.filtroSuperatiAttivo || this.filtroNonSuperatiAttivo || this.filtroPerAnno > 0;
+    }
+
+    disableBothFiltri(): void {
+        this.filtroNonSuperatiAttivo = false;
+        this.filtroSuperatiAttivo = false;
+    }//rivedere
 
 
 

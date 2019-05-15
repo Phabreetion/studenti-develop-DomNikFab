@@ -11,11 +11,14 @@ import {HttpService} from '../../../services/http.service';
 import {AccountService} from '../../../services/account.service';
 
 
-
-const ORDINAMENTO_ALFABETICO = 1;
-const ORDINAMENTO_ANNO = 2;
-const ORDINAMENTO_CFU = 3;
-const ORDINAMENTO_VOTO = 4;
+const ORDINAMENTO_ALFABETICO_CRESCENTE = 0;
+const ORDINAMENTO_ALFABETICO_DECRESCENTE = 1;
+const ORDINAMENTO_ANNO_CRESCENTE = 2;
+const ORDINAMENTO_ANNO_DECRESCENTE = 3;
+const ORDINAMENTO_CFU_CRESCENTE = 4;
+const ORDINAMENTO_CFU_DECRESCENTE = 5;
+const ORDINAMENTO_VOTO_CRESCENTE = 6;
+const ORDINAMENTO_VOTO_DECRESCENTE = 7;
 
 const PAGE_URL = '/piano-di-studio';
 
@@ -48,7 +51,6 @@ export class PianoDiStudioPage implements OnInit {
     maxNrRinvii = 5;
 
 
-
     constructor(public globalData: GlobalDataService,
                 private modalController: ModalController,
                 private actionSheetController: ActionSheetController,
@@ -57,9 +59,7 @@ export class PianoDiStudioPage implements OnInit {
                 public http: HttpService,
                 public toastCtrl: ToastController,
                 public account: AccountService) {
-    this.filtro = new FiltroPianoDiStudio();
-
-
+        this.filtro = new FiltroPianoDiStudio();
     }
 
     async ngOnInit() {
@@ -80,6 +80,7 @@ export class PianoDiStudioPage implements OnInit {
 
 
 
+
         this.account.controllaAccount().then(
             (ok) => {
                 this.http.getConnected();
@@ -93,8 +94,6 @@ export class PianoDiStudioPage implements OnInit {
         //se i filtri sono salvati nello storage
         //chiama subito le funzioni filtra e ordina
     }
-
-
 
 
     aggiorna(interattivo: boolean, sync: boolean) {
@@ -116,7 +115,11 @@ export class PianoDiStudioPage implements OnInit {
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
                         position: 'bottom'
-                    }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                    }).then((toast) => {
+                        toast.present();
+                    }, (toastErr) => {
+                        GlobalDataService.log(2, 'Toast fallito!', toastErr);
+                    });
                 }
             }
         }
@@ -124,7 +127,7 @@ export class PianoDiStudioPage implements OnInit {
 
         this.sync.getJson(this.idServizio, null, true).then(
             (data) => {
-                if ( this.sync.dataIsChanged(this.corsi, data[0]) ) {
+                if (this.sync.dataIsChanged(this.corsi, data[0])) {
                     //this.libretto = data[0];
                     //this.caricaAnni();
                     setTimeout(() => {
@@ -164,7 +167,7 @@ export class PianoDiStudioPage implements OnInit {
 
 
     doRefresh(event) {
-        this.sync.getJson(this.idServizio, null, true).then( (data) => {
+        this.sync.getJson(this.idServizio, null, true).then((data) => {
             if (this.sync.dataIsChanged(this.corsi, data[0])) {
                 //this.libretto = data[0];
                 //this.caricaAnni();
@@ -177,23 +180,132 @@ export class PianoDiStudioPage implements OnInit {
         });
     }
 
-
     ordina(): void {
         //il primo ordinamento viene eseguito per crescente crescente
-        switch (this.filtro.idOrdinamento) {
-            case ORDINAMENTO_ALFABETICO: //alfabetico crescente
-                this.corsiFiltrati.sort((one, two) => (one.DESCRIZIONE < two.DESCRIZIONE ? -1 : 1) );
+        switch (this.filtro.idOrdinamento + this.filtro.tipoOrdinamento) {
+            case ORDINAMENTO_ALFABETICO_CRESCENTE: //alfabetico crescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        //effettuo l'ordinamento sulle stringhe no case sensitive
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+                        //se i nomi sono uguali(molto improbabile) non gestisco le collisioni
+                        return 0;
+                    }
+                );
                 break;
 
-            case ORDINAMENTO_ANNO: //anno crescente
-                this.corsiFiltrati.sort((one, two) => (one.ANNO < two.ANNO ? -1 : 1) );
+            case ORDINAMENTO_ALFABETICO_DECRESCENTE: //alfabetico decrescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        //effettuo l'ordinamento sulle stringhe no case sensitive
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+                        //se i nomi sono uguali non gestisco le collisioni
+                        return 0;
+                    }
+                );
                 break;
 
-            case ORDINAMENTO_CFU: //CFU crescente
-                this.corsiFiltrati.sort((one, two) => (one.CFU < two.CFU ? -1 : 1) );
+            case ORDINAMENTO_ANNO_CRESCENTE: //anno crescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        if (one.ANNO - two.ANNO !== 0) {
+                            return one.ANNO - two.ANNO;
+                        }
+
+                        //gestiso le collisioni sui corsi con stesso anno
+                        //alfabetico
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+                );
                 break;
 
-            case ORDINAMENTO_VOTO: //voto crescente
+            case ORDINAMENTO_ANNO_DECRESCENTE: //anno crescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        if (two.ANNO - one.ANNO !== 0) {
+                            return two.ANNO - one.ANNO;
+                        }
+
+                        //gestiso le collisioni sui corsi con stesso anno
+                        //alfabetico
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+                );
+                break;
+
+            case ORDINAMENTO_CFU_CRESCENTE: //CFU crescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        if (one.CFU - two.CFU !== 0) {
+                            return one.CFU - two.CFU;
+                        }
+
+                        //gestiso le collisioni sui corsi con stesso anno
+                        //alfabetico
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+                );
+                break;
+
+            case ORDINAMENTO_CFU_DECRESCENTE: //CFU crescente
+                this.corsiFiltrati.sort(
+                    (one, two) => {
+                        if (two.CFU - one.CFU !== 0) {
+                            return two.CFU - one.CFU;
+                        }
+
+                        //gestiso le collisioni sui corsi con stesso anno
+                        //alfabetico
+                        if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                            return -1;
+                        }
+
+                        return 0;
+                    }
+                );
+                break;
+
+            case ORDINAMENTO_VOTO_CRESCENTE: //voto crescente
                 this.corsiFiltrati.sort((one, two) => {
                     if (one.VOTO < two.VOTO) {
                         return -1;
@@ -215,11 +327,29 @@ export class PianoDiStudioPage implements OnInit {
                     }*/
                 });
                 break;
-        }
 
-        //se viene selezionato decrescente viene effetuato il reverse dell'array
-        if (this.filtro.isDescrescente) {
-            this.corsiFiltrati.reverse();
+            case ORDINAMENTO_VOTO_DECRESCENTE: //voto crescente
+                this.corsiFiltrati.sort((one, two) => {
+                    if (one.VOTO < two.VOTO) {
+                        return -1;
+                    }
+                    if (one.VOTO > two.VOTO) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
+                        return -1;
+                    }
+                    /*if (!one.VOTO && !two.VOTO && one.STATO === 'S' && two.STATO === 'F') {
+                        return -1;
+                    }
+                    if (!one.VOTO && !two.VOTO && one.STATO === 'F' && two.STATO === 'S') {
+                        return 1;
+                    }*/
+                });
+                break;
         }
     }
 
@@ -244,25 +374,30 @@ export class PianoDiStudioPage implements OnInit {
     }
 
 
-
     async presentActionSheet(corso: Corso) { //
         let actionSheet;
 
         if (corso.isSuperato()) {
             actionSheet = await this.actionSheetController.create({
                 header: corso.DESCRIZIONE,
-                buttons: [ {
+                buttons: [{
                     text: 'Materiale didattico',
                     icon: 'archive',
-                    handler: () => { this.goToMaterialeDidattico(corso); }
+                    handler: () => {
+                        this.goToMaterialeDidattico(corso);
+                    }
                 }, {
                     text: 'Dettagli corso',
                     icon: 'alert',
-                    handler: () => { this.goToDettagliCorso(corso); }
+                    handler: () => {
+                        this.goToDettagliCorso(corso);
+                    }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
-                    handler: () => { this.actionSheetController.dismiss(); }
+                    handler: () => {
+                        this.actionSheetController.dismiss();
+                    }
                 }]
             });
         } else {
@@ -271,19 +406,27 @@ export class PianoDiStudioPage implements OnInit {
                 buttons: [{
                     text: 'Appelli',
                     icon: 'book',
-                    handler: () => { this.goToAppelli(corso); }
+                    handler: () => {
+                        this.goToAppelli(corso);
+                    }
                 }, {
                     text: 'Materiale didattico',
                     icon: 'archive',
-                    handler: () => { this.goToMaterialeDidattico(corso); }
+                    handler: () => {
+                        this.goToMaterialeDidattico(corso);
+                    }
                 }, {
                     text: 'Dettagli corso',
                     icon: 'alert',
-                    handler: () => { this.goToDettagliCorso(corso); }
+                    handler: () => {
+                        this.goToDettagliCorso(corso);
+                    }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
-                    handler: () => { this.actionSheetController.dismiss(); }
+                    handler: () => {
+                        this.actionSheetController.dismiss();
+                    }
                 }]
             });
         }
@@ -292,7 +435,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     async openFiltri() {
-        const modal = await this.modalController.create( {
+        const modal = await this.modalController.create({
             component: GestoreListaCorsiComponent,
             cssClass: 'gestore-lista-piano-di-studio-css',
             componentProps: {
@@ -306,8 +449,8 @@ export class PianoDiStudioPage implements OnInit {
 
     public updateFiltri() {
         this.corsiFiltrati = this.corsi;
-        this.ordina();
         this.filtra();
+        this.ordina();
         this.search();
     }
 
@@ -335,7 +478,7 @@ export class PianoDiStudioPage implements OnInit {
         this.filtro.filtroSuperatiAttivo = false;
         this.filtro.filtroNonSuperatiAttivo = false;
         this.filtro.idOrdinamento = 3;
-        this.filtro.isDescrescente = false;
+        this.filtro.tipoOrdinamento = 0;
 
         this.updateFiltri();
     }

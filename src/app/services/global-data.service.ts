@@ -5,8 +5,9 @@ import {NavController, Platform} from '@ionic/angular';
 
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
 // import {mapStackTrace} from 'sourcemapped-stacktrace';
-import {faWifi, faLink, faUnlink, faCoins} from '@fortawesome/free-solid-svg-icons';
+import {faWifi, faLink, faUnlink, faCoins, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {Storage} from '@ionic/storage';
+import {faBookOpen} from '@fortawesome/free-solid-svg-icons/faBookOpen';
 
 @Injectable({
     providedIn: 'root'
@@ -64,6 +65,8 @@ export class GlobalDataService {
     faLink = faLink;
     faUnlink = faUnlink;
     faCoins = faCoins;
+    faCalendarDay = faCalendarDay;
+    faBookOpen = faBookOpen;
 
 
     appello: any;
