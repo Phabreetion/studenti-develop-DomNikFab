@@ -16,32 +16,34 @@
 
                 <ion-buttons slot="end">
 
-
-                    <ion-button (click)="openFiltri()" icon-only>
-                        <ion-icon color="primary" name="switch"></ion-icon>
+                    <ion-button icon-only (click)="openFiltri()">
+                        <ion-icon name="switch" style="font-size: 1.5em" color="primary"></ion-icon>
                     </ion-button>  <!-- icona precedente "funnel" -->
 
-                    <ion-button (click)="isSearchbarOpened = !isSearchbarOpened" icon-only>
-                        <ion-icon color="primary" name="search" style="font-size: 1.5em;"></ion-icon>
+                    <ion-button icon-only (click)="toogleSearchbar()">
+                        <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
                     </ion-button>
+
                 </ion-buttons>
             </ion-toolbar>
         </ion-row>
         <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar (ionCancel)="hideSearchbar()"
-                           (ngModelChange)="search()"
-                           *ngIf='isSearchbarOpened'
-                           [(ngModel)]="searchKey" animated="true"
+            <ion-searchbar *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
                            placeholder="Cerca"
-                           showCancelButton="true"></ion-searchbar>
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
         </ion-row>
         <ion-button (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri</ion-button>
     </ion-grid>
 </ion-header>
 
 
-<ion-content fixed no-padding>
-    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="false" slot="fixed">
+<ion-content no-padding>
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
@@ -84,6 +86,8 @@
                         <ion-row>
                             <ion-col fixed no-padding>
                                  <fa-icon [icon]="globalData.faCoins" no-padding></fa-icon> CFU: {{corso.CFU}}
+                            <ion-col no-padding>
+                                &nbsp; &nbsp; &nbsp;<fa-icon [icon]="globalData.faCoins"></fa-icon> CFU: {{corso.CFU}}
                                 <ion-col *ngIf="corso.isSuperato()">
                                     <fa-icon [icon]="globalData.faCalendarDay"></fa-icon>&nbsp;{{corso.DATA_ESAME}}
                                 </ion-col>

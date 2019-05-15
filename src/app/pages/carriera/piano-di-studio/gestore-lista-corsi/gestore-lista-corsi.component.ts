@@ -10,35 +10,61 @@ import {PianoDiStudioPage} from '../piano-di-studio.page';
 export class GestoreListaCorsiComponent implements OnInit {
     public sourcePage: PianoDiStudioPage;
 
-    //ordinamento
-    private ordinamentoOffset: number;
-    private ordinamentoSelected: number;
+    //switch
+    switchSup: boolean;
+    switchNonSup: boolean;
 
     constructor(
         private modalController: ModalController,
         private navParam: NavParams) {
+        this.switchSup = false;
+        this.switchNonSup = false;
     }
 
     ngOnInit() {
         this.sourcePage = this.navParam.get('page');
+
+
+        this.switchSup = this.sourcePage.filtro.filtroSuperatiAttivo;
+        this.switchNonSup = this.sourcePage.filtro.filtroNonSuperatiAttivo;
     }
 
-    private updateSourcePage() {
-        console.log(this.sourcePage.filtro.filtroSuperatiAttivo);
-        console.log(this.sourcePage.filtro.filtroNonSuperatiAttivo);
-        console.log(this.sourcePage.filtro.filtroPerAnno);
-        console.log(this.sourcePage.filtro.idOrdinamento);
-        console.log(this.sourcePage.filtro.tipoOrdinamento);
+    checkToogle() {
+        console.log(this.switchSup);
+        console.log(this.switchNonSup);
 
+        if (this.switchSup && this.switchNonSup && this.sourcePage.filtro.filtroSuperatiAttivo) {
+            this.sourcePage.filtro.filtroNonSuperatiAttivo = true;
+            this.sourcePage.filtro.filtroSuperatiAttivo = false;
+        }
+
+        if (this.switchSup && this.switchNonSup && this.sourcePage.filtro.filtroNonSuperatiAttivo) {
+            this.sourcePage.filtro.filtroNonSuperatiAttivo = false;
+            this.sourcePage.filtro.filtroSuperatiAttivo = true;
+        }
+
+        this.switchSup =
+
+        this.updateSourcePage();
+    }
+
+
+    private updateSourcePage() {
+        /*
         if (this.sourcePage.filtro.filtroSuperatiAttivo) {
             console.log ('a');
             this.sourcePage.filtro.disableFiltroEsamiNonSuperati();
-        }
-
-        if ( this.sourcePage.filtro.filtroNonSuperatiAttivo) {
+        } else if ( this.sourcePage.filtro.filtroNonSuperatiAttivo) {
             console.log('b');
             this.sourcePage.filtro.disableFiltroEsamiSuperati();
         }
+        */
+
+        console.log('superati: ' + this.sourcePage.filtro.filtroSuperatiAttivo);
+        console.log('non superati: ' + this.sourcePage.filtro.filtroNonSuperatiAttivo);
+        console.log('anno: ' + this.sourcePage.filtro.filtroPerAnno);
+        console.log('ordinamento: ' + this.sourcePage.filtro.idOrdinamento);
+        console.log('discenza: ' + this.sourcePage.filtro.tipoOrdinamento);
 
 
         this.sourcePage.updateFiltri();

@@ -502,8 +502,8 @@ export class PianoDiStudioPage implements OnInit {
         this.updateFiltri();
     }
 
-    hideSearchbar() {
-        this.isSearchbarOpened = false;
+    toogleSearchbar() {
+        this.isSearchbarOpened = !this.isSearchbarOpened;
         this.searchKey = '';
         this.search();
     }
