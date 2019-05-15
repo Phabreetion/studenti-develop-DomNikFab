@@ -1,25 +1,21 @@
+import {OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {SyncService} from '../services/sync.service';
+import {GlobalDataService} from '../services/global-data.service';
+import {HttpService} from '../services/http.service';
+import {ToastController} from '@ionic/angular';
+
 export class Appello {
 
 
-    public NOME: string; // nome appello
 
-    public DATA: string; // data in cui si svolge l'appello
-
-    public ORARIO: string; // ora dell'appello
-
-    public TIPOLOGIA: string; // scritto/orale
-
-    public CODICE_ESAME: number; // codice esame
-
-    public ISCRITTI_APPELLO: number; // iscritti all'appello
+    ad_id: number //
+    adsce_id: number //
+    data_ora_app: string //
 
 
-    constructor(NOME?: string, DATA?: string, ORARIO?: string, TIPOLOGIA?: string, CODICE_ESAME?: number, ISCRITTI_APPELLO?: number) {
-        this.NOME = NOME;
-        this.DATA = DATA;
-        this.ORARIO = ORARIO;
-        this.TIPOLOGIA = TIPOLOGIA;
-        this.CODICE_ESAME = CODICE_ESAME;
-        this.ISCRITTI_APPELLO = ISCRITTI_APPELLO;
+    constructor(ad_id: number, adsce_id: number, data_ora_app: string) {
+        this.ad_id = ad_id;
+        this.adsce_id = adsce_id;
+        this.data_ora_app = data_ora_app;
     }
 }

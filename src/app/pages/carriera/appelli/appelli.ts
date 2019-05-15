@@ -529,7 +529,7 @@ export class AppelliPage implements OnChanges, OnInit {
     isPrenotazioneSuperata(prenotazione): boolean {
         console.log(prenotazione.ad_id);
         let i = 0;
-        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].STATO == 'S')){
+        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].isSuperato())){
             i++;
         }
         return i < this.corsi.length;
