@@ -29,8 +29,13 @@ export class FiltroPianoDiStudio {
         this.tipoOrdinamento = 0;
     }
 
-    disableBothFiltri(): void {
-        this.filtroNonSuperatiAttivo = false;
+
+    //qui funzioni toggle che si disattivano  alternativamente
+    disableFiltroEsamiSuperati(): void {
         this.filtroSuperatiAttivo = false;
-    }//rivedere
+    }
+
+    disableFiltroEsamiNonSuperati(): void {
+        this.filtroNonSuperatiAttivo = false;
+    }
 }
