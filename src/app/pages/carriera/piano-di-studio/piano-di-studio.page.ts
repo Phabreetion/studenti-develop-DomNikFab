@@ -60,6 +60,7 @@ export class PianoDiStudioPage implements OnInit {
                 public toastCtrl: ToastController,
                 public account: AccountService) {
         this.filtro = new FiltroPianoDiStudio();
+        this.searchKey = '';
     }
 
     async ngOnInit() {
@@ -89,10 +90,6 @@ export class PianoDiStudioPage implements OnInit {
                 this.globalData.goTo(PAGE_URL, '/login', 'root', false);
             }
         );
-
-        //load filtri dallo storage
-        //se i filtri sono salvati nello storage
-        //chiama subito le funzioni filtra e ordina
     }
 
 
@@ -194,7 +191,7 @@ export class PianoDiStudioPage implements OnInit {
                         if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
                             return -1;
                         }
-                        //se i nomi sono uguali(molto improbabile) non gestisco le collisioni
+                        //se i nomi sono uguali(molto improbabile) non si gestiscono le collisioni
                         return 0;
                     }
                 );
@@ -307,47 +304,73 @@ export class PianoDiStudioPage implements OnInit {
 
             case ORDINAMENTO_VOTO_CRESCENTE: //voto crescente
                 this.corsiFiltrati.sort((one, two) => {
+                    if (!one.isSuperato() && two.isSuperato()) {
+                        return -1;
+                    }
+
+                    if (one.isSuperato() && !two.isSuperato()) {
+                        return 1;
+                    }
+
                     if (one.VOTO < two.VOTO) {
                         return -1;
                     }
                     if (one.VOTO > two.VOTO) {
                         return 1;
                     }
-                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+
+                    //gestiso le collisioni sui corsi con stesso voto
+                    //alfabetico
+                    if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
                         return 1;
                     }
-                    if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
+
+                    if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
                         return -1;
                     }
-                    /*if (!one.VOTO && !two.VOTO && one.STATO === 'S' && two.STATO === 'F') {
-                        return -1;
-                    }
-                    if (!one.VOTO && !two.VOTO && one.STATO === 'F' && two.STATO === 'S') {
-                        return 1;
-                    }*/
                 });
                 break;
 
             case ORDINAMENTO_VOTO_DECRESCENTE: //voto crescente
                 this.corsiFiltrati.sort((one, two) => {
-                    if (one.VOTO < two.VOTO) {
+                    if (one.isSuperato() && !two.isSuperato()) {
                         return -1;
                     }
-                    if (one.VOTO > two.VOTO) {
+
+                    if (!one.isSuperato() && two.isSuperato()) {
                         return 1;
                     }
-                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+
+                    if (one.VOTO > two.VOTO) {
+                        return -1;
+                    }
+                    if (one.VOTO < two.VOTO) {
                         return 1;
                     }
                     if (one.VOTO === two.VOTO && one.LODE <= two.LODE) {
-                        return -1;
-                    }
-                    /*if (!one.VOTO && !two.VOTO && one.STATO === 'S' && two.STATO === 'F') {
-                        return -1;
-                    }
-                    if (!one.VOTO && !two.VOTO && one.STATO === 'F' && two.STATO === 'S') {
                         return 1;
-                    }*/
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE >= two.LODE) {
+                        return -1;
+                    }
+
+                    if (one.VOTO === two.VOTO && one.LODE === two.LODE) {
+                        return 1;
+                    }
+                    if (one.VOTO === two.VOTO && one.LODE === two.LODE) {
+                        return -1;
+                    }
+
+
+                    //gestiso le collisioni sui corsi con stesso voto
+                    //alfabetico
+                    if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
+                        return 1;
+                    }
+
+                    if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
+                        return -1;
+                    }
                 });
                 break;
         }
@@ -363,8 +386,9 @@ export class PianoDiStudioPage implements OnInit {
             this.corsiFiltrati = this.corsiFiltrati.filter(corso => !corso.isSuperato());
         }
 
-        if (this.filtro.filtroPerAnno >= 0) {
-            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO === this.filtro.filtroPerAnno);
+        if (this.filtro.filtroPerAnno > 0) {
+            // tslint:disable-next-line:triple-equals
+            this.corsiFiltrati = this.corsiFiltrati.filter(corso => corso.ANNO == this.filtro.filtroPerAnno);
         }
     }
 
@@ -473,12 +497,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     resetFiltri() {
-        this.searchKey = '';
-        this.filtro.filtroPerAnno = -1;
-        this.filtro.filtroSuperatiAttivo = false;
-        this.filtro.filtroNonSuperatiAttivo = false;
-        this.filtro.idOrdinamento = 3;
-        this.filtro.tipoOrdinamento = 0;
+        this.filtro.reset();
 
         this.updateFiltri();
     }
