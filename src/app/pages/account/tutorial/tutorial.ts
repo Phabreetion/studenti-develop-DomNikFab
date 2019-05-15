@@ -133,7 +133,6 @@ export class TutorialPage implements OnInit {
     }
 
     doContinua() {
-        this.account.controlloDispositiviConnessi();
         this.globalData.goHome(this.currentPage);
     }
 

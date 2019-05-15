@@ -12,6 +12,7 @@ import {HttpService} from './http.service';
 })
 export class AccountService {
 
+    static readonly KEY_CHECK_DISPOSITIVI = 'CHECK_DISPOSITIVI';
     logged: boolean;
 
     constructor(
@@ -451,7 +452,7 @@ export class AccountService {
 
     controlloDispositiviConnessi() {
         let numDevices = 0;
-        let keyServizioDispositivi = '19';
+        const keyServizioDispositivi = '19';
         this.storage.get(keyServizioDispositivi).then((data) => {
             numDevices = data[0].length;
             if (numDevices > 1) {

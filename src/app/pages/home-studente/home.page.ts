@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {Platform, ToastController} from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import {Chart} from 'chart.js';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
@@ -111,6 +111,7 @@ export class HomePage implements OnInit {
                             this.caricaPreferenze();
                             this.aggiornaStatoApp();
                             this.caricaDatiDaStorage();
+                            this.checkDispositivi();
 
                             this.aggiorna(false, true);
                         }, (err) => {
@@ -201,6 +202,15 @@ export class HomePage implements OnInit {
                 this.http.connessioneLenta = false;
                 GlobalDataService.log(1, 'Uso grafico legacy', null);
             });
+    }
+
+    checkDispositivi() {
+        this.storage.get(AccountService.KEY_CHECK_DISPOSITIVI).then( (value) => {
+            if(value !== true) {
+                this.account.controlloDispositiviConnessi();
+                this.storage.set(AccountService.KEY_CHECK_DISPOSITIVI, true);
+            }
+        });
     }
 
     aggiornaStatoApp() {
@@ -651,7 +661,6 @@ export class HomePage implements OnInit {
         this.globalData.esame = esame;
         this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
     }
-
 
     // Simula l'assistente vocale (TEST)
     // inizioAscolto() {
