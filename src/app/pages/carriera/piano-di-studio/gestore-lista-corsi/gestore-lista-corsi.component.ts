@@ -30,6 +30,11 @@ export class GestoreListaCorsiComponent implements OnInit {
         console.log(this.sourcePage.filtro.idOrdinamento);
         console.log(this.sourcePage.filtro.tipoOrdinamento);
 
+        if (this.sourcePage.filtro.filtroSuperatiAttivo && this.sourcePage.filtro.filtroNonSuperatiAttivo) {
+            console.log ('a');
+            this.sourcePage.filtro.disableBothFiltri();
+        }//rivedere
+
         this.sourcePage.updateFiltri();
     }
 

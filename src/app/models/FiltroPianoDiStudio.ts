@@ -11,6 +11,13 @@ export class FiltroPianoDiStudio {
         return this.filtroSuperatiAttivo || this.filtroNonSuperatiAttivo || this.filtroPerAnno > 0;
     }
 
+    disableBothFiltri(): void {
+        this.filtroNonSuperatiAttivo = false;
+        this.filtroSuperatiAttivo = false;
+    }//rivedere
+
+
+
     static toObj(obj: Object): FiltroPianoDiStudio {
         return Object.assign(new FiltroPianoDiStudio(), obj);
     }
