@@ -55,13 +55,13 @@
     <ion-list *ngIf="corsi">
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsi[i-1] && corsi[i].ANNO !== corsi[i-1].ANNO))">
-                {{corso.ANNO}}o ANNO
+                <ion-title text-center>{{corso.ANNO}}°ANNO</ion-title>
             </ion-item>
             <ion-item *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (corsi[i-1] && corsi[i].CFU !== corsi[i-1].CFU))">
-                {{corso.CFU}} CFU
+                <ion-title text-center>{{corso.CFU}} CFU</ion-title>
             </ion-item>
             <ion-item *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsi[i-1] && corsi[i].DESCRIZIONE.charAt(0) !== corsi[i-1].DESCRIZIONE.charAt(0)))">
-                {{corso.DESCRIZIONE.charAt(0)}}
+                <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
             </ion-item>
 
             <ion-item-sliding>
