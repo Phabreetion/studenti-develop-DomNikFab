@@ -88,8 +88,8 @@
                 <ion-col>
                     <ion-item-sliding #slItem *ngFor="let appello of appelli">
 
-                        <ion-item>
-                            <ion-grid fixed no-padding>
+                        <ion-item fixed no-padding>
+                            <ion-grid>
                                 <ion-row>
                                     <ion-col>
                                         <ion-icon name="md-book"></ion-icon>
@@ -176,17 +176,14 @@
                                 -->
 
                                 <ion-row *ngIf="!isPrenotabile(appello)" color="lightgrey">
-                                    <ion-col>
-                                        <ion-card-subtitle><I>Mancano {{giorniRimanentiPrimaDellApertura(appello)}} giorni
-                                            all'apertura dell'appello</I></ion-card-subtitle>
+                                    <ion-col fixed no-padding >
+                                        <ion-card-subtitle><I>  &nbsp; Mancano {{giorniRimanentiPrimaDellApertura(appello)}} giorni all'apertura dell'appello</I></ion-card-subtitle>
                                     </ion-col>
                                 </ion-row>
 
                                 <ion-row *ngIf="isPrenotabile(appello)">
-                                    <ion-col>
-                                        <ion-card-subtitle color="danger"><I>Prenota l'appello
-                                            entro {{giorniRimanentiPrimaDellaChiusura(appello)}} giorni</I>
-                                        </ion-card-subtitle>
+                                    <ion-col fixed no-padding>
+                                        <ion-card-subtitle color="danger">  <I> &nbsp; Prenota l'appello entro {{giorniRimanentiPrimaDellaChiusura(appello)}} giorni</I></ion-card-subtitle>
                                     </ion-col>
                                 </ion-row>
 
