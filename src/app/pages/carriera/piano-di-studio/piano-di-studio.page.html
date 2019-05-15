@@ -35,7 +35,7 @@
                            animated="true"
                            (ngModelChange)="search()"></ion-searchbar>
         </ion-row>
-        <ion-button expand="block" size="small" *ngIf="filtro.isActive()">Reset filtri</ion-button>
+        <ion-button expand="block" size="small" *ngIf="filtro.isActive()" (click)="resetFiltri()">Reset filtri</ion-button>
     </ion-grid>
 </ion-header>
 
@@ -43,9 +43,9 @@
 <ion-content fixed no-padding>
     <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="Pull to refresh"
-                refreshingSpinner="circles"
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
                 refreshingText="Aggiornamento...">
         </ion-refresher-content>
     </ion-refresher>
@@ -64,6 +64,10 @@
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsi[i-1] && corsi[i].DESCRIZIONE.charAt(0) !== corsi[i-1].DESCRIZIONE.charAt(0)))">
                 <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
+            </ion-item>
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsi[i-1] && corsi[i].isSuperato() !== corsi[i-1].isSuperato()))">
+                <ion-title text-center> {{corsi[i].isSuperato()?'SUPERATI':'NON SUPERATI'}}</ion-title>
             </ion-item>
 
             <ion-item-sliding>
@@ -116,7 +120,7 @@
 <ion-footer>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()" name="crescent"></ion-spinner>
             <ion-icon [hidden]="isLoading() || !http.getConnected()" name="checkmark"></ion-icon>
             <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
         </ion-buttons>
