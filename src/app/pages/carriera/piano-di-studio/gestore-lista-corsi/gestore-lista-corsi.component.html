@@ -20,14 +20,12 @@
         </ion-radio-group>
     </ion-list>
 
-    <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
-    <ion-button *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
+    <ion-button expand="block" size="small" *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
+    <ion-button expand="block" size="small" *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
 
     <ion-grid>
         <ion-row>
-
-                    <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
-
+            <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
         </ion-row>
         <ion-row justify-content-center align-items-center>
             <ion-col>
@@ -96,5 +94,3 @@
         </ion-row>
     </ion-grid>
 </ion-content>
-
-
