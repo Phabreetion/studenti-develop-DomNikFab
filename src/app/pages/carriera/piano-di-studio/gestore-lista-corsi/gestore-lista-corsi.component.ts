@@ -43,7 +43,8 @@ export class GestoreListaCorsiComponent implements OnInit {
             this.sourcePage.filtro.filtroSuperatiAttivo = true;
         }
 
-        this.switchSup =
+        this.switchSup = this.sourcePage.filtro.filtroSuperatiAttivo;
+        this.switchNonSup = this.sourcePage.filtro.filtroNonSuperatiAttivo;
 
         this.updateSourcePage();
     }
