@@ -1,30 +1,30 @@
 import {Appello} from './Appello';
-import {Corso} from './Corso';
 
 export class AppelloPrenotato extends Appello  {
 
-    ad_cod: number
-    ad_des: string
-    adreg_id: number
-    app_des: string
-    app_id: number
-    app_log_id: number
-    applista_id: number
-    cds_id: number
-    gruppo: string
-    mat_id: number
-    nota_studente: string
-    posiz: number
-    presidente: string
-    tipo_esa_cod: string
-    tipo_iscr: string
-    tipo_turno_cod: string
+    ad_cod: number;
+    ad_des: string;
+    adreg_id: number;
+    app_des: string;
+    app_id: number;
+    app_log_id: number;
+    applista_id: number;
+    cds_id: number;
+    gruppo: string;
+    mat_id: number;
+    nota_studente: string;
+    posiz: number;
+    presidente: string;
+    tipo_esa_cod: string;
+    tipo_iscr: string;
+    tipo_turno_cod: string;
 
-    corsi: Corso[];
+    //corsi: Corso[];
 
 
-    constructor(ad_id: number, adsce_id: number, data_ora_app: string, ad_cod: number, ad_des: string, adreg_id: number, app_des: string, app_id: number, app_log_id: number, applista_id: number, cds_id: number, gruppo: string, mat_id: number, nota_studente: string, posiz: number, presidente: string, tipo_esa_cod: string, tipo_iscr: string, tipo_turno_cod: string) {
+    constructor(ad_id?: number, adsce_id?: number, data_ora_app?: string, ad_cod?: number, ad_des?: string, adreg_id?: number, app_des?: string, app_id?: number, app_log_id?: number, applista_id?: number, cds_id?: number, gruppo?: string, mat_id?: number, nota_studente?: string, posiz?: number, presidente?: string, tipo_esa_cod?: string, tipo_iscr?: string, tipo_turno_cod?: string) {
         super(ad_id, adsce_id, data_ora_app);
+
         this.ad_cod = ad_cod;
         this.ad_des = ad_des;
         this.adreg_id = adreg_id;
@@ -43,6 +43,7 @@ export class AppelloPrenotato extends Appello  {
         this.tipo_turno_cod = tipo_turno_cod;
     }
 
+    /*
     isPrenotazioneSuperata(prenotazione): boolean {
         console.log(prenotazione.ad_id);
         let i = 0;
@@ -51,11 +52,10 @@ export class AppelloPrenotato extends Appello  {
         }
         return i < this.corsi.length;
     }
+    */
 
-
-
-
-
-
+    public static toObj(obj: Object): AppelloPrenotato {
+        return Object.assign(new AppelloPrenotato(), obj);
+    }
 
 }
