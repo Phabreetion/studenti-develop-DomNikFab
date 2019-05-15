@@ -37,10 +37,6 @@ export class PianoDiStudioPage implements OnInit {
     public isSearchbarOpened = false;
 
 
-    corsiAnnizzati: Array<Corso[]>;
-    corsiGruppati: Map<any, Corso[]>;
-
-
     //per filtri e ordinamento
     filtro: FiltroPianoDiStudio;
 
@@ -64,7 +60,6 @@ export class PianoDiStudioPage implements OnInit {
                 public toastCtrl: ToastController,
                 public account: AccountService) {
         this.filtro = new FiltroPianoDiStudio();
-        this.corsiGruppati = new Map<any, Corso[]>();
     }
 
     async ngOnInit() {
@@ -80,7 +75,6 @@ export class PianoDiStudioPage implements OnInit {
             filtro => {
                 this.filtro = filtro;
                 this.updateFiltri();
-                this.gruppa();
             }
         );
 
@@ -99,22 +93,6 @@ export class PianoDiStudioPage implements OnInit {
         //load filtri dallo storage
         //se i filtri sono salvati nello storage
         //chiama subito le funzioni filtra e ordina
-    }
-
-
-    gruppa() {
-        if (this.filtro.idOrdinamento === 2) {
-            let temp: Corso[];
-            for (let i = 0; i < this.corsiFiltrati.length; i++) {
-                temp = this.corsiGruppati.get(this.corsiFiltrati[i].ANNO);
-                temp ? temp.push(this.corsiFiltrati[i]) : temp = [this.corsiFiltrati[i]];
-                this.corsiGruppati.set(this.corsiFiltrati[i].ANNO, temp);
-            }
-        } else {
-            this.corsiGruppati.set(null, this.corsiFiltrati);
-        }
-
-        console.log(this.corsiGruppati);
     }
 
 

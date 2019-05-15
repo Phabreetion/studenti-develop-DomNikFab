@@ -40,31 +40,6 @@
     </ion-grid>
 </ion-header>
 
-
-<!--
-<ion-content fixed no-padding>
-    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content
-                pullingIcon="arrow-dropdown"
-                pullingText="Pull to refresh"
-                refreshingSpinner="circles"
-                refreshingText="Aggiornamento...">
-        </ion-refresher-content>
-    </ion-refresher>
-
-    <ion-list *ngIf="corsiGruppati.size">
-        <ion-item *ngFor="let index of corsiGruppati.keys()">
-            <ion-title text-center>{{index}} Chiave</ion-title>
-            <ion-item *ngFor="let corso of corsiGruppati.get(index)">
-                {{corso.DESCRIZIONE}}
-            </ion-item>
-        </ion-item>
-    </ion-list>
-
-
-
-</ion-content>
--->
 <ion-content fixed no-padding>
     <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
         <ion-refresher-content
@@ -77,42 +52,50 @@
 
 
     <ion-list *ngIf="corsi">
-
-        <ion-item-sliding *ngFor="let corso of corsiTrovati">
-            <ion-item (click)="presentActionSheet(corso)">
-                <ion-grid fixed no-padding
-                          [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
-                    <ion-row> <ion-icon name="md-book"></ion-icon> &nbsp;&nbsp; <b>{{corso.DESCRIZIONE}}</b></ion-row>
-                    <ion-row>
-                        <ion-col color="lightgrey">
-                          &nbsp; &nbsp; &nbsp;<ion-icon src="assets/img/cfu-icon.svg"></ion-icon>
-                          &nbsp;  CFU:&nbsp;&nbsp;{{corso.CFU}}</ion-col>
-                        <ion-col *ngIf="corso.STATO === 'S'">
-                          &nbsp;  <ion-icon name="calendar"></ion-icon>
-                          &nbsp; {{corso.DATA_ESAME}}
-                        </ion-col>
-                        <ion-col *ngIf="corso.STATO !== 'S'"></ion-col>
-                        <ion-col size="4" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
-                            <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
-                            <div *ngIf="corso.VOTO && corso.LODE==1" class="voto"><ion-icon name="md-trophy"></ion-icon>&nbsp;30L</div>
-                            <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
+        <div *ngFor="let corso of corsiTrovati; let i = index">
+            <ion-item *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsi[i-1] && corsi[i].ANNO !== corsi[i-1].ANNO))">
+                {{corso.ANNO}}o ANNO
+            </ion-item>
+            <ion-item *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (corsi[i-1] && corsi[i].CFU !== corsi[i-1].CFU))">
+                {{corso.CFU}} CFU
             </ion-item>
 
-            <ion-item-options>
-                <ion-item-option (click)="goToDettagliCorso(corso)" text-center>
-                    Dettagli<br>corso
-                </ion-item-option>
-                <ion-item-option color="danger" (click)="goToMaterialeDidattico(corso)" text-center>
-                    Materiale<br>didattico
-                </ion-item-option>
-                <ion-item-option color="secondary" *ngIf="!corso.isSuperato()" (click)="goToAppelli(corso)" text-center>
-                    Appelli
-                </ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
+            <ion-item-sliding>
+                <ion-item (click)="presentActionSheet(corso)">
+                    <ion-grid fixed no-padding
+                              [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
+                        <ion-row> <ion-icon name="md-book"></ion-icon> &nbsp;&nbsp; <b>{{corso.DESCRIZIONE}}</b></ion-row>
+                        <ion-row>
+                            <ion-col color="lightgrey">
+                                &nbsp; &nbsp; &nbsp;<ion-icon src="assets/img/cfu-icon.svg"></ion-icon>
+                                &nbsp;  CFU:&nbsp;&nbsp;{{corso.CFU}}</ion-col>
+                            <ion-col *ngIf="corso.STATO === 'S'">
+                                &nbsp;  <ion-icon name="calendar"></ion-icon>
+                                &nbsp; {{corso.DATA_ESAME}}
+                            </ion-col>
+                            <ion-col *ngIf="corso.STATO !== 'S'"></ion-col>
+                            <ion-col size="4" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
+                                <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
+                                <div *ngIf="corso.VOTO && corso.LODE==1" class="voto"><ion-icon name="md-trophy"></ion-icon>&nbsp;30L</div>
+                                <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+
+                <ion-item-options>
+                    <ion-item-option (click)="goToDettagliCorso(corso)" text-center>
+                        Dettagli<br>corso
+                    </ion-item-option>
+                    <ion-item-option color="danger" (click)="goToMaterialeDidattico(corso)" text-center>
+                        Materiale<br>didattico
+                    </ion-item-option>
+                    <ion-item-option color="secondary" *ngIf="!corso.isSuperato()" (click)="goToAppelli(corso)" text-center>
+                        Appelli
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </div>
     </ion-list>
 </ion-content>
 
