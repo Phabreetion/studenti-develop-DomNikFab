@@ -7,6 +7,10 @@ export class FiltroPianoDiStudio {
 
 
 
+    isActive(): boolean {
+        return this.filtroSuperatiAttivo || this.filtroNonSuperatiAttivo || this.filtroPerAnno > 0;
+    }
+
     static toObj(obj: Object): FiltroPianoDiStudio {
         return Object.assign(new FiltroPianoDiStudio(), obj);
     }

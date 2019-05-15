@@ -15,9 +15,7 @@
                 </ion-title>
 
                 <ion-buttons slot="end">
-                    <ion-button  color="#8c8c8c"  font-size="small" size="small" *ngIf="filtro.filtroSuperatiAttivo || filtro.filtroNonSuperatiAttivo || filtro.filtroPerAnno > 0">
-                        Reset filtri
-                    </ion-button>
+
 
                     <ion-button icon-only (click)="openFiltri()">
                         <ion-icon name="switch" color="primary"></ion-icon>
@@ -37,6 +35,15 @@
                            animated="true"
                            (ngModelChange)="search()"></ion-searchbar>
         </ion-row>
+
+
+
+            <ion-button  expand="block" size="small" *ngIf="filtro.isActive()">
+                Reset filtri
+            </ion-button>
+
+
+
     </ion-grid>
 </ion-header>
 
