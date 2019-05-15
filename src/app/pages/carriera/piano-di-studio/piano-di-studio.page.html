@@ -68,19 +68,19 @@
                 <ion-item (click)="presentActionSheet(corso)">
                     <ion-grid fixed no-padding
                               [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
-                        <ion-row no-padding> <ion-icon name="md-book"></ion-icon>&nbsp;<b>{{corso.DESCRIZIONE}}</b></ion-row>
+                        <ion-row no-padding> <ion-icon *ngIf="!corso.isSuperato()" name="md-book"></ion-icon> <fa-icon *ngIf="corso.isSuperato()" [icon] ="globalData.faBookOpen"></fa-icon>&nbsp;<b>{{corso.DESCRIZIONE}}</b></ion-row>
                         <ion-row>
                             <ion-col color="lightgrey" no-padding>
                               &nbsp; &nbsp; &nbsp;<fa-icon [icon]="globalData.faCoins"></fa-icon>
                               &nbsp;  CFU;&nbsp; {{corso.CFU}}
 
-                                <ion-col *ngIf="corso.STATO === 'S'">
+                                <ion-col *ngIf="corso.isSuperato()">
                                     <fa-icon [icon] ="globalData.faCalendarDay" ></fa-icon>  &nbsp;{{corso.DATA_ESAME}}
                                 </ion-col>
 
                             </ion-col>
 
-                            <ion-col *ngIf="corso.STATO !== 'S'"></ion-col>
+                            <ion-col *ngIf="!corso.isSuperato()"></ion-col>
                             <ion-col size="4" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
                                 <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
                                 <div *ngIf="corso.VOTO && corso.LODE==1" class="voto"><ion-icon name="md-trophy"></ion-icon>&nbsp;30L</div>
