@@ -7,6 +7,7 @@ import {NavController, Platform} from '@ionic/angular';
 // import {mapStackTrace} from 'sourcemapped-stacktrace';
 import {faWifi, faLink, faUnlink, faCoins, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {Storage} from '@ionic/storage';
+import {faBookOpen} from '@fortawesome/free-solid-svg-icons/faBookOpen';
 
 @Injectable({
     providedIn: 'root'
@@ -65,6 +66,7 @@ export class GlobalDataService {
     faUnlink = faUnlink;
     faCoins = faCoins;
     faCalendarDay = faCalendarDay;
+    faBookOpen = faBookOpen;
 
 
     appello: any;
