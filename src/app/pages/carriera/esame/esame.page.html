@@ -29,18 +29,21 @@
         <ion-card-header>
             <ion-card-subtitle text-left><b>{{corso.ANNO}}° ANNO</b></ion-card-subtitle>
             <ion-card-title text-center><b><I>{{corso.DESCRIZIONE}}</I></b></ion-card-title>
+            <ion-card-subtitle text-center><b><I>CFU:&nbsp;{{corso.CFU}}</I></b> </ion-card-subtitle>
         </ion-card-header>
 
         <ion-card-content>
-            <ion-grid>
-                <ion-row>
-                    <ion-col *ngIf=" !asDueProfessori() ">
+            <ion-grid no-padding>
+
+                <ion-row *ngIf=" !asDueProfessori() ">
+                    <ion-col >
                         <b><I>Docente</I></b>
                         <br> {{corso.COGNOME}}
                     </ion-col>
                 </ion-row>
-                <ion-row>
-                    <ion-col *ngIf=" asDueProfessori()">
+
+                <ion-row *ngIf=" asDueProfessori()">
+                    <ion-col >
                         <b><I>Docenti</I></b>
                         <br>
                         {{corso.NOME}}
@@ -50,22 +53,22 @@
                 </ion-row>
 
 
-                <ion-row *ngIf="corso.CFU">
-                    <ion-col>
-                        <b><I>CFU</I></b>
-                        <br>{{corso.CFU}}
-                    </ion-col>
-                </ion-row>
 
-                <ion-row *ngIf="corso.CONTENUTI">
+                <ion-row *ngIf="corso.CONTENUTI" >
+                    <ion-col>
                     <b><I>Contenuti</I></b>&nbsp;&nbsp;
+                        <ion-col>
+                            <ion-col text-left>
                     <ion-icon (click)="mostraContenuti()" [name]="isClick? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" color="primary"
-                              style="font-size: 1.5em;"></ion-icon>
+                              style="font-size: 1.5em;" no-padding></ion-icon>
                     <ion-card text-wrap *ngIf="isClick">
                         <ion-card-content text-wrap>
                             <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
                         </ion-card-content>
                     </ion-card>
+                            </ion-col>
+                        </ion-col>
+                    </ion-col>
                 </ion-row>
 
                 <ion-row *ngIf="corso.VOTO">
@@ -73,18 +76,19 @@
                         <b><I>Voto</I></b>
                         <br>{{corso.VOTO}} <span *ngIf="corso.LODE == 1">e lode</span>
                     </ion-col>
-
                 </ion-row>
-                <ion-row *ngIf="corso.DATA_ESAME">
-                    <ion-col>
+
+                <ion-grid no-padding>
+                <ion-row >
+                    <ion-col *ngIf="corso.DATA_ESAME">
                         <b><I>Data esame</I></b>&nbsp;&nbsp;&nbsp;&nbsp;<br> {{corso.DATA_ESAME}}
                     </ion-col>
-                </ion-row>
-                <ion-row *ngIf="corso.DATA_VERBALE">
-                    <ion-col>
-                        <b><I>Data verbale</I></b>&nbsp;&nbsp;&nbsp;&nbsp;<br>{{corso.DATA_VERBALE}}
+
+                    <ion-col *ngIf="corso.DATA_VERBALE" text-left>
+                        <b><I>Data verbale</I></b><br>{{corso.DATA_VERBALE}}
                     </ion-col>
                 </ion-row>
+                </ion-grid>
 
                 <ion-row *ngIf="corso.GIUDIZIO">
                     <ion-col>
@@ -97,7 +101,6 @@
                     <ion-col>
                         <b><I>Propedeuticità</I></b> <br>
                         <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">
-                            <ion-icon name="md-arrow-dropright"></ion-icon>
                             <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
                                       [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
                             {{corsoPropedeutico.DESCRIZIONE}} <br>
@@ -157,9 +160,7 @@
 
 </ion-content>
 
-<app-footer></app-footer>
-
-<!--
+    <!--
 <ion-component>
 <ion-footer  no-padding>
   <ion-toolbar>
