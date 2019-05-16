@@ -18,7 +18,7 @@ export class EsamePage implements OnInit {
     private libretto: any[];
     private codiceEsame: number;
     private corsiPropedeutici: Corso[];
-    public evento: number;
+    public isClick: boolean;
 
     constructor(
         public globalData: GlobalDataService,
@@ -47,12 +47,12 @@ export class EsamePage implements OnInit {
     }
 
     public mostraContenuti() {
-        if (this.evento === 0) {
-            this.evento = this.evento + 1;
-            return this.evento;
-        } else {
-            this.evento = 0;
-            return this.evento;
+        if (this.isClick === true) {
+            this.isClick = false;
+            return this.isClick;
+        }else {
+            this.isClick = true;
+            return this.isClick;
         }
     }
 

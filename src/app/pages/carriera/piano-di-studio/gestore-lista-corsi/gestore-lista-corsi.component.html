@@ -35,7 +35,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="switchSup" (ionChange)="checkToogle()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="checkToogleSuperati()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -47,7 +47,7 @@
             </ion-col>
             <ion-col>
                 <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="switchNonSup" (ionChange)="checkToogle()"></ion-toggle>
+                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
                 </ion-item>
             </ion-col>
         </ion-row>
@@ -61,7 +61,9 @@
             <ion-col>
                 <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
                     <ion-select-option [value]="0">Nessuno</ion-select-option>
-                    <ion-select-option *ngFor="let item of [].constructor(sourcePage.filtro.maxAnni);let i= index" [value]="i">{{i}}° Anno</ion-select-option>
+                    <ion-select-option *ngFor="let item of arrayOne(sourcePage.filtro.maxAnni);let i = index" [value]="i+1">
+                        {{i+1}}° Anno
+                    </ion-select-option>
                     <!--
                     <ion-select-option [value]="1">1° Anno</ion-select-option>
                     <ion-select-option [value]="2">2° Anno</ion-select-option>

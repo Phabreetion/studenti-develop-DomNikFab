@@ -61,7 +61,7 @@
                     <ion-col>
                     <b><I>Contenuti</I></b> <br>
                         <ion-icon (click)="mostraContenuti()" name="md-arrow-dropdown-circle" color="primary" style="font-size: 1.5em;"></ion-icon>
-                        <ion-col *ngIf="evento === 1">
+                        <ion-col *ngIf="isClick">
                             <p>{{corso.getFormatedContenutiCorso()}}</p>
                         </ion-col>
                     </ion-col>

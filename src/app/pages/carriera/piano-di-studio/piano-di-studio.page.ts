@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {ActionSheetController, ModalController, ToastController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
-import {animate, state, style, transition, trigger} from '@angular/animations';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 import {FiltroPianoDiStudio} from '../../../models/FiltroPianoDiStudio';
@@ -487,6 +486,8 @@ export class PianoDiStudioPage implements OnInit {
             }
         );
         this.filtro.setMaxAnni(maxAnni);
+
+        console.log(this.filtro.maxAnni);
     }
 
     goToAppelli(corso: Corso) {
