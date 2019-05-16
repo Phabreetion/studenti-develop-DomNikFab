@@ -50,12 +50,6 @@ export class AppComponent {
             role: 'teacher'
         },
         {
-            title: 'Carriera',
-            url: '/carriera',
-            icon: 'book',
-            role: 'student'
-        },
-        {
             title: 'Piano di studio',
             url: '/piano-di-studio',
             icon: 'book',

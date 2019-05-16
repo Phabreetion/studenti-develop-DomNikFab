@@ -41,8 +41,6 @@ import {EsamePageModule} from './pages/carriera/esame/esame.module';
 import {Toast} from '@ionic-native/toast/ngx';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FiltroPageModule} from './pages/docente/appelli/filtro/filtro.module';
-import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
-import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
 import {FooterComponent} from './pages/footer/footer.component';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
