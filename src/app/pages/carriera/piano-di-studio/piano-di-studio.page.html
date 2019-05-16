@@ -93,7 +93,7 @@
                                     <ion-row class="dati-esame">
                                         <ion-col size="4"  >
                                             <fa-icon [icon]="globalData.faCoins"></fa-icon>
-                                           CFU: {{corso.CFU}}
+                                            {{corso.CFU}}
                                         </ion-col>
                                         <ion-col *ngIf="corso.isSuperato()" >
                                             <fa-icon [icon]="globalData.faCalendarDay"></fa-icon>&nbsp;{{corso.DATA_ESAME}}
