@@ -74,6 +74,19 @@ export class PianoDiStudioPage implements OnInit {
         this.pianoDiStudioService.loadFiltriFromStorage().then(
             filtro => {
                 this.filtro = filtro;
+
+                //set anno
+                let maxAnni = 0;
+                this.corsi.forEach(
+                    corso => {
+                        if (maxAnni < corso.ANNO) {
+                            maxAnni = corso.ANNO;
+                        }
+                    }
+                );
+                this.filtro.setMaxAnni(maxAnni);
+
+                console.log(this.filtro.maxAnni);
                 this.updateFiltri();
             }
         );
@@ -474,20 +487,6 @@ export class PianoDiStudioPage implements OnInit {
         this.filtra();
         this.ordina();
         this.search();
-
-        //update anno
-        //@todo ottimizzare, in questo posto rischia di essere eseguito troppe volte
-        let maxAnni = 0;
-        this.corsiTrovati.forEach(
-            corso => {
-                if (maxAnni < corso.ANNO) {
-                    maxAnni = corso.ANNO;
-                }
-            }
-        );
-        this.filtro.setMaxAnni(maxAnni);
-
-        console.log(this.filtro.maxAnni);
     }
 
     goToAppelli(corso: Corso) {

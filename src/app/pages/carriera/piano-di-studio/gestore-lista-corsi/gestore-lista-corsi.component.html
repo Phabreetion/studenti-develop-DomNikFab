@@ -3,7 +3,7 @@
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
             <ion-list-header text-center> <b>Ordina per:</b> </ion-list-header>
             <ion-item>
-                <ion-label>Nome Corso</ion-label>
+                <ion-label>Nome corso</ion-label>
                 <ion-radio [value]=0></ion-radio>
             </ion-item>
             <ion-item>
@@ -63,8 +63,8 @@
                     <ion-select-option [value]="0">
                         Nessuno
                     </ion-select-option>
-                    <ion-select-option *ngFor="let item of getIterableAnni();let i = index" [value]="i+1">
-                        {{i+1}}° Anno
+                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
+                        {{anno}}° Anno
                     </ion-select-option>
                     <!--
                     <ion-select-option [value]="1">1° Anno</ion-select-option>

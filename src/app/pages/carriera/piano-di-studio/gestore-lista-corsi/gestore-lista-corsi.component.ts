@@ -19,14 +19,22 @@ export class GestoreListaCorsiComponent implements OnInit {
         this.sourcePage = this.navParam.get('page');
     }
 
-    checkToogleSuperati() {
+    /**
+     * Questa funzione evita, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami non superati.
+     */
+    checkToogleSuperati(): void {
+        //se i toogle sono entrambi attivi, disattiva quello dei non superati
         if (this.sourcePage.filtro.filtroNonSuperatiAttivo && this.sourcePage.filtro.filtroSuperatiAttivo) {
             this.sourcePage.filtro.filtroNonSuperatiAttivo = false;
         }
 
         this.updateSourcePage();
     }
-    checkToogleNonSuperati() {
+
+    /**
+     * Questa funzione evita, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami superati.
+     */
+    checkToogleNonSuperati(): void {
         if (this.sourcePage.filtro.filtroNonSuperatiAttivo && this.sourcePage.filtro.filtroSuperatiAttivo) {
             this.sourcePage.filtro.filtroSuperatiAttivo = false;
         }
@@ -34,16 +42,12 @@ export class GestoreListaCorsiComponent implements OnInit {
         this.updateSourcePage();
     }
 
-    getIterableAnni(): any[] {
-        console.log(this.sourcePage.filtro.maxAnni);
-        let arr = [];
-        arr = Array(3);
-        return arr;
-    }
 
-
-    private updateSourcePage() {
-
+    /**
+     * Questa funzione è richiamata ogni volta che si interagisce con l'interfaccia grafica.
+     * Rende effettivi le modifiche ai filtri sulla lista dei corsi.
+     */
+    updateSourcePage() {
         console.log('superati: ' + this.sourcePage.filtro.filtroSuperatiAttivo);
         console.log('non superati: ' + this.sourcePage.filtro.filtroNonSuperatiAttivo);
         console.log('anno: ' + this.sourcePage.filtro.filtroPerAnno);
@@ -54,15 +58,24 @@ export class GestoreListaCorsiComponent implements OnInit {
         this.sourcePage.updateFiltri();
     }
 
-    //
+    /**
+     * Questa funzione chiude la schermata dei filtri.
+     */
     closeFiltri() {
         this.modalController.dismiss();
     }
 
+    /**
+     * Questa funzione resetta i filtri applicati e aggiorna la lista dei corsi.
+     */
     resetFiltri() {
-        this.sourcePage.resetFiltri();
+        this.sourcePage.filtro.reset();
+        this.updateSourcePage();
     }
 
+    /**
+     * Questa funzione memorizza i filtri applicati.
+     */
     memorizzaFiltri() {
         this.sourcePage.memorizzaFiltri();
     }

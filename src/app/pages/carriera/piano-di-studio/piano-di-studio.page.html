@@ -84,7 +84,7 @@
                                     <ion-row>
                                         <ion-col class ="nome-esame">
                                             <ion-icon *ngIf="corso.isSuperato() && corso.LODE==1" name="md-trophy"></ion-icon>
-                                            <ion-icon *ngIf="!corso.isSuperato() && corso.LODE==0" name="md-book"></ion-icon>
+                                            <ion-icon *ngIf="!corso.isSuperato() && corso.LODE==0" name="md-book" style="font-size: 1.2em"></ion-icon>
                                             <fa-icon *ngIf="corso.isSuperato()  && corso.LODE==0" [icon]="globalData.faBookOpen"></fa-icon>
                                             <b> {{corso.DESCRIZIONE}}</b>
                                         </ion-col>
