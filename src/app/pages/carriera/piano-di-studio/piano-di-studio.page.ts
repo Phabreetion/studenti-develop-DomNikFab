@@ -467,7 +467,6 @@ export class PianoDiStudioPage implements OnInit {
             }
         });
 
-
         return await modal.present();
     }
 
@@ -476,6 +475,18 @@ export class PianoDiStudioPage implements OnInit {
         this.filtra();
         this.ordina();
         this.search();
+
+        //update anno
+        //@todo ottimizzare, in questo posto rischia di essere eseguito troppe volte
+        let maxAnni = 0;
+        this.corsiTrovati.forEach(
+            corso => {
+                if(maxAnni<corso.ANNO) {
+                    maxAnni = corso.ANNO;
+                }
+            }
+        );
+        this.filtro.setMaxAnni(maxAnni);
     }
 
     goToAppelli(corso: Corso) {

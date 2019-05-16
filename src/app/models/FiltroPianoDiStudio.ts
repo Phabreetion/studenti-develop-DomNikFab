@@ -5,11 +5,13 @@ export class FiltroPianoDiStudio {
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
+    maxAnni: number;
 
 
     constructor() {
         //default value
         this.reset();
+        this.maxAnni  = 1;
     }
 
 
@@ -19,6 +21,10 @@ export class FiltroPianoDiStudio {
 
     isActive(): boolean {
         return this.filtroSuperatiAttivo || this.filtroNonSuperatiAttivo || this.filtroPerAnno > 0;
+    }
+
+    setMaxAnni(maxAnni: number) {
+        this.maxAnni = maxAnni;
     }
 
     reset() {
