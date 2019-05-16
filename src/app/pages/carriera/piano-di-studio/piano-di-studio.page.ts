@@ -105,6 +105,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
 
+
     aggiorna(interattivo: boolean, sync: boolean) {
         if (this.sync.loading[this.idServizio]) {
             this.rinvioAggiornamento = true;
