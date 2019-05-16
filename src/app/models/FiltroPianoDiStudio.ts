@@ -11,7 +11,6 @@ export class FiltroPianoDiStudio {
     constructor() {
         //default value
         this.reset();
-        this.maxAnni  = 1;
     }
 
 

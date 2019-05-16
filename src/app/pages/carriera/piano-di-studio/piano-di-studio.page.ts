@@ -480,7 +480,7 @@ export class PianoDiStudioPage implements OnInit {
         let maxAnni = 0;
         this.corsiTrovati.forEach(
             corso => {
-                if(maxAnni<corso.ANNO) {
+                if (maxAnni < corso.ANNO) {
                     maxAnni = corso.ANNO;
                 }
             }

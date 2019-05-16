@@ -34,8 +34,11 @@ export class GestoreListaCorsiComponent implements OnInit {
         this.updateSourcePage();
     }
 
-    arrayOne(n: number): any[] {
-        return Array(n);
+    getIterableAnni(): any[] {
+        console.log(this.sourcePage.filtro.maxAnni);
+        let arr = [];
+        arr = Array(3);
+        return arr;
     }
 
 

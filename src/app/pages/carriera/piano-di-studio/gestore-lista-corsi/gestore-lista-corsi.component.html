@@ -60,8 +60,10 @@
             </ion-col>
             <ion-col>
                 <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
-                    <ion-select-option [value]="0">Nessuno</ion-select-option>
-                    <ion-select-option *ngFor="let item of arrayOne(sourcePage.filtro.maxAnni);let i = index" [value]="i+1">
+                    <ion-select-option [value]="0">
+                        Nessuno
+                    </ion-select-option>
+                    <ion-select-option *ngFor="let item of getIterableAnni();let i = index" [value]="i+1">
                         {{i+1}}° Anno
                     </ion-select-option>
                     <!--
