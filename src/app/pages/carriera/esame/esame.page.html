@@ -57,14 +57,16 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row  *ngIf="corso.CONTENUTI">
-                    <ion-col>
+                <ion-row *ngIf="corso.CONTENUTI">
                     <b><I>Contenuti</I></b> <br>
-                        <ion-icon (click)="mostraContenuti()" name="md-arrow-dropdown-circle" color="primary" style="font-size: 1.5em;"></ion-icon>
-                        <ion-col *ngIf="isClick">
-                            <p>{{corso.getFormatedContenutiCorso()}}</p>
-                        </ion-col>
-                    </ion-col>
+                    <ion-icon (click)="mostraContenuti()" name="md-arrow-dropdown-circle" color="primary"
+                              style="font-size: 1.5em;"></ion-icon>
+
+                    <ion-card text-wrap *ngIf="isClick">
+                        <ion-card-content text-wrap>
+                            <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
+                        </ion-card-content>
+                    </ion-card>
                 </ion-row>
 
                 <ion-row *ngIf="corso.VOTO">
@@ -96,7 +98,10 @@
                     <ion-col>
                         <b><I>Propedeuticità</I></b> <br>
                         <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">
-                           <ion-icon name="md-arrow-dropright"> </ion-icon> <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'" [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>  {{corsoPropedeutico.DESCRIZIONE}} <br>
+                            <ion-icon name="md-arrow-dropright"></ion-icon>
+                            <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
+                                      [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
+                            {{corsoPropedeutico.DESCRIZIONE}} <br>
                         </ion-label>
                     </ion-col>
                 </ion-row>
@@ -135,9 +140,6 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-
-
-
 
 
     <ion-card text-wrap *ngIf="!corso">

@@ -201,9 +201,18 @@ export class Corso{
 
     public getFormatedContenutiCorso() {
         let contenutiFormatted = this.CONTENUTI;
-        contenutiFormatted = contenutiFormatted.replace(/\\r\\n|\\r|\\n/g, '</br>');
+        contenutiFormatted = contenutiFormatted.replace(/\\r\\n|\\r|\\n/g, '<br>');
         return contenutiFormatted;
     }
+    public pippo(): string {
+        if (this.CONTENUTI) {
+            return this.CONTENUTI.replace(/\\r\\n|\\r|\\n/g, '<br>');
+        } else {
+            return '';
+        }
+    }
+
+
 
     public isSuperato(): boolean {
         return this.STATO === 'S';

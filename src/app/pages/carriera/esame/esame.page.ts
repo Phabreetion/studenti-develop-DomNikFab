@@ -18,6 +18,7 @@ export class EsamePage implements OnInit {
     private libretto: any[];
     private codiceEsame: number;
     private corsiPropedeutici: Corso[];
+
     public isClick: boolean;
 
     constructor(
@@ -50,7 +51,7 @@ export class EsamePage implements OnInit {
         if (this.isClick === true) {
             this.isClick = false;
             return this.isClick;
-        }else {
+        } else {
             this.isClick = true;
             return this.isClick;
         }
