@@ -40,7 +40,7 @@ export class FiltroPianoDiStudio {
         this.filtroSuperatiAttivo = false;
         this.filtroNonSuperatiAttivo = false;
         this.filtroPerAnno = 0;
-        this.idOrdinamento = 0;
+        this.idOrdinamento = 2;
         this.tipoOrdinamento = 0;
     }
 
