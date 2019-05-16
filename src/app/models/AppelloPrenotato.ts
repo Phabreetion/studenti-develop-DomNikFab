@@ -1,4 +1,5 @@
 import {Appello} from './Appello';
+import {AppelloDisponibile} from './AppelloDisponibile';
 
 export class AppelloPrenotato extends Appello  {
 
@@ -18,6 +19,8 @@ export class AppelloPrenotato extends Appello  {
     tipo_esa_cod: string;
     tipo_iscr: string;
     tipo_turno_cod: string;
+    prenotazioni: Array<any>;
+
 
     //corsi: Corso[];
 
@@ -41,6 +44,7 @@ export class AppelloPrenotato extends Appello  {
         this.tipo_esa_cod = tipo_esa_cod;
         this.tipo_iscr = tipo_iscr;
         this.tipo_turno_cod = tipo_turno_cod;
+
     }
 
     /*
@@ -57,5 +61,12 @@ export class AppelloPrenotato extends Appello  {
     public static toObj(obj: Object): AppelloPrenotato {
         return Object.assign(new AppelloPrenotato(), obj);
     }
+
+    /*controllaPrenotazioni(){
+        this.prenotazioni = this.prenotazioni.filter( (appello) => {
+            return this.isPrenotazioneSuperata(appello)
+        });
+    }*/
+
 
 }
