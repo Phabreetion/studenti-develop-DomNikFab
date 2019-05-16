@@ -6,6 +6,7 @@ import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
+import { ContattoPage } from './contatto/contatto';
 
 @Component({
     selector: 'app-page-rubrica',
@@ -29,6 +30,15 @@ export class RubricaPage implements OnInit {
 
     rubrica: Array<any> = [];
     rubricaFiltrata: Array<any> = [];
+    // inserito il 15/05/2019
+    Pesche = [];
+    Campobasso = [];
+    Termoli = [];
+
+    NrPesche = '';
+    NrCampobasso = '';
+    NrTermoli = '';
+
     dataAggiornamento: string;
     searchTerm = '';
 
@@ -47,6 +57,7 @@ export class RubricaPage implements OnInit {
     nrElementiDaMostrare = this.step;
     nrElementiNascosti = 0;
 
+    sezioni = 'Campobasso';// default
 
     constructor(
         private toastCtrl: ToastController,
@@ -141,7 +152,12 @@ export class RubricaPage implements OnInit {
     }
 
     setFiltro() {
-        this.rubricaFiltrata = this.filtra(this.searchTerm);
+        //filtro barra di ricerca
+        this.rubricaFiltrata = this.filtra(this.searchTerm); 
+        //filtro per sezione
+        this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
+
+        
         this.nrElementiFiltrati = this.rubricaFiltrata.length;
         this.nrElementiNascosti = this.nrElementiFiltrati - this.nrElementiDaMostrare;
         if (this.nrElementiNascosti < 0) {
@@ -151,6 +167,48 @@ export class RubricaPage implements OnInit {
             this.rubricaFiltrata = this.rubricaFiltrata.slice(0, this.nrElementiDaMostrare - 1);
             this.mostraTutti = false;
         }
+    }
+
+    setFiltroSede() {
+        this.Pesche = [];
+        this.Campobasso = [];
+        this.Termoli = [];
+        this.Pesche = this.filtrasede(this.rubrica, "Campobasso");
+        if (this.Pesche) {
+            this.NrPesche = '(' + this.Pesche.length + ')';
+        } else {
+            this.NrPesche = '';
+        }
+      /*  this.dipartimentoNewsFiltrate = this.filtrasede(this.dipartimentoNews, this.searchTerm);
+        if (this.dipartimentoNewsFiltrate) {
+            this.nrNewsDipartimento = '(' + this.dipartimentoNewsFiltrate.length + ')';
+        } else {
+            this.nrNewsDipartimento = '';
+        }
+        this.corsoNewsFiltrate = this.filtra(this.corsoNews, this.searchTerm);
+        if (this.corsoNewsFiltrate) {
+            this.nrNewsCDS = '(' + this.corsoNewsFiltrate.length + ')' ;
+        } else {
+            this.nrNewsCDS = '';
+    
+        }
+        */
+    }
+    
+// qui vado a filtrare la sede
+    filtrasede(items, searchTerm) {
+        
+        if (searchTerm == null || searchTerm === undefined || searchTerm === '') {
+            return items;
+        }
+
+        return items.filter((item) => {
+            try {
+                return (item.citta == searchTerm)
+                }catch (err) {
+                console.dir(err);
+            }
+        });
     }
 
     filtra(searchTerm) {
@@ -207,6 +265,7 @@ export class RubricaPage implements OnInit {
             (data) => {
                 if ( this.sync.dataIsChanged(this.rubrica, data[0]) ) {
                     this.rubrica = data[0];
+                    console.log(this.rubrica); //console json
                     if (this.rubrica) {
                         this.nrElementi = this.rubrica.length;
                     }
