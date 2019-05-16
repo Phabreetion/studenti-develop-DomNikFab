@@ -56,18 +56,13 @@
 
                 <ion-row *ngIf="corso.CONTENUTI" >
                     <ion-col>
-                    <b><I>Contenuti</I></b>&nbsp;&nbsp;
-                        <ion-col>
-                            <ion-col text-left>
-                    <ion-icon (click)="mostraContenuti()" [name]="isClick? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" color="primary"
-                              style="font-size: 1.5em;" no-padding></ion-icon>
+                    <b><I>Contenuti</I></b>&nbsp;
+                    <ion-icon (click)="mostraContenuti()" [name]="isClick? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
                     <ion-card text-wrap *ngIf="isClick">
                         <ion-card-content text-wrap>
                             <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
                         </ion-card-content>
                     </ion-card>
-                            </ion-col>
-                        </ion-col>
                     </ion-col>
                 </ion-row>
 
@@ -78,7 +73,7 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-grid no-padding>
+                <ion-grid fixed no-padding>
                 <ion-row >
                     <ion-col *ngIf="corso.DATA_ESAME">
                         <b><I>Data esame</I></b>&nbsp;&nbsp;&nbsp;&nbsp;<br> {{corso.DATA_ESAME}}
