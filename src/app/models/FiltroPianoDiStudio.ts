@@ -45,7 +45,7 @@ export class FiltroPianoDiStudio {
     }
 
 
-    //qui funzioni toggle che si disattivano  alternativamente
+    //qui funzioni toggle che si dovrebbero disattivano  alternativamente
     disableFiltroEsamiSuperati(): void {
         this.filtroSuperatiAttivo = false;
     }

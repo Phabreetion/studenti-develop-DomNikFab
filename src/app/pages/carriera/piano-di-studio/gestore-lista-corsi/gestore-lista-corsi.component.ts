@@ -20,7 +20,7 @@ export class GestoreListaCorsiComponent implements OnInit {
     }
 
     /**
-     * Questa funzione evita, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami non superati.
+     * Questa funzione evita che, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami non superati.
      */
     checkToogleSuperati(): void {
         //se i toogle sono entrambi attivi, disattiva quello dei non superati
@@ -32,7 +32,7 @@ export class GestoreListaCorsiComponent implements OnInit {
     }
 
     /**
-     * Questa funzione evita, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami superati.
+     * Questa funzione evita che, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami superati.
      */
     checkToogleNonSuperati(): void {
         if (this.sourcePage.filtro.filtroNonSuperatiAttivo && this.sourcePage.filtro.filtroSuperatiAttivo) {
