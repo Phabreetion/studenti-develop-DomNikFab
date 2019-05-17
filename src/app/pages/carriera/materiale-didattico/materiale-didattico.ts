@@ -23,6 +23,9 @@ export class MaterialeDidatticoPage implements OnInit {
     idServizio = 18;
     ad: string;
     files: Array<any>;
+    fileTrovati: File[];
+
+
 
     pageloading = false;
 
@@ -65,6 +68,7 @@ export class MaterialeDidatticoPage implements OnInit {
         public localdb: DBService,
         public toastsService: ToastsService,
         public account: AccountService) {
+        this.searchKey = '';
     }
 
     ngOnInit() {
@@ -80,6 +84,9 @@ export class MaterialeDidatticoPage implements OnInit {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
+
+
+
     }
 
     aggiorna(interattivo: boolean, sync: boolean) {
@@ -130,6 +137,8 @@ export class MaterialeDidatticoPage implements OnInit {
                     // console.dir(files)
                     // console.dir(this.files);
                 }
+
+                this.fileTrovati = this.files;
 
                 this.dataAggiornamento = SyncService.dataAggiornamento(data);
             },
@@ -378,10 +387,19 @@ export class MaterialeDidatticoPage implements OnInit {
         );
     }
 
+
+    search() {
+        this.fileTrovati = this.files;
+
+        const searchKeyLowered = this.searchKey.toLowerCase();
+        this.fileTrovati = this.files.filter(file => file.FILENAME.toLowerCase().search(searchKeyLowered) >= 0);
+    }
+
+
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;
         this.searchKey = '';
-        //this.search();
+        this.search();
     }
 
 

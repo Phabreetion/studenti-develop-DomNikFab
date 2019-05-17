@@ -29,7 +29,8 @@
                            placeholder="Cerca"
                            showCancelButton="true"
                            animated="true"
-                           (ionCancel)="toogleSearchbar()">
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
     </ion-grid>
@@ -73,7 +74,7 @@
     </ion-list>
 
     <ion-list *ngIf="files?.length > 0">
-        <ion-item-sliding *ngFor="let file of files" >
+        <ion-item-sliding *ngFor="let file of fileTrovati" >
             <!-- (press)="onPress(item)" -->
             <!-- <ion-item #item (click)="open(slidingItem,item)" >  -->
             <ion-item (click)="info(file)">
