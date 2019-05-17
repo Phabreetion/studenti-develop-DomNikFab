@@ -54,6 +54,25 @@
     </ion-refresher>
 
 
+    <ion-grid *ngIf="rinvioAggiornamento && !corsi" text-center>
+        <ion-row>
+            <ion-col>
+                <img class="progress" src="assets/img/progress.gif" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label>un attimo di pazienza</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
     <ion-list *ngIf="corsi">
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item

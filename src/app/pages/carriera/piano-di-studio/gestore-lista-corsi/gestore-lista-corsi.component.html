@@ -23,7 +23,7 @@
     <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
     <ion-button expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
 
-    <ion-grid>
+    <ion-grid no-padding>
         <ion-row>
             <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
         </ion-row>
