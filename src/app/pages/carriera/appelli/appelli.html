@@ -28,14 +28,21 @@
             </ion-col>
         </ion-row>
 
-        <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar *ngIf='isSearchbarOpened' placeholder="Cerca"></ion-searchbar>
-        </ion-row>
         <ion-row>
             <ion-segment [(ngModel)]="sezioni" (ionChange)="ngOnInit()">
                 <ion-segment-button value="disponibili">Disponibili {{nrAppelli}}</ion-segment-button>
                 <ion-segment-button value="prenotati">Prenotati {{nrPrenotazioni}}</ion-segment-button>
             </ion-segment>
+        </ion-row>
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
         </ion-row>
 
     </ion-grid>
@@ -86,7 +93,7 @@
         <ion-grid *ngIf="appelli?.length > 0" text-center> <!-- no-padding-->
             <ion-row>
                 <ion-col>
-                    <ion-item-sliding #slItem *ngFor="let appello of appelli">
+                    <ion-item-sliding #slItem *ngFor="let appello of appelliTrovati">
 
                         <ion-item fixed> <!-- no-padding-->
                             <ion-grid>
