@@ -23,53 +23,30 @@
     <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
     <ion-button expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
 
-    <ion-grid no-padding>
-        <ion-row>
-            <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
-        </ion-row>
-        <ion-row justify-content-center align-items-center>
-            <ion-col>
-                <ion-item>
-                    <ion-text>Esami superati</ion-text>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="checkToogleSuperati()"></ion-toggle>
-                </ion-item>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>
-                <ion-item>
-                    <ion-text>Esami non superati</ion-text>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-item>
-                    <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
-                </ion-item>
-            </ion-col>
-        </ion-row>
+    <ion-list>
+        <ion-list-header text-center> <b>Filtra per:</b> </ion-list-header>
+        <ion-item>
+            <ion-label>Corsi superati</ion-label>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="checkToogleSuperati()"></ion-toggle>
+        </ion-item>
 
-        <ion-row>
-            <ion-col>
-                <ion-item>
-                    <ion-text>Anno</ion-text>
-                </ion-item>
-            </ion-col>
-            <ion-col>
-                <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
-                    <ion-select-option [value]="0">
-                        Nessuno
-                    </ion-select-option>
-                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
-                        {{anno}}° Anno
-                    </ion-select-option>
-                </ion-select>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
+        <ion-item>
+            <ion-label>Corsi non superati</ion-label>
+            <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Anno</ion-label>
+            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
+                <ion-select-option [value]="0">
+                    Nessuno
+                </ion-select-option>
+                <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
+                    {{anno}}° Anno
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-list>
 
     <ion-grid>
         <ion-row>
