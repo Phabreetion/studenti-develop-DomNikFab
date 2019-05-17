@@ -15,6 +15,8 @@ import {HttpService} from './http.service';
 /*
 ID SERVIZI
 "APPELLI', 1
+'NEW PIANO DI STUDIO', 112
+'NEW PROPEDEUTICITÀ', 113
 'ESAMI_DA_SOSTENERE', 2
 'CREDITI_A_SCELTA', 3
 'LIBRETTO', 4
@@ -47,7 +49,10 @@ export class SyncService {
     private token = 'token';
     private tokenNotifiche = 'tokenNotifiche';
 
+    //array di booleani per memorizzare i servizi attualmente in aggiornamento
     loading = [];
+    //array di stringhe per memorizzare le date dell'ultimo aggiornamento dei servizi
+    dateUltimiAggiornamenti = [];
 
     private timeout = 30000;
 
@@ -162,7 +167,7 @@ export class SyncService {
 
         switch (this.globalData.userRole) {
             case 'student':
-                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 112 ];
+                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 112, 113 ];
                 break;
             case 'teacher':
                 elencoServizi = [ 7, 13, 14, 16, 19, 102];
@@ -199,6 +204,31 @@ export class SyncService {
                 });
         }
     }
+
+    /**
+     * Questa funzione restituisce true se il servizio è attualmente in aggiornamento,false altrimenti.
+     * @param idServizio: id del servizio
+     */
+    isLoading(idServizio: number): boolean {
+        return this.loading[idServizio];
+    }
+
+    /**
+     * Questa funzione restiuiscre la data dell'ultimo aggiornamento del servizio.
+     * @param idServizio: id del servizio
+     */
+    getDataUltimoAggiornamento(idServizio: number): string {
+        if (!this.dateUltimiAggiornamenti[idServizio]) {
+            return 'Mai';
+        }
+
+        if (this.dateUltimiAggiornamenti[idServizio] == 'in corso...') {
+            return 'in corso...';
+        }
+
+        return GlobalDataService.timestamp2string(this.dateUltimiAggiornamenti[112]);
+    }
+
 
 
     getJson(id: number, params: string[], sync: boolean) {
@@ -252,6 +282,7 @@ export class SyncService {
 
         return new Promise((resolve, reject) => {
             this.loading[id] = true;
+            this.dateUltimiAggiornamenti[id] = 'in corso...';
             this.storage.get('token').then(
                 (val) => {
                     this.token = val;
@@ -300,6 +331,7 @@ export class SyncService {
                                         // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
                                     }
 
+                                    this.dateUltimiAggiornamenti[id] = dati['timestamp'];
                                     this.loading[id] = false;
                                     resolve(dati);
                                 },
