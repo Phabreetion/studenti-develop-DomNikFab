@@ -44,6 +44,8 @@ export class AppelliPage implements OnChanges, OnInit {
     corsi: Corso[];
 
     public isSearchbarOpened = false;
+    private appelliTrovati: AppelloDisponibile[];
+    private searchKey: string;
 
     constructor(
         private route: ActivatedRoute,
@@ -57,6 +59,8 @@ export class AppelliPage implements OnChanges, OnInit {
         public esse3: Esse3Service,
         private modalController: ModalController,
         private pianoDiStudioService: PianoDiStudioService) {
+
+        this.searchKey = '';
 
         if (this.sezioni == null) {
             this.sezioni = 'disponibili';
@@ -124,6 +128,8 @@ export class AppelliPage implements OnChanges, OnInit {
                 for (let i = 0; i < data[0].length; i++) {
                     this.appelli[i] = AppelloDisponibile.toObj(this.appelli[i]);
                 }
+
+                this.appelliTrovati = this.appelli;
 
                 console.log(this.appelli);
 
@@ -529,9 +535,9 @@ export class AppelliPage implements OnChanges, OnInit {
     }
 
 
-    controllaPrenotazioni(){
+    controllaPrenotazioni() {
         this.prenotazioni = this.prenotazioni.filter( (appello) => {
-            return this.isPrenotazioneSuperata(appello)
+            return this.isPrenotazioneSuperata(appello);
         });
     }
 
@@ -545,5 +551,14 @@ export class AppelliPage implements OnChanges, OnInit {
         return i < this.corsi.length;
     }
 
+    search() {
+        const searchKeyLowered = this.searchKey.toLowerCase();
+        this.appelliTrovati = this.appelli.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+    }
 
+    toogleSearchbar() {
+        this.isSearchbarOpened = !this.isSearchbarOpened;
+        this.searchKey = '';
+        this.search();
+    }
 }
