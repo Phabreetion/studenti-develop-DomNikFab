@@ -50,6 +50,8 @@ export class MaterialeDidatticoPage implements OnInit {
     i: any;
     opened = false;
     maxLength = 60; // Lunghezza massima del testo da visualizzare
+    private searchKey: string;
+    public isSearchbarOpened = false;
 
     constructor(
         private toastCtrl: ToastController,
@@ -375,4 +377,14 @@ export class MaterialeDidatticoPage implements OnInit {
             (actionSheet) => actionSheet.present()
         );
     }
+
+    toogleSearchbar() {
+        this.isSearchbarOpened = !this.isSearchbarOpened;
+        this.searchKey = '';
+        //this.search();
+    }
+
+
+
+
 }
