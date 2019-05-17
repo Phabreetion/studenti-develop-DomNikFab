@@ -205,12 +205,19 @@ export class SyncService {
         }
     }
 
-
-    isLoading(idServizio: number) {
+    /**
+     * Questa funzione restituisce true se il servizio è attualmente in aggiornamento,false altrimenti.
+     * @param idServizio: id del servizio
+     */
+    isLoading(idServizio: number): boolean {
         return this.loading[idServizio];
     }
 
-    lastUpdate(idServizio: number): string {
+    /**
+     * Questa funzione restiuiscre la data dell'ultimo aggiornamento del servizio.
+     * @param idServizio: id del servizio
+     */
+    getDataUltimoAggiornamento(idServizio: number): string {
         if (!this.dateUltimiAggiornamenti[idServizio]) {
             return 'Mai';
         }
