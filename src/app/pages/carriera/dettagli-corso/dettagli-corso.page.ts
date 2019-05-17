@@ -7,11 +7,11 @@ import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 
 @Component({
-    selector: 'app-esame',
-    templateUrl: './esame.page.html',
-    styleUrls: ['./esame.page.scss'],
+    selector: 'app-dettagli-corso',
+    templateUrl: './dettagli-corso.page.html',
+    styleUrls: ['./dettagli-corso.page.scss'],
 })
-export class EsamePage implements OnInit {
+export class DettagliCorsoPage implements OnInit {
 
     srcPage: string;
     corso: Corso;

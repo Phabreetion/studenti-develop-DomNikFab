@@ -5,7 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { EsamePage } from './esame.page';
+import { DettagliCorsoPage } from './dettagli-corso.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {AppModule} from '../../../app.module';
 import {FooterComponent} from '../../footer/footer.component';
@@ -13,7 +13,7 @@ import {FooterComponent} from '../../footer/footer.component';
 const routes: Routes = [
   {
     path: '',
-    component: EsamePage
+    component: DettagliCorsoPage
   }
 ];
 
@@ -25,6 +25,6 @@ const routes: Routes = [
         FontAwesomeModule,
         RouterModule.forChild(routes)
     ],
-  declarations: [EsamePage, FooterComponent]
+  declarations: [DettagliCorsoPage, FooterComponent]
 })
-export class EsamePageModule {}
+export class DettagliCorsoPageModule {}
