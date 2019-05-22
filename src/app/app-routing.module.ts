@@ -30,9 +30,9 @@ const routes: Routes = [
     { path: 'servizi-online', loadChildren: './pages/servizi/servizi-online/servizi-online.module#ServiziOnlinePageModule' },
     { path: 'storico-esami', loadChildren: './pages/carriera/storico-esami/storico-esami.module#StoricoEsamiPageModule' },
     { path: 'tasse', loadChildren: './pages/servizi/tasse/tasse.module#TassePageModule' },
-    { path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule' },  { path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule' },
-  { path: 'selezione-orario', loadChildren: './pages/orario/selezione-orario/selezione-orario.module#SelezioneOrarioPageModule' }
-
+    { path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule' },
+  { path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule' }
+ 
     ];
 
 @NgModule({

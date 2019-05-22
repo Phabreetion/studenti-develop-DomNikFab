@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Inject, LOCALE_ID } from '@angular/core';
+import { Component, OnInit, ViewChild, Inject, LOCALE_ID, NgModule } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Platform, ToastController, AlertController } from '@ionic/angular';
 import { SyncService } from '../../services/sync.service';
@@ -8,7 +8,8 @@ import { AccountService } from '../../services/account.service';
 import { HttpService } from '../../services/http.service';
 
 import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { formatDate } from '@angular/common';
+import { formatDate, registerLocaleData } from '@angular/common';
+import localeIt from '@angular/common/locales/it'
 
 
 @Component({
@@ -16,13 +17,23 @@ import { formatDate } from '@angular/common';
   templateUrl: 'orario.page.html',
   styleUrls: ['orario.page.scss'],
 })
+
+@NgModule({
+  providers: [
+    { provide: LOCALE_ID, useValue: 'it-IT' }
+  ]
+})
+
 export class OrarioPage implements OnInit {
+
 
   currentPage = '/orario';
 
-  idServizioOrario = 17; // servizio orario provvisorio
+  idServizioPds = 12; // servizio Piano di studi
+  idServizioOrario = 17; // servizio Orario
 
   inizializzato = false;
+  selezionaCorsi = false;
 
   dataAggiornamento: string;
   aggiornamentoVerificato = false;
@@ -32,10 +43,10 @@ export class OrarioPage implements OnInit {
 
   ultimoDato = '';
 
+  listaCorsi = null;
   listaCorsiSeguiti = null;
   orario = null;
 
-  // test cal
   event = {
     title: '',
     desc: '',
@@ -51,6 +62,7 @@ export class OrarioPage implements OnInit {
 
   calendar = {
     mode: 'month',
+    locale: 'it-IT',
     currentDate: new Date(),
   };
 
@@ -67,28 +79,25 @@ export class OrarioPage implements OnInit {
     public globalData: GlobalDataService,
     public notificheService: NotificheService,
     public account: AccountService
-  ) { }
+  ) {
+    registerLocaleData(localeIt);
+  }
 
   ngOnInit() {
     this.globalData.srcPage = '/orario';
-   
+
+    this.aggiornaOrario(false, true);
   }
 
-  ionViewDidEnter() {
+  aggiornaOrario(interattivo: boolean, sync: boolean) {
 
-    this.aggiorna(false, true);
-  }
-
-
-  aggiorna(interattivo: boolean, sync: boolean) {
-    
 
     this.storage.get('CorsiSeguiti').then(
       (dati) => {
-        console.log(this.listaCorsiSeguiti);
-        this.listaCorsiSeguiti = dati;
 
-        if (this.listaCorsiSeguiti == null || this.listaCorsiSeguiti == []) {
+        this.listaCorsiSeguiti = dati;
+        //  console.log(this.listaCorsiSeguiti);
+        if (this.listaCorsiSeguiti == null || this.listaCorsiSeguiti[0] == null) {
           this.primoAvvio();
 
         } else {
@@ -99,13 +108,23 @@ export class OrarioPage implements OnInit {
 
               this.orario = data[0];
 
-              console.log(this.orario);
+              //console.log(data[0]);
+              this.eventSource = [];
+
               this.orario.forEach(lesson => {
+                var nomeMateria = "";
+                nomeMateria = lesson["description"];
+
+                if (nomeMateria.length>35){  
+                nomeMateria=nomeMateria.substring(0, 30)+"...";
+                }
+
                 let event = {
-                  title: lesson["description"],
+                  title: nomeMateria ,
                   startTime: new Date(lesson["start"]),
                   endTime: new Date(lesson["end"]),
-                  desc: lesson["name"]
+                  desc: lesson["name"],
+                  
                 }
                 this.eventSource.push(event);
 
@@ -114,6 +133,7 @@ export class OrarioPage implements OnInit {
               this.inizializzato = true;
 
               this.dataAggiornamento = SyncService.dataAggiornamento(data);
+
               this.myCal.loadEvents();
 
             },
@@ -129,8 +149,8 @@ export class OrarioPage implements OnInit {
   }
 
   primoAvvio() {
-    console.log("3");
-    this.globalData.goTo(this.currentPage, '/selezione-orario', 'forward', false);
+    this.selezionaCorsi = true;
+    this.aggiornaLista(false, true);
   }
 
   doRefresh(refresher) {
@@ -138,34 +158,24 @@ export class OrarioPage implements OnInit {
       refresher.target.complete();
     }
 
-    this.aggiorna(true, true);
+    this.aggiornaOrario(true, true);
+
   }
 
   modificaOrario() {
-    console.log("2");
+    this.selezionaCorsi = true;
     this.inizializzato = false;
-    this.storage.set("CorsiSeguiti", this.listaCorsiSeguiti);
-    this.globalData.goTo(this.currentPage, '/selezione-orario', 'forward', false);
+    this.aggiornaLista(false, true);
   }
 
-  // test cal
-
-  // Change between month/week/day
-  changeMode(mode) {
-    this.calendar.mode = mode;
-  }
-
-  // Focus today
   today() {
     this.calendar.currentDate = new Date();
   }
 
-  // Selected date reange and hence title changed
   onViewTitleChanged(title) {
     this.viewTitle = title;
   }
 
-  // Calendar event was clicked
   async onEventSelected(event) {
     // Use Angular date pipe for conversion
     let start = formatDate(event.startTime, 'medium', this.locale);
@@ -174,18 +184,168 @@ export class OrarioPage implements OnInit {
     const alert = await this.alertCtrl.create({
       header: event.title,
       subHeader: event.desc,
-      message: 'From: ' + start + '<br><br>To: ' + end,
+      message: 'Dalle: ' + start + '<br><br>Alle: ' + end,
       buttons: ['OK']
     });
     alert.present();
   }
 
-  // Time slot was clicked
   onTimeSelected(ev) {
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
+  }
+
+  aggiornaLista(interattivo: boolean, sync: boolean) {
+
+    if (this.sync.loading[this.idServizioPds]) {
+      this.rinvioAggiornamento = true;
+      this.dataAggiornamento = 'in corso';
+      this.nrRinvii++;
+
+      GlobalDataService.log(0, 'Rinvio' + this.nrRinvii, null);
+
+      if (this.nrRinvii < this.maxNrRinvii) {
+        setTimeout(() => {
+          this.aggiornaLista(interattivo, sync);
+        }, 2000);
+        return;
+      } else {
+        if (this.http.connessioneLenta) {
+          this.toastCtrl.create({
+            message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
+            duration: 3000,
+            position: 'bottom'
+          }).then(
+            (toast) => { toast.present(); },
+            (err) => { GlobalDataService.log(2, 'Errore in aggiorna', err); });
+        }
+      }
+    }
+    this.rinvioAggiornamento = false;
+    this.nrRinvii = 0;
+
+
+    // Otteniamo la lista corsi
+    this.sync.getJson(this.idServizioPds, null, sync).then(
+      (data) => {
+
+        this.setListaCorsi(data);
+
+        this.dataAggiornamento = SyncService.dataAggiornamento(data);
+      },
+      (err) => {
+        GlobalDataService.log(2, 'Errore in aggiorna', err);
+      }).catch(ex => {
+        GlobalDataService.log(2, 'Eccezione in aggiorna', ex);
+        setTimeout(() => {
+          this.controllaAggiornamento();
+        }, 1000);
+      });
+
+  }
+
+  controllaAggiornamento() {
+
+    // La verifica dell'aggiornamento in background la facciamo solo una volta
+    if (this.aggiornamentoVerificato) {
+      return;
+    }
+
+    // Se stiamo caricando dati dal server rimandiamo la verifica
+    if (this.sync.loading[this.idServizioPds]) {
+      setTimeout(() => {
+        this.controllaAggiornamento();
+      }, 1000);
+    } else {
+      this.aggiornamentoVerificato = true;
+      this.aggiornaOrario(true, true);
+    }
+  }
+
+  setListaCorsi(lista: any) {
+    this.inizializzato = true;
+
+    this.dataAggiornamento = SyncService.dataAggiornamento(lista);
+    this.listaCorsi = lista[0];
+
+    this.storage.get('CorsiSeguiti').then(
+      (dati) => {
+        this.listaCorsiSeguiti = dati;
+
+        //  console.log("list->");
+
+        if (this.listaCorsiSeguiti != null) {
+
+          console.log(this.listaCorsiSeguiti);
+          this.listaCorsi.forEach(corso => {
+            this.listaCorsiSeguiti.forEach(corsoSeguito => {
+
+              if (corso["CODICE"] === corsoSeguito) {
+
+                //   console.log("sot");
+                this.listaCorsi["SOTTOSCRITTO"] = 1;
+              } else {
+                // console.log("UNsot");
+                this.listaCorsi["SOTTOSCRITTO"] = 0;
+              }
+            });
+
+            this.inizializzato = true;
+
+          });
+        } else {
+          //   console.log("data");
+          this.listaCorsi.forEach(corso => {
+
+            this.listaCorsi["SOTTOSCRITTO"] = 0;
+            this.inizializzato = true;
+
+            //console.log(this.listaCorsi["SOTTOSCRITTO"]);
+          })
+        }
+
+        if (!this.listaCorsi || !this.listaCorsi[0]) {
+          return this.aggiornaLista(true, true);
+        }
+
+      });
+  }
+
+  isLoading() {
+
+    return this.sync.loading[this.idServizioOrario];
+  }
+
+
+  aggiungiCorso(codCorso: string) {
+    // console.log(this.listaCorsi);
+    this.listaCorsi.forEach(corso => {
+      if (corso["CODICE"] === codCorso) {
+        if (corso["SOTTOSCRITTO"] == 0) {
+          corso["SOTTOSCRITTO"] = 1;
+        } else {
+          corso["SOTTOSCRITTO"] = 0;
+        }
+      }
+    });
+  }
+
+  confermaSelezione() {
+    this.listaCorsiSeguiti = [];
+    this.listaCorsi.forEach(element => {
+      if (element["SOTTOSCRITTO"] == 1) {
+        this.listaCorsiSeguiti.push(element["CODICE"]);
+      }
+    });
+    this.storage.set("CorsiSeguiti", this.listaCorsiSeguiti).then(
+      () => {
+        this.selezionaCorsi = false;
+        this.inizializzato = false;
+        this.aggiornaOrario(false, true);
+      }
+    )
   }
 }
 

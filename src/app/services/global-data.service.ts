@@ -19,6 +19,7 @@ export class GlobalDataService {
     apiurl =  this.dir + '/api/';
     baseurl: string = this.schema + this.ip + this.apiurl;
 
+    passphrase_private_key: string = 'faustofasano2019_appunimol';
 
     utente_test = false;
 

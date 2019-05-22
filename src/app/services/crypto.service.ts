@@ -15,7 +15,7 @@ import {ToastController} from '@ionic/angular';
 })
 export class CryptoService {
 
-    passphrase_private_key: string = 'faustofasano2019_appunimol';
+    
     urlScambioChiavi: string = this.globalData.baseurl +'scambioChiavi.php';
     private_key: string;
     public_key: string;
@@ -43,7 +43,7 @@ export class CryptoService {
                                 const segreto = esitoScambio['encoded_secret'];
 
 
-                                const pv_key = this.CryptoJSAesDecrypt(this.passphrase_private_key,private_key);
+                                const pv_key = this.CryptoJSAesDecrypt(this.globalData.passphrase_private_key,private_key);
                                 const crypt = new Encrypt.JSEncrypt();
                                 crypt.setKey(pv_key);
                                 const decoded = crypt.decrypt(segreto);

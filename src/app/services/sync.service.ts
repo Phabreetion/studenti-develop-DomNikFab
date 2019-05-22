@@ -300,7 +300,7 @@ export class SyncService {
                                             GlobalDataService.log(1, 'Token scaduto', null);
 
                                             let storedUsername = this.storage.get('username');
-                                            let storedPassword = this.storage.get('password');
+                                            let storedPassword = this.crypto.CryptoJSAesDecrypt(this.passphrase, this.storage.get('password'));
 
                                             Promise.all([storedUsername, storedPassword]).then(
                                                 data => {
