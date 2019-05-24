@@ -92,5 +92,15 @@ export class FiltroAppelliDisponibili {
         }
         return appelli;
     }
+
+    getIterableAnni(): any[] {
+        const arr = [];
+
+        for (let i = 0; i < this.maxAnni; i++) {
+            arr.push(i + 1);
+        }
+
+        return arr;
+    }
 }
 
