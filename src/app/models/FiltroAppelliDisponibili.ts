@@ -37,6 +37,8 @@ export class FiltroAppelliDisponibili {
         return Object.assign(new FiltroAppelliDisponibili(), obj);
     }
 
+
+
     reset() {
         this.filtraScrittoOrale = 0;
         this.filtroPerAnno = 0;
@@ -175,17 +177,18 @@ export class FiltroAppelliDisponibili {
     filtra(appelli : AppelloDisponibile[], corsi : Map<number,Corso>) : AppelloDisponibile[]{
        //definire filtra anno e filtra scritto orale
         //appelli.filter
-        /*if (this.filtroSuperatiAttivo) {
-            appelli.filter(appeli=>)
-        }
+       //nel json c'è l'attributo(O,S,SO) che assume i valori 1,2,3---> 1 per scritto, 2 per orale, 3 per scritto orale
+        if(this.filtraScrittoOrale==1)
+            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='S');
 
-        if (this.filtroNonSuperatiAttivo) {
-            corsi = c.filter(corso => !corso.isSuperato());
-        }*/
+        if(this.filtraScrittoOrale==2)
+            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='O');
+
+        if(this.filtraScrittoOrale==2)
+            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='SO');
 
         if (this.filtroPerAnno > 0) {
-            //corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
-            appelli = appelli.filter(appello=>corsi.get(appello.ad_id).ANNO==this.filtroPerAnno)
+            appelli = appelli.filter(appello=>corsi.get(appello.ad_id).ANNO==this.filtroPerAnno);
         }
 
         return appelli;
