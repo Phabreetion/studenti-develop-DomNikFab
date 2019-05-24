@@ -16,13 +16,7 @@ export class Esse3Service {
         public globalData: GlobalDataService
     ) { }
 
-    getUrlPrenotaAppello() {
-        return this.globalData.getBaseUrl()  + 'prenotaAppello.php';
-    }
 
-    getUrlCancellaPrenotazione() {
-        return this.globalData.getBaseUrl()  + 'cancellaPrenotazione.php';
-    }
 
     getUrlSession() {
         return this.globalData.getBaseUrl()  + 'getSession.php';
@@ -56,68 +50,6 @@ export class Esse3Service {
         );
     }
 
-
-    prenotaAppello(app_id, ad_id, adsce_id) {
-        return new Promise((resolve, reject) => {
-            this.storage.get('token').then((token) => {
-                const url = this.getUrlPrenotaAppello();
-                let body;
-                // url = this.getUrlCancellaPrenotazione();
-                body = {
-                    token: token,
-                    ad_id: ad_id,
-                    app_id: app_id,
-                    adsce_id: adsce_id
-                };
-                // this.http.post(url, body)
-                //     .pipe(timeout(this.getTimeout()))
-                //     .subscribe(
-                this.services.post(url, body).then(
-                    (data) => {
-                        resolve(data);
-                    },
-                    (err) => {
-                        // let toast = this.toastCtrl.create({
-                        //   message: 'Si è verificato un problema durante il recupero dei dati. ' +
-                        //  'Verificare la connessione ad Internet.',
-                        //   duration: 3000
-                        // });
-                        // toast.present();
-                        reject(err);
-                    });
-            }, () => {
-                // Nessun token!
-            });
-        });
-    }
-
-    cancellaPrenotazione(app_id, ad_id, adsce_id) {
-        return new Promise((resolve, reject) => {
-            this.storage.get('token').then(
-                (token) => {
-                    const url = this.getUrlCancellaPrenotazione();
-                    let body;
-                    body = {
-                        token: token,
-                        ad_id: ad_id,
-                        app_id: app_id,
-                        adsce_id: adsce_id
-                    };
-                    // this.http.post(url, body)
-                    //     .pipe(timeout(this.getTimeout()))
-                    //     .subscribe(
-                    this.services.post(url, body).then(
-                        (data) => {
-                            resolve(data);
-                        },
-                        (err) => {
-                            reject(err);
-                        });
-                }, () => {
-                    // Nessun token!
-                });
-        });
-    }
 
     queryStringTrasporti(): Promise<string> {
         return new Promise(resolve => {

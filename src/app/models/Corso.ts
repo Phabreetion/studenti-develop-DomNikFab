@@ -1,7 +1,8 @@
-export class Corso{
+export class Corso {
+
     /**
-     *Anno accademico in cui è stato svolto il corso.
-    */
+     * Anno accademico in cui è stato svolto il corso.
+     */
     public AA_OFF_ID: number;
 
 
@@ -146,12 +147,29 @@ export class Corso{
      */
     public CONTENUTI: string;
 
+    /**
+     * Testi consigliati per il corso
+     */
+    public TESTI: string;
 
     /**
+     * Obiettivi formativi del corso
+     */
+    public OBIETTIVI_FORMATIVI: string;
+
+    /**
+     * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
      *
-     * @param CONTENUTI
+     * @param obj: L'oggetto generico da convertire in istanza della classe Corso
+     */
+    static toObj(obj: Object): Corso {
+        return Object.assign(new Corso(), obj);
+    }
+
+    /**
      * @param AA_OFF_ID
      * @param ADSCE_ID
+     * @param AD_ID
      * @param ANNO
      * @param CFU
      * @param CODICE
@@ -172,15 +190,19 @@ export class Corso{
      * @param DATA_VERBALE
      * @param GIUDIZIO
      * @param NOME
+     * @param CONTENUTI
+     * @param TESTI
+     * @param OBIETTIVI_FORMATIVI
      */
-    constructor(CONTENUTI?: string, AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
-        this.CONTENUTI = CONTENUTI;
+    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, AD_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, CONTENUTI?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string, TESTI?: string, OBIETTIVI_FORMATIVI?:string) {
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
+        this.AD_ID = AD_ID;
         this.ANNO = ANNO;
         this.CFU = CFU;
         this.CODICE = CODICE;
         this.COGNOME = COGNOME;
+        this.CONTENUTI = CONTENUTI;
         this.DATA_ESAME = DATA_ESAME;
         this.DATA_ESTESA = DATA_ESTESA;
         this.DATA_VERBALE = DATA_VERBALE;
@@ -195,8 +217,10 @@ export class Corso{
         this.SOTTOSCRITTO = SOTTOSCRITTO;
         this.SOVRANNUMERARIA = SOVRANNUMERARIA;
         this.STATO = STATO;
+        this.TESTI = TESTI;
         this.VALUTAZIONE = VALUTAZIONE;
         this.VOTO = VOTO;
+        this.OBIETTIVI_FORMATIVI = OBIETTIVI_FORMATIVI;
     }
 
     public getFormatedContenutiCorso() {
@@ -217,14 +241,4 @@ export class Corso{
     public isSuperato(): boolean {
         return this.STATO === 'S';
     }
-
-    /**
-     * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
-     *
-     * @param obj: L'oggetto generico da convertire in istanza della classe Corso
-     */
-    static toObj(obj: Object): Corso {
-        return Object.assign(new Corso(), obj);
-    }
-
 }

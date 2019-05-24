@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {HttpService} from '../../../services/http.service';
-import {SyncService} from '../../../services/sync.service';
 import {ActivatedRoute} from '@angular/router';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
@@ -15,16 +14,18 @@ export class DettagliCorsoPage implements OnInit {
 
     srcPage: string;
     corso: Corso;
-    private libretto: any[];
     private codiceEsame: number;
     private corsiPropedeutici: Corso[];
 
-    public isClick: boolean;
+    public isClickContenuti: boolean;
+    public isClickTesti: boolean;
+    public isClickObiettiviFormativi: boolean;
+
 
     constructor(
         public globalData: GlobalDataService,
         public http: HttpService,
-        private activatedRoute: ActivatedRoute,
+        private route: ActivatedRoute,
         private pianoDiStudioService: PianoDiStudioService) {
     }
 
@@ -32,31 +33,58 @@ export class DettagliCorsoPage implements OnInit {
         this.srcPage = this.globalData.srcPage;
         //this.corso = this.globalData.corso;
         this.http.getConnected();
-        this.codiceEsame = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
+        this.codiceEsame = parseInt(this.route.snapshot.paramMap.get('id'));
 
         this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
         this.corsiPropedeutici = await this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID);
         console.log(this.corso);
     }
 
-    onGoBack()  {
-        this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'backward', false);
-    }
-
     asDueProfessori() {
         return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
     }
 
+
+
+
     public mostraContenuti() {
-        if (this.isClick === true) {
-            this.isClick = false;
-            return this.isClick;
+        if (this.isClickContenuti === true) {
+            this.isClickContenuti = false;
+            return this.isClickContenuti;
         } else {
-            this.isClick = true;
-            return this.isClick;
+            this.isClickContenuti = true;
+            return this.isClickContenuti;
+        }
+    }
+
+    public mostraTesti() {
+        if (this.isClickTesti === true) {
+            this.isClickTesti = false;
+            return this.isClickTesti;
+        } else {
+            this.isClickTesti = true;
+            return this.isClickTesti;
+        }
+    }
+
+    public mostraObiettiviFormativi() {
+        if (this.isClickObiettiviFormativi === true) {
+            this.isClickObiettiviFormativi = false;
+            return this.isClickObiettiviFormativi;
+        } else {
+            this.isClickObiettiviFormativi = true;
+            return this.isClickObiettiviFormativi;
         }
     }
 
 
 
+
+    goToAppelli() {
+        this.globalData.goTo(this, ['/appelli/', this.corso.CODICE], 'forward', false);
+    }
+
+    goToMaterialeDidattico() {
+        this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID], 'forward', false);
+    }
 }

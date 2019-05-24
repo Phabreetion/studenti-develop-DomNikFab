@@ -630,7 +630,7 @@ export class HomePage implements OnInit {
 
         // console.dir(element);
         if (!element && !labelClicked) {
-            this.globalData.goTo(this.currentPage, '/carriera', 'forward', false);
+            this.globalData.goTo(this.currentPage, '/piano-di-studio', 'forward', false);
         }
     }
 

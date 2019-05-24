@@ -3,27 +3,31 @@ import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
 import {
     ActionSheetController,
     AlertController,
-    IonRouterOutlet, MenuController, ModalController, NavController,
-    Platform, PopoverController
+    IonRouterOutlet,
+    MenuController,
+    ModalController,
+    NavController,
+    Platform,
+    PopoverController
 } from '@ionic/angular';
 
-import { Network} from '@ionic-native/network/ngx';
-import { ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
+import {Network} from '@ionic-native/network/ngx';
+import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { AppVersion} from '@ionic-native/app-version/ngx';
-import { FCM} from '@ionic-native/fcm/ngx';
-import { Storage} from '@ionic/storage';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {AppVersion} from '@ionic-native/app-version/ngx';
+import {FCM} from '@ionic-native/fcm/ngx';
+import {Storage} from '@ionic/storage';
 
-import { SyncService} from './services/sync.service';
-import { GlobalDataService} from './services/global-data.service';
-import { DBService} from './services/db-service';
-import { AccountService} from './services/account.service';
-import { Toast } from '@ionic-native/toast/ngx';
+import {SyncService} from './services/sync.service';
+import {GlobalDataService} from './services/global-data.service';
+import {DBService} from './services/db-service';
+import {AccountService} from './services/account.service';
 import {Device} from '@ionic-native/device/ngx';
 import {HttpService} from './services/http.service';
 import {Router} from '@angular/router';
+import {ToastsService} from './services/toasts.service';
 
 // import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 // import {Firebase} from '@ionic-native/firebase/ngx';
@@ -153,7 +157,7 @@ export class AppComponent {
         public actionSheetCtrl: ActionSheetController,
         public popoverCtrl: PopoverController,
         public modalCtrl: ModalController,
-        public toast: Toast,
+        public toastService: ToastsService,
         public router: Router,
         public menu: MenuController,
         public appVersion: AppVersion,
@@ -208,16 +212,6 @@ export class AppComponent {
                 GlobalDataService.log(2, 'Errore nella creazione del db SQLite', e);
             }
 
-            if (this.screenOrientation.type.startsWith('landscape')) {
-                this.globalData.landscape = true;
-            }
-
-            this.screenOrientation.onChange().subscribe(
-                () => {
-                    this.globalData.landscape = this.screenOrientation.type.startsWith('landscape');
-                }
-            );
-
             if (this.platform.is('ios') || (this.platform.is('android'))) {
                 // this.statusBar.styleDefault();
                 // this.splashScreen.hide();
@@ -225,6 +219,16 @@ export class AppComponent {
                 // } else {
                 //     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
                 // }
+
+                if (this.screenOrientation.type.startsWith('landscape')) {
+                    this.globalData.landscape = true;
+                }
+
+                this.screenOrientation.onChange().subscribe(
+                    () => {
+                        this.globalData.landscape = this.screenOrientation.type.startsWith('landscape');
+                    }
+                );
 
                 this.appVersion.getVersionNumber().then(
                     (appVersion) => {
@@ -487,7 +491,7 @@ export class AppComponent {
                                 break;
                             }
                             case 'Verbalizzazione esame' : {
-                                this.globalData.goTo(this.globalData.srcPage, '/carriera', 'forward', false);
+                                this.globalData.goTo(this.globalData.srcPage, '/piano-di-studio', 'forward', false);
                                 break;
                             }
                         }
@@ -568,13 +572,7 @@ export class AppComponent {
                     if (new Date().getTime() - this.lastTimeBackPress < this.TIME_PERIOD_TO_EXIT) {
                         navigator['app'].exitApp(); // Exit from app, work for ionic 4
                     } else {
-                        this.toast.show(
-                            `Premi ancora per uscire`,
-                            '2000',
-                            'center')
-                            .subscribe(toast => {
-                                // console.log(JSON.stringify(toast));
-                            });
+                        this.toastService.uscitaApp();
                         this.lastTimeBackPress = new Date().getTime();
                     }
                 }

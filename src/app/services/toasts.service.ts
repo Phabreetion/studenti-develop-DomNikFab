@@ -9,8 +9,24 @@ export class ToastsService {
 
     constructor(
         private toastCtrl: ToastController,
-        private loadingCtrl: LoadingController) {}
+        private loadingCtrl: LoadingController) {
+    }
 
+    toastGenerico(msg: string) {
+        this.toastCtrl.create({
+            message: msg,
+            duration: 2000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    uscitaApp() {
+        this.toastCtrl.create({
+            message: 'Premi ancora per uscire',
+            duration: 2000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
 
     connessioneOk() {
         this.toastCtrl.create({
@@ -26,6 +42,46 @@ export class ToastsService {
             duration: 3000,
             position: 'bottom'
         }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    connessioneLenta() {
+        this.toastCtrl.create({
+            message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    appelloNonAncoraPrenotabile(giorni: number) {
+        this.toastCtrl.create({
+            message: 'Non è possibile ancora possibile prenotare l\'appello.\nRiprova tra ' + giorni + ' giorni.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    appelloScaduto(giorni: number) {
+        this.toastCtrl.create({
+            message: 'Impossible prenotare l\'appello.\nLa finestra di prenotazione è scaduta ' + giorni + ' giorni fa.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    prenotazioneFallita() {
+        this.toastCtrl.create({
+            message: 'Impossibile effettuare la prenotazione.\nRiprova più tardi.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    prenotazioneEffettuataConSuccesso() {
+        this.toastCtrl.create({
+            message: 'Prenotazione effettuata con successo.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
     }
 
     piattaformaNonSupportata() {
@@ -135,6 +191,30 @@ export class ToastsService {
     erroreAperturaFile() {
         this.toastCtrl.create({
             message: 'Si è verificato un errore durante l\'apertura del file.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    impossibileAggiornareIlToken() {
+        this.toastCtrl.create({
+            message: 'Non è stato possibile aggiornare il token.\nSe il problema persiste effetturare nuovamente il login.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    tokenNonDisponibile() {
+        this.toastCtrl.create({
+            message: 'Il token non è presente nel dispositivo.\nEffettua nuovamente il login.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    erroreAggiornamentoDati() {
+        this.toastCtrl.create({
+            message: 'Si è verificato un errore durante l\'aggiornamento dei dati',
             duration: 3000,
             position: 'bottom'
         }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });

@@ -14,8 +14,8 @@ const ID_SERVIZIO_PROPEDEUTICITA = 113;
 export class PianoDiStudioService {
 
 
-    constructor(private sync: SyncService,
-                private storage: Storage) {
+    constructor(public sync: SyncService,
+                public storage: Storage) {
     }
 
     public async getPropedeuticita(ad_id: number): Promise<any[]> {
@@ -33,7 +33,7 @@ export class PianoDiStudioService {
                 console.log(tutteLeProp);
 
                 for (let i = 0; i < tutteLeProp.length; i++) {
-                    if (parseInt(tutteLeProp[i].AD_ID) == ad_id) {
+                    if (tutteLeProp[i].AD_ID == ad_id) {
                         propFiltrate.push(tutteLeProp[i]);
                     }
                 }
@@ -56,34 +56,71 @@ export class PianoDiStudioService {
         });
     }
 
+
+
     public async getCorsi(): Promise<Corso[]> {
-        return new Promise<Corso[]>(resolve => {
-            this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((data) => {
+        return new Promise<Corso[]>( (resolve, reject) => {
+            return this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((data) => {
                 const corsi: Corso[] = data[0];
 
+                //conversione di tutti i corsi in istanze dalla classe Corso
                 for (let i = 0; i < corsi.length; i++) {
                     corsi[i] = Corso.toObj(corsi[i]);
                 }
 
-                console.log(corsi);
                 resolve(corsi);
+            }).catch( (err) => {
+                reject(err);
             });
         });
     }
 
-    public async getCorsiAsMap(): Promise<Map<string,Corso>> {
-        return new Promise<Map<string,Corso>>(resolve => {
+
+    /**
+     * Restituisce una Promise di corsi aggiornati
+     */
+    public async getCorsiAggiornati(): Promise<Corso[]> {
+        return new Promise<Corso[]>( (resolve, reject) => {
+            return this.sync.getJsonAggiornato(ID_SERVIZIO_PIANO_DI_STUDIO, null).then((data) => {
+                const corsi: Corso[] = data[0];
+
+                //conversione di tutti i corsi in istanze dalla classe Corso
+                for (let i = 0; i < corsi.length; i++) {
+                    corsi[i] = Corso.toObj(corsi[i]);
+                }
+
+                //aggiuntamento in background delle prop
+                this.sync.getJsonAggiornato(ID_SERVIZIO_PROPEDEUTICITA, null).then();
+
+                resolve(corsi);
+            }).catch( (err) => {
+                reject(err);
+            });
+        });
+    }
+
+
+    public async getCorsiAsMap(): Promise<Map<number, Corso>> {
+        return new Promise<Map<number, Corso>>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((corsi) => {
-                let map = new Map<string, Corso>();
+                const map = new Map<number, Corso>();
 
                 for (let i = 0; i < corsi[0].length; i++) {
-                    map.set(corsi[0][i].DESCRIZIONE, Corso.toObj(corsi[0][i]));
+                    map.set(corsi[0][i].AD_ID, Corso.toObj(corsi[0][i]));
                 }
 
                 console.log(map);
                 resolve(map);
             });
         });
+    }
+
+    public areCorsiChanged(newCorsi, oldCorsi) {
+        return this.sync.dataIsChanged(newCorsi, oldCorsi);
+    }
+
+    public isLoading() {
+        this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
     }
 
     public async getCorso(codiceEsame: number): Promise<Corso> {
@@ -105,11 +142,11 @@ export class PianoDiStudioService {
     }
 
     public memorizzaFiltri(filtro: FiltroPianoDiStudio) {
-        this.storage.set('filtroPianoDiStudio', filtro);
+        this.storage.set('filtroPianoDiStudio', filtro).then();
     }
 
     public async loadFiltriFromStorage(): Promise<FiltroPianoDiStudio> {
-        return new Promise<FiltroPianoDiStudio>((resolve, reject) => {
+        return new Promise<FiltroPianoDiStudio>((resolve) => {
             this.storage.get('filtroPianoDiStudio').then(
                 filtro => {
                     resolve(FiltroPianoDiStudio.toObj(filtro));

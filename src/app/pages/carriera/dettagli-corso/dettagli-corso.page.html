@@ -57,12 +57,47 @@
                 <ion-row *ngIf="corso.CONTENUTI" >
                     <ion-col>
                     <b><I>Contenuti</I></b>&nbsp;
-                    <ion-icon (click)="mostraContenuti()" [name]="isClick? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
-                    <ion-card text-wrap *ngIf="isClick">
+                    <ion-icon (click)="mostraContenuti()" [name]="isClickContenuti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+                    <ion-card text-wrap *ngIf="isClickContenuti">
                         <ion-card-content text-wrap>
                             <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
                         </ion-card-content>
                     </ion-card>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="corso.TESTI" >
+                    <ion-col>
+                        <b><I>Testi</I></b>&nbsp;
+                        <ion-icon (click)="mostraTesti()" [name]="isClickTesti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+                        <ion-card text-wrap *ngIf="isClickTesti">
+                            <ion-card-content text-wrap>
+                                <p *ngFor="let testo of corso.TESTI.split('\n')"> {{testo}}</p>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="corso.OBIETTIVI_FORMATIVI" >
+                    <ion-col>
+                        <b><I>Obiettivi formativi</I></b>&nbsp;
+                        <ion-icon (click)="mostraObiettiviFormativi()" [name]="isClickObiettiviFormativi? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+                        <ion-card text-wrap *ngIf="isClickObiettiviFormativi">
+                            <ion-card-content text-wrap>
+                                <p *ngFor="let obiettivo_Formativo of corso.OBIETTIVI_FORMATIVI.split('\n')">{{obiettivo_Formativo}}</p>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0">
+                    <ion-col>
+                        <b><I>Propedeuticità</I></b> <br>
+                        <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">
+                            <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
+                                      [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
+                            {{corsoPropedeutico.DESCRIZIONE}} <br>
+                        </ion-label>
                     </ion-col>
                 </ion-row>
 
@@ -92,16 +127,7 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0">
-                    <ion-col>
-                        <b><I>Propedeuticità</I></b> <br>
-                        <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">
-                            <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
-                                      [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
-                            {{corsoPropedeutico.DESCRIZIONE}} <br>
-                        </ion-label>
-                    </ion-col>
-                </ion-row>
+
 
                 <ion-row *ngIf="corso.SOVRANNUMERARIA == 1 || corso.NO_MEDIA == 1">
                     <ion-col>
@@ -126,14 +152,10 @@
     <ion-grid>
         <ion-row>
             <ion-col *ngIf="!corso.VOTO && !corso.GIUDIZIO">
-                <ion-button expand="block" [routerLink]="['/appelli/', corso.CODICE]" routerDirection="forward">Appelli
-                </ion-button>
+                <ion-button expand="block" (click)="goToAppelli()">Appelli</ion-button>
             </ion-col>
             <ion-col>
-                <ion-button expand="block" [routerLink]="['/materiale-didattico/', corso.AD_ID]"
-                            routerDirection="forward">
-                    Materiale didattico
-                </ion-button>
+                <ion-button expand="block" (click)="goToMaterialeDidattico()">Materiale didattico</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>

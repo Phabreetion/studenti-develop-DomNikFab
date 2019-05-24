@@ -1,5 +1,4 @@
 import {Appello} from './Appello';
-import {AppelloDisponibile} from './AppelloDisponibile';
 
 export class AppelloPrenotato extends Appello  {
 

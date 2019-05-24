@@ -40,17 +40,20 @@
 
   <ion-card text-wrap *ngIf="allegato">
     <ion-card-header>
-      <ion-card-title text-center text-wrap> <b>{{ pulisciAllegato(allegato.TITOLO) }}</b> </ion-card-title>
-      <ion-card-subtitle text-center text-wrap> {{ pulisciAllegato(allegato.AUTORE) }} </ion-card-subtitle>
+      <ion-card-title text-center text-wrap> <b><I>{{ pulisciAllegato(allegato.TITOLO) }}</I></b> </ion-card-title>
+      <ion-card-subtitle text-center text-wrap> <I>{{ pulisciAllegato(allegato.AUTORE) }}</I> </ion-card-subtitle>
     </ion-card-header>
 
+    <ion-grid no-padding>
+
     <ion-card-content text-wrap>
-      <ion-label text-wrap>Data: {{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
+      <ion-label text-wrap><b><I>Data</I></b> <br>{{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
       <br>
-      <ion-label text-wrap>File:{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
+      <ion-label text-wrap><b><I>File</I></b> <br>{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
 
       <div *ngIf="allegato.TESTO">
-        Note:<p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
+        <b><I>Note</I></b> <br>
+        <p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
       </div>
 
     </ion-card-content>
@@ -70,6 +73,8 @@
           </ion-button>
         </ion-col>
       </ion-row>
+    </ion-grid>
+
     </ion-grid>
 
   </ion-card>

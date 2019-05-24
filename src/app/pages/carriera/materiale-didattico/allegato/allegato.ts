@@ -61,7 +61,7 @@ export class AllegatoPage implements OnInit {
     async presentAlertConfermaDownload() {
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Download file',
-            message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
+            message: 'Sei sicuro di\ voler scaricare il file sul dispositivo?',
             buttons: [
                 {
                     text: 'Si',

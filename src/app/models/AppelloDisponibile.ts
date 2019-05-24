@@ -1,4 +1,5 @@
 import {Appello} from './Appello';
+import {GlobalDataService} from '../services/global-data.service';
 
 
 export class AppelloDisponibile extends Appello  {
@@ -59,7 +60,6 @@ export class AppelloDisponibile extends Appello  {
     }
 
 
-
     isOutOfTime(appello): boolean {
         let dataInizioSplittata: string[] = appello.data_ora_app.toString().split('/'); // [dd],[mm],[yyyy]
 
@@ -68,7 +68,7 @@ export class AppelloDisponibile extends Appello  {
 
 
         return data_odierna.getTime() >= data_esame.getTime(); // && data_odierna <= data_fine;
-         }
+    }
 
     giorniRimanentiPerEsame(appello): number {
         const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
@@ -80,37 +80,45 @@ export class AppelloDisponibile extends Appello  {
         return Math.ceil(Math.abs(data_odierna.getTime() - data_esame.getTime()) / MS_GIORNO);
     }
 
-
-    giorniRimanentiPrimaDellaChiusura(appello): number {
-        const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
-
-        let dataInizioSplittata: string[] = appello.p10_app_data_fine_iscr.toString().split('/'); // [dd],[mm],[yyyy]
-        const data_fine = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+    giorniRimanentiPrimaDellApertura(): number {
+        const data_apertura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
         const data_odierna = new Date();
 
-
-        return Math.ceil(Math.abs(data_odierna.getTime() - data_fine.getTime()) / MS_GIORNO);
+        return GlobalDataService.differenzaGiorni(data_apertura_iscrizione, data_odierna);
     }
 
-    giorniRimanentiPrimaDellApertura(appello): number {
-        const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
-
-        let dataInizioSplittata: string[] = appello.p10_app_data_inizio_iscr.toString().split('/'); // [dd],[mm],[yyyy]
-        const data_inizio = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+    giorniRimanentiPrimaDellaChiusura(): number {
+        const data_chiusura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
         const data_odierna = new Date();
 
-
-        return Math.ceil(Math.abs(data_odierna.getTime() - data_inizio.getTime()) / MS_GIORNO);
+        return GlobalDataService.differenzaGiorni(data_chiusura_iscrizione, data_odierna);
     }
 
-    isPrenotabile(appello): boolean {
-        let dataInizioSplittata: string[] = appello.p10_app_data_inizio_iscr.toString().split('/'); // [dd],[mm],[yyyy]
-
-        const data_inizio = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
-        // const data_fine = new Date(item.p10_app_data_fine_iscr);
+    giorniPassatiDopoLaChiusura(): number {
+        const data_chiusura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
         const data_odierna = new Date();
 
+        return GlobalDataService.differenzaGiorni(data_odierna, data_chiusura_iscrizione);
+    }
 
-        return data_odierna.getTime() >= data_inizio.getTime(); // && data_odierna <= data_fine;
+    isBeforeApertura(): boolean {
+        return this.giorniRimanentiPrimaDellApertura() > 0;
+    }
+
+    isAfterApertura(): boolean {
+        return this.giorniRimanentiPrimaDellApertura() < 0;
+    }
+
+    isBeforeChiusura(): boolean {
+        return this.giorniRimanentiPrimaDellaChiusura() > 0;
+    }
+
+    isAfterChiusura(): boolean {
+        return this.giorniRimanentiPrimaDellaChiusura() < 0;
+    }
+
+    isPrenotabile(): boolean {
+        console.log(this.descrizione + ' ' + this.isBeforeChiusura() + ' ' + this.isAfterApertura());
+        return this.isBeforeChiusura() && this.isAfterApertura();
     }
 }

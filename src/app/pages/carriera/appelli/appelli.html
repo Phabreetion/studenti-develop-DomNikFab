@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-grid> <!-- no-padding-->
+    <ion-grid fixed no-padding> <!-- no-padding-->
         <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
             <ion-col>
                 <ion-label></ion-label>
             </ion-col>
         </ion-row>
-        <ion-row> <!-- no-padding-->
-            <ion-col> <!-- no-padding-->
+        <ion-row>
+            <ion-col>
                 <ion-toolbar>
                     <ion-buttons slot="start">
                         <ion-menu-button></ion-menu-button>
@@ -16,48 +16,53 @@
                     </ion-title>
 
                     <ion-buttons slot="end">
-                        <ion-back-button *ngIf="insegnamento" defaultHref="/carriera" text="Indietro"></ion-back-button>
-                        <ion-button (click)="openFiltri()">
-                            <ion-icon name="switch" ></ion-icon>
+                        <ion-back-button *ngIf="insegnamento" defaultHref="/" text="Indietro"></ion-back-button>
+                        <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
+                            <ion-icon name="switch"></ion-icon>
                         </ion-button>
-                        <ion-button icon-only (click)="isSearchbarOpened = !isSearchbarOpened">
-                            <ion-icon name="search"  style="font-size: 1.5em;"></ion-icon>
+                        <ion-button (click)="toogleSearchbar()" *ngIf="mostraIcone()" icon-only>
+                            <ion-icon name="search" style="font-size: 1.5em;"></ion-icon>
                         </ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-col>
         </ion-row>
 
-        <ion-row>
-            <ion-segment [(ngModel)]="sezioni" (ionChange)="ngOnInit()">
-                <ion-segment-button value="disponibili">Disponibili {{nrAppelli}}</ion-segment-button>
-                <ion-segment-button value="prenotati">Prenotati {{nrPrenotazioni}}</ion-segment-button>
-            </ion-segment>
-        </ion-row>
-        <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar *ngIf="isSearchbarOpened"
-                           [(ngModel)]="searchKey"
-                           placeholder="Cerca"
-                           showCancelButton="true"
-                           animated="true"
-                           (ionCancel)="toogleSearchbar()"
-                           (ngModelChange)="search()">
+        <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarAppelli()'>
+            <ion-searchbar
+                    *ngIf="isSearchbarOpened && gestioneSearchbarAppelli() "
+                    [(ngModel)]="searchKey"
+                    placeholder="Cerca"
+                    showCancelButton="true"
+                    animated="true"
+                    (ionCancel)="toogleSearchbar()"
+                    (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
 
+        <ion-row>
+            <ion-segment (ionChange)="ngOnInit()" [(ngModel)]="sezioni">
+                <ion-segment-button value="disponibili">Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
+                <ion-segment-button value="prenotati">Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
+            </ion-segment>
+        </ion-row>
     </ion-grid>
 </ion-header>
 
 
-<ion-content [ngSwitch]="sezioni" padding> <!-- no-padding-->
+<ion-content [ngSwitch]="sezioni"> <!-- no-padding-->
 
-
-    <ion-refresher *ngIf="!insegnamento" (ionRefresh)="doRefresh($event)" slot="fixed">
-        <ion-refresher-content></ion-refresher-content>
+    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="false" slot="fixed">
+        <ion-refresher-content
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
     </ion-refresher>
 
-    <ion-list *ngSwitchCase="'disponibili'" no-padding>
-        <ion-grid *ngIf="rinvioAggiornamento && appelli?.length == 0" text-center>
+    <ion-list *ngSwitchCase="'disponibili'">
+        <ion-grid *ngIf="appelli?.length == 0" text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -75,7 +80,7 @@
             </ion-row>
         </ion-grid>
 
-        <ion-item *ngIf="!rinvioAggiornamento && appelli?.length == 0" text-center>
+        <ion-item *ngIf="appelli?.length == 0" text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>
@@ -90,128 +95,105 @@
             </ion-grid>
         </ion-item>
 
-        <ion-grid *ngIf="appelli?.length > 0" text-center> <!-- no-padding-->
-            <ion-row>
-                <ion-col>
-                    <ion-item-sliding #slItem *ngFor="let appello of appelliTrovati">
+        <ion-grid *ngIf="appelli?.length > 0"> <!-- no-padding-->
 
-                        <ion-item fixed> <!-- no-padding-->
-                            <ion-grid>
-                                <ion-row>
-                                    <ion-col>
-                                        <ion-icon name="md-book"></ion-icon>
-                                        <b>  &nbsp; {{ pulisciTesto(appello.descrizione) }}</b>
-                                    </ion-col>
+            <ion-item-sliding #slItem *ngFor="let appello of appelliTrovati">
+                <ion-item>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col>
+                                <ion-icon name="md-book" style="position: relative; top: 2px;"></ion-icon>
+                                <b> {{ pulisciTesto(appello.descrizione)}}</b>
+                            </ion-col>
+                        </ion-row>
 
-                                </ion-row>
 
-                                <!-- <ion-row>
-                                     <ion-col>
-                                         <ion-icon name="person"></ion-icon>
-                                     </ion-col>
+                        <ion-row *ngIf="appello.p10_app_des && appello.p10_app_des != appello.descrizione">
+                            <ion-col class="countdown">
+                                <div>{{ appello.p10_app_des }}</div>
+                            </ion-col>
+                        </ion-row>
 
-                                     <ion-col>
-                                         <div> {{appello.presidente}}</div>
-                                     </ion-col>
-                                 </ion-row> -->
+                        <ion-row>
+                            <ion-col size="1">
+                                <ion-icon name="time"></ion-icon>
+                            </ion-col>
+                            <ion-col size="9">
+                                <div>{{appello.data_ora_app | slice:0:16}}</div>
+                            </ion-col>
+                        </ion-row>
 
-                                 <ion-row *ngIf="appello.p10_app_des && appello.p10_app_des != appello.descrizione">
-                                     <ion-col text-wrap>
-                                         <div>{{ appello.p10_app_des }}</div>
-                                     </ion-col>
-                                 </ion-row>
+                        <ion-row>
+                            <ion-col size="1">
+                                <ion-icon name="calendar"></ion-icon>
+                            </ion-col>
+                            <ion-col size="10">
+                                <div>{{appello.p10_app_data_inizio_iscr | slice:0:10}}
+                                    - {{appello.p10_app_data_fine_iscr | slice:0:10}}</div>
+                            </ion-col>
+                        </ion-row>
 
-                                 <ion-row>
-                                     <ion-col size="1">
-                                         <ion-icon name="time"></ion-icon>
-                                     </ion-col>
-                                     <ion-col size="9">
-                                         <div>{{appello.data_ora_app | slice:0:16}}</div>
-                                     </ion-col>
-                                 </ion-row>
+                        <ion-row>
+                            <ion-col size="1">
+                                <fa-icon [icon]="globalData.faPencilAlt" style="font-size: 0.9em"></fa-icon>
+                            </ion-col>
+                            <ion-col>
+                                <div>{{appello.tipo_iscr_des}}</div>
+                            </ion-col>
 
-                                 <ion-row>
-                                     <ion-col size="1">
-                                         <ion-icon name="calendar"></ion-icon>
-                                     </ion-col>
-                                     <ion-col size="9">
-                                         <div>{{appello.p10_app_data_inizio_iscr | slice:0:10}}
-                                             - {{appello.p10_app_data_fine_iscr | slice:0:10}}</div>
-                                     </ion-col>
-                                 </ion-row>
+                            <ion-col *ngIf="appello.prenotabile_flg==1 && appello.tot_iscritti==0">
+                                <ion-icon name="people" style="color:red"></ion-icon>
+                                &nbsp;&nbsp;{{appello.tot_iscritti}}
+                            </ion-col>
 
-                                 <ion-row>
-                                     <ion-col size="1">
-                                         <ion-icon name="settings"></ion-icon>
-                                     </ion-col>
-                                     <ion-col>
-                                         <div>{{appello.tipo_iscr_des}}</div>
-                                     </ion-col>
+                            <ion-col *ngIf="appello.prenotabile_flg==1 && appello.tot_iscritti>0">
+                                <ion-icon name="people" style="color:green; position: relative; top: 2px;"></ion-icon>
+                                &nbsp;&nbsp;{{appello.tot_iscritti}}
+                            </ion-col>
+                        </ion-row>
 
-                                     <!--
-                                      <ion-col size="1">
-                                        <ion-icon name="information-circle"></ion-icon>
-                                      </ion-col>
-                                      <ion-col size="4">
-                                        <div>{{item.codice}}</div>
-                                      </ion-col>
-                                      -->
+                        <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()" color="lightgrey">
+                            <ion-col>
+                                <ion-card-subtitle class="countdown">
+                                    <I>Mancano {{appello.giorniRimanentiPrimaDellApertura()}} giorni all'apertura dell'appello</I>
+                                </ion-card-subtitle>
+                            </ion-col>
+                        </ion-row>
 
-                                    <ion-col *ngIf="appello.prenotabile_flg==1 && appello.tot_iscritti==0">
-                                        <ion-icon style="color:red" name="people"></ion-icon>
-                                        &nbsp;&nbsp;{{appello.tot_iscritti}}
-                                    </ion-col>
+                        <ion-row *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura()">
+                            <ion-col>
+                                <ion-card-subtitle class="countdown" color="danger">
+                                    <I>Prenota l'appello entro {{appello.giorniRimanentiPrimaDellaChiusura()}} giorni</I>
+                                </ion-card-subtitle>
+                            </ion-col>
+                        </ion-row>
 
-                                    <ion-col *ngIf="appello.prenotabile_flg==1 && appello.tot_iscritti>0">
-                                        <ion-icon style="color:green" name="people"></ion-icon>
-                                        &nbsp;&nbsp;{{appello.tot_iscritti}}
-                                    </ion-col>
-                                </ion-row>
+                    </ion-grid>
+                </ion-item>
 
-                                <!--
-                             <ion-col *ngIf="item.prenotabile_flg==0" size="1">
-                               <ion-icon style="color:red" name="people"></ion-icon>
-                             </ion-col>
+                <ion-item-options side="end" slot="top">
+                    <ion-item-option color="danger" (click)="goToDettagliCorso(appello)">
+                        Dettagli<br>corso
+                    </ion-item-option>
 
-                              <ion-col *ngIf="item.prenotabile_flg!=0" size="1">
-                                <ion-icon style="color:green" name="person-add"></ion-icon>
-                              </ion-col>
+                    <ion-item-option color="warning" (click)="goToMaterialeDidattico(appello)">
+                        Materiale<br>didattico
+                    </ion-item-option>
 
-                                <ion-col [size]="2">
-                                    <div>{{item.tot_iscritti}}</div>
-                                </ion-col>
-                                -->
+                    <ion-item-option *ngIf="appello.isPrenotabile()" (click)="prenotaAppello(appello)">
+                        Prenota
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
 
-                                <ion-row *ngIf="!isPrenotabile(appello)" color="lightgrey">
-                                    <ion-col fixed no-padding >
-                                        <ion-card-subtitle><I>  &nbsp; Mancano {{giorniRimanentiPrimaDellApertura(appello)}} giorni all'apertura dell'appello</I></ion-card-subtitle>
-                                    </ion-col>
-                                </ion-row>
 
-                                <ion-row *ngIf="isPrenotabile(appello)">
-                                    <ion-col fixed no-padding>
-                                        <ion-card-subtitle color="danger">  <I> &nbsp; Prenota l'appello entro {{giorniRimanentiPrimaDellaChiusura(appello)}} giorni</I></ion-card-subtitle>
-                                    </ion-col>
-                                </ion-row>
-
-                            </ion-grid>
-                        </ion-item>
-
-                        <ion-item-options side="end" slot="top">
-                            <ion-item-option (click)="prenotaAppello(slItem, appello)">
-                                Prenota
-                            </ion-item-option>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                </ion-col>
-            </ion-row>
         </ion-grid>
     </ion-list>
 
 
     <ion-list *ngSwitchCase="'prenotati'">
 
-        <ion-grid *ngIf="rinvioAggiornamento && prenotazioni?.length == 0" text-center>
+        <ion-grid *ngIf="prenotazioni?.length == 0" text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -229,7 +211,7 @@
             </ion-row>
         </ion-grid>
 
-        <ion-item *ngIf="!rinvioAggiornamento && prenotazioni?.length == 0" text-center>
+        <ion-item *ngIf="prenotazioni?.length == 0" text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>
@@ -239,15 +221,16 @@
             </ion-grid>
         </ion-item>
 
-        <ion-grid *ngIf="prenotazioni?.length > 0" text-center fixed> <!-- no-padding-->
+        <ion-grid *ngIf="prenotazioni?.length > 0" text-center> <!-- no-padding-->
             <ion-row>
                 <ion-col>
                     <ion-item-sliding #slItem *ngFor="let prenotazione of prenotazioni">
                         <ion-item>
-                            <ion-grid fixed no-padding>
+                            <ion-grid>
                                 <ion-row>
                                     <ion-col text-wrap>
-                                        <div><b>{{ pulisciTesto(prenotazione.ad_des) }}</b></div>
+                                        <ion-icon name="bookmarks"></ion-icon>
+                                        <b> {{ pulisciTesto(prenotazione.ad_des) }}</b>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row *ngIf="prenotazione.app_des && prenotazione.app_des != prenotazione.ad_des">
@@ -274,56 +257,44 @@
                                     </ion-col>
                                 </ion-row>
 
-                                <!--
-                                <ion-row *ngIf="isOutOfTime(prenotazione)" text-center>
-                                  <ion-col>
-                                    <div>L'esame è stato sostenuto {{giorniRimanentiPerEsame(prenotazione)}} giorni fa</div>
-                                  </ion-col>
-                                </ion-row>
-                                -->
-
-                                <ion-row *ngIf="!isOutOfTime(prenotazione)" text-center>
-                                    <ion-col>
-                                        <div>Dovrai sostenere l'esame tra {{giorniRimanentiPerEsame(prenotazione)}}
-                                            giorni
-                                        </div>
-                                    </ion-col>
-                                </ion-row>
-
                                 <ion-row>
                                     <ion-col size="1">
                                         <ion-icon name="settings"></ion-icon>
                                     </ion-col>
-                                    <ion-col size="3">
-                                        <div>{{prenotazione.tipo_iscr}}</div>
+                                    <ion-col>
+                                        {{prenotazione.tipo_iscr}}
                                     </ion-col>
-                                    <ion-col size="1">
-                                        <ion-icon name="information-circle"></ion-icon>
+                                    <ion-col>
+                                        <ion-icon name="person"
+                                                  style="color:green; position: relative; top: 2px;"></ion-icon>
+                                        &nbsp;{{prenotazione.posiz}}°
                                     </ion-col>
-                                    <ion-col size="4">
-                                        <div>{{prenotazione.ad_cod}}</div>
-                                    </ion-col>
-                                    <ion-col size="1">
-                                        <ion-icon name="list"></ion-icon>
-                                    </ion-col>
-                                    <ion-col size="2">
-                                        <div>{{prenotazione.posiz}}</div>
-                                    </ion-col>
+                                </ion-row>
+
+                                <ion-row>
+                                    <ion-row *ngIf="isOutOfTime(prenotazione)" text-center>
+                                        <ion-col color="lightgrey">
+                                            <ion-card-subtitle class="countdown"><I>L'esame è stato
+                                                sostenuto {{giorniRimanentiPerEsame(prenotazione)}} giorni fa.</I>
+                                            </ion-card-subtitle>
+                                        </ion-col>
+                                    </ion-row>
+
+                                    <ion-row *ngIf="!isOutOfTime(prenotazione)" text-center>
+                                        <ion-col color="lightgrey">
+                                            <ion-card-subtitle class="countdown"><I>Dovrai sostenere l'esame
+                                                tra {{giorniRimanentiPerEsame(prenotazione)}} giorni.</I>
+                                            </ion-card-subtitle>
+                                        </ion-col>
+                                    </ion-row>
+
                                 </ion-row>
                             </ion-grid>
                         </ion-item>
 
-                        <!--
                         <ion-item-options side="end" slot="top">
-                          <ion-button (click)="cancellaPrenotazione(slItem, prenotazione)" color="danger">
-                            <ion-icon name="trash"></ion-icon>
-                            Cancella
-                          </ion-button>
-                        </ion-item-options>
-                        -->
-                        <ion-item-options side="end" slot="top">
-                            <ion-item-option color="danger" (click)="cancellaPrenotazione(slItem, prenotazione)">
-                                <ion-icon slot="icon-only" name="trash"></ion-icon>
+                            <ion-item-option (click)="cancellaPrenotazione(prenotazione);" color="danger">
+                                <ion-icon name="trash" slot="icon-only"></ion-icon>
                             </ion-item-option>
                         </ion-item-options>
                     </ion-item-sliding>
@@ -337,17 +308,18 @@
 <ion-footer no-padding>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
-            <ion-icon [hidden]="isLoading() || !http.getConnected()" name="checkmark"></ion-icon>
-            <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
+            <ion-spinner [hidden]="!this.appelliService.isAppelliLoading() || !http.getConnected()"></ion-spinner>
+            <ion-icon [hidden]="this.appelliService.isAppelliLoading() || !http.getConnected()"
+                      name="checkmark"></ion-icon>
+            <ion-icon [hidden]="this.appelliService.isAppelliLoading() || http.getConnected()" name="close"></ion-icon>
         </ion-buttons>
-        <div class="testo-footer" *ngIf="sezioni=='disponibili'">
-            Aggiornato al: {{dataAggiornamentoDisponibili}}
+        <div *ngIf="sezioni=='disponibili'" class="testo-footer">
+            Aggiornato al: {{sync.getDataUltimoAggiornamento(1)}}
         </div>
-        <div class="testo-footer" *ngIf="sezioni=='prenotati'">
-            Aggiornato al: {{dataAggiornamentoPrenotati}}
+        <div *ngIf="sezioni=='prenotati'" class="testo-footer">
+            Aggiornato al: {{sync.getDataUltimoAggiornamento(10)}}
         </div>
-        <ion-buttons slot="end" no-padding>
+        <ion-buttons no-padding slot="end">
             <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
         </ion-buttons>
     </ion-toolbar>

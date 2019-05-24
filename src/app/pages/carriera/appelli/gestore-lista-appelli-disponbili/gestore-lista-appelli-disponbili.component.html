@@ -1,26 +1,29 @@
 <ion-content>
   <ion-list>
-    <ion-radio-group [(ngModel)]="ordinamento">
+    <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento"  (ngModelChange)="updateSourcePage()">
 
 
       <ion-list-header text-center> <b>Ordina per:</b> </ion-list-header>
 
       <ion-item>
         <ion-label>Nome appello</ion-label>
-        <ion-radio [value]="0"></ion-radio>
+        <ion-radio [value]=0></ion-radio>
       </ion-item>
 
       <ion-item>
-        <ion-label>Data</ion-label>
-        <ion-radio [value]="2"></ion-radio>
+        <ion-label>Data esame</ion-label>
+        <ion-radio [value]=2></ion-radio>
       </ion-item>
 
       <ion-item>
         <ion-label>CFU</ion-label>
-        <ion-radio [value]="6"></ion-radio>
+        <ion-radio [value]=6></ion-radio>
       </ion-item>
     </ion-radio-group>
   </ion-list>
+
+  <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()"><ion-icon name="arrow-round-down"></ion-icon>Decrescente</ion-button>
+  <ion-button expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento" (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()"><ion-icon name="arrow-round-up"></ion-icon>Crescente</ion-button>
 
   <ion-grid>
     <ion-row>
@@ -36,7 +39,7 @@
       <ion-col>
 
         <!-- Funziona la prima volta e se clicchi a caso un filtro . strano -->
-        <ion-select cancelText="Annulla" [value]="0" *ngIf="ordinamento != 0">
+        <ion-select cancelText="Annulla" [value]="0" *ngIf="sourcePage.filtro.idOrdinamento != 0">
           <ion-select-option [value]="0">Nessuno</ion-select-option>
           <ion-select-option [value]="1">1° Anno</ion-select-option>
           <ion-select-option [value]="2">2° Anno</ion-select-option>
@@ -45,7 +48,7 @@
           <ion-select-option [value]="5">5° Anno</ion-select-option>
           <ion-select-option [value]="6">6° Anno</ion-select-option>
         </ion-select>
-        <ion-select cancelText="Annulla" [value]="0" *ngIf="ordinamento === 0">
+        <ion-select cancelText="Annulla" [value]="0" *ngIf="sourcePage.filtro.idOrdinamento === 0">
           <ion-select-option [value]="0">Nessuno</ion-select-option>
           <ion-select-option [value]="1">1° Anno</ion-select-option>
           <ion-select-option [value]="2">2° Anno</ion-select-option>
@@ -65,13 +68,13 @@
         </ion-item>
       </ion-col>
       <ion-col>
-        <ion-select cancelText="Annulla"  [value]="0" *ngIf="ordinamento !=0">
+        <ion-select cancelText="Annulla"  [value]="0" *ngIf="sourcePage.filtro.idOrdinamento !=0">
         <ion-select-option [value]="0">Nessuno</ion-select-option>
         <ion-select-option [value]="1">Scritto</ion-select-option>
         <ion-select-option [value]="2">Orale</ion-select-option>
         <ion-select-option [value]="3">Scritto/Orale</ion-select-option>
       </ion-select>
-        <ion-select cancelText="Annulla"  [value]="0" *ngIf="ordinamento === 0">
+        <ion-select cancelText="Annulla"  [value]="0" *ngIf="sourcePage.filtro.idOrdinamento=== 0">
           <ion-select-option [value]="0">Nessuno</ion-select-option>
           <ion-select-option [value]="1">Scritto</ion-select-option>
           <ion-select-option [value]="2">Orale</ion-select-option>
@@ -94,7 +97,7 @@
     </ion-row>
     <ion-row>
       <ion-col >
-        <ion-button style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
+        <ion-button  (click)="memorizzaFiltri()"style="width: 100%"><ion-icon name="bookmark"></ion-icon> Memorizza</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
