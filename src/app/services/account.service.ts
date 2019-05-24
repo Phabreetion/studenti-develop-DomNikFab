@@ -14,9 +14,9 @@ import { CryptoService } from './crypto.service';
 export class AccountService {
 
     logged: boolean;
-    baseurl = this.globalData.baseurl;
-    urlRegistra: string = this.baseurl + 'registra.php';
-    urlDisconnetti: string = this.baseurl + 'disconnetti.php';
+
+    urlRegistra = 'registra.php';
+    urlDisconnetti = 'disconnetti.php';
 
     public_key: string;
     private_key: string;
@@ -34,11 +34,11 @@ export class AccountService {
     ) { }
 
     getUrlDisconnetti() {
-        return this.urlDisconnetti;
+        return this.globalData.getBaseUrl() + this.urlDisconnetti;
     }
 
     getUrlRegistra() {
-        return this.urlRegistra;
+        return this.globalData.getBaseUrl() + this.urlRegistra;
     }
 
     controllaAccount() {
@@ -47,23 +47,34 @@ export class AccountService {
                 (logged) => {
                     GlobalDataService.log(0, 'Logged', logged);
                     this.logged = logged;
+                    this.globalData.logged = logged;
+
                     this.storage.get('passphrase_key').then(
                         (value) => {
                             if (value == null) {
                                 this.crypto.getChiavi();
-                            }
-                            else {
-                                //this.crypto.checkChiavi();
+                            } else {
+                                // this.crypto.checkChiavi();
                                 console.log(value);
                             }
                         });
                     if (logged) {
+                        if (!this.globalData.userRole) {
+                            this.storage.get('user_role').then(
+                                (role) => {
+                                    if (role == null) {
+                                        this.globalData.userRole = role;
+                                    } else {
+                                    }
+                                });
+                        }
                         resolve(this.logged);
                     } else {
                         reject(this.logged);
                     }
                 }, (err) => {
                     this.logged = false;
+                    this.globalData.logged = this.logged;
                     // Forse sarebbe meglio verificare se esiste il tokene ed eventualmente aggiornare tutto
                     GlobalDataService.log(1, 'logged non presente in storage', err);
                     reject(this.logged);
@@ -76,14 +87,13 @@ export class AccountService {
     salvaDatiLogin(username, password, tokenNotifiche, carriera) {
 
         const userRole = carriera['user_role'];
-        // this.globalData.userRole = userRole
+        this.globalData.userRole = userRole;
+        this.globalData.logged = true;
 
         console.log(this.globalData.passphrase_private_key);
-        console.log("password");
-        console.log(password);
+        console.log(carriera['nome'] + carriera['cognome']);
 
-        var passCifrata = this.crypto.CryptoJSAesEncrypt(this.globalData.passphrase_private_key, password);
-
+        const passCifrata = this.crypto.CryptoJSAesEncrypt(this.globalData.passphrase_private_key, password);
 
         const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
@@ -164,7 +174,7 @@ export class AccountService {
         GlobalDataService.log(0, 'Login ' + username + ' ' + matricola + ' ' + cds_id + ' ' + dip_id, null);
 
         return new Promise((resolve, reject) => {
-            const url = this.urlRegistra;
+            const url = this.getUrlRegistra();
 
             const storedUsernamePromise = this.storage.get('username');
             const storedPasswordPromise = this.storage.get('password');
@@ -175,7 +185,14 @@ export class AccountService {
             const storedNomePromise = this.storage.get('nome');
             const storedCognomePromise = this.storage.get('cognome');
             const hashedPassword = Md5.hashStr(password).toString();
-            Promise.all([storedUsernamePromise, storedPasswordPromise, storedMatricolaPromise, storedIdDocentePromise, storedNomePromise, storedCognomePromise]).then(data => {
+            Promise.all([
+                storedUsernamePromise,
+                storedPasswordPromise,
+                storedMatricolaPromise,
+                storedIdDocentePromise,
+                storedNomePromise,
+                storedCognomePromise
+            ]).then(data => {
 
                         const storedUsername = data[0];
                         let storedPassword = data[1];
@@ -298,6 +315,9 @@ export class AccountService {
                                                 console.log(esitoRegistrazione['cifrato']);
                                                 const dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, esitoRegistrazione['cifrato']);
                                                 const carriera = JSON.parse(dec);
+
+                                                console.log(carriera);
+                                                console.log(dec);
 
                                                 // Se l'utente è valido ma è diverso dall'utente connesso
                                                 // cancelliamo i dati precedentemente memorizzati
@@ -453,7 +473,7 @@ export class AccountService {
                             err);
                         this.toastCtrl.create({
                             message: 'Nessuna connessione ad Internet. ' +
-                                'Per poter scollegare un dispoditivo devi essere connesso ad Internet.',
+                                'Per poter scollegare un dispositivo devi essere connesso ad Internet.',
                             duration: 10000
                         }).then(
                             (toast) => {

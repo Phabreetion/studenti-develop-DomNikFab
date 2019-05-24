@@ -41,72 +41,109 @@ export class AppComponent {
         {
             title: 'Home',
             url: '/home',
-            icon: 'home'
+            icon: 'home',
+            role: 'student'
+        },
+        {
+            title: 'Home',
+            url: '/home-docente',
+            icon: 'home',
+            role: 'teacher'
         },
         {
             title: 'Carriera',
             url: '/carriera',
-            icon: 'book'
+            icon: 'book',
+            role: 'student'
         },
         {
             title: 'Appelli',
             url: '/appelli',
-            icon: 'bookmark'
+            icon: 'bookmark',
+            role: 'student'
+        },
+        {
+            title: 'Appelli',
+            url: '/appelli-docente',
+            icon: 'bookmark',
+            role: 'teacher'
+        },
+        {
+            title: 'Insegnamenti',
+            url: '/insegnamenti-docente',
+            icon: 'bookmark',
+            role: 'teacher'
         },
         {
             title: 'Previsione Media',
             url: '/medie',
-            icon: 'calculator'
-        },
-        {
-            title: 'News',
-            url: '/news',
-            icon: 'information-circle'
+            icon: 'calculator',
+            role: 'student'
         },
         {
             title: 'Orario',
             url: '/orario',
-            icon: 'calendar'
+            icon: 'calendar',
+            role: 'student'
         },
+        {
+            title: 'News',
+            url: '/news',
+            icon: 'information-circle',
+            role: 'logged'
+        },
+        // {
+        //     title: 'Calendario',
+        //     url: '/calendario',
+        //     icon: 'calendar'
+        // },
         {
             title: 'Notifiche',
             url: '/notifiche',
-            icon: 'megaphone'
+            icon: 'megaphone',
+            role: 'logged'
         },
         {
             title: 'Rubrica',
             url: '/rubrica',
-            icon: 'contacts'
+            icon: 'contacts',
+            role: 'logged'
         },
         {
             title: 'Questionari',
             url: '/questionari',
-            icon: 'create'
+            icon: 'create',
+            role: 'student'
         },
         {
             title: 'Tasse',
             url: '/tasse',
-            icon: 'pricetag'
+            icon: 'pricetag',
+            role: 'student'
         },
         {
             title: 'Servizi Online',
             url: '/servizi-online',
-            icon: 'cog'
+            icon: 'cog',
+            role: 'student'
         },
         {
             title: 'Impostazioni',
             url: '/preferenze',
-            icon: 'options'
+            icon: 'options',
+            role: 'all'
         },
         {
             title: 'Blocca',
             url: '/lock',
-            icon: 'lock'
+            icon: 'lock',
+            role: 'logged'
         },
         {
             title: 'Disconnetti',
             url: '/disconnetti',
-            icon: 'log-out'
+            icon: 'log-out',
+            role: 'logged'
         }
     ];
 
@@ -163,6 +200,7 @@ export class AppComponent {
 
             this.splashScreen.hide();
             this.globalData.landscape = false;
+            this.globalData.initialize();
 
             this.http.setHttpType();
 
@@ -194,6 +232,8 @@ export class AppComponent {
                 this.appVersion.getVersionNumber().then(
                     (appVersion) => {
                         this.storage.set('appVersion', appVersion);
+                    }, (err) => {
+                        GlobalDataService.log(2, 'ERROR in getVersionNumber', err);
                     });
             } else {
                 this.storage.set('uuid', 'virtual');
@@ -202,39 +242,7 @@ export class AppComponent {
 
             // moment.locale('it');
 
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            // // IONIC 4 registerBackButtonAction non c'è!
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            //
-            // this.platform.registerBackButtonAction(() => {
-            //     // get current active page
-            //     // TODO: questa soluzione non è ottimale, la versione commentata è invece funzionante,
-            //     // ma non riporta alla Home in caso di sotto-pagine
-            //     // Purtroppo, al momento, la generazione della versione ottimizzata (flag --prod)
-            //     // minimizza il codice per cui il nome della pagina non corrisponde
-            //     const view = this.nav.getActive();
-            //     const componentName = view.component.toString();
-            //     if (componentName.indexOf('idServizio=9') > -1) {
-            //         // Double check to exit app
-            //         if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
-            //             this.platform.exitApp(); // Exit from app
-            //         } else {
-            //             const toast = this.toastCtrl.create({
-            //                 message: 'Premi di nuovo per uscire',
-            //                 duration: 2000,
-            //                 position: 'bottom'
-            //             });
-            //             toast.present();
-            //             lastTimeBackPress = new Date().getTime();
-            //         }
-            //     } else {
-            //         // go to previous page
-            //         this.navCtrl.navigateRoot('/home');
-            //     }
-            //
-            // });
+
 
             this.http.checkConnection();
 
@@ -296,6 +304,8 @@ export class AppComponent {
             //         }
             //     );
             // }
+        }, (err) => {
+            GlobalDataService.log(2, 'Reject in platform.ready', err);
         }).catch(err => {
             console.log('Eccezione nel recupero delle notifiche: ' + err);
         });
@@ -303,85 +313,26 @@ export class AppComponent {
 
     initPushNotification() {
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            /****
-             *  PROVA PLUGIN PUSH
-             */
-            //
-            //
-            // // to check if we have permission
-            // this.push.hasPermission()
-            //     .then((res: any) => {
-            //         console.dir(res);
-            //
-            //         if (res.isEnabled) {
-            //             console.log('We have permission to send push notifications');
-            //         } else {
-            //             console.log('We do not have permission to send push notifications');
-            //         }
-            //
-            //     });
-
-
-            /*
-        const options: PushOptions = {
-            android: {},
-            ios: {
-                alert: 'true',
-                badge: 'true',
-                sound: 'true'
-            },
-            windows: {},
-            browser: {
-                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            }
-        }
-
-        const pushObject : PushObject = this.push.init(options);
-
-        pushObject.subscribe('testbeta').then(
-            (esito) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription OK', esito);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription ERR', err);
-            }
-        );
-
-        pushObject.on('notification').subscribe(
-            (notification: any) => {
-                console.log('****** PUSH ****** Received a notification', notification);
-                this.mostraNotifica(notification);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Error receiving a notification', err);
-            });
-
-        pushObject.on('registration').subscribe(
-            (registration: any) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device registered', registration);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device NOT registered', err);
-            });
-
-        pushObject.on('error').subscribe(
-            error => GlobalDataService.log(2, '****** PUSH ****** Error with Push plugin', error));
-
-*/
-
             /***
              *  Plugin FCM per le notifiche push
              */
 
             try {
-                this.fcm.getToken().then(token => {
+                this.fcm.getToken().then(
+                    (token) => {
                     // console.log('FCM GETTOKEN = ' + token);
                     if (token != null) {
                         this.sync.aggiornaTokenNotifiche(token);
                     }
-                }).catch(err => {
-                    GlobalDataService.log(2, 'FCM: Eccezione in getToken', err);
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject in getToken', err);
+                }).catch((ex) => {
+                    GlobalDataService.log(2, 'FCM: Eccezione in getToken', ex);
 
                 });
 
-                this.fcm.onNotification().subscribe(data => {
+                this.fcm.onNotification().subscribe(
+                    (data) => {
                     GlobalDataService.log(1, 'FCM: ricevuta una notifica', data);
 
                     this.mostraNotifica(data);
@@ -394,13 +345,18 @@ export class AppComponent {
                     //     // Notifica con app in primo piano
                     //     this.mostraNotifica(data);
                     // }
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject onNotification', err);
                 });
 
-                this.fcm.onTokenRefresh().subscribe(token => {
+                this.fcm.onTokenRefresh().subscribe(
+                    (token) => {
                     // console.log('FCM TOKEN AGGIORNATO = ' + token);
                     if (token != null) {
                         this.sync.aggiornaTokenNotifiche(token);
                     }
+                }, (err) => {
+                    GlobalDataService.log(2, 'FCM: Reject onTokenRefresh', err);
                 });
 
                 this.fcm.subscribeToTopic('testbeta').then(
@@ -538,7 +494,7 @@ export class AppComponent {
                 //     .subscribe(() => {
                 //         // console.log(JSON.stringify(toast));
                 //     });
-                this.globalData.goTo('/home', '/home', 'root', false);
+                this.globalData.goHome();
                // console.log(this.router.url);
             }
         });

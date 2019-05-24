@@ -4,10 +4,13 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
+    { path: 'home-docente', loadChildren: './pages/docente/home-docente/home-docente.module#HomeDocentePageModule'},
     { path: 'accounts', loadChildren: './pages/account/accounts/accounts.module#AccountsPageModule' },
     { path: 'allegato', loadChildren: './pages/carriera/materiale-didattico/allegato/allegato.module#AllegatoPageModule' },
     { path: 'appelli', loadChildren: './pages/carriera/appelli/appelli.module#AppelliPageModule'},
     { path: 'appelli/:id', loadChildren: './pages/carriera/appelli/appelli.module#AppelliPageModule'},
+    { path: 'appelli-docente', loadChildren: './pages/docente/appelli/appelli-docente.module#AppelliDocentePageModule'},
+    { path: 'appello-docente', loadChildren: './pages/docente/appelli/appello/appello.module#AppelloPageModule'},
     { path: 'calendario', loadChildren: './pages/servizi/calendario/calendario.module#CalendarioPageModule' },
     { path: 'carriera', loadChildren: './pages/carriera/tabs-carriera/carriera.module#CarrieraPageModule' },
     { path: 'carriere', loadChildren: './pages/account/login/carriere/carriere.module#CarrierePageModule' },
@@ -15,6 +18,8 @@ const routes: Routes = [
     { path: 'dettagli-utente', loadChildren: './pages/home/dettagli-utente/dettagli-utente.module#DettagliUtentePageModule'},
     { path: 'disconnetti', loadChildren: './pages/account/disconnetti/disconnetti.module#DisconnettiPageModule' },
     { path: 'esame', loadChildren: './pages/carriera/esame/esame.module#EsamePageModule' },
+    { path: 'insegnamenti-docente',
+        loadChildren: './pages/docente/insegnamenti-docente/insegnamenti-docente.module#InsegnamentiDocentePageModule'},
     { path: 'libretto', loadChildren: './pages/carriera/libretto/libretto.module#LibrettoPageModule' },
     { path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     { path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
@@ -32,7 +37,7 @@ const routes: Routes = [
     { path: 'tasse', loadChildren: './pages/servizi/tasse/tasse.module#TassePageModule' },
     { path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule' },
   { path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule' }
- 
+
     ];
 
 @NgModule({

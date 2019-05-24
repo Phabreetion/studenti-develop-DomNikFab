@@ -1,0 +1,259 @@
+<ion-header>
+  <ion-grid no-padding>
+    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+      <ion-col>
+        <ion-label> </ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row no-padding>
+      <ion-col no-padding>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+          </ion-buttons>
+          <ion-title>
+            Dettagli Appello
+          </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/appelli-docente" text="Indietro"></ion-back-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+
+<ion-content no-padding>
+  <ion-segment [(ngModel)]="sezioni">
+    <ion-segment-button value="dati">Dati</ion-segment-button>
+    <ion-segment-button value="esami">Esami</ion-segment-button>
+  </ion-segment>
+  <div [ngSwitch]="sezioni" >
+    <ion-card *ngSwitchCase="'dati'">
+      <ion-card-content>
+        <ion-grid *ngIf="!item">
+          <ion-row>
+            <ion-col><ion-label>Nessun dato</ion-label></ion-col>
+          </ion-row>
+        </ion-grid>
+        <ion-grid *ngIf="item" no-padding>
+          <div class="esame">
+            <ion-row>
+              <ion-col size="12" text-wrap>
+                <div class="nome-esame">{{ item.INSEGNAMENTO }}</div>
+                <p text-wrap>{{ item.DESCRIZIONE }}</p>
+              </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+              <ion-col size="12" text-wrap>
+                <div><h3>CdL: {{ item.CORSO }}</h3></div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="information-circle"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{item.COD}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="man"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{item.RUOLO}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="alarm"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{date2string(item.DATA_INIZIO_APP) | slice:0:10}} {{item.ORA}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="calendar"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{date2string(item.DATA_INIZIO_ISCR) | slice:0:10}} - {{date2string(item.DATA_FINE_ISCR) | slice:0:10}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="copy"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{item.TIPO_GESTIONE}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="settings"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{item.TIPO_APPELLO}}</div>
+              </ion-col>
+            </ion-row>
+
+
+            <ion-row>
+              <ion-col size="1">
+                <ion-icon name="paper"></ion-icon>
+              </ion-col>
+              <ion-col size="11">
+                <div>{{item.DES_STATO}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row (click)="mostraPrenotati()">
+              <ion-col size="6">Prenotazioni</ion-col>
+              <ion-col *ngIf="item.PRENOTAZIONI==0" size="1">
+                <ion-icon style="color:red" name="people"></ion-icon>
+              </ion-col>
+              <ion-col *ngIf="item.PRENOTAZIONI!=0" size="1">
+                <ion-icon style="color:green" name="people"></ion-icon>
+              </ion-col>
+              <ion-col size="4">
+                <div>{{item.PRENOTAZIONI}}</div>
+              </ion-col>
+            </ion-row>
+
+            <ion-row (click)="mostraPrenotati()">
+              <ion-col size="6">Verbali</ion-col>
+              <ion-col *ngIf="item.NR_VERBALI==0" size="1">
+                <ion-icon style="color:red" name="create"></ion-icon>
+              </ion-col>
+              <ion-col *ngIf="item.NR_VERBALI!=0" size="1">
+                <ion-icon style="color:green" name="create"></ion-icon>
+              </ion-col>
+              <ion-col size="4">
+                <div>{{item.NR_VERBALI}}</div>
+              </ion-col>
+            </ion-row>
+
+          </div>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+    <div *ngSwitchCase="'esami'">
+      <div *ngIf="loaded">
+
+        <ion-grid class="dati-esame">
+          <ion-row *ngIf="studenti?.length > 0">
+            <ion-col><ion-text color="primary"><h4>Prenotazioni</h4></ion-text></ion-col>
+          </ion-row>
+          <ion-row *ngIf="studenti?.length == 0" >
+            <ion-col><ion-text color="danger"><h4>Nessuna Prenotazione</h4></ion-text></ion-col>
+          </ion-row>
+          <ion-row *ngIf="studenti?.length > 0">
+            <ion-col size="3">
+              <ion-label><b>Matricola</b></ion-label>
+            </ion-col>
+            <ion-col text-wrap size="7">
+              <ion-label><b>Cognome e nome</b></ion-label>
+            </ion-col>
+            <ion-col size="2">
+              <ion-label><b>Voto</b></ion-label>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <ion-grid class="dati-esame">
+          <ion-row *ngFor="let studente of studenti; let i = index;" >
+            <ion-col size="3">
+              <div>{{ studente.MATRICOLA }}</div>
+            </ion-col>
+            <ion-col size="7">
+              <div>{{ studente.COGNOME }} {{ studente.NOME }}</div>
+            </ion-col>
+            <ion-col *ngIf="studente.ESITO_VOTO == 31" size="2">
+              <div>30L</div>
+            </ion-col>
+            <ion-col *ngIf="studente.ESITO_VOTO && studente.ESITO_VOTO != 31" size="2">
+              <div>{{ studente.ESITO_VOTO }}</div>
+            </ion-col>
+            <ion-col *ngIf="!studente.ESITO_VOTO && studente.TIPO_GIUD_COD " size="2">
+              <div>{{ studente.TIPO_GIUD_COD }}</div>
+            </ion-col>
+            <ion-col *ngIf="!studente.ESITO_VOTO && !studente.TIPO_GIUD_COD && studente.RITIRATO_FLG == 1" size="2">
+              <div>R</div>
+            </ion-col>
+            <ion-col *ngIf="!studente.ESITO_VOTO && !studente.TIPO_GIUD_COD && !studente.RITIRATO_FLG == 0 && studente.ASSENTE_FLG == 1" size="2">
+              <div>A</div>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+
+
+        <ion-grid class="dati-esame">
+          <ion-row *ngIf="commissione?.length == 0">
+            <ion-col><ion-text color="danger"><h4>Nessuna Commissione</h4></ion-text></ion-col>
+          </ion-row>
+          <ion-row *ngIf="commissione?.length > 0" >
+            <ion-col><ion-text color="primary"><h4>Commissione</h4></ion-text></ion-col>
+          </ion-row>
+          <ion-row *ngFor="let docente of commissione">
+            <ion-col>
+              <div>{{ docente.COGNOME }} {{ docente.NOME }} ({{ docente.DES }})</div>
+            </ion-col>
+          </ion-row>
+
+        </ion-grid>
+
+      </div>
+      <div *ngIf="!loaded">
+        <ion-card>
+          <h1 text-center text-wrap>Non è stato possibile caricare i dati dal server.</h1>
+          <p text-center text-wrap>Verificare la connessione ad Internet e riprovare.</p>
+        </ion-card>
+      </div>
+
+      <!--
+            <div class="prenotati row header">
+              <div class="prenotati col">Matricola</div>
+              <div class="prenotati col">Cognome</div>
+              <div class="prenotati col">Nome</div>
+              <div class="prenotati col">Voto</div>
+            </div>
+            <div class="prenotati row" *ngFor="let studente of studenti; let i = index;">
+              <div class="prenotati col">{{studente.MATRICOLA}}</div>
+              <div class="prenotati col">{{studente.COGNOME}}</div>
+              <div class="prenotati col">{{studente.NOME}}</div>
+              <div class="prenotati col">{{studente.ESITO_VOTO}}</div>
+            </div>
+      -->
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer no-padding>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+      <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+      <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+    </ion-buttons>
+
+    <div class="testo-footer">
+
+    </div>
+
+    <ion-buttons slot="end" no-padding>
+      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
