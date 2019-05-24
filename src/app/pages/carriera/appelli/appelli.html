@@ -152,6 +152,8 @@
                             </ion-col>
                         </ion-row>
 
+
+
                         <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()" color="lightgrey">
                             <ion-col>
                                 <ion-card-subtitle class="countdown">
@@ -279,6 +281,8 @@
                                         &nbsp;{{prenotazione.posiz}}°
                                     </ion-col>
                                 </ion-row>
+
+
 
                                 <ion-row>
                                     <ion-row *ngIf="isOutOfTime(prenotazione)" text-center>

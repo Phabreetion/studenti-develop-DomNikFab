@@ -34,6 +34,15 @@ export class AppelliPage implements OnInit {
     appelli: AppelloDisponibile[];
     appelliOrdinati: AppelloDisponibile[];
     appelliTrovati: AppelloDisponibile[];
+    appelliFiltrati: AppelloDisponibile[];
+
+    //per filtri e ordinamento
+    filtro: FiltroAppelliDisponibili;
+
+    //ricerca
+    searchKey: string;
+    isSearchbarOpened = false;
+
 
     //prenotazioni array
     prenotazioni: Array<any>;
@@ -42,12 +51,7 @@ export class AppelliPage implements OnInit {
     corsi: Corso[];
     corsiMap: Map<number, Corso>;
 
-    //per filtri e ordinamento
-    filtro: FiltroAppelliDisponibili;
 
-    //ricerca
-    searchKey: string;
-    isSearchbarOpened = false;
 
 
     constructor(public route: ActivatedRoute,
@@ -71,12 +75,8 @@ export class AppelliPage implements OnInit {
     async ngOnInit() {
         //controllo l'account, se non verificato rimanda alla pagina di login
         this.account.controllaAccount().then(
-            () => {
-                this.http.getConnected();
-            },
-            () => {
-                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
-            }
+            () => {this.http.getConnected();},
+            () => {this.globalData.goTo(PAGE_URL, '/login', 'root', false);}
         );
 
         this.insegnamento = this.route.snapshot.paramMap.get('id');
@@ -193,7 +193,7 @@ export class AppelliPage implements OnInit {
     }
 
     ordina() {
-        this.appelliOrdinati = this.filtro.ordina(this.appelli);
+        this.appelliOrdinati = this.filtro.ordina(this.appelli, this.corsiMap);
     }
 
     /**
@@ -452,5 +452,7 @@ export class AppelliPage implements OnInit {
     goToMaterialeDidattico(appello: AppelloDisponibile) {
         this.globalData.goTo(this, ['/materiale-didattico/', appello.ad_id], 'forward', false);
     }
+
+
 
 }

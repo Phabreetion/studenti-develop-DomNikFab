@@ -1,5 +1,7 @@
 import {AppelloDisponibile} from './AppelloDisponibile';
 import {ExtraEntryPointObject} from '@angular-devkit/build-angular';
+import {GlobalDataService} from '../services/global-data.service';
+import {Corso} from './Corso';
 
 export const ORDINAMENTO_ALFABETICO_CRESCENTE = 0;
 export const ORDINAMENTO_ALFABETICO_DECRESCENTE = 1;
@@ -37,7 +39,7 @@ export class FiltroAppelliDisponibili {
         this.tipoOrdinamento = 0;
     }
 
-    ordina(appelli: AppelloDisponibile[]): AppelloDisponibile[] {
+    ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso> ): AppelloDisponibile[] {
         //il primo ordinamento viene eseguito per crescente crescente
         switch (this.idOrdinamento + this.tipoOrdinamento) {
             case ORDINAMENTO_ALFABETICO_CRESCENTE: //alfabetico crescente
@@ -76,17 +78,75 @@ export class FiltroAppelliDisponibili {
 
             case ORDINAMENTO_DATA_CRESCENTE:
 
+                appelli.sort(
+                    (one, two) => {
+
+                        if(GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                            return 1;
+                        }
+
+                        if(GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                            return -1;
+                        }
+
+
+                        return 0;
+                    }
+                );
+
+
+
                 break;
 
             case ORDINAMENTO_DATA_DECRESCENTE:
+                appelli.sort(
+                    (one, two) => {
+
+                        if(GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                            return 1;
+                        }
+
+                        if(GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                            return -1;
+                        }
+
+
+                        return 0;
+                    }
+                );
+
 
                 break;
 
             case ORDINAMENTO_CFU_CRESCENTE:
 
-                break;
+                appelli.sort(
+                        (one,two) => {
+
+                            if(mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0)  {
+                                return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
+                            }
+
+
+
+                            return 0;
+                        }
+                    );
+
+                    break;
 
             case ORDINAMENTO_CFU_DECRESCENTE:
+                appelli.sort(
+                    (one, two) => {
+
+                        if(mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0)  {
+                            return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
+                        }
+
+                        return 0;
+                    }
+                );
+                console.log(appelli);
 
                 break;
         }
