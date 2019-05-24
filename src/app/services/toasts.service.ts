@@ -84,6 +84,30 @@ export class ToastsService {
         }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
     }
 
+    prenotazioneAnnullataConSuccesso() {
+        this.toastCtrl.create({
+            message: 'Prenotazione annullata con successo.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    annullamentoFallito() {
+        this.toastCtrl.create({
+            message: 'Impossibile annullare la prenotazione.\nRiprova più tardi.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    annullamentoNonPiuPossibile() {
+        this.toastCtrl.create({
+            message: 'Non è più possibile annullare la prenotazione.',
+            duration: 3000,
+            position: 'bottom'
+        }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
     piattaformaNonSupportata() {
         this.toastCtrl.create({
             message: 'Il dispositivo non supporta questa funzionalità',

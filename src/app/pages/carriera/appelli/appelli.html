@@ -97,7 +97,7 @@
 
         <ion-grid *ngIf="appelli?.length > 0"> <!-- no-padding-->
 
-            <ion-item-sliding #slItem *ngFor="let appello of appelliTrovati">
+            <ion-item-sliding #itemSliding *ngFor="let appello of appelliTrovati">
                 <ion-item>
                     <ion-grid>
                         <ion-row>
@@ -191,7 +191,7 @@
                         Materiale<br>didattico
                     </ion-item-option>
 
-                    <ion-item-option *ngIf="appello.isPrenotabile()" (click)="prenotaAppello(appello)">
+                    <ion-item-option *ngIf="appello.isPrenotabile()" (click)="prenotaAppello(itemSliding,appello)">
                         Prenota
                     </ion-item-option>
                 </ion-item-options>
@@ -235,7 +235,7 @@
         <ion-grid *ngIf="prenotazioni?.length > 0" text-center> <!-- no-padding-->
             <ion-row>
                 <ion-col>
-                    <ion-item-sliding #slItem *ngFor="let prenotazione of prenotazioni">
+                    <ion-item-sliding #itemSliding *ngFor="let prenotazione of prenotazioni">
                         <ion-item>
                             <ion-grid>
                                 <ion-row>
@@ -285,28 +285,27 @@
 
 
                                 <ion-row>
-                                    <ion-row *ngIf="isOutOfTime(prenotazione)" text-center>
+                                    <ion-row *ngIf="prenotazione.isAfterEsame()" text-center>
                                         <ion-col color="lightgrey">
                                             <ion-card-subtitle class="countdown"><I>L'esame è stato
-                                                sostenuto {{giorniRimanentiPerEsame(prenotazione)}} giorni fa.</I>
+                                                sostenuto {{prenotazione.giorniPassatiDopoEsame()}} giorni fa.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
 
-                                    <ion-row *ngIf="!isOutOfTime(prenotazione)" text-center>
+                                    <ion-row *ngIf="prenotazione.isBeforeEsame()" text-center>
                                         <ion-col color="lightgrey">
                                             <ion-card-subtitle class="countdown" color="danger"><I>Dovrai sostenere l'esame
-                                                tra {{giorniRimanentiPerEsame(prenotazione)}} giorni.</I>
+                                                tra {{prenotazione.giorniRimanentiPrimaDellEsame()}} giorni.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
-
                                 </ion-row>
                             </ion-grid>
                         </ion-item>
 
                         <ion-item-options side="end" slot="top">
-                            <ion-item-option (click)="cancellaPrenotazione(prenotazione);" color="danger">
+                            <ion-item-option (click)="cancellaPrenotazione(itemSliding, prenotazione);" color="danger">
                                 <ion-icon name="trash" slot="icon-only"></ion-icon>
                             </ion-item-option>
                         </ion-item-options>

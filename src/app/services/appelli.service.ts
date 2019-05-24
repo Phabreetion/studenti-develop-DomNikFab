@@ -60,7 +60,7 @@ export class AppelliService {
                     console.log(body);
 
                     this.http.post(url, body).then((data) => {
-                        if(data === 'success') {
+                        if (data === 'success') {
                             resolve();
                         } else {
                             reject();
@@ -73,10 +73,21 @@ export class AppelliService {
         });
     }
 
-    cancellaPrenotazione(app_id, ad_id, adsce_id) {
+    /**
+     *
+     * @param prenotazioneDaCancellare
+     */
+    cancellaPrenotazione(prenotazioneDaCancellare: AppelloPrenotato) {
+        //TODO - controllo per appello fuori finestra
+
         return new Promise((resolve, reject) => {
             this.storage.get('token').then((token) => {
                 const url = this.getUrlCancellaPrenotazione();
+
+                const ad_id = prenotazioneDaCancellare.ad_id;
+                const app_id = prenotazioneDaCancellare.app_id;
+                const adsce_id = prenotazioneDaCancellare.adsce_id;
+
                 const body = {
                     token: token,
                     ad_id: ad_id,
@@ -85,7 +96,11 @@ export class AppelliService {
                 };
 
                 this.http.post(url, body).then((data) => {
-                    resolve(data);
+                    if (data === 'success') {
+                        resolve();
+                    } else {
+                        reject();
+                    }
                 }, (err) => {
                     reject(err);
                 });

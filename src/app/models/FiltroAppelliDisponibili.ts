@@ -11,10 +11,10 @@ export const ORDINAMENTO_DATA_DECRESCENTE = 3;
 export const ORDINAMENTO_CFU_CRESCENTE = 4;
 export const ORDINAMENTO_CFU_DECRESCENTE = 5;
 
-export const NESSUNO =0;
-export const SCRITTO =1;
-export const ORALE =2;
-export const SCRITTO_ORALE =3;
+export const NESSUNO = 0;
+export const SCRITTO = 1;
+export const ORALE = 2;
+export const SCRITTO_ORALE = 3;
 
 
 export class FiltroAppelliDisponibili {
@@ -37,8 +37,6 @@ export class FiltroAppelliDisponibili {
         return Object.assign(new FiltroAppelliDisponibili(), obj);
     }
 
-
-
     reset() {
         this.filtraScrittoOrale = 0;
         this.filtroPerAnno = 0;
@@ -46,7 +44,7 @@ export class FiltroAppelliDisponibili {
         this.tipoOrdinamento = 0;
     }
 
-    ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso> ): AppelloDisponibile[] {
+    ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso>): AppelloDisponibile[] {
         //il primo ordinamento viene eseguito per crescente crescente
         switch (this.idOrdinamento + this.tipoOrdinamento) {
             case ORDINAMENTO_ALFABETICO_CRESCENTE: //alfabetico crescente
@@ -87,20 +85,17 @@ export class FiltroAppelliDisponibili {
 
                 appelli.sort(
                     (one, two) => {
-
-                        if(GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
                             return 1;
                         }
 
-                        if(GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
                             return -1;
                         }
-
 
                         return 0;
                     }
                 );
-
 
 
                 break;
@@ -108,15 +103,13 @@ export class FiltroAppelliDisponibili {
             case ORDINAMENTO_DATA_DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
-
-                        if(GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
                             return 1;
                         }
 
-                        if(GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
                             return -1;
                         }
-
 
                         return 0;
                     }
@@ -128,25 +121,21 @@ export class FiltroAppelliDisponibili {
             case ORDINAMENTO_CFU_CRESCENTE:
 
                 appelli.sort(
-                        (one,two) => {
-
-                            if(mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0)  {
-                                return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
-                            }
-
-
-
-                            return 0;
+                    (one, two) => {
+                        if (mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0) {
+                            return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
                         }
-                    );
 
-                    break;
+                        return 0;
+                    }
+                );
+
+                break;
 
             case ORDINAMENTO_CFU_DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
-
-                        if(mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0)  {
+                        if (mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0) {
                             return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
                         }
 
@@ -174,21 +163,21 @@ export class FiltroAppelliDisponibili {
         return arr;
     }
 
-    filtra(appelli : AppelloDisponibile[], corsi : Map<number,Corso>) : AppelloDisponibile[]{
-       //definire filtra anno e filtra scritto orale
-        //appelli.filter
-       //nel json c'è l'attributo(O,S,SO) che assume i valori 1,2,3---> 1 per scritto, 2 per orale, 3 per scritto orale
-        if(this.filtraScrittoOrale==1)
-            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='S');
+    filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
+        //nel json c'è l'attributo(O,S,SO) che assume i valori 1,2,3---> 1 per scritto, 2 per orale, 3 per scritto orale
+        if (this.filtraScrittoOrale == SCRITTO) {
+            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
+        }
+        if (this.filtraScrittoOrale == ORALE) {
+            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
+        }
+        if (this.filtraScrittoOrale == SCRITTO_ORALE) {
+            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
+        }
 
-        if(this.filtraScrittoOrale==2)
-            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='O');
-
-        if(this.filtraScrittoOrale==2)
-            appelli=appelli.filter(appello=>appello.tipo_iscr_cod==='SO');
 
         if (this.filtroPerAnno > 0) {
-            appelli = appelli.filter(appello=>corsi.get(appello.ad_id).ANNO==this.filtroPerAnno);
+            appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO === this.filtroPerAnno);
         }
 
         return appelli;

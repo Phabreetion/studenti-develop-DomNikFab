@@ -1,4 +1,6 @@
 import {Appello} from './Appello';
+import {Corso} from './Corso';
+import {GlobalDataService} from '../services/global-data.service';
 
 export class AppelloPrenotato extends Appello  {
 
@@ -21,9 +23,6 @@ export class AppelloPrenotato extends Appello  {
     prenotazioni: Array<any>;
 
 
-    //corsi: Corso[];
-
-
     constructor(ad_id?: number, adsce_id?: number, data_ora_app?: string, ad_cod?: number, ad_des?: string, adreg_id?: number, app_des?: string, app_id?: number, app_log_id?: number, applista_id?: number, cds_id?: number, gruppo?: string, mat_id?: number, nota_studente?: string, posiz?: number, presidente?: string, tipo_esa_cod?: string, tipo_iscr?: string, tipo_turno_cod?: string) {
         super(ad_id, adsce_id, data_ora_app);
 
@@ -43,29 +42,41 @@ export class AppelloPrenotato extends Appello  {
         this.tipo_esa_cod = tipo_esa_cod;
         this.tipo_iscr = tipo_iscr;
         this.tipo_turno_cod = tipo_turno_cod;
-
     }
 
-    /*
-    isPrenotazioneSuperata(prenotazione): boolean {
-        console.log(prenotazione.ad_id);
-        let i = 0;
-        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].isSuperato())){
-            i++;
-        }
-        return i < this.corsi.length;
-    }
-    */
-
-    public static toObj(obj: Object): AppelloPrenotato {
+    static toObj(obj: Object): AppelloPrenotato {
         return Object.assign(new AppelloPrenotato(), obj);
     }
 
-    /*controllaPrenotazioni(){
-        this.prenotazioni = this.prenotazioni.filter( (appello) => {
-            return this.isPrenotazioneSuperata(appello)
-        });
-    }*/
 
+    isPrenotazioneSuperata(corsoMap: Map<number, Corso>): boolean {
+        return corsoMap.get(this.ad_id).isSuperato();
+    }
+
+    giorniRimanentiPrimaDellEsame(): number {
+        const data_esame = GlobalDataService.string2date(this.data_ora_app);
+        const data_odierna = new Date();
+
+        return GlobalDataService.differenzaGiorni(data_esame, data_odierna);
+    }
+
+    giorniPassatiDopoEsame(): number {
+        const data_esame = GlobalDataService.string2date(this.data_ora_app);
+        const data_odierna = new Date();
+
+        return GlobalDataService.differenzaGiorni(data_odierna, data_esame);
+    }
+
+    isBeforeEsame(): boolean {
+        return this.giorniRimanentiPrimaDellEsame() > 0;
+    }
+
+    isAfterEsame(): boolean {
+        return this.giorniPassatiDopoEsame() > 0;
+    }
+
+    isCancellabile(): boolean {
+        return this.giorniRimanentiPrimaDellEsame() - 5 > 0;
+    }
 
 }
