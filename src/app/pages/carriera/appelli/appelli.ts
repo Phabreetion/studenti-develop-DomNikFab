@@ -201,7 +201,7 @@ export class AppelliPage implements OnInit {
     }
 
     ordina() {
-        this.appelliOrdinati = this.filtro.ordina(this.appelli, this.corsiMap);
+        this.appelliOrdinati = this.filtro.ordina(this.appelliFiltrati, this.corsiMap);
     }
 
     /**
@@ -210,7 +210,7 @@ export class AppelliPage implements OnInit {
      */
     search() {
         const searchKeyLowered = this.searchKey.toLowerCase();
-        this.appelliTrovati = this.appelli.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+        this.appelliTrovati = this.appelliFiltrati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
     }
 
     /**

@@ -2,6 +2,7 @@ import {AppelloDisponibile} from './AppelloDisponibile';
 import {ExtraEntryPointObject} from '@angular-devkit/build-angular';
 import {GlobalDataService} from '../services/global-data.service';
 import {Corso} from './Corso';
+import {forEach} from '@angular-devkit/schematics';
 
 export const ORDINAMENTO_ALFABETICO_CRESCENTE = 0;
 export const ORDINAMENTO_ALFABETICO_DECRESCENTE = 1;
@@ -174,7 +175,20 @@ export class FiltroAppelliDisponibili {
     filtra(appelli : AppelloDisponibile[], corsi : Map<number,Corso>) : AppelloDisponibile[]{
        //definire filtra anno e filtra scritto orale
         //appelli.filter
-        return appelli; //da togliere
+        /*if (this.filtroSuperatiAttivo) {
+            appelli.filter(appeli=>)
+        }
+
+        if (this.filtroNonSuperatiAttivo) {
+            corsi = c.filter(corso => !corso.isSuperato());
+        }*/
+
+        if (this.filtroPerAnno > 0) {
+            //corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
+            appelli = appelli.filter(appello=>corsi.get(appello.ad_id).ANNO==this.filtroPerAnno)
+        }
+
+        return appelli;
     }
 
 }
