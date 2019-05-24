@@ -21,7 +21,7 @@ export class AppelliService {
     constructor(public sync: SyncService,
                 public storage: Storage,
                 public globalData: GlobalDataService,
-                public services: HttpService) {
+                public http: HttpService) {
     }
 
     getUrlPrenotaAppello() {
@@ -40,26 +40,36 @@ export class AppelliService {
      */
     prenotaAppello(appelloDaPrenotato: AppelloDisponibile) {
         return new Promise((resolve, reject) => {
-            this.storage.get('token').then((token) => {
-                const url = this.getUrlPrenotaAppello();
+            if (!appelloDaPrenotato.isPrenotabile()) {
+                reject();
+            } else {
+                this.storage.get('token').then((token) => {
+                    const url = this.getUrlPrenotaAppello();
 
-                const ad_id = appelloDaPrenotato.p10_app_ad_id;
-                const app_id = appelloDaPrenotato.p10_app_ad_id;
-                const adsce_id = appelloDaPrenotato.adsce_id;
+                    const ad_id = appelloDaPrenotato.p10_app_ad_id;
+                    const app_id = appelloDaPrenotato.p10_app_app_id;
+                    const adsce_id = appelloDaPrenotato.adsce_id;
 
-                const body = {
-                    token: token,
-                    ad_id: ad_id,
-                    app_id: app_id,
-                    adsce_id: adsce_id
-                };
+                    const body = {
+                        token: token,
+                        ad_id: ad_id,
+                        app_id: app_id,
+                        adsce_id: adsce_id
+                    };
 
-                this.services.post(url, body).then((data) => {
-                    resolve(data);
-                }, (err) => {
-                    reject(err);
+                    console.log(body);
+
+                    this.http.post(url, body).then((data) => {
+                        if(data === 'success') {
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    }, (err) => {
+                        reject(err);
+                    });
                 });
-            });
+            }
         });
     }
 
@@ -74,7 +84,7 @@ export class AppelliService {
                     adsce_id: adsce_id
                 };
 
-                this.services.post(url, body).then((data) => {
+                this.http.post(url, body).then((data) => {
                     resolve(data);
                 }, (err) => {
                     reject(err);

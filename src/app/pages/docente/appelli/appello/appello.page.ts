@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ToastController} from '@ionic/angular';
-// import {isArray} from 'ionic-angular/util/util';
 import {Storage} from '@ionic/storage';
 import {GlobalDataService} from '../../../../services/global-data.service';
 import {HttpService} from '../../../../services/http.service';
