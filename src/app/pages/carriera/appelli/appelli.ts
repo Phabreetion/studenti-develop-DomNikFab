@@ -36,14 +36,6 @@ export class AppelliPage implements OnInit {
     appelliTrovati: AppelloDisponibile[];
     appelliFiltrati: AppelloDisponibile[];
 
-    //per filtri e ordinamento
-    filtro: FiltroAppelliDisponibili;
-
-    //ricerca
-    searchKey: string;
-    isSearchbarOpened = false;
-
-
     //prenotazioni array
     prenotazioni: Array<any>;
 
@@ -51,7 +43,12 @@ export class AppelliPage implements OnInit {
     corsi: Corso[];
     corsiMap: Map<number, Corso>;
 
+    //per filtri e ordinamento
+    filtro: FiltroAppelliDisponibili;
 
+    //ricerca
+    searchKey: string;
+    isSearchbarOpened = false;
 
 
     constructor(public route: ActivatedRoute,
@@ -96,6 +93,15 @@ export class AppelliPage implements OnInit {
                     });
                 }
             }
+            let maxAnni = 0;
+            this.corsi.forEach(
+                corso => {
+                    if (maxAnni < corso.ANNO) {
+                        maxAnni = corso.ANNO;
+                    }
+                }
+            );
+            this.filtro.setMaxAnni(maxAnni);
 
             this.updateFiltri();
         });
@@ -104,6 +110,8 @@ export class AppelliPage implements OnInit {
             this.prenotazioni = appelliPrenotati;
             this.controllaPrenotazioni(); //modifica le prenotazioni rimuovendo quelle il cui esame e superato
         });
+
+
     }
 
     ionViewDidEnter() {
@@ -189,7 +197,7 @@ export class AppelliPage implements OnInit {
 
 
     filtra() {
-
+     this.appelliFiltrati = this.filtro.filtra(this.appelli,this.corsiMap);
     }
 
     ordina() {
@@ -452,7 +460,5 @@ export class AppelliPage implements OnInit {
     goToMaterialeDidattico(appello: AppelloDisponibile) {
         this.globalData.goTo(this, ['/materiale-didattico/', appello.ad_id], 'forward', false);
     }
-
-
 
 }

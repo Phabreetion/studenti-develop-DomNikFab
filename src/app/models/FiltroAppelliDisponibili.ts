@@ -10,12 +10,17 @@ export const ORDINAMENTO_DATA_DECRESCENTE = 3;
 export const ORDINAMENTO_CFU_CRESCENTE = 4;
 export const ORDINAMENTO_CFU_DECRESCENTE = 5;
 
+export const NESSUNO =0;
+export const SCRITTO =1;
+export const ORALE =2;
+export const SCRITTO_ORALE =3;
+
 
 export class FiltroAppelliDisponibili {
 
-    filtroSuperatiAttivo: boolean;
-    filtroNonSuperatiAttivo: boolean;
+
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
+    filtraScrittoOrale: number;
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
     maxAnni: number;
@@ -32,8 +37,7 @@ export class FiltroAppelliDisponibili {
     }
 
     reset() {
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
+        this.filtraScrittoOrale = 0;
         this.filtroPerAnno = 0;
         this.idOrdinamento = 0;
         this.tipoOrdinamento = 0;
@@ -153,6 +157,10 @@ export class FiltroAppelliDisponibili {
         return appelli;
     }
 
+    setMaxAnni(maxAnni: number) {
+        this.maxAnni = maxAnni;
+    }
+
     getIterableAnni(): any[] {
         const arr = [];
 
@@ -162,5 +170,12 @@ export class FiltroAppelliDisponibili {
 
         return arr;
     }
+
+    filtra(appelli : AppelloDisponibile[], corsi : Map<number,Corso>) : AppelloDisponibile[]{
+       //definire filtra anno e filtra scritto orale
+        //appelli.filter
+        return appelli; //da togliere
+    }
+
 }
 

@@ -257,19 +257,19 @@ export class FiltroPianoDiStudio {
     }
 
     filtra(corsi: Corso[]): Corso[] {
-        if (this.filtroSuperatiAttivo) {
-            corsi = corsi.filter(corso => corso.isSuperato());
-        }
+            if (this.filtroSuperatiAttivo) {
+                corsi = corsi.filter(corso => corso.isSuperato());
+            }
 
-        if (this.filtroNonSuperatiAttivo) {
-            corsi = corsi.filter(corso => !corso.isSuperato());
-        }
+            if (this.filtroNonSuperatiAttivo) {
+                corsi = corsi.filter(corso => !corso.isSuperato());
+            }
 
-        if (this.filtroPerAnno > 0) {
-            corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
-        }
+            if (this.filtroPerAnno > 0) {
+                corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
+            }
 
-        return corsi;
+            return corsi;
     }
 
 }
