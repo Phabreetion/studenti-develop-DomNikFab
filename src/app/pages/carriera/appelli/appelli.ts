@@ -249,17 +249,11 @@ export class AppelliPage implements OnInit {
                             this.loadingCtrl.create().then(loading => {
                                 loading.present();
 
-                                this.appelliService.prenotaAppello(appello).then((data) => {
-                                    if (data === 'success') {
-                                        loading.dismiss();
-                                        this.toastService.prenotazioneEffettuataConSuccesso();
+                                this.appelliService.prenotaAppello(appello).then(() => {
+                                    loading.dismiss();
+                                    this.toastService.prenotazioneEffettuataConSuccesso();
 
-                                        //TODO - forzare aggiornamento dati e rimandare a tab prenotati
-                                    } else {
-                                        this.toastService.toastGenerico('Errore: ' + data);
-
-                                        loading.dismiss();
-                                    }
+                                    //TODO - forzare aggiornamento dati e rimandare a tab prenotati
                                 }, () => {
                                     this.toastService.prenotazioneFallita();
 

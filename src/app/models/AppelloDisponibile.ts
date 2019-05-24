@@ -91,7 +91,7 @@ export class AppelloDisponibile extends Appello  {
         const data_chiusura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
         const data_odierna = new Date();
 
-        return GlobalDataService.differenzaGiorni(data_chiusura_iscrizione, data_odierna);
+        return GlobalDataService.differenzaGiorni(data_odierna, data_chiusura_iscrizione);
     }
 
     giorniPassatiDopoLaChiusura(): number {
@@ -118,7 +118,6 @@ export class AppelloDisponibile extends Appello  {
     }
 
     isPrenotabile(): boolean {
-        console.log(this.descrizione + ' ' + this.isBeforeChiusura() + ' ' + this.isAfterApertura());
         return this.isBeforeChiusura() && this.isAfterApertura();
     }
 }
