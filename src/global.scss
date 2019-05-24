@@ -80,36 +80,33 @@
 
 .nome-esame{
   font-size: 1.0em;
-  color: #266acb;
-  font-weight: bold;
+
 }
 
 .voto {
   font-size: 1.0em;
-  color: #266acb;
   font-weight: bold;
   text-align: right;
 }
 
 .superato {
-  //border-left: 4px solid green;
-  background-color:#A5D6A7;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .superato-lode {
-  //border-left: 4px solid red;
-  background-color:#A5D6A7;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .idoneo {
-  //border-left: 4px solid green;
-  //background-color:#b5fbfc;
-  background-color:#C8E6C9;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .da-sostenere {
-  //border-left: 4px solid red;
-  background-color:#f7f7f7;
+  background-color: rgb(255, 255, 255);
+  padding: 1em;
 }
 
 .medie ion-col div {

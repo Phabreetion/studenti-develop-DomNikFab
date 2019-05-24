@@ -7,16 +7,19 @@ import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 
 @Component({
-    selector: 'app-esame',
-    templateUrl: './esame.page.html',
-    styleUrls: ['./esame.page.scss'],
+    selector: 'app-dettagli-corso',
+    templateUrl: './dettagli-corso.page.html',
+    styleUrls: ['./dettagli-corso.page.scss'],
 })
-export class EsamePage implements OnInit {
+export class DettagliCorsoPage implements OnInit {
 
     srcPage: string;
     corso: Corso;
     private libretto: any[];
     private codiceEsame: number;
+    private corsiPropedeutici: Corso[];
+
+    public isClick: boolean;
 
     constructor(
         public globalData: GlobalDataService,
@@ -32,6 +35,7 @@ export class EsamePage implements OnInit {
         this.codiceEsame = parseInt(this.activatedRoute.snapshot.paramMap.get('id'));
 
         this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
+        this.corsiPropedeutici = await this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID);
         console.log(this.corso);
     }
 
@@ -40,18 +44,18 @@ export class EsamePage implements OnInit {
     }
 
     asDueProfessori() {
-
-        if (this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME) {
-
-            return true;
-
-        }
-
-        return false;
-
+        return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
     }
 
-
+    public mostraContenuti() {
+        if (this.isClick === true) {
+            this.isClick = false;
+            return this.isClick;
+        } else {
+            this.isClick = true;
+            return this.isClick;
+        }
+    }
 
 
 

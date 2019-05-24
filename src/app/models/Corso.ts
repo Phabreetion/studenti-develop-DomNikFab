@@ -12,7 +12,7 @@ export class Corso{
 
 
     /**
-     * Non ne ho la benchè minima idea, serve per passare a materiale didattico
+     * Identificativo dell'attività didattiva. A volte potrebbe essere null.
      */
     public AD_ID: number;
 
@@ -141,8 +141,40 @@ export class Corso{
      */
     public PREREQUISITI: string;
 
+    /**
+     * Contenuti del corso, descrizione del contenuto dei singoli CFU del corso
+     */
+    public CONTENUTI: string;
 
-    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
+
+    /**
+     *
+     * @param CONTENUTI
+     * @param AA_OFF_ID
+     * @param ADSCE_ID
+     * @param ANNO
+     * @param CFU
+     * @param CODICE
+     * @param COGNOME
+     * @param DESCRIZIONE
+     * @param DOCENTI
+     * @param LODE
+     * @param NO_MEDIA
+     * @param SCELTA
+     * @param SORGENTE
+     * @param SOTTOSCRITTO
+     * @param SOVRANNUMERARIA
+     * @param STATO
+     * @param VALUTAZIONE
+     * @param VOTO
+     * @param DATA_ESAME
+     * @param DATA_ESTESA
+     * @param DATA_VERBALE
+     * @param GIUDIZIO
+     * @param NOME
+     */
+    constructor(CONTENUTI?: string, AA_OFF_ID?: number, ADSCE_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string) {
+        this.CONTENUTI = CONTENUTI;
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
         this.ANNO = ANNO;
@@ -167,12 +199,32 @@ export class Corso{
         this.VOTO = VOTO;
     }
 
+    public getFormatedContenutiCorso() {
+        let contenutiFormatted = this.CONTENUTI;
+        contenutiFormatted = contenutiFormatted.replace(/\\r\\n|\\r|\\n/g, '<br>');
+        return contenutiFormatted;
+    }
+    public pippo(): string {
+        if (this.CONTENUTI) {
+            return this.CONTENUTI.replace(/\\r\\n|\\r|\\n/g, '<br>');
+        } else {
+            return '';
+        }
+    }
+
+
+
+    public isSuperato(): boolean {
+        return this.STATO === 'S';
+    }
+
     /**
      * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
      *
      * @param obj: L'oggetto generico da convertire in istanza della classe Corso
      */
-    public static toObj(obj: Object): Corso {
+    static toObj(obj: Object): Corso {
         return Object.assign(new Corso(), obj);
     }
+
 }

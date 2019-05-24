@@ -37,12 +37,11 @@ import { NotiziaPageModule} from './pages/news/notizia/notizia.module';
 import { DettagliUtentePageModule } from './pages/home-studente/dettagli-studente/dettagli-studente.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FCM} from '@ionic-native/fcm/ngx';
-import {EsamePageModule} from './pages/carriera/esame/esame.module';
 import {Toast} from '@ionic-native/toast/ngx';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FiltroPageModule} from './pages/docente/appelli/filtro/filtro.module';
-import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
-import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {FooterComponent} from './pages/footer/footer.component';
+import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-corso.module';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
@@ -60,7 +59,7 @@ import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gesto
         AppRoutingModule,
         DettagliUtentePageModule,
         NotiziaPageModule,
-        EsamePageModule,
+        DettagliCorsoPageModule,
         HttpClientModule,
         FontAwesomeModule,
         FiltroPageModule,
@@ -91,7 +90,9 @@ import {GestoreListaCorsiComponent} from './pages/carriera/piano-di-studio/gesto
         SyncService,
         Toast,
         // Transfer,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
+    exports: [
     ],
     bootstrap: [AppComponent]
 })

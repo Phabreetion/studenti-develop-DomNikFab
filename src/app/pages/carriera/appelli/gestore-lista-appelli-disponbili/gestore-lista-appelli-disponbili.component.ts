@@ -16,14 +16,11 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
   ngOnInit() {}
 
   closeAppelli() {
-    this.modalController.dismiss(
-        {result : null }
-    );
+    this.modalController.dismiss();
   }
 
   private reset() {
     this.ordinamento = 0;
-    
   }
 
 }
