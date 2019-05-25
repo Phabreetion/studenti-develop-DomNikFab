@@ -18,7 +18,7 @@
 
                     <ion-button icon-only (click)="openFiltri()">
                         <ion-icon name="switch" style="font-size: 1.5em" ></ion-icon>
-                    </ion-button>  <!-- icona precedente "funnel" -->
+                    </ion-button>
 
                     <ion-button icon-only (click)="toogleSearchbar()">
                         <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
@@ -28,7 +28,8 @@
             </ion-toolbar>
         </ion-row>
         <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar *ngIf="isSearchbarOpened"
+            <ion-searchbar #searchbar
+                           *ngIf="isSearchbarOpened"
                            [(ngModel)]="searchKey"
                            placeholder="Cerca"
                            showCancelButton="true"

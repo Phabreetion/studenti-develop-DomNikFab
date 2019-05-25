@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {ActionSheetController, ModalController, ToastController} from '@ionic/angular';
 import {GestoreListaCorsiComponent} from './gestore-lista-corsi/gestore-lista-corsi.component';
@@ -19,6 +19,7 @@ const PAGE_URL = '/piano-di-studio';
     styleUrls: ['./piano-di-studio.page.scss'],
 })
 
+
 export class PianoDiStudioPage implements OnInit {
 
 
@@ -34,7 +35,7 @@ export class PianoDiStudioPage implements OnInit {
     //ricerca
     searchKey: string;
     isSearchbarOpened = false;
-
+    @ViewChild('searchbar') searchbar: any;
 
 
 
@@ -115,6 +116,11 @@ export class PianoDiStudioPage implements OnInit {
 
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;
+
+        if (this.isSearchbarOpened) {
+            setTimeout(() => {this.searchbar.setFocus();}, 150);
+        }
+
         this.searchKey = '';
         this.search();
     }
