@@ -18,39 +18,19 @@ export class PianoDiStudioService {
                 public storage: Storage) {
     }
 
-    public async getPropedeuticita(ad_id: number): Promise<any[]> {
+    public async getPropedeuticita(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<any[]> {
         return new Promise<any[]>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PROPEDEUTICITA, null, false).then(async (data) => {
-                const tutteLeProp: any[] = data[0];
-                //let propFiltrate = new Map<number, any>();
-                const propFiltrate = [];
-
-                const corsi = await this.getCorsi();
+                const propedeuticita = data[0];
                 let corsiPropedeutici: Corso[];
                 corsiPropedeutici = [];
 
-                console.log(ad_id);
-                console.log(tutteLeProp);
-
-                for (let i = 0; i < tutteLeProp.length; i++) {
-                    if (tutteLeProp[i].AD_ID == ad_id) {
-                        propFiltrate.push(tutteLeProp[i]);
+                propedeuticita.forEach( prop => {
+                    if (prop.AD_ID == ad_id_corso && corsiMap.get(ad_id_corso).AA_OFF_ID === prop.AA_OFF_ID) {
+                        corsiPropedeutici.push(corsiMap.get(prop.AD_PROP_ID));
                     }
-                }
+                });
 
-                for (let i = 0; i < corsi.length; i++) {
-                    let j = 0;
-                    while (j < propFiltrate.length && propFiltrate[j].AD_PROP_ID != corsi[i].AD_ID) {
-                        j++;
-                    }
-
-                    if (j < propFiltrate.length) {
-                        corsiPropedeutici.push(corsi[i]);
-                    }
-                }
-
-
-                console.log(corsiPropedeutici);
                 resolve(corsiPropedeutici);
             });
         });

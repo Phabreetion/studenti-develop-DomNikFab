@@ -3,7 +3,6 @@ import {GlobalDataService} from '../services/global-data.service';
 
 
 export class AppelloDisponibile extends Appello  {
-    // @TODO
     codice: number;
     descrizione: string;
     doc_pres_id: number;

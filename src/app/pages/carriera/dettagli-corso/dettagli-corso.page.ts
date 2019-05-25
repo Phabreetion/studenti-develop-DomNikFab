@@ -20,6 +20,7 @@ export class DettagliCorsoPage implements OnInit {
     public isClickContenuti: boolean;
     public isClickTesti: boolean;
     public isClickObiettiviFormativi: boolean;
+    public corsiMap: Map<number, Corso>;
 
 
     constructor(
@@ -36,7 +37,15 @@ export class DettagliCorsoPage implements OnInit {
         this.codiceEsame = parseInt(this.route.snapshot.paramMap.get('id'));
 
         this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
-        this.corsiPropedeutici = await this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID);
+
+        this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
+            this.corsiMap = data;
+
+            this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (data1) => {
+                this.corsiPropedeutici = data1;
+            });
+        });
+
         console.log(this.corso);
     }
 
