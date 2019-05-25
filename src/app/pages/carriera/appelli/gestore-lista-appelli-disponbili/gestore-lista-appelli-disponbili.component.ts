@@ -35,6 +35,38 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
         this.sourcePage.updateFiltri();
     }
 
+    checkfiltraScritti(){
+
+        if(this.sourcePage.filtro.filtraScritto){
+            this.sourcePage.filtro.filtraOrale = 0;
+            this.sourcePage.filtro.filtraScrittoOrale = 0;
+        }
+
+        this.updateSourcePage();
+
+    }
+
+
+    checkfiltroOrale(){
+
+        if(this.sourcePage.filtro.filtraOrale){
+            this.sourcePage.filtro.filtraScritto = 0;
+            this.sourcePage.filtro.filtraScrittoOrale = 0;
+        }
+        this.updateSourcePage();
+    }
+
+    checkfiltriScrittoOrale(){
+
+        if(this.sourcePage.filtro.filtraScrittoOrale){
+            this.sourcePage.filtro.filtraOrale = 0;
+            this.sourcePage.filtro.filtraScritto = 0;
+        }
+
+        this.updateSourcePage();
+    }
+
+
     /**
      * Questa funzione memorizza i filtri applicati.
      */
