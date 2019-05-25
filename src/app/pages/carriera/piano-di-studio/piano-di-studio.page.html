@@ -28,7 +28,7 @@
             </ion-toolbar>
         </ion-row>
         <ion-row *ngIf='isSearchbarOpened'>
-            <ion-searchbar #inputEl *ngIf="isSearchbarOpened"
+            <ion-searchbar *ngIf="isSearchbarOpened"
                            [(ngModel)]="searchKey"
                            placeholder="Cerca"
                            showCancelButton="true"

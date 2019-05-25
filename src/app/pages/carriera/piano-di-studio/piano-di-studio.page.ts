@@ -9,7 +9,7 @@ import {SyncService} from '../../../services/sync.service';
 import {HttpService} from '../../../services/http.service';
 import {AccountService} from '../../../services/account.service';
 import {ToastsService} from '../../../services/toasts.service';
-import { ViewChild } from '@angular/core';
+import { Keyboard } from 'ionic-native';
 
 const PAGE_URL = '/piano-di-studio';
 
@@ -21,7 +21,7 @@ const PAGE_URL = '/piano-di-studio';
 
 export class PianoDiStudioPage implements OnInit {
 
-    @ViewChild('inputEl') inputElRef;
+
     //corsi array
     corsi: Corso[];
     corsiFiltrati: Corso[];
@@ -215,7 +215,7 @@ export class PianoDiStudioPage implements OnInit {
      * Deve essere richiamata quando viene alterata la searchbar.
      */
     search(): void {
-        this.inputElRef.nativeElement.focus();
+        Keyboard.show();
         if (this.searchKey !== '') {
             const searchKeyLowered = this.searchKey.toLowerCase();
             this.corsiTrovati = this.corsiFiltrati.filter(corso => corso.DESCRIZIONE.toLowerCase().search(searchKeyLowered) >= 0);
