@@ -87,4 +87,11 @@ export class DettagliCorsoPage implements OnInit {
     goToMaterialeDidattico() {
         this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID], 'forward', false);
     }
+
+    goToDettagliCorso(corsoPropedeutico) {
+
+        this.globalData.goTo(this, ['/esame/', corsoPropedeutico.CODICE], 'forward', false);
+        //this.globalData.esame = esame;
+        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
+    }
 }

@@ -90,10 +90,10 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0">
-                    <ion-col>
+                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0"  >
+                    <ion-col >
                         <b><I>Propedeuticità</I></b> <br>
-                        <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici">
+                        <ion-label (click)="goToDettagliCorso(corsoPropedeutico)" *ngFor="let corsoPropedeutico of corsiPropedeutici">
                             <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
                                       [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
                             {{corsoPropedeutico.DESCRIZIONE}} <br>
