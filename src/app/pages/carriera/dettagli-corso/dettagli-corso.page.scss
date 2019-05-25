@@ -6,3 +6,11 @@ $primary_color: #3274a2;   //#3880ff colore precedente
   position: relative;
   top: 5px;
 }
+
+.button{
+  max-width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin: 0 auto;
+}
