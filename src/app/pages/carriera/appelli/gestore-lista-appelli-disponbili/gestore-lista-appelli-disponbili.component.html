@@ -57,14 +57,18 @@
         <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
 
         <ion-item>
-            <ion-label>Tipologia</ion-label>
-            <ion-select [(ngModel)]="sourcePage.filtro.filtraScrittoOrale" (ngModelChange)="updateSourcePage()"
-                        cancelText="Annulla" value="0">
-                <ion-select-option [value]="0">Nessuno</ion-select-option>
-                <ion-select-option [value]="1">Scritto</ion-select-option>
-                <ion-select-option [value]="2">Orale</ion-select-option>
-                <ion-select-option [value]="3">Scritto/Orale</ion-select-option>
-            </ion-select>
+            <ion-label>Scritto</ion-label>
+             <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScritto" (ngModelChange)="updateSourcePage()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Orale</ion-label>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraOrale" (ngModelChange)="updateSourcePage()"></ion-toggle>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Scritto e Orale</ion-label>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoOrale" (ngModelChange)="updateSourcePage()"></ion-toggle>
         </ion-item>
 
         <ion-item>

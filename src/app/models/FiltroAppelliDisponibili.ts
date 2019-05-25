@@ -22,6 +22,8 @@ export class FiltroAppelliDisponibili {
 
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
     filtraScrittoOrale: number;
+    filtraOrale:number;
+    filtraScritto:number;
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
     maxAnni: number;
@@ -172,13 +174,13 @@ export class FiltroAppelliDisponibili {
 
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
         //nel json c'è l'attributo(O,S,SO) che assume i valori 1,2,3---> 1 per scritto, 2 per orale, 3 per scritto orale
-        if (this.filtraScrittoOrale == SCRITTO) {
+        if (this.filtraScritto) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
         }
-        if (this.filtraScrittoOrale == ORALE) {
+        if (this.filtraOrale ) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
         }
-        if (this.filtraScrittoOrale == SCRITTO_ORALE) {
+        if (this.filtraScrittoOrale) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
         }
 
