@@ -4,6 +4,18 @@
   display: flex;
   flex-flow: row;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0 auto 1em auto;
+  ion-button{
+    width: 20em;
+    height: auto;
+  }
+
 }
 
+.buttons{
+  margin-left: 20em;
+  margin-right: 20em;
+  @media screen and (max-width: 1142px) {
+    margin: auto;
+  }
+}

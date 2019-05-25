@@ -40,12 +40,12 @@
     <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
                  (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
       <ion-icon name="arrow-round-down"></ion-icon>
-      Decrescente
+      <p>Decrescente</p>
     </ion-button>
     <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
                 (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
       <ion-icon name="arrow-round-up"></ion-icon>
-      Crescente
+     <p>Crescente</p>
     </ion-button>
 
   </div>
@@ -85,19 +85,19 @@
         </ion-item>
     </ion-list>
 
-<div class="button">
+<div class="buttons">
     <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-button style="width:100%" (click)="reset()">
                     <ion-icon name="refresh"></ion-icon>
-                    Reset
+                    <p>Reset</p>
                 </ion-button>
             </ion-col>
             <ion-col>
                 <ion-button (click)="memorizzaFiltri()" style="width: 100%">
                     <ion-icon name="bookmark"></ion-icon>
-                    Memorizza
+                    <p>Memorizza</p>
                 </ion-button>
             </ion-col>
 
@@ -106,7 +106,7 @@
             <ion-col>
             <ion-button (click)="closeAppelli()" style="width:100%" color="danger">
                 <ion-icon name="close"></ion-icon>
-                Chiudi
+                <p>Chiudi</p>
             </ion-button>
         </ion-col>
         </ion-row>

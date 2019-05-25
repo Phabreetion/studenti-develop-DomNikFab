@@ -23,18 +23,19 @@
 
     <div class="button">
 
-    <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
-                 (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
-        <ion-icon name="arrow-round-down"></ion-icon>
-        Decrescente
-    </ion-button>
-    <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
-                 (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
-        <ion-icon name="arrow-round-up"></ion-icon>
-        Crescente
-    </ion-button>
+        <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
+                     (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
+            <ion-icon name="arrow-round-down"></ion-icon>
+            <p>Decrescente</p>
+        </ion-button>
+        <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
+                     (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
+            <ion-icon name="arrow-round-up"></ion-icon>
+            <p>Crescente</p>
+        </ion-button>
 
     </div>
+
 
 
     <ion-list>
@@ -62,18 +63,18 @@
         </ion-item>
     </ion-list>
 
-<div class="button">
+<div class="buttons">
     <ion-grid>
         <ion-row>
             <ion-col>
                 <ion-button expand="block" color="primary" (click)="resetFiltri()">
-                    <ion-icon name="refresh"></ion-icon> Reset
+                    <ion-icon name="refresh"></ion-icon> <p>Reset</p>
                 </ion-button>
             </ion-col>
 
             <ion-col>
                 <ion-button expand="block" color="primary" (click)="memorizzaFiltri()">
-                    <ion-icon name="bookmark"></ion-icon> Memorizza
+                    <ion-icon name="bookmark"></ion-icon> <p>Memorizza</p>
                 </ion-button>
             </ion-col>
 
@@ -82,7 +83,7 @@
         <ion-row>
             <ion-col>
                 <ion-button expand="block" color="danger" (click)="closeFiltri()" >
-                    <ion-icon name="close"></ion-icon> Chiudi
+                    <ion-icon name="close"></ion-icon> <p>Chiudi</p>
                 </ion-button>
             </ion-col>
 
