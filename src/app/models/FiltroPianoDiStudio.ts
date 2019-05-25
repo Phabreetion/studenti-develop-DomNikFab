@@ -239,7 +239,6 @@ export class FiltroPianoDiStudio {
                         return -1;
                     }
 
-
                     //gestiso le collisioni sui corsi con stesso voto
                     //alfabetico
                     if (one.DESCRIZIONE.toLowerCase() > two.DESCRIZIONE.toLowerCase()) {
@@ -252,24 +251,22 @@ export class FiltroPianoDiStudio {
                 });
                 break;
         }
-
         return corsi;
     }
 
     filtra(corsi: Corso[]): Corso[] {
-            if (this.filtroSuperatiAttivo) {
-                corsi = corsi.filter(corso => corso.isSuperato());
-            }
+        if (this.filtroSuperatiAttivo) {
+            corsi = corsi.filter(corso => corso.isSuperato());
+        }
 
-            if (this.filtroNonSuperatiAttivo) {
-                corsi = corsi.filter(corso => !corso.isSuperato());
-            }
+        if (this.filtroNonSuperatiAttivo) {
+            corsi = corsi.filter(corso => !corso.isSuperato());
+        }
 
-            if (this.filtroPerAnno > 0) {
-                corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
-            }
-
-            return corsi;
+        if (this.filtroPerAnno > 0) {
+            corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
+        }
+        return corsi;
     }
 
 }

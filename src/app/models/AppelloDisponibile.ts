@@ -51,6 +51,13 @@ export class AppelloDisponibile extends Appello  {
         return Object.assign(new AppelloDisponibile(), obj);
     }
 
+    getDataEsame(): Date {
+        const dataEsame = GlobalDataService.string2date(this.data_ora_app);
+        dataEsame.setHours(0, 0, 0, 0);
+        console.log(dataEsame);
+        return dataEsame;
+    }
+
     giorniRimanentiPrimaDellApertura(): number {
         const data_apertura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
         const data_odierna = new Date();
