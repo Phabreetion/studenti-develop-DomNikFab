@@ -118,7 +118,7 @@ export class PianoDiStudioPage implements OnInit {
         this.isSearchbarOpened = !this.isSearchbarOpened;
 
         if (this.isSearchbarOpened) {
-            setTimeout(() => {this.searchbar.setFocus();}, 150);
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
         }
 
         this.searchKey = '';
