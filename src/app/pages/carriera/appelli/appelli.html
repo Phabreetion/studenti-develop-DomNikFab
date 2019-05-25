@@ -154,9 +154,9 @@
 
 
 
-                        <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()" color="lightgrey">
+                        <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()">
                             <ion-col>
-                                <ion-card-subtitle class="countdown">
+                                <ion-card-subtitle class="countdown" style="color:royalblue">
                                     <I>Mancano {{appello.giorniRimanentiPrimaDellApertura()}} giorni all'apertura dell'appello</I>
                                 </ion-card-subtitle>
                             </ion-col>
@@ -173,7 +173,7 @@
 
                         <ion-row *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura()">
                             <ion-col>
-                                <ion-card-subtitle class="countdown" color="danger">
+                                <ion-card-subtitle class="countdown" style="color:crimson">
                                     <I>Prenota l'appello entro {{appello.giorniRimanentiPrimaDellaChiusura()}} giorni</I>
                                 </ion-card-subtitle>
                             </ion-col>
@@ -287,7 +287,7 @@
                                 <ion-row>
                                     <ion-row *ngIf="prenotazione.isAfterEsame()" text-center>
                                         <ion-col color="lightgrey">
-                                            <ion-card-subtitle class="countdown"><I>L'esame è stato
+                                            <ion-card-subtitle class="countdown" style="color:green"><I>L'esame è stato
                                                 sostenuto {{prenotazione.giorniPassatiDopoEsame()}} giorni fa.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
@@ -295,7 +295,7 @@
 
                                     <ion-row *ngIf="prenotazione.isBeforeEsame()" text-center>
                                         <ion-col color="lightgrey">
-                                            <ion-card-subtitle class="countdown" color="danger"><I>Dovrai sostenere l'esame
+                                            <ion-card-subtitle class="countdown" style="color:darkcyan"><I>Dovrai sostenere l'esame
                                                 tra {{prenotazione.giorniRimanentiPrimaDellEsame()}} giorni.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
