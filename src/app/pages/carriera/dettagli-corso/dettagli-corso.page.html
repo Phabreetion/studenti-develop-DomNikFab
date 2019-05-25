@@ -101,6 +101,14 @@
                     </ion-col>
                 </ion-row>
 
+                <ion-row *ngIf="corso.GIUDIZIO">
+                    <ion-col>
+                        <b><I>Esito</I></b>
+                        <br>{{corso.GIUDIZIO}}
+                    </ion-col>
+                </ion-row>
+
+
                 <ion-row *ngIf="corso.VOTO">
                     <ion-col>
                         <b><I>Voto</I></b>
@@ -120,12 +128,6 @@
                 </ion-row>
                 </ion-grid>
 
-                <ion-row *ngIf="corso.GIUDIZIO">
-                    <ion-col>
-                        <b><I>Esito</I></b>
-                        <br>{{corso.GIUDIZIO}}
-                    </ion-col>
-                </ion-row>
 
 
 
