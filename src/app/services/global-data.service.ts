@@ -137,17 +137,17 @@ export class GlobalDataService {
 
     static differenzaGiorni(laterdate, earlierdate): number {
         const difference = laterdate.getTime() - earlierdate.getTime();
-        return Math.floor(difference / 1000 / 60 / 60 / 24);
+        return Math.ceil(difference / 1000 / 60 / 60 / 24);
     }
 
     static differenzaOre(laterdate, earlierdate): number {
         const difference = laterdate.getTime() - earlierdate.getTime();
-        return Math.floor(difference / 1000 / 60 / 60);
+        return Math.ceil(difference / 1000 / 60 / 60);
     }
 
     static differenzaMinuti(laterdate, earlierdate): number {
         const difference = laterdate.getTime() - earlierdate.getTime();
-        return Math.floor(difference / 1000 / 60);
+        return Math.ceil(difference / 1000 / 60);
     }
 
     static timestamp2string(timestamp): string {

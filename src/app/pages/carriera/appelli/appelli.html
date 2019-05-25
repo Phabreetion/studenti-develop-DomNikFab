@@ -168,10 +168,18 @@
 
 
 
-                            <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()">
+                            <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura() && appello.giorniRimanentiPrimaDellApertura() > 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:royalblue">
                                         <I>Mancano {{appello.giorniRimanentiPrimaDellApertura()}} giorni all'apertura dell'appello</I>
+                                    </ion-card-subtitle>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura() && appello.giorniRimanentiPrimaDellApertura() === 1">
+                                <ion-col>
+                                    <ion-card-subtitle class="countdown" style="color:royalblue">
+                                        <I>Manca {{appello.giorniRimanentiPrimaDellApertura()}} giorno all'apertura dell'appello</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
