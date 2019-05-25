@@ -2,6 +2,19 @@
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
 
+<!--<style>
+  .round {
+    position: relative;
+    --left: 1em;
+    width: 12em;
+    height: 30px;
+
+
+
+
+  }
+
+</style>-->
 
             <ion-list-header text-center><b>Ordina per:</b></ion-list-header>
 
@@ -22,16 +35,23 @@
         </ion-radio-group>
     </ion-list>
 
-    <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
-                (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
-        <ion-icon name="arrow-round-down"></ion-icon>
-        Decrescente
+  <div class="button">
+
+    <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
+                 (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
+      <ion-icon name="arrow-round-down"></ion-icon>
+      Decrescente
     </ion-button>
-    <ion-button expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
+    <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
                 (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
-        <ion-icon name="arrow-round-up"></ion-icon>
-        Crescente
+      <ion-icon name="arrow-round-up"></ion-icon>
+      Crescente
     </ion-button>
+
+  </div>
+
+
+
 
     <ion-list>
         <ion-list-header text-center><b>Filtra per:</b></ion-list-header>

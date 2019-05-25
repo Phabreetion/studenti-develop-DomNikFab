@@ -11,10 +11,10 @@ export const ORDINAMENTO_DATA_DECRESCENTE = 3;
 export const ORDINAMENTO_CFU_CRESCENTE = 4;
 export const ORDINAMENTO_CFU_DECRESCENTE = 5;
 
-export const NESSUNO = 0;
-export const SCRITTO = 1;
-export const ORALE = 2;
-export const SCRITTO_ORALE = 3;
+export const NESSUNO =0;
+export const SCRITTO =1;
+export const ORALE =2;
+export const SCRITTO_ORALE =3;
 
 
 export class FiltroAppelliDisponibili {
@@ -36,6 +36,8 @@ export class FiltroAppelliDisponibili {
     static toObj(obj: Object): FiltroAppelliDisponibili {
         return Object.assign(new FiltroAppelliDisponibili(), obj);
     }
+
+
 
     reset() {
         this.filtraScrittoOrale = 0;
@@ -85,17 +87,20 @@ export class FiltroAppelliDisponibili {
 
                 appelli.sort(
                     (one, two) => {
-                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+
+                        if(GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
                             return 1;
                         }
 
-                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                        if(GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
                             return -1;
                         }
+
 
                         return 0;
                     }
                 );
+
 
 
                 break;
@@ -111,6 +116,7 @@ export class FiltroAppelliDisponibili {
                             return -1;
                         }
 
+
                         return 0;
                     }
                 );
@@ -121,10 +127,11 @@ export class FiltroAppelliDisponibili {
             case ORDINAMENTO_CFU_CRESCENTE:
 
                 appelli.sort(
-                    (one, two) => {
-                        if (mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0) {
-                            return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
-                        }
+                        (one,two) => {
+
+                            if(mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0)  {
+                                return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
+                            }
 
                         return 0;
                     }
