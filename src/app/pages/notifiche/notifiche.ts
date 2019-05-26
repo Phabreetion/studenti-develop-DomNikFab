@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertController, ModalController, ToastController} from '@ionic/angular';
 import { trigger, state, style, animate, transition} from '@angular/animations';
 import {Storage} from '@ionic/storage';
@@ -33,6 +33,8 @@ export class NotifichePage implements OnInit {
     searchTerm = '';
     flyInOutState = 'in';
     showSearchBar = false;
+    @ViewChild('searchbar') searchbar: any;
+
     aggiornamentoVerificato = false;
     rinvioAggiornamento = false;
     nrRinvii = 0;
@@ -76,6 +78,11 @@ export class NotifichePage implements OnInit {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
+    }
+
+    ionViewDidEnter() {
+        this.showSearchBar = false;
+        this.searchTerm = '';
     }
 
     loadData(event) {
@@ -357,5 +364,9 @@ export class NotifichePage implements OnInit {
     public toggleInOut() {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
         this.showSearchBar = !this.showSearchBar;
+
+        if (this.showSearchBar) {
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+        }
     }
 }

@@ -1,232 +1,241 @@
 <ion-header>
-  <ion-grid no-padding>
-    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
-      <ion-col>
-        <ion-label> </ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row no-padding>
-      <ion-col no-padding>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title *ngIf='!showSearchBar'>
-            News
-          </ion-title>
-          <ion-searchbar *ngIf='showSearchBar'
-                         [@flyInOut]="flyInOutState"
-                         [(ngModel)]="searchTerm"
-                         (click)="setFiltro()"
-                         (ionChange)="setFiltro()"
-                         (ionCancel)="onSearchCancel()"
-                         (ionClear)="onSearchCancel()">
-          </ion-searchbar>
-          <ion-buttons slot="end">
-            <ion-button icon-only (click)="toggleInOut()">
-              <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
-            </ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-col no-padding>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title *ngIf='!showSearchBar'>
+                        News
+                    </ion-title>
+                    <ion-searchbar
+                        #searchbar
+                        *ngIf='showSearchBar'
+                        [@flyInOut]="flyInOutState"
+                        [(ngModel)]="searchTerm"
+                        (click)="setFiltro()"
+                        (ionChange)="setFiltro()"
+                        (ionCancel)="onSearchCancel()"
+                        (ionClear)="onSearchCancel()">
+                    </ion-searchbar>
+                    <ion-buttons slot="end">
+                        <ion-button icon-only (click)="toggleInOut()">
+                            <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-header>
 
-<ion-content id="content" >
-  <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
+<ion-content id="content">
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
 
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-segment [(ngModel)]="sezioni" (ionChange)="onViewChange($event.target)">
-          <ion-segment-button value="ateneo">Ateneo {{nrNewsAteneo}}</ion-segment-button>
-          <ion-segment-button value="dipartimento">Dipartimento {{nrNewsDipartimento}}</ion-segment-button>
-          <ion-segment-button *ngIf="globalData.userRole === 'student'" value="cds" small>Corso {{nrNewsCDS}}</ion-segment-button>
-        </ion-segment>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col no-padding>
-        <div [ngSwitch]="sezioni" >
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <ion-segment [(ngModel)]="sezioni" (ionChange)="onViewChange($event.target)">
+                    <ion-segment-button value="ateneo">Ateneo {{nrNewsAteneo}}</ion-segment-button>
+                    <ion-segment-button value="dipartimento">Dipartimento {{nrNewsDipartimento}}</ion-segment-button>
+                    <ion-segment-button *ngIf="globalData.userRole === 'student'" value="cds" small>
+                        Corso {{nrNewsCDS}}</ion-segment-button>
+                </ion-segment>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col no-padding>
+                <div [ngSwitch]="sezioni">
 
-          <ion-list *ngSwitchCase="'ateneo'" >
-            <ion-item *ngIf="ateneoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsAteneo" text-center>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <img class="progress" src="assets/img/progress.gif" />
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-title><strong>Aggiornamento in corso</strong></ion-title>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-label>un attimo di pazienza</ion-label>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
+                    <ion-list *ngSwitchCase="'ateneo'">
+                        <ion-item *ngIf="ateneoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsAteneo" text-center>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <img class="progress" src="assets/img/progress.gif"/>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-label>un attimo di pazienza</ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
 
-            <ion-item *ngIf="ateneoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsAteneo" text-center>
-              <ion-title text-center>Nessuna News di Ateneo</ion-title>
-            </ion-item>
+                        <ion-item *ngIf="ateneoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsAteneo" text-center>
+                            <ion-title text-center>Nessuna News di Ateneo</ion-title>
+                        </ion-item>
 
-            <ion-card [hidden]="ateneoNewsFiltrate?.length == 0"  *ngFor="let ateneo of ateneoNewsFiltrate" (click)="showDetails(ateneo)">
-              <ion-card-subtitle text-center>
-                {{date2string(ateneo.data)}}
-              </ion-card-subtitle>
-              <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
-                <b>{{this.pulisciNews(ateneo.messaggio)}}</b>
-              </ion-card-header>
-              <ion-card-content *ngIf="ateneo.contenuto">
-                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
-                  {{this.pulisciNews(ateneo.contenuto)}}
-                </ion-label>
-              </ion-card-content>
-              <ion-card-content *ngIf="!ateneo.contenuto">
-                <ion-label text-wrap text-center>
-                  News completa disponibile sul portale
-                </ion-label>
-              </ion-card-content>
-            </ion-card>
-          </ion-list>
+                        <ion-card [hidden]="ateneoNewsFiltrate?.length == 0" *ngFor="let ateneo of ateneoNewsFiltrate"
+                                  (click)="showDetails(ateneo)">
+                            <ion-card-subtitle text-center>
+                                {{date2string(ateneo.data)}}
+                            </ion-card-subtitle>
+                            <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
+                                <b>{{this.pulisciNews(ateneo.messaggio)}}</b>
+                            </ion-card-header>
+                            <ion-card-content *ngIf="ateneo.contenuto">
+                                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
+                                    {{this.pulisciNews(ateneo.contenuto)}}
+                                </ion-label>
+                            </ion-card-content>
+                            <ion-card-content *ngIf="!ateneo.contenuto">
+                                <ion-label text-wrap text-center>
+                                    News completa disponibile sul portale
+                                </ion-label>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-list>
 
-          <ion-list *ngSwitchCase="'dipartimento'" >
-            <ion-item *ngIf="dipartimentoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsDipartimento" text-center>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <img class="progress" src="assets/img/progress.gif" />
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-title><strong>Aggiornamento in corso</strong></ion-title>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-label>un attimo di pazienza</ion-label>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
+                    <ion-list *ngSwitchCase="'dipartimento'">
+                        <ion-item *ngIf="dipartimentoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsDipartimento"
+                                  text-center>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <img class="progress" src="assets/img/progress.gif"/>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-label>un attimo di pazienza</ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
 
-            <ion-item *ngIf="dipartimentoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsDipartimento" text-center>
-              <ion-title text-center>Nessuna News di Dipartimento</ion-title>
-            </ion-item>
+                        <ion-item *ngIf="dipartimentoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsDipartimento"
+                                  text-center>
+                            <ion-title text-center>Nessuna News di Dipartimento</ion-title>
+                        </ion-item>
 
-            <ion-card [hidden]="dipartimentoNewsFiltrate?.length == 0" *ngFor="let dipartimento of dipartimentoNewsFiltrate" (click)="showDetails(dipartimento)">
-              <ion-card-subtitle text-center>
-                {{date2string(dipartimento.data)}}
-              </ion-card-subtitle>
-              <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
-                <b>{{this.pulisciNews(dipartimento.messaggio)}}</b>
-              </ion-card-header>
-              <ion-card-content *ngIf="dipartimento.contenuto">
-                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
-                  {{this.pulisciNews(dipartimento.contenuto)}}
-                </ion-label>
-              </ion-card-content>
-              <ion-card-content *ngIf="!dipartimento.contenuto">
-                <ion-label text-wrap text-center>
-                  News completa disponibile sul portale
-                </ion-label>
-              </ion-card-content>
-            </ion-card>
-          </ion-list>
+                        <ion-card [hidden]="dipartimentoNewsFiltrate?.length == 0"
+                                  *ngFor="let dipartimento of dipartimentoNewsFiltrate"
+                                  (click)="showDetails(dipartimento)">
+                            <ion-card-subtitle text-center>
+                                {{date2string(dipartimento.data)}}
+                            </ion-card-subtitle>
+                            <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
+                                <b>{{this.pulisciNews(dipartimento.messaggio)}}</b>
+                            </ion-card-header>
+                            <ion-card-content *ngIf="dipartimento.contenuto">
+                                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
+                                    {{this.pulisciNews(dipartimento.contenuto)}}
+                                </ion-label>
+                            </ion-card-content>
+                            <ion-card-content *ngIf="!dipartimento.contenuto">
+                                <ion-label text-wrap text-center>
+                                    News completa disponibile sul portale
+                                </ion-label>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-list>
 
-          <ion-list *ngSwitchCase="'cds'" >
-            <ion-item *ngIf="corsoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsCDS" text-center>
-              <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <img class="progress" src="assets/img/progress.gif" />
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-title><strong>Aggiornamento in corso</strong></ion-title>
-                  </ion-col>
-                </ion-row>
-                <ion-row>
-                  <ion-col text-center>
-                    <ion-label>un attimo di pazienza</ion-label>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </ion-item>
+                    <ion-list *ngSwitchCase="'cds'">
+                        <ion-item *ngIf="corsoNewsFiltrate?.length == 0 && rinvioAggiornamentoNewsCDS" text-center>
+                            <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <img class="progress" src="assets/img/progress.gif"/>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col text-center>
+                                        <ion-label>un attimo di pazienza</ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </ion-grid>
+                        </ion-item>
 
-            <ion-item *ngIf="corsoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsCDS" text-center>
-              <ion-title text-center>Nessuna News del Corso</ion-title>
-            </ion-item>
+                        <ion-item *ngIf="corsoNewsFiltrate?.length == 0 && !rinvioAggiornamentoNewsCDS" text-center>
+                            <ion-title text-center>Nessuna News del Corso</ion-title>
+                        </ion-item>
 
-            <ion-card [hidden]="corsoNewsFiltrate?.length == 0" *ngFor="let corso of corsoNewsFiltrate" (click)="showDetails(corso)">
-              <ion-card-subtitle text-center>
-                {{date2string(corso.data)}}
-              </ion-card-subtitle>
-              <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
-                <b>{{this.pulisciNews(corso.messaggio)}}</b>
-              </ion-card-header>
-              <ion-card-content *ngIf="corso.contenuto">
-                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
-                  {{this.pulisciNews(corso.contenuto)}}
-                </ion-label>
-              </ion-card-content>
-              <ion-card-content *ngIf="!corso.contenuto">
-                <ion-label text-wrap text-center>
-                  News completa disponibile sul portale
-                </ion-label>
-              </ion-card-content>
-            </ion-card>
-          </ion-list>
+                        <ion-card [hidden]="corsoNewsFiltrate?.length == 0" *ngFor="let corso of corsoNewsFiltrate"
+                                  (click)="showDetails(corso)">
+                            <ion-card-subtitle text-center>
+                                {{date2string(corso.data)}}
+                            </ion-card-subtitle>
+                            <ion-card-header text-wrap class="ellipsis" ng-bind-html="snippet">
+                                <b>{{this.pulisciNews(corso.messaggio)}}</b>
+                            </ion-card-header>
+                            <ion-card-content *ngIf="corso.contenuto">
+                                <ion-label text-wrap class="ellipsis" ng-bind-html="snippet">
+                                    {{this.pulisciNews(corso.contenuto)}}
+                                </ion-label>
+                            </ion-card-content>
+                            <ion-card-content *ngIf="!corso.contenuto">
+                                <ion-label text-wrap text-center>
+                                    News completa disponibile sul portale
+                                </ion-label>
+                            </ion-card-content>
+                        </ion-card>
+                    </ion-list>
 
-          <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
-            <ion-infinite-scroll-content
-                    loadingSpinner="bubbles"
-                    loadingText="Caricamento dati...">
-            </ion-infinite-scroll-content>
-          </ion-infinite-scroll>
-        </div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+                    <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+                        <ion-infinite-scroll-content
+                                loadingSpinner="bubbles"
+                                loadingText="Caricamento dati...">
+                        </ion-infinite-scroll-content>
+                    </ion-infinite-scroll>
+                </div>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
 
-  <!--
-  <ion-refresher (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content></ion-refresher-content>
-  </ion-refresher>
-  -->
+    <!--
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+    -->
 
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
-      <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
-      <fa-icon [hidden]="isLoading() || http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
-    </ion-buttons>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
+            <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+            <fa-icon [hidden]="isLoading() || http.getConnected()" [icon]="globalData.faUnlink"></fa-icon>
+        </ion-buttons>
 
-    <div class="testo-footer" *ngIf="sezioni=='cds'">
-      Aggiornato al: {{dataAggiornamentoCDS}}
-    </div>
-    <div class="testo-footer" *ngIf="sezioni=='dipartimento'">
-      Aggiornato al: {{dataAggiornamentoDipartimento}}
-    </div>
-    <div class="testo-footer" *ngIf="sezioni=='ateneo'">
-      Aggiornato al: {{dataAggiornamentoAteneo}}
-    </div>
+        <div class="testo-footer" *ngIf="sezioni=='cds'">
+            Aggiornato al: {{dataAggiornamentoCDS}}
+        </div>
+        <div class="testo-footer" *ngIf="sezioni=='dipartimento'">
+            Aggiornato al: {{dataAggiornamentoDipartimento}}
+        </div>
+        <div class="testo-footer" *ngIf="sezioni=='ateneo'">
+            Aggiornato al: {{dataAggiornamentoAteneo}}
+        </div>
 
-    <ion-buttons slot="end">
-      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
-<ion-footer>
+        <ion-buttons slot="end">
+            <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

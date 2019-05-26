@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AlertController, ToastController} from '@ionic/angular';
 import {Storage } from '@ionic/storage';
 import {trigger, state, style, animate, transition} from '@angular/animations';
@@ -32,8 +32,10 @@ export class RubricaPage implements OnInit {
     dataAggiornamento: string;
     searchTerm = '';
 
+    @ViewChild('searchbar') searchbar: any;
     flyInOutState: String = 'in';
     showSearchBar = false;
+
     aggiornamentoVerificato = false;
     rinvioAggiornamento = false;
     nrRinvii = 0;
@@ -80,6 +82,12 @@ export class RubricaPage implements OnInit {
             }
         );
     }
+
+    ionViewDidEnter() {
+        this.showSearchBar = false;
+        this.searchTerm = '';
+    }
+
 
     loadData(event) {
         setTimeout(() => {
@@ -324,5 +332,9 @@ export class RubricaPage implements OnInit {
     toggleInOut() {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
         this.showSearchBar = !this.showSearchBar;
+
+        if (this.showSearchBar) {
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+        }
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ToastController} from '@ionic/angular';
 import { trigger, state, style, animate, transition} from '@angular/animations';
 import {SyncService} from '../../services/sync.service';
@@ -49,6 +49,7 @@ export class NewsPage implements OnInit {
 
     flyInOutState = 'in';
     showSearchBar = false;
+    @ViewChild('searchbar') searchbar: any;
 
     aggiornamentoNewsDipartimentoVerificato = false;
     aggiornamentoNewsAteneoVerificato = false;
@@ -93,6 +94,11 @@ export class NewsPage implements OnInit {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
+    }
+
+    ionViewDidEnter() {
+        this.showSearchBar = false;
+        this.searchTerm = '';
     }
 
     onViewChange(data) {
@@ -457,6 +463,10 @@ export class NewsPage implements OnInit {
     toggleInOut() {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
         this.showSearchBar = !this.showSearchBar;
+
+        if (this.showSearchBar) {
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+        }
     }
 
     pulisciNews(newsItem: string): string {
