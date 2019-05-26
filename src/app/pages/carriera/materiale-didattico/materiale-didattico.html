@@ -90,7 +90,7 @@
                                 <ion-row>
                                     <ion-col>
                                         <div text-wrap>
-                                            <b>{{file.FILENAME}}</b>
+                                            <b>{{file.TITOLO}}</b>
                                             <div *ngIf="file.scaricato == 1"><ion-icon class="overlayClass" name="checkmark-circle"></ion-icon></div>
                                             <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
                                         </div>
@@ -99,7 +99,7 @@
                                 <ion-row>
                                     <ion-col>
                                         <ion-label text-wrap>
-                                            <p [innerHtml]="troncaTesto(this.stripHTML(file.TESTO))"></p>
+                                            <fa-icon [icon]="globalData.faCalendarDay"></fa-icon> {{file .DATA_INS}}
                                         </ion-label>
                                     </ion-col>
                                 </ion-row>

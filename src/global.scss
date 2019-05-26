@@ -200,4 +200,12 @@ ion-icon {
   box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
 }
 
+$primary_color: #3274a2;   //#3880ff colore precedente
+
+.iconaNote{
+  color: $primary_color;
+  font-size: 1.5em;
+  position: relative;
+  top: 5px;
+}
 
