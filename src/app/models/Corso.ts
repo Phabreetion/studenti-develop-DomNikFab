@@ -75,7 +75,7 @@ export class Corso {
     /**
      * GIUDIZIO riguarda gli esami in cui non si ha una valutazione in trentesimi ma ad esempio un idonietà
     */
-    public GIUDIZIO: number;
+    public GIUDIZIO: string;
 
 
     /**
@@ -194,7 +194,7 @@ export class Corso {
      * @param TESTI
      * @param OBIETTIVI_FORMATIVI
      */
-    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, AD_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, CONTENUTI?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: number, NOME?: string, TESTI?: string, OBIETTIVI_FORMATIVI?:string) {
+    constructor(AA_OFF_ID?: number, ADSCE_ID?: number, AD_ID?: number, ANNO?: number, CFU?: number, CODICE?: number, COGNOME?: string, CONTENUTI?: string, DESCRIZIONE?: string, DOCENTI?: string, LODE?: number, NO_MEDIA?: number, SCELTA?: number, SORGENTE?: number, SOTTOSCRITTO?: number, SOVRANNUMERARIA?: number, STATO?: string, VALUTAZIONE?: string, VOTO?: number, DATA_ESAME?: string, DATA_ESTESA?: string,  DATA_VERBALE?: string, GIUDIZIO?: string, NOME?: string, TESTI?: string, OBIETTIVI_FORMATIVI?:string) {
         this.AA_OFF_ID = AA_OFF_ID;
         this.ADSCE_ID = ADSCE_ID;
         this.AD_ID = AD_ID;
