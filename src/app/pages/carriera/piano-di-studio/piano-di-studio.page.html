@@ -108,7 +108,7 @@
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].isSuperato() !== corsiTrovati[i-1].isSuperato()))">
-                <ion-title text-center> {{corso.isSuperato() ? 'SUPERATI' : 'NON SUPERATI'}}</ion-title>
+                <ion-title text-center> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
             </ion-item>
 
             <ion-item-sliding>
