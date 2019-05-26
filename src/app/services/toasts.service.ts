@@ -100,6 +100,22 @@ export class ToastsService {
         }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
     }
 
+    filtriMemorizzatiConSuccesso() {
+        this.toastCtrl.create({
+            message: 'Le tue preferenze sono state memorizzate con successo.',
+            duration: 2000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
+    filtriNonMemorizzati() {
+        this.toastCtrl.create({
+            message: 'Le tue preferenze saranno applicate fino alla chiusura dell\'app.',
+            duration: 2000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
     annullamentoNonPiuPossibile() {
         this.toastCtrl.create({
             message: 'Non è più possibile annullare la prenotazione.',

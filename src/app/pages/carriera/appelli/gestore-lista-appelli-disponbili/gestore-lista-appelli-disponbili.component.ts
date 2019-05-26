@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
+import {AlertController, ModalController, NavParams} from '@ionic/angular';
 import {AppelliPage} from '../appelli';
+import {ToastsService} from '../../../../services/toasts.service';
 
 @Component({
     selector: 'app-gestore-lista-appelli-disponbili',
@@ -14,7 +15,9 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
 
     constructor(
         private modalController: ModalController,
-        private navParam: NavParams) {
+        private navParam: NavParams,
+        private alertController: AlertController,
+        private toastService: ToastsService) {
     }
 
     ngOnInit() {
@@ -35,9 +38,31 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
         this.sourcePage.updateFiltri();
     }
 
-    checkfiltraScritti(){
+    async presentAlertPerConfermaMemorizzazione() {
+        const alert = await this.alertController.create({
+            header: 'Memorizzare le preferenze?',
+            message: 'Sei sicuro di voler memorizzare le preferenze di filtro specificate?',
+            buttons: [{
+                text: 'Sí',
+                handler: () => {
+                    this.memorizzaFiltri();
+                    this.closeFiltri();
+                    this.toastService.filtriMemorizzatiConSuccesso();
+                }
+            }, {
+                text: 'No',
+                handler: () => {
+                    this.toastService.filtriNonMemorizzati();
+                }
+            }]
+        });
 
-        if(this.sourcePage.filtro.filtraScritto){
+        await alert.present();
+    }
+
+    checkfiltraScritti() {
+
+        if (this.sourcePage.filtro.filtraScritto) {
             this.sourcePage.filtro.filtraOrale = 0;
             this.sourcePage.filtro.filtraScrittoOrale = 0;
         }
@@ -47,18 +72,18 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
     }
 
 
-    checkfiltroOrale(){
+    checkfiltroOrale() {
 
-        if(this.sourcePage.filtro.filtraOrale){
+        if (this.sourcePage.filtro.filtraOrale) {
             this.sourcePage.filtro.filtraScritto = 0;
             this.sourcePage.filtro.filtraScrittoOrale = 0;
         }
         this.updateSourcePage();
     }
 
-    checkfiltriScrittoOrale(){
+    checkfiltriScrittoOrale() {
 
-        if(this.sourcePage.filtro.filtraScrittoOrale){
+        if (this.sourcePage.filtro.filtraScrittoOrale) {
             this.sourcePage.filtro.filtraOrale = 0;
             this.sourcePage.filtro.filtraScritto = 0;
         }
@@ -72,6 +97,13 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
      */
     memorizzaFiltri() {
         this.sourcePage.memorizzaFiltri();
+    }
+
+    /**
+     * Questa funzione chiude la schermata dei filtri.
+     */
+    closeFiltri() {
+        this.modalController.dismiss();
     }
 
 

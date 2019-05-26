@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController, NavParams} from '@ionic/angular';
+import {AlertController, ModalController, NavParams} from '@ionic/angular';
 import {PianoDiStudioPage} from '../piano-di-studio.page';
+import {ToastsService} from '../../../../services/toasts.service';
 
 @Component({
     selector: 'app-gestore-lista-corsi',
@@ -12,7 +13,9 @@ export class GestoreListaCorsiComponent implements OnInit {
 
     constructor(
         private modalController: ModalController,
-        private navParam: NavParams) {
+        private navParam: NavParams,
+        private alertController: AlertController,
+        private toastService: ToastsService) {
     }
 
     ngOnInit() {
@@ -40,6 +43,28 @@ export class GestoreListaCorsiComponent implements OnInit {
         }
 
         this.updateSourcePage();
+    }
+
+    async presentAlertPerConfermaMemorizzazione() {
+        const alert = await this.alertController.create({
+            header: 'Memorizzare le preferenze?',
+            message: 'Sei sicuro di voler memorizzare le preferenze di filtro specificate?',
+            buttons: [{
+                text: 'Sí',
+                handler: () => {
+                    this.memorizzaFiltri();
+                    this.closeFiltri();
+                    this.toastService.filtriMemorizzatiConSuccesso();
+                }
+            }, {
+                text: 'No',
+                handler: () => {
+                    this.toastService.filtriNonMemorizzati();
+                }
+            }]
+        });
+
+        await alert.present();
     }
 
 

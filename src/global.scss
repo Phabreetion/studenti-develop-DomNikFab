@@ -19,53 +19,6 @@
   margin: auto;
 }
 
-.primoAnno {
-  border-left: 4px solid darkorange;
-  border-right: 4px solid darkorange;
-}
-
-.secondoAnno {
-  border-left: 4px solid #0066ff;
-  border-right: 4px solid #0066ff;
-}
-
-.terzoAnno {
-  border-left: 4px solid forestgreen;
-  border-right: 4px solid forestgreen;
-}
-
-.quartoAnno {
-  border-left: 4px solid #006666;
-  border-right: 4px solid #006666;
-}
-
-.quintoAnno {
-  border-left: 4px solid #f0ad4e;
-  border-right: 4px solid #f0ad4e;
-}
-
-.sestoAnno {
-  border-left: 4px solid peru;
-  border-right: 4px solid peru;
-}
-
-.altriAnni {
-  border-left: 4px solid beige;
-  border-right: 4px solid beige;
-  background-color: #adadad !important;
-}
-
-
-.scelta {
-  border-left: 4px solid #8c8c8c;
-  border-right: 4px solid #8c8c8c;
-}
-
-.pds {
-  border-top: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
-}
-
 .esame{
   vertical-align: top;
   text-align: left;
@@ -76,37 +29,6 @@
   vertical-align: center;
   text-align: center;
   font-size: 0.9em;
-}
-
-.nome-esame{
-  font-size: 1.0em;
-
-}
-
-.voto {
-  font-size: 1.0em;
-  font-weight: bold;
-  text-align: right;
-}
-
-.superato {
-  background-color: #c6f2b3;
-  padding: 1em;
-}
-
-.superato-lode {
-  background-color: #c6f2b3;
-  padding: 1em;
-}
-
-.idoneo {
-  background-color: #c6f2b3;
-  padding: 1em;
-}
-
-.da-sostenere {
-  background-color: rgb(255, 255, 255);
-  padding: 1em;
 }
 
 .countdown{
@@ -266,11 +188,9 @@ ion-icon {
   -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
-  //--background: rgba(0,0,0,0);
-  //background-color: rgba(0, 0, 0, 0);
 }
 .gestore-lista-appelli-disponibili-css .modal-wrapper {
-  height: 70%;
+  height: 85%;
   width: 80%;
   position: absolute;
   display: block;
@@ -278,8 +198,6 @@ ion-icon {
   -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
-  //--background: rgba(0,0,0,0);
-  //background-color: rgba(0, 0, 0, 0);
 }
 
 
