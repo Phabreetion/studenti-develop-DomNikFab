@@ -115,7 +115,7 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corso.GIUDIZIO !== 'IDO' && corso.GIUDIZIO !== 'SUP' ">
+                <ion-row *ngIf="corso.GIUDIZIO && corso.GIUDIZIO !== 'IDO' && corso.GIUDIZIO !== 'SUP'">
                     <ion-col>
                         <b><I>Esito</I></b>
                         <br> {{corso.GIUDIZIO}}
