@@ -187,9 +187,22 @@ export class AppelliService {
     }
 
 
-    public isAppelliLoading(): boolean {
-        return this.sync.isLoading(ID_SERVIZIO_APPELLI_PRENOTATI) || this.sync.isLoading(ID_SERVIZIO_APPELLI_DISPONIBILI);
+
+
+    public isAppelliDisponibiliLoading(): boolean {
+        return this.sync.isLoading(ID_SERVIZIO_APPELLI_PRENOTATI);
     }
+
+    public isAppelliPrenotatiLoading(): boolean {
+        return this.sync.isLoading(ID_SERVIZIO_APPELLI_PRENOTATI);
+    }
+
+    public isAppelliLoading(): boolean {
+        return this.isAppelliDisponibiliLoading() || this.isAppelliPrenotatiLoading();
+    }
+
+
+
 
     public areAppelliChanged(appelliOld: Appello[], appelliNew: Appello[]): boolean {
         return this.sync.dataIsChanged(appelliOld, appelliNew);

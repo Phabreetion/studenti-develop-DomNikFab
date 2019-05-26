@@ -63,7 +63,7 @@
     </ion-refresher>
 
     <ion-list *ngSwitchCase="'disponibili'">
-        <ion-grid *ngIf="appelli?.length == 0" text-center>
+        <ion-grid *ngIf="appelli?.length == 0 && appelliService.isAppelliDisponibiliLoading()" text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -81,7 +81,7 @@
             </ion-row>
         </ion-grid>
 
-        <ion-item *ngIf="appelli?.length == 0" text-center>
+        <ion-item *ngIf="appelli?.length == 0 && !appelliService.isAppelliDisponibiliLoading()" text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>
@@ -240,7 +240,7 @@
 
     <ion-list *ngSwitchCase="'prenotati'">
 
-        <ion-grid *ngIf="prenotazioni?.length == 0" text-center>
+        <ion-grid *ngIf="prenotazioni?.length == 0  && appelliService.isAppelliPrenotatiLoading()" text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -258,7 +258,7 @@
             </ion-row>
         </ion-grid>
 
-        <ion-item *ngIf="prenotazioni?.length == 0" text-center>
+        <ion-item *ngIf="prenotazioni?.length == 0 && !appelliService.isAppelliPrenotatiLoading()" text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>

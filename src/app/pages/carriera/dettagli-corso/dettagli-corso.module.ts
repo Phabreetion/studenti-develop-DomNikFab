@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { DettagliCorsoPage } from './dettagli-corso.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {AppModule} from '../../../app.module';
 import {FooterComponent} from '../../footer/footer.component';
 
 const routes: Routes = [
