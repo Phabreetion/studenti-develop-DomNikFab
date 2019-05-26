@@ -258,7 +258,7 @@ export class PianoDiStudioPage implements OnInit {
 
 
     goToDettagliCorso(corso: Corso) {
-        this.globalData.goTo(this, ['/esame/', corso.CODICE], 'forward', false);
+        this.globalData.goTo(this, ['/esame/', corso.AD_ID], 'forward', false);
         //this.globalData.esame = esame;
         //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }

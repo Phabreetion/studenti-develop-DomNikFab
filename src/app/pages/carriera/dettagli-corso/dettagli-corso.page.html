@@ -168,7 +168,7 @@
     <ion-grid>
         <ion-row>
             <ion-col *ngIf="!corso.VOTO && !corso.GIUDIZIO">
-                <ion-button expand="block" (click)="goToAppelli()">Appelli</ion-button>
+                <ion-button expand="block" [disabled]="!corsoConAppelli" (click)="goToAppelli()">Appelli</ion-button>
             </ion-col>
             <ion-col>
                 <ion-button expand="block" (click)="goToMaterialeDidattico()">Materiale didattico</ion-button>

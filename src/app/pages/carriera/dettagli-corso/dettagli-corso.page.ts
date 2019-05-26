@@ -4,6 +4,8 @@ import {HttpService} from '../../../services/http.service';
 import {ActivatedRoute} from '@angular/router';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
+import {AppelliService} from '../../../services/appelli.service';
+import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 
 @Component({
     selector: 'app-dettagli-corso',
@@ -11,40 +13,64 @@ import {Corso} from '../../../models/Corso';
     styleUrls: ['./dettagli-corso.page.scss'],
 })
 export class DettagliCorsoPage implements OnInit {
-
-    srcPage: string;
     corso: Corso;
-    private codiceEsame: number;
+
+    appelli: AppelloDisponibile[];
+
+    private ad_id_corso: number;
     private corsiPropedeutici: Corso[];
 
     public isClickContenuti: boolean;
     public isClickTesti: boolean;
     public isClickObiettiviFormativi: boolean;
+
     public corsiMap: Map<number, Corso>;
+
+    corsoConAppelli: boolean;
 
 
     constructor(
         public globalData: GlobalDataService,
         public http: HttpService,
         private route: ActivatedRoute,
-        private pianoDiStudioService: PianoDiStudioService) {
+        private pianoDiStudioService: PianoDiStudioService,
+        private appelliService: AppelliService) {
+        this.corsoConAppelli = false;
     }
 
     async ngOnInit() {
-        this.srcPage = this.globalData.srcPage;
-        //this.corso = this.globalData.corso;
+        //@TODO -> ridurre complessità di caricamento della pagina
+
         this.http.getConnected();
-        this.codiceEsame = parseInt(this.route.snapshot.paramMap.get('id'));
 
-        this.corso = await this.pianoDiStudioService.getCorso(this.codiceEsame);
+        this.ad_id_corso = Number(this.route.snapshot.paramMap.get('id'));
 
-        this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
-            this.corsiMap = data;
 
-            this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (data1) => {
-                this.corsiPropedeutici = data1;
-            });
-        });
+        //this.corso = this.globalData.corso;
+        const corsoPromise = this.pianoDiStudioService.getCorso(this.ad_id_corso);
+        const corsiMapPromise  = this.pianoDiStudioService.getCorsiAsMap();
+        const appelliPromise = this.appelliService.getAppelliDisponibili();
+        //const filePromise = this.sync.getJson()
+
+        Promise.all([corsoPromise, corsiMapPromise, appelliPromise]).then( (data) => {
+                this.corso = data[0];
+                this.corsiMap = data[1];
+                this.appelli = data[2];
+
+                this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (data1) => {
+                    this.corsiPropedeutici = data1;
+                });
+
+                //cerco un appello con ad_id uguale a quello passato
+                let i = 0;
+                while (i < this.appelli.length && this.appelli[i].ad_id != this.ad_id_corso) {
+                    i++;
+                }
+
+
+                this.corsoConAppelli = i < this.appelli.length;
+            }
+        );
 
         console.log(this.corso);
     }
@@ -99,7 +125,7 @@ export class DettagliCorsoPage implements OnInit {
 
     goToDettagliCorso(corsoPropedeutico) {
 
-        this.globalData.goTo(this, ['/esame/', corsoPropedeutico.CODICE], 'forward', false);
+        this.globalData.goTo(this, ['/esame/', corsoPropedeutico.AD_ID], 'forward', false);
         //this.globalData.esame = esame;
         //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }

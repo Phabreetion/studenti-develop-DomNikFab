@@ -57,7 +57,7 @@
     </ion-refresher>
 
     <!-- <ion-grid *ngIf="rinvioAggiornamento && !corsi" text-center>-->
-    <ion-grid *ngIf="sync.isLoading(112) && !corsi" text-center>
+    <ion-grid *ngIf="pianoDiStudioService.isLoading() && !corsi" text-center>
         <ion-row>
             <ion-col>
                 <img class="progress" src="assets/img/progress.gif"/>
@@ -75,7 +75,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="!sync.isLoading(112) && !corsi" text-center>
+    <ion-grid *ngIf="!pianoDiStudioService.isLoading() && !corsi" text-center>
         <ion-row>
             <ion-col>
                 <ion-icon name="warning" color="warning" style="font-size: 5em"></ion-icon>

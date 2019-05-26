@@ -190,7 +190,7 @@ export class AppelliService {
 
 
     public isAppelliDisponibiliLoading(): boolean {
-        return this.sync.isLoading(ID_SERVIZIO_APPELLI_PRENOTATI);
+        return this.sync.isLoading(ID_SERVIZIO_APPELLI_DISPONIBILI);
     }
 
     public isAppelliPrenotatiLoading(): boolean {

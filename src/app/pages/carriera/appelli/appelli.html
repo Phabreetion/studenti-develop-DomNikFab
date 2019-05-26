@@ -47,6 +47,7 @@
                 <ion-segment-button value="prenotati">Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
             </ion-segment>
         </ion-row>
+
     </ion-grid>
 </ion-header>
 
@@ -57,7 +58,7 @@
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
-                refreshingSpinner="crescent"
+                refreshingSpinner="null"
                 refreshingText="Aggiornamento...">
         </ion-refresher-content>
     </ion-refresher>
@@ -239,7 +240,6 @@
 
 
     <ion-list *ngSwitchCase="'prenotati'">
-
         <ion-grid *ngIf="prenotazioni?.length == 0  && appelliService.isAppelliPrenotatiLoading()" text-center>
             <ion-row>
                 <ion-col>
@@ -268,7 +268,7 @@
             </ion-grid>
         </ion-item>
 
-        <ion-grid *ngIf="prenotazioni?.length > 0" text-center> <!-- no-padding-->
+        <ion-grid *ngIf="prenotazioni?.length > 0" text-center>
             <ion-row>
                 <ion-col>
                     <ion-item-sliding #itemSliding *ngFor="let prenotazione of prenotazioni">
@@ -355,21 +355,20 @@
 
 <ion-footer no-padding>
     <ion-toolbar>
-        <ion-buttons slot="start">
-            <ion-spinner [hidden]="!this.appelliService.isAppelliLoading() || !http.getConnected()"></ion-spinner>
-            <ion-icon [hidden]="this.appelliService.isAppelliLoading() || !http.getConnected()"
+        <div slot="start">
+            <ion-icon [hidden]="!http.getConnected()"
                       name="checkmark"></ion-icon>
-            <ion-icon [hidden]="this.appelliService.isAppelliLoading() || http.getConnected()" name="close"></ion-icon>
-        </ion-buttons>
+            <ion-icon [hidden]=" http.getConnected()" name="close"></ion-icon>
+        </div>
+
         <div *ngIf="sezioni=='disponibili'" class="testo-footer">
             Aggiornato al: {{sync.getDataUltimoAggiornamento(1)}}
         </div>
         <div *ngIf="sezioni=='prenotati'" class="testo-footer">
             Aggiornato al: {{sync.getDataUltimoAggiornamento(10)}}
         </div>
-        <ion-buttons no-padding slot="end">
-            <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
-        </ion-buttons>
+
+        <ion-spinner [hidden]="!appelliService.isAppelliLoading()" slot="end"></ion-spinner>
     </ion-toolbar>
 </ion-footer>
 

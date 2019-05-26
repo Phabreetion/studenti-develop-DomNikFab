@@ -118,11 +118,11 @@ export class PianoDiStudioService {
         this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
     }
 
-    public async getCorso(codiceEsame: number): Promise<Corso> {
+    public async getCorso(ad_id_corso: number): Promise<Corso> {
         return new Promise<Corso>((resolve, reject) => {
             this.getCorsi().then((corsi) => {
                 let i = 0;
-                while (i < corsi.length && corsi[i].CODICE != codiceEsame) {
+                while (i < corsi.length && corsi[i].AD_ID != ad_id_corso) {
                     i++;
                 }
 

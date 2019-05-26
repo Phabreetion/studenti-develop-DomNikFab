@@ -89,7 +89,7 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if (this.ad_id_insegnamento !== 0 ) {
+                if (this.ad_id_insegnamento != 0 ) {
                     this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
                 }
 
@@ -125,7 +125,7 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if (this.ad_id_insegnamento !== 0 ) {
+                if (this.ad_id_insegnamento != 0 ) {
                     this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
                 }
 
@@ -152,18 +152,16 @@ export class AppelliPage implements OnInit {
     doRefresh(event) {
         if (this.sezioni === 'disponibili') {
             this.appelliService.getAppelliDisponibiliAggiornati().then((appelliDisponibiliAggiornati) => {
-                if (this.appelliService.areAppelliChanged(appelliDisponibiliAggiornati, this.appelli)) {
-                    console.log('appelli disponibili aggiornati');
-                    //
-                    this.appelli = appelliDisponibiliAggiornati;
 
-                    if (this.ad_id_insegnamento != null) {
-                        this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento );
-                    }
+                this.appelli = appelliDisponibiliAggiornati;
 
-                    this.updateFiltri();
+                if (this.ad_id_insegnamento != 0) {
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento );
                 }
+
+                this.updateFiltri();
                 event.target.complete();
+
             }).catch((err) => {
                 console.log(err);
                 event.target.complete();
@@ -380,7 +378,7 @@ export class AppelliPage implements OnInit {
 
 
     goToDettagliCorso(appello: AppelloDisponibile) {
-        this.globalData.goTo(this, ['/esame/', appello.codice], 'forward', false);
+        this.globalData.goTo(this, ['/esame/', appello.ad_id], 'forward', false);
     }
 
     goToMaterialeDidattico(appello: AppelloDisponibile) {
