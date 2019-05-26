@@ -29,7 +29,6 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
     }
 
     private reset() {
-
         this.sourcePage.filtro.reset();
         this.updateSourcePage();
     }

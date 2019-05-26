@@ -46,7 +46,8 @@
             <ion-segment (ionChange)="ngOnInit()" [(ngModel)]="sezioni">
                 <ion-segment-button value="disponibili">
                     Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
-                <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
+                <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
+                    Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
             </ion-segment>
         </ion-row>
 
@@ -103,20 +104,20 @@
             <div *ngFor="let appello of appelliTrovati; let i = index">
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
-                    <ion-title text-center>{{appello.data_ora_app.substring(0, 10)}}</ion-title>
+                    <ion-title text-center style="font-size: 85% ">{{appello.data_ora_app.substring(0, 10)}}</ion-title>
                 </ion-item>
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].descrizione.charAt(0) !== appelliTrovati[i-1].descrizione.charAt(0)))">
-                    <ion-title text-center>{{appello.descrizione.charAt(0)}}</ion-title>
+                    <ion-title text-center style="font-size: 90% ">{{appello.descrizione.charAt(0)}}</ion-title>
                 </ion-item>
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).CFU !== corsiMap.get(appelliTrovati[i-1].ad_id).CFU))">
-                    <ion-title text-center>{{corsiMap.get(appello.ad_id).CFU}} CFU</ion-title>
+                    <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).CFU}} CFU</ion-title>
                 </ion-item>
 
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).ANNO !== corsiMap.get(appelliTrovati[i-1].ad_id).ANNO))">
-                    <ion-title text-center>{{corsiMap.get(appello.ad_id).ANNO}}° ANNO</ion-title>
+                    <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).ANNO}}° ANNO</ion-title>
                 </ion-item>
 
 
@@ -124,7 +125,13 @@
 
                     <ion-item>
 
-                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;"><ion-button icon-only ><ion-icon name="md-document"></ion-icon></ion-button></ion-buttons>
+                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;">
+                            <ion-button icon-only (click)="presentActionSheet(appello)">
+                                <ion-icon name="md-document"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+
+
                         <ion-grid>
                             <div class="materiale-laterale">
                                 <ion-row>
@@ -205,7 +212,7 @@
                             <ion-row *ngIf=" appello.p10_app_note" color="lightgrey">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown">
-                                        <I>NOTA:{{appello.p10_app_note}}</I>
+                                        <I>NOTA: {{appello.p10_app_note}}</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
@@ -215,7 +222,7 @@
                                     *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() > 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
+                                        <I>Prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
                                             giorni</I>
                                     </ion-card-subtitle>
                                 </ion-col>
@@ -225,7 +232,7 @@
                                     *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() < 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
+                                        <I>Prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
                                             giorno</I>
                                     </ion-card-subtitle>
                                 </ion-col>
@@ -235,11 +242,11 @@
                     </ion-item>
 
                     <ion-item-options side="end" slot="top">
-                        <ion-item-option color="danger" (click)="goToDettagliCorso(appello)">
+                        <ion-item-option color="danger" (click)="goToDettagliCorso(appello)" text-center>
                             Dettagli<br>corso
                         </ion-item-option>
 
-                        <ion-item-option color="warning" (click)="goToMaterialeDidattico(appello)">
+                        <ion-item-option color="warning" (click)="goToMaterialeDidattico(appello)" text-center>
                             Materiale<br>didattico
                         </ion-item-option>
 
@@ -345,8 +352,7 @@
                                     <ion-row *ngIf="prenotazione.isBeforeEsame()" text-center>
                                         <ion-col color="lightgrey">
                                             <ion-card-subtitle class="countdown" style="color:darkcyan"><I>Dovrai
-                                                sostenere l'esame
-                                                tra {{prenotazione.giorniRimanentiPrimaDellEsame()}} giorni.</I>
+                                                sostenere l'esame tra {{prenotazione.giorniRimanentiPrimaDellEsame()}} giorni.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
