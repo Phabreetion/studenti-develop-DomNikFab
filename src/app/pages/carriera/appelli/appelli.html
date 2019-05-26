@@ -120,17 +120,18 @@
 
                 <ion-item-sliding #itemSliding >
 
-                    <ion-item class="materiale-laterale">
+                    <ion-item>
 
-                        <ion-buttons class="materiale-laterale"><ion-button icon-only ><ion-icon name="md-document" ></ion-icon></ion-button></ion-buttons>
-
-                        <ion-grid class="materiale-laterale">
+                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;"><ion-button icon-only ><ion-icon name="md-document" ></ion-icon></ion-button></ion-buttons>
+                        <ion-grid>
+                        <div class="materiale-laterale">
                             <ion-row>
                                 <ion-col>
                                     <ion-icon name="md-book" style="position: relative; top: 2px;"></ion-icon>
                                     <b> {{ pulisciTesto(appello.descrizione)}}</b>
                                 </ion-col>
                             </ion-row>
+                        </div>
 
 
                             <ion-row *ngIf="appello.p10_app_des && appello.p10_app_des != appello.descrizione">

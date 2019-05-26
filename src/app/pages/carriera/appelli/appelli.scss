@@ -8,21 +8,9 @@ ion-item {
   display: flex;
   flex-flow: column nowrap;
   justify-content: flex-start;
-  height: 100%;
-
-  border-left: 1px solid black;
-  ion-icon{
-    height: 100%;
-    border-right: 1px solid #dedede;
-  }
-  ion-buttons{
-    height: 100%;
-    border-right: 1px solid #dedede;
-  }
-  ion-item{
-    height: 100%;
-    border-right: 1px solid #dedede;
-  }
 }
+
+
+
 
 
