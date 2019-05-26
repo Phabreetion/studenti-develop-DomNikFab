@@ -54,7 +54,6 @@ export class AppelloDisponibile extends Appello  {
     getDataEsame(): Date {
         const dataEsame = GlobalDataService.string2date(this.data_ora_app);
         dataEsame.setHours(0, 0, 0, 0);
-        console.log(dataEsame);
         return dataEsame;
     }
 

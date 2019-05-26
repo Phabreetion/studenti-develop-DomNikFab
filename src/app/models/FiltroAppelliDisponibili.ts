@@ -40,8 +40,10 @@ export class FiltroAppelliDisponibili {
     reset() {
         this.filtraScrittoOrale = 0;
         this.filtroPerAnno = 0;
-        this.idOrdinamento = 0;
-        this.tipoOrdinamento = 0;
+        this.filtraScritto = 0;
+        this.filtraOrale = 0;
+        this.idOrdinamento = 2;
+        this.tipoOrdinamento = 2;
     }
 
     ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso>): AppelloDisponibile[] {
