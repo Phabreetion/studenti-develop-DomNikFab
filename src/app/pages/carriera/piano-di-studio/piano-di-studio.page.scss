@@ -1,3 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css?family=Gaegu&display=swap');
+
+
 ion-item {
   --padding-start:0px;
   --inner-padding-end:0px;
@@ -9,7 +13,8 @@ ion-item {
 }
 
 .voto {
-  font-size: 1.0em;
+  font-family: 'Gaegu', cursive;
+  font-size: 1.1em;
   font-weight: bold;
   text-align: right;
 }

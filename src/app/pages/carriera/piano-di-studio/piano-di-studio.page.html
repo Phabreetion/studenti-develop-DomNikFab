@@ -148,7 +148,7 @@
                                 </ion-grid>
                             </ion-col>
 
-                            <ion-col size="2" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
+                            <ion-col class="voto" size="2" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
                                 <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
                                 <div *ngIf="corso.VOTO && corso.LODE==1" class="voto">30L</div>
                                 <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>
