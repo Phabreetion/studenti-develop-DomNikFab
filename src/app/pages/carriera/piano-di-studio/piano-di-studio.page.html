@@ -38,8 +38,10 @@
                            (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
-        <ion-button (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
+        <div class="reset">
+        <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
         </ion-button>
+        </div>
     </ion-grid>
 </ion-header>
 
