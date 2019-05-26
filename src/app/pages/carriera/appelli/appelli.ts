@@ -155,36 +155,29 @@ export class AppelliPage implements OnInit {
 
 
     doRefresh(event) {
-        if (this.sezioni === 'disponibili') {
-            this.appelliService.getAppelliDisponibiliAggiornati().then((appelliDisponibiliAggiornati) => {
 
-                this.appelli = appelliDisponibiliAggiornati;
+        this.appelliService.getAppelliDisponibiliAggiornati().then((appelliDisponibiliAggiornati) => {
 
-                if (this.ad_id_insegnamento != 0) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
-                }
+            this.appelli = appelliDisponibiliAggiornati;
 
-                this.updateFiltri();
-                event.target.complete();
+            this.updateFiltri();
+            event.target.complete();
 
-            }).catch((err) => {
-                console.log(err);
-                event.target.complete();
-            });
-        }
+        }).catch((err) => {
+            console.log(err);
+            event.target.complete();
+        });
 
-        if (this.sezioni === 'prenotati') {
-            this.appelliService.getAppelliPrenotatiAggiornati().then((appelliPrenotatiAggiornati) => {
-                if (this.appelliService.areAppelliChanged(appelliPrenotatiAggiornati, this.prenotazioni)) {
-                    console.log('appelli prenotati aggiornati');
-                    this.prenotazioni = appelliPrenotatiAggiornati;
-                }
-                event.target.complete();
-            }).catch((err) => {
-                console.log(err);
-                event.target.complete();
-            });
-        }
+        this.appelliService.getAppelliPrenotatiAggiornati().then((appelliPrenotatiAggiornati) => {
+            if (this.appelliService.areAppelliChanged(appelliPrenotatiAggiornati, this.prenotazioni)) {
+                console.log('appelli prenotati aggiornati');
+                this.prenotazioni = appelliPrenotatiAggiornati;
+            }
+            event.target.complete();
+        }).catch((err) => {
+            console.log(err);
+            event.target.complete();
+        });
 
     }
 
@@ -241,8 +234,12 @@ export class AppelliPage implements OnInit {
      * Deve essere richiamata quando viene alterata la searchbar.
      */
     search() {
-        const searchKeyLowered = this.searchKey.toLowerCase();
-        this.appelliTrovati = this.appelliOrdinati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+        if (this.searchKey !== '') {
+            const searchKeyLowered = this.searchKey.toLowerCase();
+            this.appelliTrovati = this.appelliTrovati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+        } else {
+            this.appelliTrovati = this.appelliTrovati;
+        }
     }
 
     /**
@@ -264,8 +261,8 @@ export class AppelliPage implements OnInit {
     resetFiltri() {
         this.filtro.reset();
         this.memorizzaFiltri();
-        this.updateFiltri();
 
+        this.updateFiltri();
     }
 
 
@@ -299,7 +296,7 @@ export class AppelliPage implements OnInit {
                                     loading.dismiss();
                                     this.toastService.prenotazioneEffettuataConSuccesso();
 
-                                    //TODO - forzare aggiornamento dati e rimandare a tab prenotati
+                                    this.doRefresh(null);
                                 }, () => {
                                     this.toastService.prenotazioneFallita();
 
@@ -340,6 +337,7 @@ export class AppelliPage implements OnInit {
                                     loading.dismiss();
                                     this.toastService.prenotazioneAnnullataConSuccesso();
                                     //forzare aggiornamento
+                                    this.doRefresh(null);
                                 }, () => {
                                     this.toastService.annullamentoFallito();
                                     loading.dismiss();

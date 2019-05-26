@@ -39,8 +39,9 @@
             </ion-searchbar>
         </ion-row>
         <div class="reset">
-        <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
-        </ion-button>
+            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
+                        size="small">Reset filtri
+            </ion-button>
         </div>
     </ion-grid>
 </ion-header>
@@ -110,13 +111,18 @@
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].isSuperato() !== corsiTrovati[i-1].isSuperato()))">
-                <ion-title text-center style="font-size: 90% "> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
+                <ion-title text-center
+                           style="font-size: 90% "> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
             </ion-item>
 
             <ion-item-sliding>
                 <ion-item>
 
-                    <ion-buttons class="buttonLeft"><ion-button icon-only (click)="presentActionSheet(corso)"><ion-icon name="md-document" ></ion-icon></ion-button></ion-buttons>
+                    <ion-buttons class="buttonLeft">
+                        <ion-button icon-only (click)="presentActionSheet(corso)">
+                            <ion-icon name="md-document"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
 
                     <ion-grid fixed no-padding>
                         <ion-row
@@ -137,7 +143,8 @@
 
                                     <ion-row class="dati-esame">
                                         <ion-col size="6">
-                                             <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU:&nbsp;{{corso.CFU}} &nbsp;&nbsp;
+                                            <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp;
+                                            CFU:&nbsp;{{corso.CFU}} &nbsp;&nbsp;
                                             &nbsp; &nbsp;
                                         </ion-col>
                                         <ion-col *ngIf="corso.isSuperato()">
@@ -148,7 +155,8 @@
                                 </ion-grid>
                             </ion-col>
 
-                            <ion-col class="voto" size="2" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
+                            <ion-col class="voto" size="2" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'"
+                                     align-self-center="true">
                                 <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
                                 <div *ngIf="corso.VOTO && corso.LODE==1" class="voto">30L</div>
                                 <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>

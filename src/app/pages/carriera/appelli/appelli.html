@@ -42,6 +42,12 @@
             </ion-searchbar>
         </ion-row>
 
+        <div class="reset">
+            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
+                        size="small">Reset filtri
+            </ion-button>
+        </div>
+
         <ion-row>
             <ion-segment (ionChange)="ngOnInit()" [(ngModel)]="sezioni">
                 <ion-segment-button value="disponibili">
@@ -51,17 +57,13 @@
             </ion-segment>
         </ion-row>
 
-        <div class="reset">
-            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
-            </ion-button>
-        </div>
     </ion-grid>
 </ion-header>
 
 
 <ion-content [ngSwitch]="sezioni">
 
-    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="false" slot="fixed">
+    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="ad_id_insegnamento != 0" slot="fixed">
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
