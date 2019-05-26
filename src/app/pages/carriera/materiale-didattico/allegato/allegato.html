@@ -47,20 +47,18 @@
 
 
     <ion-card-content text-wrap>
-      <b><I>Data</I></b> <br>{{ pulisciAllegato(allegato.DATA_INS) }}
-      <br>
-      <b><I>File</I></b> <br>{{ pulisciAllegato(allegato.FILENAME) }}
 
-      <!--
-      <div *ngIf="allegato.TESTO">
-        <b><I>Note</I></b> <br>
-        <p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
-      </div> -->
+     <ion-row>
+       <ion-col>
+      <b><I>Estensione: </I></b>{{pulisciAllegato(allegato.ESTENSIONE)}}
+       </ion-col>
+     </ion-row>
+
 
       <ion-row *ngIf="allegato.TESTO">
         <ion-col>
-          <b><I>Note</I></b>
-          <ion-icon (click)="mostraNote()" [name]="isClickNote? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+          <b><I>Note </I></b>
+          <ion-icon (click)="mostraNote()" [name]="isClickNote? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="iconaNote"></ion-icon>
             <ion-card text-wrap *ngIf="isClickNote">
               <ion-card-content>
                 <p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
@@ -68,8 +66,14 @@
             </ion-card>
         </ion-col>
       </ion-row>
+
+      <ion-row *ngIf="!allegato.TESTO">
+        <ion-col>
+        <b style="color:#FF0000"><I>Non sono disponibili note per questo file.</I></b>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
-  </ion-card>
+
 
     <ion-grid>
       <ion-row>
@@ -87,6 +91,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </ion-card>
 
 
 </ion-content>
