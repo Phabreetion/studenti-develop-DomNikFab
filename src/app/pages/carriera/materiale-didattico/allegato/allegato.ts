@@ -16,6 +16,8 @@ export class AllegatoPage implements OnInit {
     allegato: any;
     ad_id: string;
 
+    public isClickNote: boolean;
+
     constructor(public globalData: GlobalDataService,
                 private localdb: DBService,
                 public alertController: AlertController,
@@ -48,6 +50,8 @@ export class AllegatoPage implements OnInit {
         //     return this.allegato.data;
         // else
         //     return this.providers.formatStringDate(stringDate);
+
+        this.isClickNote = false;
     }
 
     pulisciAllegato(item: string): string {
@@ -140,5 +144,21 @@ export class AllegatoPage implements OnInit {
     eliminaFile() {
         this.localdb.eliminaFile(this.allegato);
     }
+
+   public mostraNote(){
+
+        if(this.isClickNote === true){
+
+            this.isClickNote = false;
+            return this.isClickNote;
+
+        }else{
+
+        this.isClickNote = true;
+        return this.isClickNote;
+
+        }
+    }
+
 
 }

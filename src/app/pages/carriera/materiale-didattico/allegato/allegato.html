@@ -44,19 +44,32 @@
       <ion-card-subtitle text-center text-wrap> <I>{{ pulisciAllegato(allegato.AUTORE) }}</I> </ion-card-subtitle>
     </ion-card-header>
 
-    <ion-grid no-padding>
+
 
     <ion-card-content text-wrap>
-      <ion-label text-wrap><b><I>Data</I></b> <br>{{ pulisciAllegato(allegato.DATA_INS) }}</ion-label>
+      <b><I>Data</I></b> <br>{{ pulisciAllegato(allegato.DATA_INS) }}
       <br>
-      <ion-label text-wrap><b><I>File</I></b> <br>{{ pulisciAllegato(allegato.FILENAME) }}</ion-label>
+      <b><I>File</I></b> <br>{{ pulisciAllegato(allegato.FILENAME) }}
 
+      <!--
       <div *ngIf="allegato.TESTO">
         <b><I>Note</I></b> <br>
         <p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
-      </div>
+      </div> -->
 
+      <ion-row *ngIf="allegato.TESTO">
+        <ion-col>
+          <b><I>Note</I></b>
+          <ion-icon (click)="mostraNote()" [name]="isClickNote? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+            <ion-card text-wrap *ngIf="isClickNote">
+              <ion-card-content>
+                <p [innerHtml]="pulisciAllegato(allegato.TESTO)"></p>
+              </ion-card-content>
+            </ion-card>
+        </ion-col>
+      </ion-row>
     </ion-card-content>
+  </ion-card>
 
     <ion-grid>
       <ion-row>
@@ -75,8 +88,5 @@
       </ion-row>
     </ion-grid>
 
-    </ion-grid>
-
-  </ion-card>
 
 </ion-content>
