@@ -111,6 +111,11 @@
                     <ion-title text-center>{{corsiMap.get(appello.ad_id).CFU}} CFU</ion-title>
                 </ion-item>
 
+                <ion-item
+                        *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).ANNO !== corsiMap.get(appelliTrovati[i-1].ad_id).ANNO))">
+                    <ion-title text-center>{{corsiMap.get(appello.ad_id).ANNO}}° ANNO</ion-title>
+                </ion-item>
+
 
                 <ion-item-sliding #itemSliding >
                     <ion-item>

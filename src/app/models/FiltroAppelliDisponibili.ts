@@ -10,7 +10,8 @@ export const ORDINAMENTO_DATA_CRESCENTE = 2;
 export const ORDINAMENTO_DATA_DECRESCENTE = 3;
 export const ORDINAMENTO_CFU_CRESCENTE = 4;
 export const ORDINAMENTO_CFU_DECRESCENTE = 5;
-
+export const ORDINAMENTO_ANNO_CRESCENTE = 6;
+export const ORDINAMENTO_ANNO_DECRESCENTE = 7;
 
 export const DISATTIVO = 0;
 export const ATTIVO = 1;
@@ -132,6 +133,30 @@ export class FiltroAppelliDisponibili {
                     (one, two) => {
                         if (mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0) {
                             return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
+                        }
+
+                        return 0;
+                    }
+                );
+                break;
+
+            case ORDINAMENTO_ANNO_CRESCENTE:
+                appelli.sort(
+                    (one, two) => {
+                        if (mappaCorsi.get(one.ad_id).ANNO - mappaCorsi.get(two.ad_id).ANNO !== 0) {
+                            return mappaCorsi.get(one.ad_id).ANNO - mappaCorsi.get(two.ad_id).ANNO;
+                        }
+
+                        return 0;
+                    }
+                );
+                break;
+
+            case ORDINAMENTO_ANNO_DECRESCENTE:
+                appelli.sort(
+                    (one, two) => {
+                        if (mappaCorsi.get(two.ad_id).ANNO - mappaCorsi.get(one.ad_id).ANNO !== 0) {
+                            return mappaCorsi.get(two.ad_id).ANNO - mappaCorsi.get(one.ad_id).ANNO;
                         }
 
                         return 0;
