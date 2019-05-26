@@ -19,13 +19,19 @@ export const ATTIVO = 1;
 
 export class FiltroAppelliDisponibili {
 
+    //serve per determinare quel è il massimo filtro per anno
+    maxAnni: number;
+
+    //filtro
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
-    filtraScrittoOrale: number;
-    filtraOrale: number;
-    filtraScritto: number;
+    filtraScrittoOraleAttivo: boolean;
+    filtraOraleAttivo: boolean;
+    filtraScrittoAttivo: boolean;
+
+    //ordinamento
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
-    maxAnni: number;
+
 
 
     constructor() {
@@ -39,10 +45,11 @@ export class FiltroAppelliDisponibili {
     }
 
     reset() {
-        this.filtraScrittoOrale = 0;
         this.filtroPerAnno = 0;
-        this.filtraScritto = 0;
-        this.filtraOrale = 0;
+
+        this.filtraScrittoOraleAttivo = false;
+        this.filtraScrittoAttivo = false;
+        this.filtraOraleAttivo = false;
 
         this.idOrdinamento = 0;
         this.tipoOrdinamento = 0;
@@ -67,7 +74,6 @@ export class FiltroAppelliDisponibili {
 
                         //nel caso di appelli con stessa data, ordino per alfabetico
                         if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
-                            console.log('a');
                             return 1;
                         }
 
@@ -266,19 +272,24 @@ export class FiltroAppelliDisponibili {
         return arr;
     }
 
+    isActive(): boolean {
+        return this.filtraOraleAttivo || this.filtraScrittoAttivo || this.filtraScrittoOraleAttivo || this.filtroPerAnno > 0;
+    }
+
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
-        if (this.filtraScritto === ATTIVO) {
+
+        if (this.filtraScrittoAttivo) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
         }
-        if (this.filtraOrale === ATTIVO) {
+        if (this.filtraOraleAttivo) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
         }
-        if (this.filtraScrittoOrale === ATTIVO) {
+        if (this.filtraScrittoOraleAttivo) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
         }
 
         if (this.filtroPerAnno > DISATTIVO) {
-            appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO === this.filtroPerAnno);
+            appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
         }
 
         return appelli;

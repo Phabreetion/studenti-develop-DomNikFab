@@ -97,22 +97,22 @@ export class AppelliPage implements OnInit {
                 this.corsiMap = data[2];
 
                 if (this.ad_id_insegnamento != 0) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                    this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                } else {
+                    //carico i filtri dallo storage ed eseguo il filtraggio.
+                    this.appelliService.loadFiltriFromStorage().then(
+                        filtro => {
+                            this.filtro = filtro;
+
+                            this.pianoDiStudioService.getMaxAnni().then(
+                                value => {
+                                    this.filtro.setMaxAnni(value);
+                                    this.updateFiltri();
+                                }
+                            );
+                        }
+                    );
                 }
-
-                //carico i filtri dallo storage ed eseguo il filtraggio.
-                this.appelliService.loadFiltriFromStorage().then(
-                    filtro => {
-                        this.filtro = filtro;
-
-                        this.pianoDiStudioService.getMaxAnni().then(
-                            value => {
-                                this.filtro.setMaxAnni(value);
-                                this.updateFiltri();
-                            }
-                        );
-                    }
-                );
             }
         );
     }
@@ -133,22 +133,22 @@ export class AppelliPage implements OnInit {
                 this.corsiMap = data[2];
 
                 if (this.ad_id_insegnamento != 0) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                    this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                } else {
+                    //carico i filtri dallo storage ed eseguo il filtraggio.
+                    this.appelliService.loadFiltriFromStorage().then(
+                        filtro => {
+                            this.filtro = filtro;
+
+                            this.pianoDiStudioService.getMaxAnni().then(
+                                value => {
+                                    this.filtro.setMaxAnni(value);
+                                    this.updateFiltri();
+                                }
+                            );
+                        }
+                    );
                 }
-
-                //carico i filtri dallo storage ed eseguo il filtraggio.
-                this.appelliService.loadFiltriFromStorage().then(
-                    filtro => {
-                        this.filtro = filtro;
-
-                        this.pianoDiStudioService.getMaxAnni().then(
-                            value => {
-                                this.filtro.setMaxAnni(value);
-                                this.updateFiltri();
-                            }
-                        );
-                    }
-                );
             }
         );
     }
@@ -242,7 +242,7 @@ export class AppelliPage implements OnInit {
      */
     search() {
         const searchKeyLowered = this.searchKey.toLowerCase();
-        this.appelliTrovati = this.appelliFiltrati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+        this.appelliTrovati = this.appelliOrdinati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
     }
 
     /**
@@ -355,11 +355,11 @@ export class AppelliPage implements OnInit {
 
 
     getNumAppelliDisponibiliAsString(): string {
-        if (!this.appelli) {
+        if (!this.appelliTrovati) {
             return '';
         }
 
-        return this.appelli.length > 0 ? '(' + this.appelli.length + ')' : '';
+        return this.appelliTrovati.length > 0 ? '(' + this.appelliTrovati.length + ')' : '';
     }
 
     getNumPrenotazioniAsString(): string {

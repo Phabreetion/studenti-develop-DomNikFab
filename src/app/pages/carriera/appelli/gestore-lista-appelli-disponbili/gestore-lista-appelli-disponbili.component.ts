@@ -28,7 +28,7 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
         this.modalController.dismiss();
     }
 
-    private reset() {
+    reset() {
         this.sourcePage.filtro.reset();
         this.updateSourcePage();
     }
@@ -61,9 +61,9 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
 
     checkfiltraScritti() {
 
-        if (this.sourcePage.filtro.filtraScritto) {
-            this.sourcePage.filtro.filtraOrale = 0;
-            this.sourcePage.filtro.filtraScrittoOrale = 0;
+        if (this.sourcePage.filtro.filtraScrittoAttivo) {
+            this.sourcePage.filtro.filtraOraleAttivo = false;
+            this.sourcePage.filtro.filtraScrittoOraleAttivo = false;
         }
 
         this.updateSourcePage();
@@ -73,18 +73,18 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
 
     checkfiltroOrale() {
 
-        if (this.sourcePage.filtro.filtraOrale) {
-            this.sourcePage.filtro.filtraScritto = 0;
-            this.sourcePage.filtro.filtraScrittoOrale = 0;
+        if (this.sourcePage.filtro.filtraOraleAttivo) {
+            this.sourcePage.filtro.filtraScrittoAttivo = false;
+            this.sourcePage.filtro.filtraScrittoOraleAttivo = false;
         }
         this.updateSourcePage();
     }
 
     checkfiltriScrittoOrale() {
 
-        if (this.sourcePage.filtro.filtraScrittoOrale) {
-            this.sourcePage.filtro.filtraOrale = 0;
-            this.sourcePage.filtro.filtraScritto = 0;
+        if (this.sourcePage.filtro.filtraScrittoOraleAttivo) {
+            this.sourcePage.filtro.filtraOraleAttivo = false;
+            this.sourcePage.filtro.filtraScrittoAttivo = false;
         }
 
         this.updateSourcePage();
