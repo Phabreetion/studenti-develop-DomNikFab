@@ -30,6 +30,7 @@
 
         <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarAppelli()'>
             <ion-searchbar
+                    #searchbar
                     *ngIf="isSearchbarOpened && gestioneSearchbarAppelli() "
                     [(ngModel)]="searchKey"
                     placeholder="Cerca"

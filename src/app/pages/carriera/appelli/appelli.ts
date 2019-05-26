@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {LoadingController, ToastController, AlertController, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
@@ -48,8 +48,9 @@ export class AppelliPage implements OnInit {
     filtro: FiltroAppelliDisponibili;
 
     //ricerca
-    searchKey: string;
+    @ViewChild('searchbar') searchbar: any;
     isSearchbarOpened = false;
+    searchKey: string;
 
 
     constructor(public route: ActivatedRoute,
@@ -168,6 +169,11 @@ export class AppelliPage implements OnInit {
 
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;
+
+        if (this.isSearchbarOpened) {
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+        }
+
         this.searchKey = '';
         this.search();
     }

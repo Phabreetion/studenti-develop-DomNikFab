@@ -33,9 +33,10 @@ export class PianoDiStudioPage implements OnInit {
     filtro: FiltroPianoDiStudio;
 
     //ricerca
-    searchKey: string;
-    isSearchbarOpened = false;
     @ViewChild('searchbar') searchbar: any;
+    isSearchbarOpened = false;
+    searchKey: string;
+
 
 
 
@@ -109,7 +110,7 @@ export class PianoDiStudioPage implements OnInit {
             }
 
             event.target.complete();
-        }).catch( (err) => {
+        }).catch( () => {
             event.target.complete();
         });
     }

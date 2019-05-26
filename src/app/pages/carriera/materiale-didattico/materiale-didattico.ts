@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController,
     ModalController, NavController, ToastController
@@ -53,8 +53,12 @@ export class MaterialeDidatticoPage implements OnInit {
     i: any;
     opened = false;
     maxLength = 60; // Lunghezza massima del testo da visualizzare
-    private searchKey: string;
-    public isSearchbarOpened = false;
+
+    //ricerca
+    //ricerca
+    @ViewChild('searchbar') searchbar: any;
+    isSearchbarOpened = false;
+    searchKey: string;
 
     constructor(
         private toastCtrl: ToastController,
@@ -398,6 +402,11 @@ export class MaterialeDidatticoPage implements OnInit {
 
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;
+
+        if (this.isSearchbarOpened) {
+            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+        }
+
         this.searchKey = '';
         this.search();
     }
