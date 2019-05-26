@@ -248,15 +248,15 @@
                     </ion-item>
 
                     <ion-item-options side="end" slot="top">
-                        <ion-item-option color="danger" (click)="goToDettagliCorso(appello)" text-center>
+                        <ion-item-option color="primary" (click)="goToDettagliCorso(appello)" text-center>
                             Dettagli<br>corso
                         </ion-item-option>
 
-                        <ion-item-option color="warning" (click)="goToMaterialeDidattico(appello)" text-center>
+                        <ion-item-option color="danger" (click)="goToMaterialeDidattico(appello)" text-center>
                             Materiale<br>didattico
                         </ion-item-option>
 
-                        <ion-item-option *ngIf="appello.isPrenotabile()" (click)="prenotaAppello(itemSliding,appello)">
+                        <ion-item-option *ngIf="appello.isPrenotabile()" color="secondary" (click)="prenotaAppello(itemSliding,appello)">
                             Prenota
                         </ion-item-option>
                     </ion-item-options>
