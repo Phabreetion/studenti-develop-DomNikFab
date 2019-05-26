@@ -69,10 +69,10 @@ export class AppelloDisponibile extends Appello  {
     }
 
     giorniRimanentiPrimaDellaChiusura(): number {
-        const data_chiusura_iscrizione = GlobalDataService.string2date(this.p10_app_data_inizio_iscr);
+        const data_chiusura_iscrizione = GlobalDataService.string2date(this.p10_app_data_fine_iscr);
         const data_odierna = new Date();
 
-        return GlobalDataService.differenzaGiorni(data_odierna, data_chiusura_iscrizione);
+        return GlobalDataService.differenzaGiorni(data_chiusura_iscrizione, data_odierna);
     }
 
     giorniPassatiDopoLaChiusura(): number {
@@ -87,11 +87,11 @@ export class AppelloDisponibile extends Appello  {
     }
 
     isAfterApertura(): boolean {
-        return this.giorniRimanentiPrimaDellApertura() < 0;
+        return this.giorniRimanentiPrimaDellApertura() <= 0;
     }
 
     isBeforeChiusura(): boolean {
-        return this.giorniRimanentiPrimaDellaChiusura() > 0;
+        return this.giorniRimanentiPrimaDellaChiusura() >= 0;
     }
 
     isAfterChiusura(): boolean {
