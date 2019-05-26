@@ -193,10 +193,18 @@
                             </ion-row>
 
 
-                            <ion-row *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura()">
+                            <ion-row *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() > 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>Prenota l'appello entro {{appello.giorniRimanentiPrimaDellaChiusura()}} giorni</I>
+                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}} giorni</I>
+                                    </ion-card-subtitle>
+                                </ion-col>
+                            </ion-row>
+
+                            <ion-row *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() < 1">
+                                <ion-col>
+                                    <ion-card-subtitle class="countdown" style="color:crimson">
+                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}} giorno</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
