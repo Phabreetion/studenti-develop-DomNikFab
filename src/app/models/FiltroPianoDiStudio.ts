@@ -236,6 +236,8 @@ export class FiltroPianoDiStudio {
                     if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
                         return -1;
                     }
+
+                    return 0;
                 });
                 break;
 
@@ -293,6 +295,8 @@ export class FiltroPianoDiStudio {
                     if (one.DESCRIZIONE.toLowerCase() < two.DESCRIZIONE.toLowerCase()) {
                         return -1;
                     }
+
+                    return 0;
                 });
                 break;
         }

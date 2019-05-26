@@ -99,12 +99,12 @@
         <ion-grid *ngIf="appelli?.length > 0"> <!-- no-padding-->
             <div *ngFor="let appello of appelliTrovati; let i = index">
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].descrizione.charAt(0) !== appelliTrovati[i-1].descrizione.charAt(0)))">
-                    <ion-title text-center>{{appello.descrizione.charAt(0)}}</ion-title>
+                        *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
+                    <ion-title text-center>{{appello.data_ora_app.substring(0, 10)}}</ion-title>
                 </ion-item>
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
-                    <ion-title text-center>{{appello.data_ora_app.substring(0, 10)}}</ion-title>
+                        *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].descrizione.charAt(0) !== appelliTrovati[i-1].descrizione.charAt(0)))">
+                    <ion-title text-center>{{appello.descrizione.charAt(0)}}</ion-title>
                 </ion-item>
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).CFU !== corsiMap.get(appelliTrovati[i-1].ad_id).CFU))">

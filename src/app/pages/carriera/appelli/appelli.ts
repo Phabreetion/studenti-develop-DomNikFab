@@ -86,7 +86,7 @@ export class AppelliPage implements OnInit {
         this.appelliService.getAppelliDisponibili().then(appelliDisponibili => {
             this.appelli = appelliDisponibili;
 
-            //fix this
+            //@TODO fix this
             if (this.insegnamento != null) {
                 const val = this.insegnamento;
                 if (val && val.trim() !== '') {
@@ -95,22 +95,10 @@ export class AppelliPage implements OnInit {
                     });
                 }
             }
-            let maxAnni = 0;
-            this.corsi.forEach(
-                corso => {
-                    if (maxAnni < corso.ANNO) {
-                        maxAnni = corso.ANNO;
-                    }
-                }
-            );
-            this.filtro.setMaxAnni(maxAnni);
-
-            this.updateFiltri();
         });
 
         this.appelliService.getAppelliPrenotati().then(appelliPrenotati => {
             this.prenotazioni = appelliPrenotati;
-            //this.controllaPrenotazioni(); //modifica le prenotazioni rimuovendo quelle il cui esame e superato
         });
 
 
@@ -120,6 +108,26 @@ export class AppelliPage implements OnInit {
         this.sezioni = 'disponibili';
         this.isSearchbarOpened = false;
         this.searchKey = '';
+
+        //carico i filtri dallo storage ed eseguo il filtraggio.
+        this.appelliService.loadFiltriFromStorage().then(
+            filtro => {
+                this.filtro = filtro;
+
+                //set anno massimo per il filtro
+                let maxAnni = 0;
+                this.corsi.forEach(
+                    corso => {
+                        if (maxAnni < corso.ANNO) {
+                            maxAnni = corso.ANNO;
+                        }
+                    }
+                );
+                this.filtro.setMaxAnni(maxAnni);
+
+                this.updateFiltri();
+            }
+        );
     }
 
 

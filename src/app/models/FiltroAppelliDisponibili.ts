@@ -56,16 +56,25 @@ export class FiltroAppelliDisponibili {
                 appelli.sort(
                     (one, two) => {
                         //conforonta le date degli appelli per decidere quale viene prima
-                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                        if (two.getDataEsame() < one.getDataEsame()) {
                             return 1;
                         }
 
-                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                        if (two.getDataEsame() > one.getDataEsame()) {
                             return -1;
                         }
 
-                        //in caso di appelli con date uguali non si gestiscono le collisioni
-                        //gli esami con stessa data sono molto rari
+
+                        //nel caso di appelli con stessa data, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            console.log('a');
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -75,16 +84,24 @@ export class FiltroAppelliDisponibili {
                 appelli.sort(
                     (one, two) => {
                         //conforonta le date degli appelli per decidere quale viene prima
-                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                        if (two.getDataEsame() > one.getDataEsame()) {
                             return 1;
                         }
 
-                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                        if (two.getDataEsame() < one.getDataEsame()) {
                             return -1;
                         }
 
-                        //in caso di appelli con date uguali non si gestiscono le collisioni
-                        //gli esami con stessa data sono molto rari
+
+                        //nel caso di appelli con stessa data, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -102,7 +119,16 @@ export class FiltroAppelliDisponibili {
                             return -1;
                         }
 
-                        //@TODO in caso di appelli con descrizione uguale devo gestire le collisioni
+
+                        //nel caso di appelli con stessa descrizione -> ordino con data
+                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                            return 1;
+                        }
+
+                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -120,7 +146,16 @@ export class FiltroAppelliDisponibili {
                             return -1;
                         }
 
-                        //@TODO in caso di appelli con descrizione uguale devo gestire le collisioni
+
+                        //nel caso di appelli con stessa descrizione -> ordino con data
+                        if (GlobalDataService.string2date(two.data_ora_app) < GlobalDataService.string2date(one.data_ora_app)) {
+                            return 1;
+                        }
+
+                        if (GlobalDataService.string2date(two.data_ora_app) > GlobalDataService.string2date(one.data_ora_app)) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -134,7 +169,15 @@ export class FiltroAppelliDisponibili {
                             return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
                         }
 
-                        //@TODO in caso di appelli con CFU uguale devo gestire le collisioni
+                        //nel caso di appelli con stessi CFU, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -148,7 +191,15 @@ export class FiltroAppelliDisponibili {
                             return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
                         }
 
-                        //@TODO in caso di appelli con CFU uguale devo gestire le collisioni
+                        //nel caso di appelli con stessi CFU, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -162,7 +213,15 @@ export class FiltroAppelliDisponibili {
                             return mappaCorsi.get(one.ad_id).ANNO - mappaCorsi.get(two.ad_id).ANNO;
                         }
 
-                        //@TODO in caso di appelli con anno uguale devo gestire le collisioni
+                        //nel caso di appelli con stesso anno, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );
@@ -176,7 +235,15 @@ export class FiltroAppelliDisponibili {
                             return mappaCorsi.get(two.ad_id).ANNO - mappaCorsi.get(one.ad_id).ANNO;
                         }
 
-                        //@TODO in caso di appelli con anno uguale devo gestire le collisioni
+                        //nel caso di appelli con stesso anno, ordino per alfabetico
+                        if (one.descrizione.toLowerCase() > two.descrizione.toLowerCase()) {
+                            return 1;
+                        }
+
+                        if (one.descrizione.toLowerCase() < two.descrizione.toLowerCase()) {
+                            return -1;
+                        }
+
                         return 0;
                     }
                 );

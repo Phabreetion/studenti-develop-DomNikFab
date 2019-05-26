@@ -8,6 +8,7 @@ import {Appello} from '../models/Appello';
 import {GlobalDataService} from './global-data.service';
 import {HttpService} from './http.service';
 import {FiltroAppelliDisponibili} from '../models/FiltroAppelliDisponibili';
+import {FiltroPianoDiStudio} from '../models/FiltroPianoDiStudio';
 
 const ID_SERVIZIO_APPELLI_DISPONIBILI = 1;
 const ID_SERVIZIO_APPELLI_PRENOTATI = 10;
@@ -196,5 +197,15 @@ export class AppelliService {
 
     public memorizzaFiltri(filtro: FiltroAppelliDisponibili) {
         this.storage.set('filtroAppelliDisponibili', filtro).then();
+    }
+
+    public async loadFiltriFromStorage(): Promise<FiltroAppelliDisponibili> {
+        return new Promise<FiltroAppelliDisponibili>((resolve) => {
+            this.storage.get('filtroAppelliDisponibili').then(
+                filtro => {
+                    resolve(FiltroAppelliDisponibili.toObj(filtro));
+                }
+            );
+        });
     }
 }
