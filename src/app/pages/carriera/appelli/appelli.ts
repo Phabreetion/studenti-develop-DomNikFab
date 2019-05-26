@@ -26,7 +26,7 @@ export class AppelliPage implements OnInit {
 
 
     //verrà passato nella query string
-    insegnamento: string;
+    ad_id_insegnamento: number;
 
     //sezione in cui si ci trova
     sezioni: string; //'disponibili' o 'prenotati'
@@ -41,7 +41,6 @@ export class AppelliPage implements OnInit {
     prenotazioni: AppelloPrenotato[];
 
     //corsi array
-    corsi: Corso[];
     corsiMap: Map<number, Corso>;
 
     //per filtri e ordinamento
@@ -78,30 +77,37 @@ export class AppelliPage implements OnInit {
             () => {this.globalData.goTo(PAGE_URL, '/login', 'root', false); }
         );
 
-        this.insegnamento = this.route.snapshot.paramMap.get('id');
+        this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
 
-        this.corsi = await this.pianoDiStudioService.getCorsi();
-        this.corsiMap = await this.pianoDiStudioService.getCorsiAsMap();
+        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
+        const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
+        const appelliPrenotatiPromise = this.appelliService.getAppelliPrenotati();
 
-        this.appelliService.getAppelliDisponibili().then(appelliDisponibili => {
-            this.appelli = appelliDisponibili;
+        Promise.all([appelliDisponibiliPromise, appelliPrenotatiPromise, corsiMapPromise]).then(
+            (data) => {
+                this.appelli = data[0];
+                this.prenotazioni = data[1];
+                this.corsiMap = data[2];
 
-            //@TODO fix this
-            if (this.insegnamento != null) {
-                const val = this.insegnamento;
-                if (val && val.trim() !== '') {
-                    this.appelli = appelliDisponibili.filter((item) => {
-                        return (item.codice.toString() === val);
-                    });
+                if (this.ad_id_insegnamento !== 0 ) {
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
                 }
+
+                //carico i filtri dallo storage ed eseguo il filtraggio.
+                this.appelliService.loadFiltriFromStorage().then(
+                    filtro => {
+                        this.filtro = filtro;
+
+                        this.pianoDiStudioService.getMaxAnni().then(
+                            value => {
+                                this.filtro.setMaxAnni(value);
+                                this.updateFiltri();
+                            }
+                        );
+                    }
+                );
             }
-        });
-
-        this.appelliService.getAppelliPrenotati().then(appelliPrenotati => {
-            this.prenotazioni = appelliPrenotati;
-        });
-
-
+        );
     }
 
     ionViewDidEnter() {
@@ -109,23 +115,33 @@ export class AppelliPage implements OnInit {
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
-        //carico i filtri dallo storage ed eseguo il filtraggio.
-        this.appelliService.loadFiltriFromStorage().then(
-            filtro => {
-                this.filtro = filtro;
+        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
+        const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
+        const appelliPrenotatiPromise = this.appelliService.getAppelliPrenotati();
 
-                //set anno massimo per il filtro
-                let maxAnni = 0;
-                this.corsi.forEach(
-                    corso => {
-                        if (maxAnni < corso.ANNO) {
-                            maxAnni = corso.ANNO;
-                        }
+        Promise.all([appelliDisponibiliPromise, appelliPrenotatiPromise, corsiMapPromise]).then(
+            (data) => {
+                this.appelli = data[0];
+                this.prenotazioni = data[1];
+                this.corsiMap = data[2];
+
+                if (this.ad_id_insegnamento !== 0 ) {
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
+                }
+
+                //carico i filtri dallo storage ed eseguo il filtraggio.
+                this.appelliService.loadFiltriFromStorage().then(
+                    filtro => {
+                        this.filtro = filtro;
+
+                        this.pianoDiStudioService.getMaxAnni().then(
+                            value => {
+                                this.filtro.setMaxAnni(value);
+                                this.updateFiltri();
+                            }
+                        );
                     }
                 );
-                this.filtro.setMaxAnni(maxAnni);
-
-                this.updateFiltri();
             }
         );
     }
@@ -141,14 +157,8 @@ export class AppelliPage implements OnInit {
                     //
                     this.appelli = appelliDisponibiliAggiornati;
 
-                    //fix this
-                    if (this.insegnamento != null) {
-                        const val = this.insegnamento;
-                        if (val && val.trim() !== '') {
-                            this.appelli = appelliDisponibiliAggiornati.filter((item) => {
-                                return (item.codice.toString() === val);
-                            });
-                        }
+                    if (this.ad_id_insegnamento != null) {
+                        this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento );
                     }
 
                     this.updateFiltri();
@@ -197,7 +207,7 @@ export class AppelliPage implements OnInit {
     }
 
     mostraIcone() {
-        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && this.insegnamento == null;
+        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && this.ad_id_insegnamento === 0;
     }
 
     async openFiltri() {

@@ -90,7 +90,7 @@ export class DettagliCorsoPage implements OnInit {
 
 
     goToAppelli() {
-        this.globalData.goTo(this, ['/appelli/', this.corso.CODICE], 'forward', false);
+        this.globalData.goTo(this, ['/appelli/', this.corso.AD_ID], 'forward', false);
     }
 
     goToMaterialeDidattico() {

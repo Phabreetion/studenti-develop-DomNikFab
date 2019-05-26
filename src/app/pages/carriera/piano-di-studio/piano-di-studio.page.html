@@ -17,7 +17,7 @@
                 <ion-buttons slot="end">
 
                     <ion-button icon-only (click)="openFiltri()">
-                        <ion-icon name="switch" style="font-size: 1.5em" ></ion-icon>
+                        <ion-icon name="switch" style="font-size: 1.5em"></ion-icon>
                     </ion-button>
 
                     <ion-button icon-only (click)="toogleSearchbar()">
@@ -58,7 +58,7 @@
     <ion-grid *ngIf="sync.isLoading(112) && !corsi" text-center>
         <ion-row>
             <ion-col>
-                <img class="progress" src="assets/img/progress.gif" />
+                <img class="progress" src="assets/img/progress.gif"/>
             </ion-col>
         </ion-row>
         <ion-row>
@@ -115,25 +115,31 @@
                 <ion-item (click)="presentActionSheet(corso)">
 
 
-                    <ion-grid fixed no-padding >
-                        <ion-row [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
+                    <ion-grid fixed no-padding>
+                        <ion-row
+                                [ngClass]="{'superato' : corso.isSuperato(), 'da-sostenere' : !corso.isSuperato() }">
                             <ion-col size="10">
                                 <ion-grid>
                                     <ion-row>
-                                        <ion-col class ="nome-esame">
-                                            <ion-icon *ngIf="corso.isSuperatoConVotoELode()" name="md-trophy" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
-                                            <ion-icon *ngIf="!corso.isSuperato()" name="md-book" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
-                                            <fa-icon *ngIf="corso.isSuperato() && corso.isSuperatoConVotoSenzaLode()" [icon]="globalData.faBookOpen"></fa-icon>
+                                        <ion-col class="nome-esame">
+                                            <ion-icon *ngIf="corso.isSuperatoConVotoELode()" name="md-trophy"
+                                                      style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
+                                            <ion-icon *ngIf="!corso.isSuperato()" name="md-book"
+                                                      style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
+                                            <fa-icon *ngIf="corso.isSuperato() && corso.isSuperatoConVotoSenzaLode()"
+                                                     [icon]="globalData.faBookOpen"></fa-icon>
                                             <strong> {{corso.DESCRIZIONE}} </strong>
                                         </ion-col>
                                     </ion-row>
 
                                     <ion-row class="dati-esame">
                                         <ion-col size="6">
-                                            &nbsp; &nbsp; <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU:{{corso.CFU}}
+                                            &nbsp; &nbsp;
+                                            <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU:{{corso.CFU}}
                                         </ion-col>
-                                        <ion-col *ngIf="corso.isSuperato()" >
-                                            <fa-icon [icon]="globalData.faCalendarDay"></fa-icon> &nbsp; {{corso.DATA_ESAME}}
+                                        <ion-col *ngIf="corso.isSuperato()">
+                                            <fa-icon [icon]="globalData.faCalendarDay"></fa-icon>
+                                            &nbsp; {{corso.DATA_ESAME}}
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>
@@ -169,7 +175,8 @@
 <ion-footer>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-spinner [hidden]="!pianoDiStudioService.isLoading() || !http.getConnected()" name="crescent"></ion-spinner>
+            <ion-spinner [hidden]="!pianoDiStudioService.isLoading() || !http.getConnected()"
+                         name="crescent"></ion-spinner>
             <ion-icon [hidden]="pianoDiStudioService.isLoading() || !http.getConnected()" name="checkmark"></ion-icon>
             <ion-icon [hidden]="pianoDiStudioService.isLoading() || http.getConnected()" name="close"></ion-icon>
         </ion-buttons>

@@ -80,18 +80,11 @@ export class PianoDiStudioPage implements OnInit {
             filtro => {
                 this.filtro = filtro;
 
-                //set anno massimo per il filtro
-                let maxAnni = 0;
-                this.corsi.forEach(
-                    corso => {
-                        if (maxAnni < corso.ANNO) {
-                            maxAnni = corso.ANNO;
-                        }
-                    }
-                );
-                this.filtro.setMaxAnni(maxAnni);
-
-                this.updateFiltri();
+                this.pianoDiStudioService.getMaxAnni().then(
+                    value => {
+                        this.filtro.setMaxAnni(value);
+                        this.updateFiltri();
+                    });
             }
         );
     }
@@ -269,7 +262,7 @@ export class PianoDiStudioPage implements OnInit {
     }
 
     goToAppelli(corso: Corso) {
-        this.globalData.goTo(this, ['/appelli/', corso.CODICE], 'forward', false);
+        this.globalData.goTo(this, ['/appelli/', corso.AD_ID], 'forward', false);
     }
 
     goToMaterialeDidattico(corso: Corso) {

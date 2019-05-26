@@ -3,6 +3,7 @@ import {SyncService} from './sync.service';
 import {Corso} from '../models/Corso';
 import {Storage} from '@ionic/storage';
 import {FiltroPianoDiStudio} from '../models/FiltroPianoDiStudio';
+import {forEach} from '@angular-devkit/schematics';
 
 const ID_SERVIZIO_PIANO_DI_STUDIO = 112;
 const ID_SERVIZIO_PROPEDEUTICITA = 113;
@@ -99,6 +100,20 @@ export class PianoDiStudioService {
         return this.sync.dataIsChanged(newCorsi, oldCorsi);
     }
 
+    public getMaxAnni(): Promise<number> {
+        let maxAnni = 0;
+
+        return new Promise<number>((resolve) => {
+            this.getCorsi().then(
+                corsi => {
+                    corsi.forEach(corso => { maxAnni = maxAnni < corso.ANNO ? corso.ANNO : maxAnni; });
+
+                    resolve(maxAnni);
+                }, () => { resolve(maxAnni); }
+            ).catch( () => { resolve(maxAnni); } );
+        });
+    }
+    
     public isLoading() {
         this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
     }
