@@ -1,20 +1,7 @@
 <ion-content>
+    <div class="exit"><ion-button (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button></div>
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
-
-<!--<style>
-  .round {
-    position: relative;
-    --left: 1em;
-    width: 12em;
-    height: 30px;
-
-
-
-
-  }
-
-</style>-->
 
             <ion-list-header text-center><b>Ordina per:</b></ion-list-header>
 
@@ -49,10 +36,6 @@
     </ion-button>
 
   </div>
-
-
-
-
     <ion-list>
         <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
 
