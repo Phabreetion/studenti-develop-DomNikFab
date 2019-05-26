@@ -95,16 +95,16 @@
     <ion-list *ngIf="corsi">
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
-                    *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">
+                    *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">
                 <ion-title text-center>{{corso.ANNO}}°ANNO</ion-title>
+            </ion-item>
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0)))">
+                <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].CFU !== corsiTrovati[i-1].CFU))">
                 <ion-title text-center>{{corso.CFU}} CFU</ion-title>
-            </ion-item>
-            <ion-item
-                    *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0)))">
-                <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].isSuperato() !== corsiTrovati[i-1].isSuperato()))">
@@ -121,10 +121,10 @@
                                 <ion-grid>
                                     <ion-row>
                                         <ion-col class ="nome-esame">
-                                            <ion-icon *ngIf="corso.isSuperato() && corso.LODE==1" name="md-trophy" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
-                                            <ion-icon *ngIf="!corso.isSuperato() && corso.LODE==0" name="md-book" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
-                                            <fa-icon *ngIf="corso.isSuperato()  && corso.LODE==0" [icon]="globalData.faBookOpen"></fa-icon>
-                                            <b> {{corso.DESCRIZIONE}} </b>
+                                            <ion-icon *ngIf="corso.isSuperatoConVotoELode()" name="md-trophy" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
+                                            <ion-icon *ngIf="!corso.isSuperato()" name="md-book" style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
+                                            <fa-icon *ngIf="corso.isSuperato() && corso.isSuperatoConVotoSenzaLode()" [icon]="globalData.faBookOpen"></fa-icon>
+                                            <strong> {{corso.DESCRIZIONE}} </strong>
                                         </ion-col>
                                     </ion-row>
 

@@ -241,4 +241,28 @@ export class Corso {
     public isSuperato(): boolean {
         return this.STATO === 'S';
     }
+
+    public isSuperatoConGiudizio(): boolean {
+        return this.isSuperato() && this.VALUTAZIONE === 'G';
+    }
+
+    public isSuperatoConVoto(): boolean {
+        return this.isSuperato() && this.VALUTAZIONE === 'V';
+    }
+
+    public isSuperatoConIdo(): boolean {
+        return this.isSuperatoConGiudizio() && this.GIUDIZIO === 'IDO';
+    }
+
+    public isSuperatoConSup(): boolean {
+        return this.isSuperatoConGiudizio() && this.GIUDIZIO === 'SUP';
+    }
+
+    public isSuperatoConVotoELode(): boolean {
+        return this.isSuperatoConVoto() && this.VOTO == 30 && this.LODE == 1;
+    }
+
+    public isSuperatoConVotoSenzaLode(): boolean {
+        return this.isSuperatoConVoto() && this.LODE == 0;
+    }
 }

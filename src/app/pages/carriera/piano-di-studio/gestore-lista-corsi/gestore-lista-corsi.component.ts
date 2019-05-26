@@ -48,9 +48,9 @@ export class GestoreListaCorsiComponent implements OnInit {
     async presentAlertPerConfermaMemorizzazione() {
         const alert = await this.alertController.create({
             header: 'Memorizzare le preferenze?',
-            message: 'Sei sicuro di voler memorizzare le preferenze di filtro specificate?',
+            message: 'Sei sicuro di voler memorizzare le preferenze specificate?',
             buttons: [{
-                text: 'Sí',
+                text: 'Sì',
                 handler: () => {
                     this.memorizzaFiltri();
                     this.closeFiltri();

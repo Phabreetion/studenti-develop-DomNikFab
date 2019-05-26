@@ -68,33 +68,32 @@ export class PianoDiStudioPage implements OnInit {
             this.corsiTrovati = this.corsiFiltrati;
 
             this.resetFiltri();
-
-            //carico i filtri dallo storage ed eseguo il filtraggio.
-            this.pianoDiStudioService.loadFiltriFromStorage().then(
-                filtro => {
-                    this.filtro = filtro;
-
-                    //set anno massimo per il filtro
-                    let maxAnni = 0;
-                    this.corsi.forEach(
-                        corso => {
-                            if (maxAnni < corso.ANNO) {
-                                maxAnni = corso.ANNO;
-                            }
-                        }
-                    );
-                    this.filtro.setMaxAnni(maxAnni);
-
-                    this.updateFiltri();
-                }
-            );
-
         });
     }
 
     ionViewDidEnter() {
         this.isSearchbarOpened = false;
         this.searchKey = '';
+
+        //carico i filtri dallo storage ed eseguo il filtraggio.
+        this.pianoDiStudioService.loadFiltriFromStorage().then(
+            filtro => {
+                this.filtro = filtro;
+
+                //set anno massimo per il filtro
+                let maxAnni = 0;
+                this.corsi.forEach(
+                    corso => {
+                        if (maxAnni < corso.ANNO) {
+                            maxAnni = corso.ANNO;
+                        }
+                    }
+                );
+                this.filtro.setMaxAnni(maxAnni);
+
+                this.updateFiltri();
+            }
+        );
     }
 
 
