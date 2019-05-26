@@ -277,7 +277,6 @@ export class FiltroAppelliDisponibili {
     }
 
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
-
         if (this.filtraScrittoAttivo) {
             appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
         }

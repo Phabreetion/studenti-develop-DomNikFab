@@ -49,17 +49,17 @@
 
         <ion-item>
             <ion-label>Scritto</ion-label>
-             <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoAttivo" (ngModelChange)="checkfiltraScritti()"></ion-toggle>
+             <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoAttivo" (ngModelChange)="checkToogleScritto()"></ion-toggle>
         </ion-item>
 
         <ion-item>
             <ion-label>Orale</ion-label>
-            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraOraleAttivo" (ngModelChange)="checkfiltroOrale()"></ion-toggle>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraOraleAttivo" (ngModelChange)="checkToogleOrale()"></ion-toggle>
         </ion-item>
 
         <ion-item>
             <ion-label>Scritto e Orale</ion-label>
-            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoOraleAttivo" (ngModelChange)="checkfiltriScrittoOrale()"></ion-toggle>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoOraleAttivo" (ngModelChange)="checkToogleOraleScritto()"></ion-toggle>
         </ion-item>
 
         <ion-item>

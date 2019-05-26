@@ -161,11 +161,16 @@ export class AppelliPage implements OnInit {
             this.appelli = appelliDisponibiliAggiornati;
 
             this.updateFiltri();
-            event.target.complete();
 
-        }).catch((err) => {
-            console.log(err);
-            event.target.complete();
+            if (event) {
+                event.target.complete();
+            }
+
+
+        }).catch(() => {
+            if (event) {
+                event.target.complete();
+            }
         });
 
         this.appelliService.getAppelliPrenotatiAggiornati().then((appelliPrenotatiAggiornati) => {
@@ -173,10 +178,14 @@ export class AppelliPage implements OnInit {
                 console.log('appelli prenotati aggiornati');
                 this.prenotazioni = appelliPrenotatiAggiornati;
             }
-            event.target.complete();
-        }).catch((err) => {
-            console.log(err);
-            event.target.complete();
+
+            if (event) {
+                event.target.complete();
+            }
+        }).catch(() => {
+            if (event) {
+                event.target.complete();
+            }
         });
 
     }
