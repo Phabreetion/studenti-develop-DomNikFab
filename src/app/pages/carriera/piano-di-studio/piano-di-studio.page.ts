@@ -37,6 +37,8 @@ export class PianoDiStudioPage implements OnInit {
     isSearchbarOpened = false;
     searchKey: string;
 
+    click: number;
+
 
 
 
@@ -48,9 +50,10 @@ export class PianoDiStudioPage implements OnInit {
                 public http: HttpService,
                 public toastCtrl: ToastController,
                 public account: AccountService,
-                public toastService: ToastsService) {
+                public toastService: ToastsService,) {
         this.filtro = new FiltroPianoDiStudio();
         this.searchKey = '';
+        this.click = 0;
     }
 
     ngOnInit() {
@@ -251,7 +254,6 @@ export class PianoDiStudioPage implements OnInit {
     memorizzaFiltri() {
         this.pianoDiStudioService.memorizzaFiltri(this.filtro);
     }
-
 
 
 

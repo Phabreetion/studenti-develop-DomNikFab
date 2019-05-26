@@ -38,8 +38,10 @@
                            (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
-        <ion-button (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
+        <div class="reset">
+        <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
         </ion-button>
+        </div>
     </ion-grid>
 </ion-header>
 
@@ -112,8 +114,9 @@
             </ion-item>
 
             <ion-item-sliding>
-                <ion-item (click)="presentActionSheet(corso)">
+                <ion-item >
 
+                    <ion-buttons class="buttonLeft"><ion-button icon-only (click)="presentActionSheet(corso)"><ion-icon name="md-document" ></ion-icon></ion-button></ion-buttons>
 
                     <ion-grid fixed no-padding>
                         <ion-row
@@ -134,6 +137,7 @@
 
                                     <ion-row class="dati-esame">
                                         <ion-col size="6">
+                                             <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU:&nbsp;{{corso.CFU}} &nbsp;&nbsp;
                                             &nbsp; &nbsp;
                                             <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU:{{corso.CFU}}
                                         </ion-col>
