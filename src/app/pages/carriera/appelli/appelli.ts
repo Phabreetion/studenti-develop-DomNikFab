@@ -238,7 +238,7 @@ export class AppelliPage implements OnInit {
             const searchKeyLowered = this.searchKey.toLowerCase();
             this.appelliTrovati = this.appelliTrovati.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
         } else {
-            this.appelliTrovati = this.appelliTrovati;
+            this.appelliTrovati = this.appelliFiltrati;
         }
     }
 
