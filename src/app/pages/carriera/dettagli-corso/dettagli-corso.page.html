@@ -35,14 +35,14 @@
         <ion-card-content>
             <ion-grid no-padding>
 
-                <ion-row *ngIf=" !asDueProfessori() ">
+                <ion-row *ngIf=" !corso.hasDueProfessori()">
                     <ion-col >
                         <b><I>Docente</I></b>
                         <br> {{corso.COGNOME}}
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf=" asDueProfessori()">
+                <ion-row *ngIf="corso.hasDueProfessori()">
                     <ion-col >
                         <b><I>Docenti</I></b>
                         <br>

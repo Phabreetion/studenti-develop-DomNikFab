@@ -91,8 +91,8 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if (this.ad_id_insegnamento != 0 ) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
+                if ( this.ad_id_insegnamento != 0 ) {
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
                 }
 
                 //carico i filtri dallo storage ed eseguo il filtraggio.
@@ -128,7 +128,7 @@ export class AppelliPage implements OnInit {
                 this.corsiMap = data[2];
 
                 if (this.ad_id_insegnamento != 0 ) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
                 }
 
                 //carico i filtri dallo storage ed eseguo il filtraggio.
@@ -347,15 +347,7 @@ export class AppelliPage implements OnInit {
     }
 
 
-    controllaPrenotazioniOutOfTime() {
-        //this.prenotazioni = this.prenotazioni.filter((prenotazione) => !this.isOutOfTime(prenotazione));
-    }
 
-    controllaPrenotazioni() {
-        /*this.prenotazioni = this.prenotazioni.filter((appello) => {
-            return appello.isPrenotazioneSuperata(this.corsiMap);
-        });*/
-    }
 
 
 
@@ -377,9 +369,7 @@ export class AppelliPage implements OnInit {
         return this.prenotazioni.length > 0 ? '(' + this.prenotazioni.length + ')' : '';
     }
 
-    pulisciTesto(item: string): string {
-        return item.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
-    }
+
 
 
     goToDettagliCorso(appello: AppelloDisponibile) {

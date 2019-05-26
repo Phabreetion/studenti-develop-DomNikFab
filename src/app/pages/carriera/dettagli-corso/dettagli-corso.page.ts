@@ -13,19 +13,25 @@ import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
     styleUrls: ['./dettagli-corso.page.scss'],
 })
 export class DettagliCorsoPage implements OnInit {
-    corso: Corso;
 
+    //query string
+    ad_id_corso: number;
+
+    //corsi
+    corso: Corso;
+    corsiMap: Map<number, Corso>;
+    corsiPropedeutici: Corso[];
+
+    //appelli
     appelli: AppelloDisponibile[];
 
-    private ad_id_corso: number;
-    private corsiPropedeutici: Corso[];
 
     public isClickContenuti: boolean;
     public isClickTesti: boolean;
     public isClickObiettiviFormativi: boolean;
 
-    public corsiMap: Map<number, Corso>;
 
+    //booleano per dire se ci sono appelli disponibili
     corsoConAppelli: boolean;
 
 
@@ -48,16 +54,17 @@ export class DettagliCorsoPage implements OnInit {
 
         //this.corso = this.globalData.corso;
         const corsoPromise = this.pianoDiStudioService.getCorso(this.ad_id_corso);
-        const corsiMapPromise  = this.pianoDiStudioService.getCorsiAsMap();
+        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
         const appelliPromise = this.appelliService.getAppelliDisponibili();
         //const filePromise = this.sync.getJson()
 
-        Promise.all([corsoPromise, corsiMapPromise, appelliPromise]).then( (data) => {
+        Promise.all([corsoPromise, corsiMapPromise, appelliPromise]).then(
+            (data) => {
                 this.corso = data[0];
                 this.corsiMap = data[1];
                 this.appelli = data[2];
 
-                this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (data1) => {
+                this.pianoDiStudioService.getPropedeuticita(this.ad_id_corso, this.corsiMap).then((data1) => {
                     this.corsiPropedeutici = data1;
                 });
 
@@ -67,19 +74,10 @@ export class DettagliCorsoPage implements OnInit {
                     i++;
                 }
 
-
                 this.corsoConAppelli = i < this.appelli.length;
             }
         );
-
-        console.log(this.corso);
     }
-
-    asDueProfessori() {
-        return !!(this.corso.COGNOME && this.corso.NOME !== ' ' && this.corso.NOME);
-    }
-
-
 
 
     public mostraContenuti() {
@@ -111,8 +109,6 @@ export class DettagliCorsoPage implements OnInit {
             return this.isClickObiettiviFormativi;
         }
     }
-
-
 
 
     goToAppelli() {

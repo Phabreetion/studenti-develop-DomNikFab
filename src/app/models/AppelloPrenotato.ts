@@ -49,6 +49,10 @@ export class AppelloPrenotato extends Appello  {
     }
 
 
+    getDescrizionePulita(): string {
+        return this.ad_des.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
+    }
+
     isPrenotazioneSuperata(corsoMap: Map<number, Corso>): boolean {
         return corsoMap.get(this.ad_id).isSuperato();
     }

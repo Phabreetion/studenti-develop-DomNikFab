@@ -51,6 +51,10 @@ export class AppelloDisponibile extends Appello  {
         return Object.assign(new AppelloDisponibile(), obj);
     }
 
+    getDescrizionePulita(): string {
+        return this.descrizione.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
+    }
+
     getDataEsame(): Date {
         const dataEsame = GlobalDataService.string2date(this.data_ora_app);
         dataEsame.setHours(0, 0, 0, 0);
