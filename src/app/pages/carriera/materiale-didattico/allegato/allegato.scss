@@ -1,1 +1,16 @@
+$primary_color: #3274a2;   //#3880ff colore precedente
 
+.icona_allegato{
+  color: $primary_color;
+  font-size: 1.5em;
+  position: relative;
+  top: 5px;
+}
+
+.button_allegato{
+  max-width: 100%;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  margin: 0 auto;
+}
