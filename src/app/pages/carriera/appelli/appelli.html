@@ -212,7 +212,7 @@
                             <ion-row *ngIf=" appello.p10_app_note" color="lightgrey">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown">
-                                        <I>NOTA:{{appello.p10_app_note}}</I>
+                                        <I>NOTA: {{appello.p10_app_note}}</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
@@ -222,7 +222,7 @@
                                     *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() > 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
+                                        <I>Prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
                                             giorni</I>
                                     </ion-card-subtitle>
                                 </ion-col>
@@ -232,7 +232,7 @@
                                     *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() && appello.giorniRimanentiPrimaDellaChiusura() < 1">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
+                                        <I>Prenota l'appello tra {{appello.giorniRimanentiPrimaDellaChiusura()}}
                                             giorno</I>
                                     </ion-card-subtitle>
                                 </ion-col>
