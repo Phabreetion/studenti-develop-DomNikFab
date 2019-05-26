@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
-import {LoadingController, ToastController, AlertController, ModalController} from '@ionic/angular';
+import {LoadingController, ToastController, AlertController, ModalController, ActionSheetController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
@@ -14,6 +14,7 @@ import {FiltroAppelliDisponibili} from '../../../models/FiltroAppelliDisponibili
 import {AppelliService} from '../../../services/appelli.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {AppelloPrenotato} from '../../../models/AppelloPrenotato';
+import {Appello} from '../../../models/Appello';
 
 const PAGE_URL = '/appelli';
 
@@ -355,6 +356,9 @@ export class AppelliPage implements OnInit {
             return appello.isPrenotazioneSuperata(this.corsiMap);
         });*/
     }
+
+
+
 
 
     getNumAppelliDisponibiliAsString(): string {
