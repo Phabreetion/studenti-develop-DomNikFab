@@ -46,7 +46,8 @@
             <ion-segment (ionChange)="ngOnInit()" [(ngModel)]="sezioni">
                 <ion-segment-button value="disponibili">
                     Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
-                <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
+                <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
+                    Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
             </ion-segment>
         </ion-row>
 
@@ -124,7 +125,13 @@
 
                     <ion-item>
 
-                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;"><ion-button icon-only ><ion-icon name="md-document"></ion-icon></ion-button></ion-buttons>
+                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;">
+                            <ion-button icon-only (click)="presentActionSheet(appello)">
+                                <ion-icon name="md-document"></ion-icon>
+                            </ion-button>
+                        </ion-buttons>
+
+
                         <ion-grid>
                             <div class="materiale-laterale">
                                 <ion-row>

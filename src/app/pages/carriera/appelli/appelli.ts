@@ -65,6 +65,7 @@ export class AppelliPage implements OnInit {
                 public account: AccountService,
                 public esse3: Esse3Service,
                 public modalController: ModalController,
+                public actionSheetController: ActionSheetController,
                 public pianoDiStudioService: PianoDiStudioService,
                 public appelliService: AppelliService) {
         this.sezioni = 'disponibili';
@@ -75,8 +76,12 @@ export class AppelliPage implements OnInit {
     async ngOnInit() {
         //controllo l'account, se non verificato rimanda alla pagina di login
         this.account.controllaAccount().then(
-            () => {this.http.getConnected(); },
-            () => {this.globalData.goTo(PAGE_URL, '/login', 'root', false); }
+            () => {
+                this.http.getConnected();
+            },
+            () => {
+                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
+            }
         );
 
         this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
@@ -91,7 +96,7 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if ( this.ad_id_insegnamento != 0 ) {
+                if (this.ad_id_insegnamento != 0) {
                     this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
                 }
 
@@ -127,7 +132,7 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if (this.ad_id_insegnamento != 0 ) {
+                if (this.ad_id_insegnamento != 0) {
                     this.appelli = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
                 }
 
@@ -149,8 +154,6 @@ export class AppelliPage implements OnInit {
     }
 
 
-
-
     doRefresh(event) {
         if (this.sezioni === 'disponibili') {
             this.appelliService.getAppelliDisponibiliAggiornati().then((appelliDisponibiliAggiornati) => {
@@ -158,7 +161,7 @@ export class AppelliPage implements OnInit {
                 this.appelli = appelliDisponibiliAggiornati;
 
                 if (this.ad_id_insegnamento != 0) {
-                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento );
+                    this.appelli = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
                 }
 
                 this.updateFiltri();
@@ -189,7 +192,9 @@ export class AppelliPage implements OnInit {
         this.isSearchbarOpened = !this.isSearchbarOpened;
 
         if (this.isSearchbarOpened) {
-            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+            setTimeout(() => {
+                this.searchbar.setFocus();
+            }, 150);
         }
 
         this.searchKey = '';
@@ -224,7 +229,7 @@ export class AppelliPage implements OnInit {
 
 
     filtra() {
-     this.appelliFiltrati = this.filtro.filtra(this.appelli, this.corsiMap);
+        this.appelliFiltrati = this.filtro.filtra(this.appelli, this.corsiMap);
     }
 
     ordina() {
@@ -281,7 +286,8 @@ export class AppelliPage implements OnInit {
                 buttons: [
                     {
                         text: 'No',
-                        handler: () => {}
+                        handler: () => {
+                        }
                     },
                     {
                         text: 'Si',
@@ -320,7 +326,8 @@ export class AppelliPage implements OnInit {
                 buttons: [
                     {
                         text: 'No',
-                        handler: () => {}
+                        handler: () => {
+                        }
                     },
                     {
                         text: 'Si',
@@ -347,12 +354,6 @@ export class AppelliPage implements OnInit {
     }
 
 
-
-
-
-
-
-
     getNumAppelliDisponibiliAsString(): string {
         if (!this.appelli) {
             return '';
@@ -370,8 +371,6 @@ export class AppelliPage implements OnInit {
     }
 
 
-
-
     goToDettagliCorso(appello: AppelloDisponibile) {
         this.globalData.goTo(this, ['/esame/', appello.ad_id], 'forward', false);
     }
@@ -380,4 +379,31 @@ export class AppelliPage implements OnInit {
         this.globalData.goTo(this, ['/materiale-didattico/', appello.ad_id], 'forward', false);
     }
 
+    async presentActionSheet(appello: AppelloDisponibile) {
+        const actionSheet = await this.actionSheetController.create({
+            header: appello.descrizione,
+            buttons: [
+                {
+                    text: 'Dettagli corso',
+                    icon: 'alert',
+                    handler: () => {
+                        this.goToDettagliCorso(appello);
+                    }
+                }, {
+                    text: 'Materiale didattico',
+                    icon: 'archive',
+                    handler: () => {
+                        this.goToMaterialeDidattico(appello);
+                    }
+                }, {
+                    text: 'Chiudi',
+                    icon: 'close',
+                    handler: () => {
+                        this.actionSheetController.dismiss().catch();
+                    }
+                }]
+        });
+
+        await actionSheet.present();
+    }
 }
