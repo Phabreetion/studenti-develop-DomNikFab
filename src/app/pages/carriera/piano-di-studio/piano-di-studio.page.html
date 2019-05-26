@@ -98,19 +98,19 @@
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">
-                <ion-title text-center>{{corso.ANNO}}°ANNO</ion-title>
+                <ion-title text-center style="font-size: 90% ">{{corso.ANNO}}°ANNO</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0)))">
-                <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
+                <ion-title text-center style="font-size: 90% "> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].CFU !== corsiTrovati[i-1].CFU))">
-                <ion-title text-center>{{corso.CFU}} CFU</ion-title>
+                <ion-title text-center style="font-size: 90% ">{{corso.CFU}} CFU</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].isSuperato() !== corsiTrovati[i-1].isSuperato()))">
-                <ion-title text-center> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
+                <ion-title text-center style="font-size: 90% "> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
             </ion-item>
 
             <ion-item-sliding>
