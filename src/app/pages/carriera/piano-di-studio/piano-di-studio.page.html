@@ -114,7 +114,7 @@
             <ion-item-sliding>
                 <ion-item >
 
-                    <ion-buttons class="buttonLeft"><ion-button icon-only (click)="presentActionSheet(corso)"><ion-icon name="md-paper" ></ion-icon></ion-button></ion-buttons>
+                    <ion-buttons class="buttonLeft"><ion-button icon-only (click)="presentActionSheet(corso)"><ion-icon name="md-document" ></ion-icon></ion-button></ion-buttons>
 
                     <ion-grid fixed no-padding >
                         <ion-row [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
