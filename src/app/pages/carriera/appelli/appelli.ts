@@ -287,7 +287,7 @@ export class AppelliPage implements OnInit {
         } else {
             this.alertCtrl.create({
                 header: 'Prenotazione',
-                subHeader: 'Vuoi prenotarti all\'appello ' + appello.descrizione + ' ?',
+                subHeader: 'Vuoi prenotarti all\'appello  di' + appello.descrizione + ' ?',
                 message: 'La richiesta di prenotazione sarà inviata al portale dello studente.',
                 buttons: [
                     {
@@ -327,7 +327,7 @@ export class AppelliPage implements OnInit {
         } else {
             this.alertCtrl.create({
                 header: 'Prenotazione',
-                subHeader: 'Vuoi cancellare la prenotazione di ' + prenotazione.ad_des + ' ?',
+                subHeader: 'Vuoi cancellare la prenotazione all\'appello di ' + prenotazione.ad_des + ' ?',
                 message: 'Ricorda che se la finestra per la prenotazione è chiusa non sarà più possibile prenotarsi all\'appello!',
                 buttons: [
                     {
