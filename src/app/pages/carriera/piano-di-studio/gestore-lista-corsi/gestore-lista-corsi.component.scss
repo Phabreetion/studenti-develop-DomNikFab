@@ -30,15 +30,21 @@ ion-item {
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
-  padding-left: 1em;
 }
 .text{
   font-size: 1.5em;
   padding-top: 1em;
+  padding-left: 2.5em;
+  text-align: center;
+  width: 100%;
+  @media screen and (max-width: 440px) {
+    padding-left: 2em;
+  }
 }
 .exit{
   margin-top: 1em;
   margin-right: 1em;
+
 }
 ion-list{
   margin-top: 0;
