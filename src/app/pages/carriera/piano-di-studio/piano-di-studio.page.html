@@ -97,7 +97,13 @@
 
     <ion-list *ngIf="corsi">
 
-        <ion-item *ngIf="(searchKey !== '' || filtro.isActive()) && corsiTrovati.length <= 0">Nessun corso trovato.<br> Si prega di resettare le preferenze inserite.</ion-item>
+        <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
+            <ion-label style="color:gray">Nessun corso trovato.</ion-label>
+        </ion-item>
+        <ion-item *ngIf="(filtro.isActive()) && corsiTrovati.length <= 0" text-center lines="none">
+            <ion-label style="color:gray">Nessun corso trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+        </ion-item>
+
 
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
