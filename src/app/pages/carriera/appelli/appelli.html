@@ -42,8 +42,8 @@
             </ion-searchbar>
         </ion-row>
 
-        <div class="reset">
-            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
+        <div style=" display: flex; flex-flow: row nowrap; justify-content: center;">
+            <ion-button style="max-width: 10em;" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
                         size="small">Reset filtri
             </ion-button>
         </div>

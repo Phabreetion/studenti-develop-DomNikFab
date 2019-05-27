@@ -171,8 +171,8 @@ export class FiltroAppelliDisponibili {
                 appelli.sort(
                     (one, two) => {
                         //conforonta i CFU degli appelli per decidere quale viene prima
-                        if (mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0) {
-                            return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
+                        if (mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0) {
+                            return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
                         }
 
                         //nel caso di appelli con stessi CFU, ordino per alfabetico
@@ -193,8 +193,8 @@ export class FiltroAppelliDisponibili {
                 appelli.sort(
                     (one, two) => {
                         //conforonta i CFU degli appelli per decidere quale viene prima
-                        if (mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU !== 0) {
-                            return mappaCorsi.get(one.ad_id).CFU - mappaCorsi.get(two.ad_id).CFU;
+                        if (mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU !== 0) {
+                            return mappaCorsi.get(two.ad_id).CFU - mappaCorsi.get(one.ad_id).CFU;
                         }
 
                         //nel caso di appelli con stessi CFU, ordino per alfabetico
