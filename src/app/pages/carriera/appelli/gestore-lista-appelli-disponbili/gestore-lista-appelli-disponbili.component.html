@@ -1,8 +1,10 @@
 <ion-content>
-    <div text-center><ion-button class="exit" (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button><b>Preferenze</b></div>
+    <div text-center>
+        <ion-button class="exit" (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button>
+        <b>Preferenze</b></div>
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
-            <ion-list-header text-center><b>Ordina per:</b></ion-list-header>
+            <ion-list-header><b>Ordina per:</b></ion-list-header>
 
 
             <ion-item>
@@ -30,36 +32,40 @@
         </ion-radio-group>
     </ion-list>
 
-  <div class="button">
 
-    <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
-                 (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
-      <ion-icon name="arrow-round-down"></ion-icon>
-      <p>Decrescente</p>
-    </ion-button>
-    <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
-                (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
-      <ion-icon name="arrow-round-up"></ion-icon>
-     <p>Crescente</p>
-    </ion-button>
+    <div class="button">
+        <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
+            <ion-icon name="arrow-round-down"></ion-icon>
+            <p>Decrescente</p>
+        </ion-button>
+        <ion-button expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
+            <ion-icon name="arrow-round-up"></ion-icon>
+            <p>Crescente</p>
+        </ion-button>
+    </div>
 
-  </div>
+
     <ion-list>
         <ion-list-header text-center><b>Filtra per:</b></ion-list-header>
 
         <ion-item>
             <ion-label>Scritto</ion-label>
-             <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoAttivo" (ngModelChange)="checkToogleScritto()"></ion-toggle>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoAttivo"
+                        (ngModelChange)="checkToogleScritto()"></ion-toggle>
         </ion-item>
 
         <ion-item>
             <ion-label>Orale</ion-label>
-            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraOraleAttivo" (ngModelChange)="checkToogleOrale()"></ion-toggle>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraOraleAttivo"
+                        (ngModelChange)="checkToogleOrale()"></ion-toggle>
         </ion-item>
 
         <ion-item>
             <ion-label>Scritto e Orale</ion-label>
-            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoOraleAttivo" (ngModelChange)="checkToogleOraleScritto()"></ion-toggle>
+            <ion-toggle [(ngModel)]="sourcePage.filtro.filtraScrittoOraleAttivo"
+                        (ngModelChange)="checkToogleOraleScritto()"></ion-toggle>
         </ion-item>
 
         <ion-item>
@@ -76,23 +82,23 @@
         </ion-item>
     </ion-list>
 
-<div class="buttons">
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <ion-button style="width:100%" (click)="reset()">
-                    <ion-icon name="refresh"></ion-icon>
-                    <p>Reset</p>
-                </ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button (click)="presentAlertPerConfermaMemorizzazione()" style="width: 100%">
-                    <ion-icon name="bookmark"></ion-icon>
-                    <p>Memorizza</p>
-                </ion-button>
-            </ion-col>
-</ion-row>
-    </ion-grid>
-</div>
+    <div class="buttons">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-button style="width:100%" (click)="reset()">
+                        <ion-icon name="refresh"></ion-icon>
+                        <p>Reset</p>
+                    </ion-button>
+                </ion-col>
+                <ion-col>
+                    <ion-button (click)="presentAlertPerConfermaMemorizzazione()" style="width: 100%">
+                        <ion-icon name="bookmark"></ion-icon>
+                        <p>Memorizza</p>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
 </ion-content>
