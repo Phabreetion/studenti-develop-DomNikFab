@@ -96,6 +96,9 @@
 
 
     <ion-list *ngIf="corsi">
+
+        <ion-item *ngIf="(searchKey !== '' || filtro.isActive()) && corsiTrovati.length <= 0">Nessun corso trovato.<br> Si prega di resettare le preferenze inserite.</ion-item>
+
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">

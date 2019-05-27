@@ -27,7 +27,8 @@ const PAGE_URL = '/appelli';
 export class AppelliPage implements OnInit {
 
 
-    //verrà passato nella query string
+    //verrà passato nella query string per determinare quali appelli visualizzare
+    //se 0 visualizza tutti
     ad_id_insegnamento: number;
 
     //sezione in cui si ci trova
@@ -63,7 +64,6 @@ export class AppelliPage implements OnInit {
                 public loadingCtrl: LoadingController,
                 public globalData: GlobalDataService,
                 public account: AccountService,
-                public esse3: Esse3Service,
                 public modalController: ModalController,
                 public actionSheetController: ActionSheetController,
                 public pianoDiStudioService: PianoDiStudioService,
