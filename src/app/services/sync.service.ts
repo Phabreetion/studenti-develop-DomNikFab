@@ -474,6 +474,7 @@ export class SyncService {
                                 }
                             );
                         } else {
+                            this.loading[id] = false;
                             this.toastService.erroreAggiornamentoDati();
                         }
                     }
