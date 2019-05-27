@@ -15,7 +15,7 @@
                     <ion-title>Appelli</ion-title>
 
                     <ion-buttons slot="end">
-                        <ion-back-button *ngIf="ad_id_insegnamento != 0" text="Indietro"></ion-back-button>
+                        <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text="" icon="md-arrow-round-back"></ion-back-button>
 
                         <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
                             <ion-icon name="switch"></ion-icon>
