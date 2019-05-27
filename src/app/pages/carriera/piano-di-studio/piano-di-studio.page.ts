@@ -37,10 +37,6 @@ export class PianoDiStudioPage implements OnInit {
     isSearchbarOpened = false;
     searchKey: string;
 
-    click: number;
-
-
-
 
     constructor(public globalData: GlobalDataService,
                 public modalController: ModalController,
@@ -52,8 +48,6 @@ export class PianoDiStudioPage implements OnInit {
                 public account: AccountService,
                 public toastService: ToastsService) {
         this.filtro = new FiltroPianoDiStudio();
-        this.searchKey = '';
-        this.click = 0;
     }
 
     ngOnInit() {
@@ -62,6 +56,9 @@ export class PianoDiStudioPage implements OnInit {
             () => {this.http.getConnected(); },
             () => {this.globalData.goTo(PAGE_URL, '/login', 'root', false); }
         );
+
+        this.isSearchbarOpened = false;
+        this.searchKey = '';
 
         //@TODO mettere tutta questa roba nel service
         this.pianoDiStudioService.getCorsi().then( (data) => {
@@ -77,19 +74,19 @@ export class PianoDiStudioPage implements OnInit {
     ionViewDidEnter() {
         this.isSearchbarOpened = false;
         this.searchKey = '';
+        /*
+                //carico i filtri dallo storage ed eseguo il filtraggio.
+                this.pianoDiStudioService.loadFiltriFromStorage().then(
+                    filtro => {
+                        this.filtro = filtro;
 
-        //carico i filtri dallo storage ed eseguo il filtraggio.
-        this.pianoDiStudioService.loadFiltriFromStorage().then(
-            filtro => {
-                this.filtro = filtro;
-
-                this.pianoDiStudioService.getMaxAnni().then(
-                    value => {
-                        this.filtro.setMaxAnni(value);
-                        this.updateFiltri();
-                    });
-            }
-        );
+                        this.pianoDiStudioService.getMaxAnni().then(
+                            value => {
+                                this.filtro.setMaxAnni(value);
+                                this.updateFiltri();
+                            });
+                    }
+                );*/
     }
 
 

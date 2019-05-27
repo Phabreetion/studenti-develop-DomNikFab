@@ -68,13 +68,10 @@ export class AppelliPage implements OnInit {
                 public actionSheetController: ActionSheetController,
                 public pianoDiStudioService: PianoDiStudioService,
                 public appelliService: AppelliService) {
-        this.sezioni = 'disponibili';
-        this.searchKey = '';
         this.filtro = new FiltroAppelliDisponibili();
     }
 
-    async ngOnInit() {
-        console.log('ngoninit');
+    ngOnInit() {
         //controllo l'account, se non verificato rimanda alla pagina di login
         this.account.controllaAccount().then(
             () => {
@@ -85,52 +82,48 @@ export class AppelliPage implements OnInit {
             }
         );
 
+        this.isSearchbarOpened = false;
+        this.searchKey = '';
+        this.sezioni = 'disponibili';
+
         this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
 
-        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
-        const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
-        const appelliPrenotatiPromise = this.appelliService.getAppelliPrenotati();
+        this.pianoDiStudioService.getCorsiAsMap().then((corsiMap) => {
+            this.corsiMap = corsiMap;
 
-        Promise.all([appelliDisponibiliPromise, appelliPrenotatiPromise, corsiMapPromise]).then(
-            (data) => {
-                this.appelli = data[0];
-                this.prenotazioni = data[1];
-                this.corsiMap = data[2];
+            this.appelliService.getAppelliDisponibili().then((appelli) => {
+                this.appelli = appelli;
 
                 if (this.ad_id_insegnamento != 0) {
                     this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
                 } else {
                     //carico i filtri dallo storage ed eseguo il filtraggio.
-                    this.appelliService.loadFiltriFromStorage().then(
-                        filtro => {
-                            this.filtro = filtro;
+                    this.appelliService.loadFiltriFromStorage().then((filtro) => {
+                        this.filtro = filtro;
 
-                            this.pianoDiStudioService.getMaxAnni().then(
-                                value => {
-                                    this.filtro.setMaxAnni(value);
-                                    this.updateFiltri();
-                                }
-                            );
-                        }
-                    );
+                        this.pianoDiStudioService.getMaxAnni().then(value => {
+                            this.filtro.setMaxAnni(value);
+                            this.updateFiltri();
+                        });
+                    });
                 }
+            });
+        });
 
-
-                console.log('fine promise ng on init');
-            }
-        );
+        
+        this.appelliService.getAppelliPrenotati().then((prentazioni) => {
+            this.prenotazioni = prentazioni;
+        });
     }
 
     ionViewDidEnter() {
-        console.log('ionviewdidload');
         this.sezioni = 'disponibili';
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
         if (this.ad_id_insegnamento != 0) {
             this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
-
-        } else {
+        } /*else {
             this.appelliService.loadFiltriFromStorage().then(
                 filtro => {
                     this.filtro = filtro;
@@ -142,7 +135,7 @@ export class AppelliPage implements OnInit {
                         });
                 }
             );
-        }
+        }*/
         /*
         const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
         const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
@@ -178,9 +171,7 @@ export class AppelliPage implements OnInit {
 
 
     doRefresh(event) {
-
         this.appelliService.getAppelliDisponibiliAggiornati().then((appelliDisponibiliAggiornati) => {
-
             this.appelli = appelliDisponibiliAggiornati;
 
             this.updateFiltri();
@@ -188,8 +179,6 @@ export class AppelliPage implements OnInit {
             if (event) {
                 event.target.complete();
             }
-
-
         }).catch(() => {
             if (event) {
                 event.target.complete();
@@ -227,7 +216,6 @@ export class AppelliPage implements OnInit {
     }
 
     gestioneSearchbarAppelli() {
-
         if (this.sezioni !== 'disponibili' && this.isSearchbarOpened == true) {
             this.isSearchbarOpened = false;
             return false;

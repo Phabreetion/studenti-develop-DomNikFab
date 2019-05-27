@@ -1,32 +1,30 @@
 <ion-header>
-    <ion-grid fixed no-padding>
+    <ion-grid no-padding>
         <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
             <ion-col>
                 <ion-label></ion-label>
             </ion-col>
         </ion-row>
-        <ion-row>
-            <ion-col>
-                <ion-toolbar>
-                    <ion-buttons slot="start">
-                        <ion-menu-button></ion-menu-button>
-                    </ion-buttons>
+        <ion-row no-padding>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
 
-                    <ion-title>Appelli</ion-title>
+                <ion-title>Appelli</ion-title>
 
                     <ion-buttons slot="end">
                         <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text="" icon="md-arrow-round-back"></ion-back-button>
 
-                        <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
-                            <ion-icon name="switch"></ion-icon>
-                        </ion-button>
+                    <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
+                        <ion-icon name="switch"></ion-icon>
+                    </ion-button>
 
-                        <ion-button (click)="toogleSearchbar()" *ngIf="mostraIcone()">
-                            <ion-icon name="search" style="font-size: 1.5em;"></ion-icon>
-                        </ion-button>
-                    </ion-buttons>
-                </ion-toolbar>
-            </ion-col>
+                    <ion-button (click)="toogleSearchbar()" *ngIf="mostraIcone()">
+                        <ion-icon name="search" style="font-size: 1.5em;"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
         </ion-row>
 
         <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarAppelli()'>
@@ -41,20 +39,18 @@
             </ion-searchbar>
         </ion-row>
 
-        <div style=" display: flex; flex-flow: row nowrap; justify-content: center;">
-            <ion-button style="max-width: 10em;" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
+        <div *ngIf="filtro.isActive()" style=" display: flex; flex-flow: row nowrap; justify-content: center;">
+            <ion-button style="max-width: 10em;" (click)="resetFiltri()" expand="block"
                         size="small">Reset filtri
             </ion-button>
         </div>
 
-        <ion-row>
-            <ion-segment [(ngModel)]="sezioni">
-                <ion-segment-button value="disponibili">
-                    Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
-                <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
-                    Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
-            </ion-segment>
-        </ion-row>
+        <ion-segment [(ngModel)]="sezioni">
+            <ion-segment-button value="disponibili">
+                Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
+            <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
+                Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
+        </ion-segment>
 
     </ion-grid>
 </ion-header>
@@ -72,7 +68,25 @@
     </ion-refresher>
 
     <ion-list *ngSwitchCase="'disponibili'">
-        <ion-grid *ngIf="appelli?.length == 0 && appelliService.isAppelliDisponibiliLoading()" text-center>
+        <ion-grid *ngIf="appelli?.length == 0 && !http.connected" text-center>
+            <ion-row>
+                <ion-col>
+                    <ion-icon name="warning" color="warning" style="font-size: 5em"></ion-icon>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col text-center>
+                    <ion-title><strong>Nessun corso in memoria</strong></ion-title>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col text-center>
+                    <ion-label>Controlla la connessione e aggiorna la pagina</ion-label>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-grid *ngIf="appelli?.length == 0 && http.connected && appelliService.isAppelliDisponibiliLoading()" text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -90,7 +104,7 @@
             </ion-row>
         </ion-grid>
 
-        <div *ngIf="appelli?.length == 0 && !appelliService.isAppelliDisponibiliLoading()" text-center>
+        <div *ngIf="appelli?.length == 0 && http.connected && !appelliService.isAppelliDisponibiliLoading()" text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>
