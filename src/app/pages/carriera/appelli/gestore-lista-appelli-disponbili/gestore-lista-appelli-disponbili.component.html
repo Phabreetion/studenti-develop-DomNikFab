@@ -1,5 +1,5 @@
 <ion-content>
-    <div class="exit"><ion-button (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button></div>
+    <div text-center><ion-button class="exit" (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button><b>Preferenze</b></div>
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
             <ion-list-header text-center><b>Ordina per:</b></ion-list-header>

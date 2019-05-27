@@ -27,11 +27,14 @@
   margin: 1em 1em 0 95%;
   @media screen and (max-width: 1142px) {
     margin: 0.5em 0.5em 0 90%;
+
+    align: center;
   }
   ion-button{
     padding: 0;
     height: 2em;
     width: 2em;
+    align:right;
   }
 }
 ion-list{
