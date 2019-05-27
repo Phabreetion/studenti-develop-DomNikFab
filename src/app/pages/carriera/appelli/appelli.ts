@@ -74,6 +74,7 @@ export class AppelliPage implements OnInit {
     }
 
     async ngOnInit() {
+        console.log('ngoninit');
         //controllo l'account, se non verificato rimanda alla pagina di login
         this.account.controllaAccount().then(
             () => {
@@ -113,15 +114,36 @@ export class AppelliPage implements OnInit {
                         }
                     );
                 }
+
+
+                console.log('fine promise ng on init');
             }
         );
     }
 
     ionViewDidEnter() {
+        console.log('ionviewdidload');
         this.sezioni = 'disponibili';
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
+        if (this.ad_id_insegnamento != 0) {
+            this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+
+        } else {
+            this.appelliService.loadFiltriFromStorage().then(
+                filtro => {
+                    this.filtro = filtro;
+
+                    this.pianoDiStudioService.getMaxAnni().then(
+                        value => {
+                            this.filtro.setMaxAnni(value);
+                            this.updateFiltri();
+                        });
+                }
+            );
+        }
+        /*
         const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
         const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
         const appelliPrenotatiPromise = this.appelliService.getAppelliPrenotati();
@@ -132,9 +154,7 @@ export class AppelliPage implements OnInit {
                 this.prenotazioni = data[1];
                 this.corsiMap = data[2];
 
-                if (this.ad_id_insegnamento != 0) {
-                    this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
-                } else {
+                 else {
                     //carico i filtri dallo storage ed eseguo il filtraggio.
                     this.appelliService.loadFiltriFromStorage().then(
                         filtro => {
@@ -146,11 +166,14 @@ export class AppelliPage implements OnInit {
                                     this.updateFiltri();
                                 }
                             );
+                            console.log('fine promise ion view1');
                         }
                     );
+                    console.log('fine promise ion view2');
                 }
+                console.log('fine promise ion view3');
             }
-        );
+        );*/
     }
 
 

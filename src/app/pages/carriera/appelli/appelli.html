@@ -66,7 +66,7 @@
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
-                refreshingSpinner="null"
+                refreshingSpinner="crescent"
                 refreshingText="Aggiornamento...">
         </ion-refresher-content>
     </ion-refresher>
@@ -379,10 +379,10 @@
         </div>
 
         <div *ngIf="sezioni=='disponibili'" class="testo-footer">
-            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliDisponibili()}}
+            Aggiornato al: {{sync.getDataUltimoAggiornamento(1)}}
         </div>
         <div *ngIf="sezioni=='prenotati'" class="testo-footer">
-            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliPrenotati()}}
+            Aggiornato al: {{sync.getDataUltimoAggiornamento(10)}}
         </div>
 
         <ion-spinner [hidden]="!appelliService.isAppelliLoading()" slot="end"></ion-spinner>

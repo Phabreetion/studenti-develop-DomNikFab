@@ -34,7 +34,7 @@ ID SERVIZI
 'SERVIZIO_NEWS_ATENEO', 16
 'SERVIZIO_CALENDARIO', 17
 'SERVIZIO_MATERIALE_DIDATTICO', 18
-'SERVIZIO_ACCOUNTS', 19                        //
+'SERVIZIO_ACCOUNTS', 19
 */
 
 //numero massimo di possibili rinivii della richiesta di aggiornamento di un servizio
