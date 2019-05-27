@@ -26,9 +26,9 @@ export class DettagliCorsoPage implements OnInit {
     appelli: AppelloDisponibile[];
 
 
-    public isClickContenuti: boolean;
-    public isClickTesti: boolean;
-    public isClickObiettiviFormativi: boolean;
+    isClickContenuti: boolean;
+    isClickTesti: boolean;
+    isClickObiettiviFormativi: boolean;
 
 
     //booleano per dire se ci sono appelli disponibili
@@ -51,32 +51,21 @@ export class DettagliCorsoPage implements OnInit {
 
         this.ad_id_corso = Number(this.route.snapshot.paramMap.get('id'));
 
+        this.pianoDiStudioService.getCorso(this.ad_id_corso).then((corso) => {
+            this.corso = corso;
 
-        //this.corso = this.globalData.corso;
-        const corsoPromise = this.pianoDiStudioService.getCorso(this.ad_id_corso);
-        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
-        const appelliPromise = this.appelliService.getAppelliDisponibili();
-        //const filePromise = this.sync.getJson()
+            this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
+                this.corsiMap = data;
 
-        Promise.all([corsoPromise, corsiMapPromise, appelliPromise]).then(
-            (data) => {
-                this.corso = data[0];
-                this.corsiMap = data[1];
-                this.appelli = data[2];
-
-                this.pianoDiStudioService.getPropedeuticita(this.ad_id_corso, this.corsiMap).then((data1) => {
-                    this.corsiPropedeutici = data1;
+                this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (corsiProp) => {
+                    this.corsiPropedeutici = corsiProp;
                 });
 
-                //cerco un appello con ad_id uguale a quello passato
-                let i = 0;
-                while (i < this.appelli.length && this.appelli[i].ad_id != this.ad_id_corso) {
-                    i++;
-                }
 
-                this.corsoConAppelli = i < this.appelli.length;
-            }
-        );
+            });
+        });
+
+        this.appelliService.hasAlmenoUnAppello(this.ad_id_corso).then(value => { this.corsoConAppelli = value; });
     }
 
 

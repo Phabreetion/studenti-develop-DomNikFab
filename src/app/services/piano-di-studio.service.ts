@@ -19,6 +19,7 @@ export class PianoDiStudioService {
                 public storage: Storage) {
     }
 
+
     public async getPropedeuticita(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<any[]> {
         return new Promise<any[]>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PROPEDEUTICITA, null, false).then(async (data) => {
@@ -87,10 +88,10 @@ export class PianoDiStudioService {
                 const map = new Map<number, Corso>();
 
                 for (let i = 0; i < corsi[0].length; i++) {
-                    map.set(corsi[0][i].AD_ID, Corso.toObj(corsi[0][i]));
+                    const corso = Corso.toObj(corsi[0][i]);
+                    map.set(corso.AD_ID, corso);
                 }
 
-                console.log(map);
                 resolve(map);
             });
         });
@@ -126,12 +127,7 @@ export class PianoDiStudioService {
                     i++;
                 }
 
-                if (i >= corsi.length) {
-                    reject();
-                } else {
-                    resolve(corsi[i]);
-                }
-
+                i >= corsi.length ? reject() : resolve(corsi[i]);
             });
         });
     }
