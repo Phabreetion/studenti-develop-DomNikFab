@@ -96,6 +96,15 @@
 
 
     <ion-list *ngIf="corsi">
+
+        <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
+            <ion-label style="color:gray">Nessun corso trovato.</ion-label>
+        </ion-item>
+        <ion-item *ngIf="(filtro.isActive()) && corsiTrovati.length <= 0" text-center lines="none">
+            <ion-label style="color:gray">Nessun corso trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+        </ion-item>
+
+
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">
@@ -144,12 +153,11 @@
                                     <ion-row class="dati-esame">
                                         <ion-col size="6">
                                             <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp;
-                                            CFU:&nbsp;{{corso.CFU}} &nbsp;&nbsp;
-                                            &nbsp; &nbsp;
+                                            CFU:&nbsp;{{corso.CFU}}
                                         </ion-col>
                                         <ion-col *ngIf="corso.isSuperato()">
                                             <fa-icon [icon]="globalData.faCalendarDay"></fa-icon>
-                                            &nbsp; {{corso.DATA_ESAME}}
+                                            &nbsp;{{corso.DATA_ESAME}}
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>

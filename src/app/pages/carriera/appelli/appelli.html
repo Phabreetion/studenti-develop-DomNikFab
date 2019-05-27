@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-grid fixed no-padding> <!-- no-padding-->
+    <ion-grid fixed no-padding>
         <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
             <ion-col>
                 <ion-label></ion-label>
@@ -11,17 +11,17 @@
                     <ion-buttons slot="start">
                         <ion-menu-button></ion-menu-button>
                     </ion-buttons>
-                    <ion-title>
-                        Appelli
-                    </ion-title>
+
+                    <ion-title>Appelli</ion-title>
 
                     <ion-buttons slot="end">
-                        <ion-back-button *ngIf="ad_id_insegnamento != 0" defaultHref="/"
-                                         text="Indietro"></ion-back-button>
+                        <ion-back-button *ngIf="ad_id_insegnamento != 0" text="Indietro"></ion-back-button>
+
                         <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
                             <ion-icon name="switch"></ion-icon>
                         </ion-button>
-                        <ion-button (click)="toogleSearchbar()" *ngIf="mostraIcone()" icon-only>
+
+                        <ion-button (click)="toogleSearchbar()" *ngIf="mostraIcone()">
                             <ion-icon name="search" style="font-size: 1.5em;"></ion-icon>
                         </ion-button>
                     </ion-buttons>
@@ -36,7 +36,6 @@
                 [(ngModel)]="searchKey"
                 placeholder="Cerca"
                 showCancelButton="true"
-                animated="true"
                 (ionCancel)="toogleSearchbar()"
                 (ngModelChange)="search()">
             </ion-searchbar>
@@ -49,7 +48,7 @@
         </div>
 
         <ion-row>
-            <ion-segment (ionChange)="ngOnInit()" [(ngModel)]="sezioni">
+            <ion-segment [(ngModel)]="sezioni">
                 <ion-segment-button value="disponibili">
                     Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
                 <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
@@ -106,7 +105,15 @@
             </ion-grid>
         </div>
 
-        <ion-grid *ngIf="appelli?.length > 0"> <!-- no-padding-->
+        <ion-grid *ngIf="appelli?.length > 0">
+
+            <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
+                <ion-label style="color:gray">Nessun appello trovato.</ion-label>
+            </ion-item>
+            <ion-item *ngIf="(filtro.isActive()) && appelliTrovati.length <= 0" text-center lines="none">
+                <ion-label style="color:gray">Nessun appello trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+            </ion-item>
+
             <div *ngFor="let appello of appelliTrovati; let i = index">
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
@@ -123,7 +130,8 @@
 
                 <ion-item
                         *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).ANNO !== corsiMap.get(appelliTrovati[i-1].ad_id).ANNO))">
-                    <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).ANNO}}° ANNO</ion-title>
+                    <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).ANNO}}° ANNO
+                    </ion-title>
                 </ion-item>
 
 
@@ -236,7 +244,8 @@
                             Materiale<br>didattico
                         </ion-item-option>
 
-                        <ion-item-option *ngIf="appello.isPrenotabile()" color="secondary" (click)="prenotaAppello(itemSliding,appello)">
+                        <ion-item-option *ngIf="appello.isPrenotabile()" color="secondary"
+                                         (click)="prenotaAppello(itemSliding,appello)">
                             Prenota
                         </ion-item-option>
                     </ion-item-options>
@@ -338,7 +347,8 @@
                                     <ion-row *ngIf="prenotazione.isBeforeEsame()" text-center>
                                         <ion-col color="lightgrey">
                                             <ion-card-subtitle class="countdown" style="color:darkcyan"><I>Dovrai
-                                                sostenere l'esame tra {{prenotazione.giorniRimanentiPrimaDellEsame()}} giorni.</I>
+                                                sostenere l'esame tra {{prenotazione.giorniRimanentiPrimaDellEsame()}}
+                                                giorni.</I>
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
@@ -369,10 +379,10 @@
         </div>
 
         <div *ngIf="sezioni=='disponibili'" class="testo-footer">
-            Aggiornato al: {{sync.getDataUltimoAggiornamento(1)}}
+            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliDisponibili()}}
         </div>
         <div *ngIf="sezioni=='prenotati'" class="testo-footer">
-            Aggiornato al: {{sync.getDataUltimoAggiornamento(10)}}
+            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliPrenotati()}}
         </div>
 
         <ion-spinner [hidden]="!appelliService.isAppelliLoading()" slot="end"></ion-spinner>

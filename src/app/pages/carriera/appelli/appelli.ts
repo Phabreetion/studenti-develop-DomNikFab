@@ -27,7 +27,8 @@ const PAGE_URL = '/appelli';
 export class AppelliPage implements OnInit {
 
 
-    //verrà passato nella query string
+    //verrà passato nella query string per determinare quali appelli visualizzare
+    //se 0 visualizza tutti
     ad_id_insegnamento: number;
 
     //sezione in cui si ci trova
@@ -63,7 +64,6 @@ export class AppelliPage implements OnInit {
                 public loadingCtrl: LoadingController,
                 public globalData: GlobalDataService,
                 public account: AccountService,
-                public esse3: Esse3Service,
                 public modalController: ModalController,
                 public actionSheetController: ActionSheetController,
                 public pianoDiStudioService: PianoDiStudioService,
@@ -287,7 +287,7 @@ export class AppelliPage implements OnInit {
         } else {
             this.alertCtrl.create({
                 header: 'Prenotazione',
-                subHeader: 'Vuoi prenotarti all\'appello ' + appello.descrizione + ' ?',
+                subHeader: 'Vuoi prenotarti all\'appello di ' + appello.descrizione + ' ?',
                 message: 'La richiesta di prenotazione sarà inviata al portale dello studente.',
                 buttons: [
                     {
@@ -327,7 +327,7 @@ export class AppelliPage implements OnInit {
         } else {
             this.alertCtrl.create({
                 header: 'Prenotazione',
-                subHeader: 'Vuoi cancellare la prenotazione di ' + prenotazione.ad_des + ' ?',
+                subHeader: 'Vuoi cancellare la prenotazione all\'appello di ' + prenotazione.ad_des + ' ?',
                 message: 'Ricorda che se la finestra per la prenotazione è chiusa non sarà più possibile prenotarsi all\'appello!',
                 buttons: [
                     {

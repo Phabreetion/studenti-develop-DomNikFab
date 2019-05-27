@@ -2,7 +2,7 @@
     <div class="exit"><ion-button (click)="closeFiltri()" color="danger"><strong>X</strong></ion-button></div>
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
-            <ion-list-header text-center> <b>Ordina per:</b> </ion-list-header>
+            <ion-list-header text-center> <b>Ordina per</b> </ion-list-header>
             <ion-item>
                 <ion-label>Anno</ion-label>
                 <ion-radio [value]=0></ion-radio>
@@ -42,14 +42,14 @@
 
 
     <ion-list>
-        <ion-list-header text-center> <b>Filtra per:</b> </ion-list-header>
+        <ion-list-header text-center> <b>Filtra per corsi con esame</b> </ion-list-header>
         <ion-item>
-            <ion-label>Corsi con esame sostenuto </ion-label>
+            <ion-label>Sostenuto </ion-label>
             <ion-toggle [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="checkToogleSuperati()"></ion-toggle>
         </ion-item>
 
         <ion-item>
-            <ion-label>Corsi con esame non sostenuto</ion-label>
+            <ion-label>Non sostenuto</ion-label>
             <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
         </ion-item>
 
