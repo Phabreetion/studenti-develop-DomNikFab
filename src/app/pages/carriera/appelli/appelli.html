@@ -107,7 +107,12 @@
 
         <ion-grid *ngIf="appelli?.length > 0">
 
-            <ion-item *ngIf="(searchKey !== '' || filtro.isActive()) && appelliTrovati.length <= 0">Nessun appello trovato.<br> Si prega di resettare le preferenze inserite</ion-item>
+            <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
+                <ion-label style="color:gray">Nessun appello trovato.</ion-label>
+            </ion-item>
+            <ion-item *ngIf="(filtro.isActive()) && appelliTrovati.length <= 0" text-center lines="none">
+                <ion-label style="color:gray">Nessun appello trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+            </ion-item>
 
             <div *ngFor="let appello of appelliTrovati; let i = index">
                 <ion-item
