@@ -7,7 +7,7 @@ ion-item {
   display: flex;
   flex-flow: row;
   justify-content: center;
-  margin: 1em auto 0.5em auto;
+  margin: 0.5em auto 1em auto;
   padding-bottom: 0;
   ion-button{
     width: 20em;
@@ -25,17 +25,20 @@ ion-item {
     margin: auto auto 0 auto;
   }
 }
+.preferenze{
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding-left: 1em;
+}
+.text{
+  font-size: 1.5em;
+  padding-top: 1em;
+}
 .exit{
-  max-width: 4em;
-  margin: 1em 1em 0 95%;
-  @media screen and (max-width: 1142px) {
-    margin: 0.5em 0.5em 0 90%;
-  }
-  ion-button{
-    padding: 0;
-    height: 2em;
-    width: 2em;
-  }
+  margin-top: 1em;
+  margin-right: 1em;
 }
 ion-list{
   margin-top: 0;
