@@ -144,7 +144,7 @@
                                                       style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
                                             <ion-icon *ngIf="!corso.isSuperato()" name="md-book"
                                                       style="font-size: 1.2em; position: relative; top: 2px;"></ion-icon>
-                                            <fa-icon *ngIf="corso.isSuperato() && corso.isSuperatoConVotoSenzaLode()"
+                                            <fa-icon *ngIf="corso.isSuperatoConGiudizio() || corso.isSuperatoConVotoSenzaLode()"
                                                      [icon]="globalData.faBookOpen"></fa-icon>
                                             <strong> {{corso.DESCRIZIONE}} </strong>
                                         </ion-col>
