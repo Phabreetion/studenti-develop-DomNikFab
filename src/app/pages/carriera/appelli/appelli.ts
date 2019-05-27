@@ -287,7 +287,7 @@ export class AppelliPage implements OnInit {
         } else {
             this.alertCtrl.create({
                 header: 'Prenotazione',
-                subHeader: 'Vuoi prenotarti all\'appello  di' + appello.descrizione + ' ?',
+                subHeader: 'Vuoi prenotarti all\'appello di ' + appello.descrizione + ' ?',
                 message: 'La richiesta di prenotazione sarà inviata al portale dello studente.',
                 buttons: [
                     {
