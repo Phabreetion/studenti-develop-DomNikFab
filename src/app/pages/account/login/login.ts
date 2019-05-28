@@ -171,13 +171,15 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
             // let password = form.value.password;
             const username = this.username;
             const password = this.password;
+
+            //non servono
             const matricola = this.matricola;
             const cds_id = this.cds_id;
             const dip_id = this.dip_id;
 
             this.account.login(username, password, matricola, cds_id, dip_id).then(
                 (risultato) => {
-                    // console.dir(risultato);
+                    //console.log(risultato);
 
                     loading.dismiss().then(
                         () => {
@@ -186,6 +188,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                                 this.globalData.username = this.username;
                                 this.globalData.password = this.password;
                                 this.globalData.carriere = risultato;
+
                                 this.globalData.goTo(this.currentPage, '/carriere', 'root', false);
                             } else {
                                 switch (risultato) {
