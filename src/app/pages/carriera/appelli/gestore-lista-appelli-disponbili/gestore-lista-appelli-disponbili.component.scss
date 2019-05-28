@@ -4,12 +4,12 @@ ion-item {
 
 
 .button{
-  //max-width: 100%;
+  max-width: 100%;
   display: flex;
-  //flex-flow: row;
+  flex-flow: row;
   justify-content: center;
-  //margin:  auto auto;
-  //padding-bottom: 0;
+  margin: 0.5em auto 1em auto;
+  padding-bottom: 0;
   ion-button{
     width: 20em;
     height: auto;
