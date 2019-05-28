@@ -49,8 +49,6 @@ export class DettagliCorsoPage implements OnInit {
     }
 
     async ngOnInit() {
-        //@TODO -> ridurre complessità di caricamento della pagina
-
         this.http.getConnected();
 
         this.ad_id_corso = Number(this.route.snapshot.paramMap.get('id'));
