@@ -28,6 +28,12 @@
             </ion-toolbar>
         </ion-row>
 
+        <div *ngIf="filtro.isActive()" style=" display: flex; flex-flow: row nowrap; justify-content: center;">
+            <ion-button style="max-width: 10em;" (click)="resetFiltri()" expand="block"
+                        size="small">Reset filtri
+            </ion-button>
+        </div>
+
         <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarAppelli()'>
             <ion-searchbar
                 #searchbar
@@ -39,12 +45,6 @@
                 (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
-
-        <div *ngIf="filtro.isActive()" style=" display: flex; flex-flow: row nowrap; justify-content: center;">
-            <ion-button style="max-width: 10em;" (click)="resetFiltri()" expand="block"
-                        size="small">Reset filtri
-            </ion-button>
-        </div>
 
         <ion-segment [(ngModel)]="sezioni">
             <ion-segment-button value="disponibili">
@@ -124,11 +124,9 @@
 
         <ion-grid *ngIf="appelli?.length > 0">
 
-            <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
-                <ion-label style="color:gray">Nessun appello trovato.</ion-label>
-            </ion-item>
-            <ion-item *ngIf="(filtro.isActive()) && appelliTrovati.length <= 0" text-center lines="none">
-                <ion-label style="color:gray">Nessun appello trovato.<br>Si prega di modificare le preferenze inserite.
+            <ion-item *ngIf="appelliTrovati.length <= 0" text-center lines="none">
+                <ion-label style="color:gray">
+                    Nessun appello trovato.<br>{{filtro.isActive()? 'Si prega di modificare le preferenze inserite.' : ''}}
                 </ion-label>
             </ion-item>
 

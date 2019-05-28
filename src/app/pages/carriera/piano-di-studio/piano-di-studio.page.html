@@ -27,6 +27,13 @@
                 </ion-buttons>
             </ion-toolbar>
         </ion-row>
+
+        <div class="reset">
+            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
+                        size="small">Reset filtri
+            </ion-button>
+        </div>
+
         <ion-row *ngIf='isSearchbarOpened'>
             <ion-searchbar #searchbar
                            *ngIf="isSearchbarOpened"
@@ -38,11 +45,7 @@
                            (ngModelChange)="search()">
             </ion-searchbar>
         </ion-row>
-        <div class="reset">
-            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
-                        size="small">Reset filtri
-            </ion-button>
-        </div>
+
     </ion-grid>
 </ion-header>
 
@@ -97,11 +100,10 @@
 
     <ion-list *ngIf="corsi">
 
-        <ion-item *ngIf="(searchKey !== '')" text-center lines="none">
-            <ion-label style="color:gray">Nessun corso trovato.</ion-label>
-        </ion-item>
-        <ion-item *ngIf="(filtro.isActive()) && corsiTrovati.length <= 0" text-center lines="none">
-            <ion-label style="color:gray">Nessun corso trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+        <ion-item *ngIf="corsiTrovati.length <= 0" text-center lines="none">
+            <ion-label style="color:gray; margin-top: 2em">
+                Nessun corso trovato.<br>{{filtro.isActive()? 'Si prega di modificare le preferenze inserite.' : ''}}
+            </ion-label>
         </ion-item>
 
 
