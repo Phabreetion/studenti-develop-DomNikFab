@@ -151,15 +151,11 @@
                 </ion-item>
 
 
-                <ion-item-sliding #itemSliding>
+                <ion-item-sliding #itemSliding (click)="presentActionSheet(appello)">
 
                     <ion-item>
 
-                        <ion-buttons class="materiale-laterale" style="border-right: 1px solid #dedede; height: 100%;">
-                            <ion-button icon-only (click)="presentActionSheet(appello)">
-                                <ion-icon name="attach"></ion-icon>
-                            </ion-button>
-                        </ion-buttons>
+
 
 
                         <ion-grid>
