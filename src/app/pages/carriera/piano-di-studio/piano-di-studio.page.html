@@ -126,11 +126,9 @@
                            style="font-size: 90% "> {{corso.isSuperato() ? 'SUPERATI' : 'NON SOSTENUTI'}}</ion-title>
             </ion-item>
 
-            <ion-item-sliding (click)="presentActionSheet(corso)">
-                <ion-item>
+            <ion-item-sliding #ionItemSliding>
 
-
-
+                <ion-item (click)="presentActionSheet(corso)">
                     <ion-grid>
                         <ion-row
                                 [ngClass]="{'superato' : corso.isSuperato(), 'da-sostenere' : !corso.isSuperato() }">
@@ -177,13 +175,13 @@
 
 
                 <ion-item-options>
-                    <ion-item-option (click)="goToDettagliCorso(corso)" text-center>
+                    <ion-item-option (click)="goToDettagliCorso(corso, ionItemSliding)" text-center>
                         Dettagli<br>corso
                     </ion-item-option>
-                    <ion-item-option (click)="goToMaterialeDidattico(corso)" color="danger" text-center>
+                    <ion-item-option (click)="goToMaterialeDidattico(corso, ionItemSliding)" color="danger" text-center>
                         Materiale<br>didattico
                     </ion-item-option>
-                    <ion-item-option (click)="goToAppelli(corso)" *ngIf="!corso.isSuperato()" color="secondary"
+                    <ion-item-option (click)="goToAppelli(corso, ionItemSliding)" *ngIf="!corso.isSuperato()" color="secondary"
                                      text-center>
                         Appelli
                     </ion-item-option>

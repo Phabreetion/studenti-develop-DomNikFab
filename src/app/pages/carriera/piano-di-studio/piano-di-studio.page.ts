@@ -60,7 +60,6 @@ export class PianoDiStudioPage implements OnInit {
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
-        //@TODO mettere tutta questa roba nel service
         this.pianoDiStudioService.getCorsi().then( (data) => {
             this.corsi = data;
 
@@ -268,17 +267,29 @@ export class PianoDiStudioPage implements OnInit {
 
 
 
-    goToDettagliCorso(corso: Corso) {
-        this.globalData.goTo(this, ['/esame/', corso.AD_ID], 'forward', false);
-        //this.globalData.esame = esame;
-        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
+    goToDettagliCorso(corso: Corso, ionItemSliding?) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
+        this.globalData.corso = corso;
+        const ad_id = corso.AD_ID == null  ? 0 : corso.AD_ID;
+        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/' + corso.DESCRIZIONE, 'forward', false);
     }
 
-    goToAppelli(corso: Corso) {
+    goToAppelli(corso: Corso, ionItemSliding?) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         this.globalData.goTo(this, ['/appelli/', corso.AD_ID], 'forward', false);
     }
 
-    goToMaterialeDidattico(corso: Corso) {
+    goToMaterialeDidattico(corso: Corso, ionItemSliding?) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID], 'forward', false);
     }
 

@@ -9,6 +9,7 @@ import {faWifi, faLink, faUnlink, faCoins, faCalendarDay} from '@fortawesome/fre
 import {Storage} from '@ionic/storage';
 import {faBookOpen} from '@fortawesome/free-solid-svg-icons/faBookOpen';
 import {faPencilAlt} from '@fortawesome/free-solid-svg-icons/faPencilAlt';
+import {Corso} from '../models/Corso';
 
 @Injectable({
     providedIn: 'root'
@@ -58,7 +59,7 @@ export class GlobalDataService {
     password: string;
     notizia: any;
     contatto: any;
-    esame: any;
+    corso: Corso;
     allegato: any;
     ad_id: any;
 

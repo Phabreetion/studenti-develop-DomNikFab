@@ -18,6 +18,7 @@ export class DettagliCorsoPage implements OnInit {
 
     //query string
     ad_id_corso: number;
+    nome_corso: string;
 
     //corsi
     corso: Corso;
@@ -51,20 +52,30 @@ export class DettagliCorsoPage implements OnInit {
     async ngOnInit() {
         this.http.getConnected();
 
-        this.ad_id_corso = Number(this.route.snapshot.paramMap.get('id'));
 
-        this.pianoDiStudioService.getCorso(this.ad_id_corso).then((corso) => {
-            this.corso = corso;
+        this.ad_id_corso = Number(this.route.snapshot.paramMap.get('ad_id'));
+        this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
+        if (this.globalData.corso) {
+            this.corso = this.globalData.corso;
+            this.globalData.corso = null;
+        } else {
+            this.corso = await this.pianoDiStudioService.getCorso(this.ad_id_corso, this.nome_corso);
+        }
 
-            this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
-                this.corsiMap = data;
-                console.log(this.corsiMap);
 
-                this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (corsiProp) => {
-                    this.corsiPropedeutici = corsiProp;
-                });
+        this.ad_id_corso = this.corso.AD_ID;
+        this.nome_corso = this.corso.DESCRIZIONE;
+
+
+        this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
+            this.corsiMap = data;
+            console.log(this.corsiMap);
+
+            this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (corsiProp) => {
+                this.corsiPropedeutici = corsiProp;
             });
         });
+
 
         this.appelliService.hasAlmenoUnAppello(this.ad_id_corso).then(value => { this.corsoConAppelli = value; });
 
@@ -122,14 +133,10 @@ export class DettagliCorsoPage implements OnInit {
         this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID], 'forward', false);
     }
 
-
-    goToDettagliCorso(corsoPropedeutico) {
-
-        this.globalData.goTo(this, ['/esame/', corsoPropedeutico.AD_ID], 'forward', false);
-        //this.globalData.esame = esame;
-        //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
+    goToDettagliCorso(corso: Corso) {
+        this.globalData.corso = corso;
+        const ad_id = corso.AD_ID == null  ? 0 : corso.AD_ID;
+        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/' + corso.DESCRIZIONE, 'forward', false);
     }
-
-
 
 }

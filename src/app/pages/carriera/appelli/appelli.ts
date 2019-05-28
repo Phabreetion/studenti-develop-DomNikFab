@@ -390,7 +390,8 @@ export class AppelliPage implements OnInit {
 
 
     goToDettagliCorso(appello: AppelloDisponibile) {
-        this.globalData.goTo(this, ['/esame/', appello.ad_id], 'forward', false);
+        const ad_id = appello.ad_id == null ? 0 : appello.ad_id;
+        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/', 'forward', false);
     }
 
     goToMaterialeDidattico(appello: AppelloDisponibile) {
