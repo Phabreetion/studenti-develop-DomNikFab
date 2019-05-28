@@ -124,7 +124,7 @@
 
         <ion-grid *ngIf="appelli?.length > 0">
 
-            <ion-item *ngIf="appelliTrovati.length <= 0" text-center lines="none">
+            <ion-item *ngIf="appelliTrovati?.length <= 0" text-center lines="none">
                 <ion-label style="color:gray">
                     Nessun appello trovato.<br>{{filtro.isActive()? 'Si prega di modificare le preferenze inserite.' : ''}}
                 </ion-label>
