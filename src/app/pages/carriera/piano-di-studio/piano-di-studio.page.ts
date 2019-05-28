@@ -68,7 +68,21 @@ export class PianoDiStudioPage implements OnInit {
             this.corsiTrovati = this.corsiFiltrati;
 
             this.resetFiltri();
+
+            this.pianoDiStudioService.loadFiltriFromStorage().then(
+                filtro => {
+                    this.filtro = filtro;
+
+                    this.pianoDiStudioService.getMaxAnni().then(
+                        value => {
+                            this.filtro.setMaxAnni(value);
+                            this.updateFiltri();
+                        });
+                }
+            );
         });
+
+
     }
 
     ionViewDidEnter() {
