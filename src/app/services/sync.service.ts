@@ -334,7 +334,6 @@ export class SyncService {
         console.log(this.dateUltimiAggiornamenti);*/
 
         return new Promise((resolve, reject) => {
-            console.log(this.globalData.archive[id]);
 
             //Viene avviato un aggiornamento in background
             if (sync) {
@@ -343,6 +342,7 @@ export class SyncService {
 
             // se ci sono dati nella cache risolvi
             if ((!params) && (this.globalData.archive[id])) {
+                console.log('prelevo da cache');
                 resolve(this.globalData.archive[id]);
             }
 
@@ -361,6 +361,7 @@ export class SyncService {
                             this.dateUltimiAggiornamenti[id] = data['timestamp'];
                         }
 
+                        console.log('prelevo da storage');
                         resolve(data);
                     } else {
                         //cerca di risolvere i dati dal server

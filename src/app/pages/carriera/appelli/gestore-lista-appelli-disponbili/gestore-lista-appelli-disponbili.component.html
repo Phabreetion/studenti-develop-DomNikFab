@@ -1,7 +1,7 @@
 <ion-content>
     <div class="preferenze">
         <div class="text">Preferenze</div>
-        <ion-button class="exit" (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button>
+        <ion-button class="exit" (click)="closeFiltri()" color="danger"><strong>X</strong></ion-button>
     </div>
     <!--
     <ion-list>
@@ -117,7 +117,7 @@
         <ion-grid>
             <ion-row>
                 <ion-col>
-                    <ion-button style="width:100%" (click)="reset()">
+                    <ion-button style="width:100%" (click)="presentAlertPerConfermaReset()">
                         <ion-icon name="refresh"></ion-icon>
                         <p>Reset</p>
                     </ion-button>

@@ -24,15 +24,6 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
         this.sourcePage = this.navParam.get('page');
     }
 
-    closeAppelli() {
-        this.modalController.dismiss();
-    }
-
-    reset() {
-        this.sourcePage.filtro.reset();
-        this.updateSourcePage();
-    }
-
     updateSourcePage() {
         this.sourcePage.updateFiltri();
     }
@@ -53,6 +44,25 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
                 handler: () => {
                     this.toastService.filtriNonMemorizzati();
                 }
+            }]
+        });
+
+        await alert.present();
+    }
+
+    async presentAlertPerConfermaReset() {
+        const alert = await this.alertController.create({
+            header: 'Resettare le preferenze?',
+            message: 'Sei sicuro di voler resettare le preferenze specificate?',
+            buttons: [{
+                text: 'Sì',
+                handler: () => {
+                    this.resetFiltri();
+                    this.toastService.filtriResettatiConSuccesso();
+                }
+            }, {
+                text: 'No',
+                handler: () => {}
             }]
         });
 
@@ -94,6 +104,14 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
      */
     memorizzaFiltri() {
         this.sourcePage.memorizzaFiltri();
+    }
+
+    /**
+     * Questa funzione resetta i filtri applicati e aggiorna la lista dei appelli.
+     */
+    resetFiltri() {
+        this.sourcePage.filtro.reset();
+        this.updateSourcePage();
     }
 
     /**

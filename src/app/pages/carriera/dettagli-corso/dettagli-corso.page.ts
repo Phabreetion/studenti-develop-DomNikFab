@@ -49,8 +49,6 @@ export class DettagliCorsoPage implements OnInit {
     }
 
     async ngOnInit() {
-        //@TODO -> ridurre complessità di caricamento della pagina
-
         this.http.getConnected();
 
         this.ad_id_corso = Number(this.route.snapshot.paramMap.get('id'));
@@ -60,6 +58,7 @@ export class DettagliCorsoPage implements OnInit {
 
             this.pianoDiStudioService.getCorsiAsMap().then( (data) => {
                 this.corsiMap = data;
+                console.log(this.corsiMap);
 
                 this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (corsiProp) => {
                     this.corsiPropedeutici = corsiProp;
@@ -69,7 +68,7 @@ export class DettagliCorsoPage implements OnInit {
 
         this.appelliService.hasAlmenoUnAppello(this.ad_id_corso).then(value => { this.corsoConAppelli = value; });
 
-        this.sync.getJson(18,null,false ).then((data)=>{
+        this.sync.getJson(18, null, false ).then((data) => {
 
             const files = data[0];
 

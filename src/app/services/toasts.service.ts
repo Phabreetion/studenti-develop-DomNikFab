@@ -116,6 +116,14 @@ export class ToastsService {
         }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
     }
 
+    filtriResettatiConSuccesso() {
+        this.toastCtrl.create({
+            message: 'Le tue preferenze sono state resettate.',
+            duration: 2000,
+            position: 'bottom'
+        }).then(toast => {toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+    }
+
     annullamentoNonPiuPossibile() {
         this.toastCtrl.create({
             message: 'Non è più possibile annullare la prenotazione.',
