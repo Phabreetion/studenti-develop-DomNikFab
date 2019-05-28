@@ -13,8 +13,9 @@
 
                 <ion-title>Appelli</ion-title>
 
-                    <ion-buttons slot="end">
-                        <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text="" icon="md-arrow-round-back"></ion-back-button>
+                <ion-buttons slot="end">
+                    <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text=""
+                                     icon="md-arrow-round-back"></ion-back-button>
 
                     <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
                         <ion-icon name="switch"></ion-icon>
@@ -86,7 +87,8 @@
             </ion-row>
         </ion-grid>
 
-        <ion-grid *ngIf="appelli?.length == 0 && http.connected && appelliService.isAppelliDisponibiliLoading()" text-center>
+        <ion-grid *ngIf="appelli?.length == 0 && http.connected && appelliService.isAppelliDisponibiliLoading()"
+                  text-center>
             <ion-row>
                 <ion-col>
                     <img class="progress" src="assets/img/progress.gif"/>
@@ -104,7 +106,8 @@
             </ion-row>
         </ion-grid>
 
-        <div *ngIf="appelli?.length == 0 && http.connected && !appelliService.isAppelliDisponibiliLoading()" text-center>
+        <div *ngIf="appelli?.length == 0 && http.connected && !appelliService.isAppelliDisponibiliLoading()"
+             text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col text-center>
@@ -125,7 +128,8 @@
                 <ion-label style="color:gray">Nessun appello trovato.</ion-label>
             </ion-item>
             <ion-item *ngIf="(filtro.isActive()) && appelliTrovati.length <= 0" text-center lines="none">
-                <ion-label style="color:gray">Nessun appello trovato.<br>Si prega di modificare le preferenze inserite.</ion-label>
+                <ion-label style="color:gray">Nessun appello trovato.<br>Si prega di modificare le preferenze inserite.
+                </ion-label>
             </ion-item>
 
             <div *ngFor="let appello of appelliTrovati; let i = index">
@@ -218,14 +222,17 @@
 
 
                             <ion-row
-                                    *ngIf="!appello.isPrenotabile() && appello.isBeforeApertura()">
+                                    *ngIf="!appello.isPrenotabile()  && appello.isBeforeApertura()">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:royalblue">
-                                        <I>Mancano {{appello.giorniRimanentiPrimaDellApertura()}} giorni all'apertura
+                                        <I>{{appello.giorniRimanentiPrimaDellApertura() == 1? 'Manca ' + appello.giorniRimanentiPrimaDellApertura() + ' giorno' : 'Mancano ' + appello.giorniRimanentiPrimaDellApertura() + ' giorni'}} all'apertura
                                             dell'appello</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
+
+
+
 
                             <ion-row *ngIf=" appello.p10_app_note" color="lightgrey">
                                 <ion-col>
@@ -237,14 +244,14 @@
 
 
                             <ion-row
-                                    *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura()">
+                                    *ngIf="appello.isPrenotabile() && appello.isBeforeChiusura() ">
                                 <ion-col>
                                     <ion-card-subtitle class="countdown" style="color:crimson">
-                                        <I>Prenota l'appello entro {{appello.giorniRimanentiPrimaDellaChiusura()}}
-                                            giorni</I>
+                                        <I>{{appello.giorniRimanentiPrimaDellaChiusura() == 1? "Prenota l'appello entro " + appello.giorniRimanentiPrimaDellaChiusura() + ' giorno.' : "Prenota l'appello entro " + appello.giorniRimanentiPrimaDellaChiusura() + ' giorni.' }}</I>
                                     </ion-card-subtitle>
                                 </ion-col>
                             </ion-row>
+
 
                         </ion-grid>
                     </ion-item>
@@ -352,17 +359,22 @@
                                 <ion-row>
                                     <ion-row *ngIf="prenotazione.isAfterEsame()" text-center>
                                         <ion-col color="lightgrey">
-                                            <ion-card-subtitle class="countdown" style="color:green"><I>L'esame è stato
-                                                sostenuto {{prenotazione.giorniPassatiDopoEsame()}} giorni fa.</I>
+                                            <ion-card-subtitle class="countdown" style="color:green">
+
+                                                <I>{{prenotazione.giorniPassatiDopoEsame() == 1? "L'esame è stato sostenuto " + prenotazione.giorniPassatiDopoEsame() + ' giorno fa.' : "L'esame è stato sostenuto " + prenotazione.giorniPassatiDopoEsame() + ' giorni fa.' }}</I>
+
+
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
 
+
                                     <ion-row *ngIf="prenotazione.isBeforeEsame()" text-center>
                                         <ion-col color="lightgrey">
-                                            <ion-card-subtitle class="countdown" style="color:darkcyan"><I>Dovrai
-                                                sostenere l'esame tra {{prenotazione.giorniRimanentiPrimaDellEsame()}}
-                                                giorni.</I>
+                                            <ion-card-subtitle class="countdown" style="color:darkcyan">
+
+                                                <I>{{ prenotazione.giorniRimanentiPrimaDellEsame() == 1? "Dovrai sostenere l'esame tra " +  prenotazione.giorniRimanentiPrimaDellEsame() + ' giorno.' : "Dovrai sostenere l'esame tra " +  prenotazione.giorniRimanentiPrimaDellEsame() + ' giorni.' }}</I>
+
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
