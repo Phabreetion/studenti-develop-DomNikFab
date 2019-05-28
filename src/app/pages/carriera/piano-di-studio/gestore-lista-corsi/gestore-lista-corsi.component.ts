@@ -68,6 +68,26 @@ export class GestoreListaCorsiComponent implements OnInit {
     }
 
 
+    async presentAlertPerConfermaReset() {
+        const alert = await this.alertController.create({
+            header: 'Resettare le preferenze?',
+            message: 'Sei sicuro di voler resettare le preferenze specificate?',
+            buttons: [{
+                text: 'Sì',
+                handler: () => {
+                    this.resetFiltri();
+                    this.toastService.filtriResettatiConSuccesso();
+                }
+            }, {
+                text: 'No',
+                handler: () => {}
+            }]
+        });
+
+        await alert.present();
+    }
+
+
     /**
      * Questa funzione è richiamata ogni volta che si interagisce con l'interfaccia grafica.
      * Rende effettivi le modifiche ai filtri sulla lista dei corsi.
