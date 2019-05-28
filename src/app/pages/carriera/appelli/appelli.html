@@ -14,6 +14,11 @@
                 <ion-title>Appelli</ion-title>
 
                 <ion-buttons slot="end">
+
+                    <ion-button icon-only *ngIf="filtro.isActive()" (click)="resetFiltri()">
+                        <ion-icon name="ios-funnel" style="font-size: 1.5em"></ion-icon><ion-icon name="close" color="danger" style="font-size: 1.5em"></ion-icon>
+                    </ion-button>
+
                     <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text=""
                                      icon="md-arrow-round-back"></ion-back-button>
 
@@ -28,11 +33,6 @@
             </ion-toolbar>
         </ion-row>
 
-        <div *ngIf="filtro.isActive()" style=" display: flex; flex-flow: row nowrap; justify-content: center;">
-            <ion-button style="max-width: 10em;" (click)="resetFiltri()" expand="block"
-                        size="small">Reset filtri
-            </ion-button>
-        </div>
 
         <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarAppelli()'>
             <ion-searchbar

@@ -32,11 +32,7 @@
             </ion-toolbar>
         </ion-row>
 
-        <div class="reset">
-            <ion-button class="reset-filtri" (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block"
-                        size="small">Reset filtri
-            </ion-button>
-        </div>
+
 
         <ion-row *ngIf='isSearchbarOpened'>
             <ion-searchbar #searchbar
