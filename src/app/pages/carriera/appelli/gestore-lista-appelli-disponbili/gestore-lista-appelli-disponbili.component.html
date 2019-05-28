@@ -3,6 +3,7 @@
         <div class="text">Preferenze</div>
         <ion-button class="exit" (click)="closeAppelli()" color="danger"><strong>X</strong></ion-button>
     </div>
+    <!--
     <ion-list>
         <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
             <ion-list-header><b>Ordina per</b></ion-list-header>
@@ -33,6 +34,33 @@
         </ion-radio-group>
     </ion-list>
 
+    -->
+
+            <ion-list>
+
+                <ion-label text-center><b> &nbsp; Ordina per</b></ion-label>
+
+               <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"
+                            cancelText="Annulla" value="0">
+
+                    <ion-select-option [value]="0">
+                       Data appello
+                    </ion-select-option>
+                    <ion-select-option [value]="2">
+                        Nome esame
+                    </ion-select-option>
+                    <ion-select-option [value]="4">
+                        CFU
+                    </ion-select-option>
+                    <ion-select-option [value]="6">
+                        Anno
+                    </ion-select-option>
+                </ion-select>
+
+            </ion-list>
+
+
+
 
     <div class="button">
         <ion-button expand="block" size="small" fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
@@ -47,9 +75,11 @@
         </ion-button>
     </div>
 
+    <br>
 
     <ion-list>
-        <ion-list-header text-center><b>Filtra per</b></ion-list-header>
+        <ion-label text-center><b> &nbsp; Filtra per</b></ion-label>
+
 
         <ion-item>
             <ion-label>Scritto</ion-label>
