@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController,
-    ModalController, NavController, ToastController
+    ModalController, NavController, Platform, ToastController
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
@@ -71,7 +71,8 @@ export class MaterialeDidatticoPage implements OnInit {
         public actionSheetCtrl: ActionSheetController,
         public localdb: DBService,
         public toastsService: ToastsService,
-        public account: AccountService) {
+        public account: AccountService,
+        public platform: Platform) {
         this.searchKey = '';
     }
 
