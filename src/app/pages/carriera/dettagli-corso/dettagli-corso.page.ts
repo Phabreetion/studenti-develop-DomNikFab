@@ -6,6 +6,8 @@ import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 import {AppelliService} from '../../../services/appelli.service';
 import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
+import {SyncService} from '../../../services/sync.service';
+import {fileBufferToString} from '@angular-devkit/core/src/virtual-fs/host';
 
 @Component({
     selector: 'app-dettagli-corso',
@@ -33,6 +35,7 @@ export class DettagliCorsoPage implements OnInit {
 
     //booleano per dire se ci sono appelli disponibili
     corsoConAppelli: boolean;
+    corsoConMateriale: boolean;
 
 
     constructor(
@@ -40,7 +43,8 @@ export class DettagliCorsoPage implements OnInit {
         public http: HttpService,
         private route: ActivatedRoute,
         private pianoDiStudioService: PianoDiStudioService,
-        private appelliService: AppelliService) {
+        private appelliService: AppelliService,
+        private sync: SyncService) {
         this.corsoConAppelli = false;
     }
 
@@ -60,12 +64,23 @@ export class DettagliCorsoPage implements OnInit {
                 this.pianoDiStudioService.getPropedeuticita(this.corso.AD_ID, this.corsiMap).then( (corsiProp) => {
                     this.corsiPropedeutici = corsiProp;
                 });
-
-
             });
         });
 
         this.appelliService.hasAlmenoUnAppello(this.ad_id_corso).then(value => { this.corsoConAppelli = value; });
+
+        this.sync.getJson(18,null,false ).then((data)=>{
+
+            const files = data[0];
+
+            let i = 0;
+            while (i < files.length && files[i].AD_ID != this.ad_id_corso) {
+                i++;
+            }
+
+            this.corsoConMateriale = i < files.length;
+
+        });
     }
 
 
@@ -108,10 +123,14 @@ export class DettagliCorsoPage implements OnInit {
         this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID], 'forward', false);
     }
 
+
     goToDettagliCorso(corsoPropedeutico) {
 
         this.globalData.goTo(this, ['/esame/', corsoPropedeutico.AD_ID], 'forward', false);
         //this.globalData.esame = esame;
         //this.globalData.goTo(this.currentPage, '/esame', 'forward', false); //
     }
+
+
+
 }

@@ -171,7 +171,7 @@
                 <ion-button expand="block" [disabled]="!corsoConAppelli" (click)="goToAppelli()">Appelli</ion-button>
             </ion-col>
             <ion-col>
-                <ion-button expand="block" (click)="goToMaterialeDidattico()">Materiale didattico</ion-button>
+                <ion-button expand="block" [disabled]="!corsoConMateriale" (click)="goToMaterialeDidattico()">Materiale didattico</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
