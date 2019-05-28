@@ -131,11 +131,12 @@
 
 
 
-                    <ion-grid fixed no-padding>
+                    <ion-grid>
                         <ion-row
                                 [ngClass]="{'superato' : corso.isSuperato(), 'da-sostenere' : !corso.isSuperato() }">
                             <ion-col size="10">
                                 <ion-grid>
+
                                     <ion-row>
                                         <ion-col class="nome-esame">
                                             <ion-icon *ngIf="corso.isSuperatoConVotoELode()" name="md-trophy"
@@ -148,6 +149,8 @@
                                         </ion-col>
                                     </ion-row>
 
+                                    <br>
+
                                     <ion-row class="dati-esame">
                                         <ion-col size="6">
                                             <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp;
@@ -158,6 +161,7 @@
                                             &nbsp;{{corso.DATA_ESAME}}
                                         </ion-col>
                                     </ion-row>
+
                                 </ion-grid>
                             </ion-col>
 
