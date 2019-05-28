@@ -172,7 +172,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
             const username = this.username;
             const password = this.password;
 
-            //non servono ad un cazzo
+            //non servono
             const matricola = this.matricola;
             const cds_id = this.cds_id;
             const dip_id = this.dip_id;
