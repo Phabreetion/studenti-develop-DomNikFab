@@ -8,9 +8,9 @@ import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import { ContattoPage } from './contatto/contatto';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { IonContent } from '@ionic/angular'; //28/05
-import {ViewChild, ElementRef } from '@angular/core'; //28/05
-import { MenuController } from '@ionic/angular'; //28/05
+import { IonContent } from '@ionic/angular'; 
+import {ViewChild, ElementRef } from '@angular/core'; 
+import { MenuController } from '@ionic/angular'; 
 
 
 @Component({
