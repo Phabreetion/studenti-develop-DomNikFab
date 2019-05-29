@@ -1,7 +1,6 @@
 ion-item {
-  --min-height: 0em;
+  --min-height: 0.9em;
 }
-
 
 .button{
   max-width: 100%;
@@ -14,6 +13,9 @@ ion-item {
     width: 20em;
     height: auto;
   }
+  @media screen and (max-width: 450px) {
+    margin: auto 1em 0 1em;
+  }
 
 }
 
@@ -23,36 +25,65 @@ ion-item {
   padding-bottom: 0;
   margin-bottom: 0;
   margin-bottom: 0;
-  @media screen and (max-width: 1421px) {
+  @media screen and (max-width: 1827px) {
     margin-left: 5em;
     margin-right: 5em;
   }
   @media screen and (max-width: 1142px) {
     margin: auto auto 0 auto;
   }
+  @media screen and (max-width: 450px) {
+    margin: auto 1em 0 1em;
+  }
 }
 .preferenze{
-   width: 100%;
-   display: flex;
-   flex-flow: row nowrap;
-   justify-content: space-between;
- }
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
 .text{
   font-size: 1.5em;
-  padding-top: 1em;
+  padding-top: 0.5em;
   padding-left: 2.5em;
   text-align: center;
   width: 100%;
   @media screen and (max-width: 440px) {
-    padding-left: 2em;
+    font-size: 1.2em;
+    margin-top: 0.3em;
+    padding-left: 1.5em;
   }
 }
 .exit{
   margin-top: 1em;
   margin-right: 1em;
+  width: 2em;
+  height: 2em;
+  @media screen and (max-width: 450px) {
+    width: 1.5em;
+    height: 1.5em;
+  }
 
 }
-ion-list{
-  //margin-top: 0;
-  //padding-top: 0;
+ion-list-header{
+  margin-left: 0.5em;
+}
+.mostraLabel{
+  display: none;
+}
+
+.menuOrdinamento{
+  align-items: center;
+  max-width: 100%;
+
+}
+.list-md{
+  padding-right: 1em;
+  paddign-left: 0.8em;
+}
+
+.selezione{
+  width: 100%;
+  justify-content: center;
+
 }
