@@ -300,15 +300,15 @@ export class AppelliPage implements OnInit {
 
             //message += (await this.pianoDiStudioService.hasTutteLePropedeuticitaSuperate(appello.ad_id, this.corsiMap)) ? '' : ' N.B. Non potrai verbalizzare questo esame finché non avrai verbalizzato tutte le propedeuticità';
             const nonSup = await this.pianoDiStudioService.getPropedeuticitaNonSuperate(appello.ad_id, this.corsiMap);
-            if (nonSup.length == 1) {
+            if (nonSup.length === 1) {
                 message += 'L\'esame non sarà verbalizzato fino a che non avrai superato l\'esame di ' + nonSup[0].DESCRIZIONE;
             } else {
                 for (let i = 0; i < nonSup.length; i++) {
                     if (i == 0) {
-                        message += 'L\'esame non sarà verbalizzato fino a che non avrai superato i seguenti esami propedeutici di:\n';
+                        message += 'L\'esame non sarà verbalizzato fino a che non avrai superato i seguenti esami propedeutici:\n';
                     }
 
-                    message += '•' + nonSup[i].DESCRIZIONE + '\n';
+                    message += '•&nbsp' + nonSup[i].DESCRIZIONE + '\n';
                 }
             }
 
