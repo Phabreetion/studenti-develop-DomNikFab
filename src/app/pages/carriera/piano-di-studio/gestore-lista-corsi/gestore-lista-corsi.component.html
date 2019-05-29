@@ -30,12 +30,15 @@
     -->
 
     <ion-list>
+        <ion-list-header><b>Ordina per</b></ion-list-header>
+        <ion-item>
 
-        <ion-label ><b>  &nbsp; Ordina per</b></ion-label>
+    <div class="divPorco">
+        <ion-label class="mostraLabel">Ordina per</ion-label>
+
 
         <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"
-                    cancelText="Annulla" value="0">
-
+                    cancelText="Annulla" value="0" class="menuOrdinamento">
 
             <ion-select-option [value]="0">
                 Anno
@@ -50,6 +53,8 @@
                 Voto
             </ion-select-option>
         </ion-select>
+    </div>
+        </ion-item>
 
     </ion-list>
 
@@ -73,7 +78,7 @@
 
 
     <ion-list>
-        <ion-label ><b>  &nbsp; Filtra per corsi con esame</b></ion-label>
+        <ion-list-header><b>Filtra per</b></ion-list-header>
 
         <ion-item>
             <ion-label>Sostenuto </ion-label>
