@@ -4,41 +4,13 @@
         <ion-button class="exit" (click)="closeFiltri()" color="danger"><strong>X</strong></ion-button>
     </div>
 
-    <!--
-    <ion-list>
-        <ion-radio-group [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()">
-            <ion-list-header text-center> <b>Ordina per</b> </ion-list-header>
-            <ion-item>
-                <ion-label>Anno</ion-label>
-                <ion-radio [value]=0></ion-radio>
-            </ion-item>
-
-            <ion-item>
-                <ion-label>Nome corso</ion-label>
-                <ion-radio [value]=2></ion-radio>
-            </ion-item>
-
-            <ion-item><ion-label>CFU</ion-label>
-                <ion-radio [value]=4></ion-radio>
-            </ion-item>
-            <ion-item>
-                <ion-label>Voto</ion-label>
-                <ion-radio [value]=6></ion-radio>
-            </ion-item>
-        </ion-radio-group>
-    </ion-list>
-    -->
-
     <ion-list>
         <ion-list-header><strong>Ordina per</strong></ion-list-header>
-        <ion-item>
+            <ion-item>
 
-    <div class="selezione">
+     <div class="selezione">
         <ion-label class="mostraLabel">Ordina per</ion-label>
-
-
-        <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"
-                    cancelText="Annulla" value="0" class="menuOrdinamento">
+         <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"  cancelText="Annulla" value="0" class="menuOrdinamento">
 
             <ion-select-option [value]="0">
                 Anno
@@ -117,7 +89,6 @@
                     <ion-icon name="bookmark"></ion-icon> <p>Memorizza</p>
                 </ion-button>
             </ion-col>
-
         </ion-row>
     </ion-grid>
 </div>
