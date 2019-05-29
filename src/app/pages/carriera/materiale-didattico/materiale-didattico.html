@@ -77,8 +77,6 @@
 
     <ion-list *ngIf="files?.length > 0">
         <ion-item-sliding *ngFor="let file of fileTrovati" >
-            <!-- (press)="onPress(item)" -->
-            <!-- <ion-item #item (click)="open(slidingItem,item)" >  -->
             <ion-item (click)="info(file)">
                 <ion-grid fixed no-padding>
                     <ion-row>
@@ -90,12 +88,18 @@
                                 <ion-row>
                                     <ion-col>
                                         <div text-wrap>
-                                            <b>{{file.TITOLO}}</b>
-                                            <div *ngIf="file.scaricato"><ion-icon class="overlayClass" name="checkmark-circle"></ion-icon></div>
+                                            <strong>{{file.TITOLO}}</strong>
+                                            <div *ngIf="file.scaricato"><ion-icon class="overlayClass" name="download"></ion-icon></div>
                                             <div *ngIf="!file.scaricato"><ion-icon class="overlayClass" name="close"></ion-icon></div>
                                             <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
                                         </div>
                                     </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <div text-wrap>
+                                        {{file.FILENAME}}
+                                        <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
+                                    </div>
                                 </ion-row>
                                 <ion-row>
                                     <ion-col>

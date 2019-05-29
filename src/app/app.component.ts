@@ -564,10 +564,13 @@ export class AppComponent {
             }
 
             this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
-                if (outlet && outlet.canGoBack()) {
+                //@TODO aggiungere tutte le route del menu
+                const back_button_off = [ '/piano-di-studio', '/appelli', 'medie', 'news', 'notifiche', 'rubrica', 'questionari', 'tasse', 'servizi-online', 'impostazioni', 'appelli-docente'];
+
+                if (outlet && outlet.canGoBack() && !back_button_off.includes(this.router.url)) {
                     // torna indetro fino alla home
                     outlet.pop(); //la pop richiama l'ultima schermata dallo stack delle pagine
-                } else if (this.router.url === '/home') {
+                } else if (this.router.url === '/home' || this.router.url === '/home-docente') {
                     // prova ad uscire dall'app con due tap ravvicinati
                     if (new Date().getTime() - this.lastTimeBackPress < this.TIME_PERIOD_TO_EXIT) {
                         navigator['app'].exitApp(); // Exit from app, work for ionic 4
@@ -575,6 +578,17 @@ export class AppComponent {
                         this.toastService.uscitaApp();
                         this.lastTimeBackPress = new Date().getTime();
                     }
+                } else {
+                    this.storage.get('user_role').then(role => {
+                        if (role == 'student') {
+                            this.globalData.goTo(this.router.url, '/home', 'forward', false);
+                        } else if (role == 'teacher') {
+                            this.globalData.goTo(this.router.url, '/home-docente', 'forward', false);
+                        } else {
+                            this.globalData.goTo(this.router.url, '/login', 'forward', false);
+                        }
+                    });
+
                 }
             });
         });

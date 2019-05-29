@@ -17,7 +17,6 @@ const routes: Routes = [
     {path: 'dettagli-studente', loadChildren: './pages/home-studente/dettagli-studente/dettagli-studente.module#DettagliUtentePageModule'},
     {path: 'disconnetti', loadChildren: './pages/account/disconnetti/disconnetti.module#DisconnettiPageModule'},
     {path: 'dettagli-corso', loadChildren: './pages/carriera/dettagli-corso/dettagli-corso.module#DettagliCorsoPageModule'},
-    //{path: 'dettagli-corso/:ad_id', loadChildren: './pages/carriera/dettagli-corso/dettagli-corso.module#DettagliCorsoPageModule'},
     {path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     {path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
     {path: 'materiale-didattico/:id', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
