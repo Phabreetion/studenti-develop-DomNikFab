@@ -9,7 +9,7 @@ import { HttpClientModule} from '@angular/common/http';
 // import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { IonicStorageModule} from '@ionic/storage';
 
-import { DBService } from './services/db-service';
+import { MaterialeDidatticoDbService } from './services/materiale-didattico-db-service';
 import { SyncService } from './services/sync.service';
 
 import { AndroidPermissions} from '@ionic-native/android-permissions/ngx';
@@ -40,7 +40,6 @@ import {FCM} from '@ionic-native/fcm/ngx';
 import {Toast} from '@ionic-native/toast/ngx';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FiltroPageModule} from './pages/docente/appelli/filtro/filtro.module';
-import {FooterComponent} from './pages/footer/footer.component';
 import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-corso.module';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
@@ -67,7 +66,7 @@ import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-
     providers: [
         AndroidPermissions,
         AppVersion,
-        DBService,
+        MaterialeDidatticoDbService,
         Device,
         FCM,
         File,
