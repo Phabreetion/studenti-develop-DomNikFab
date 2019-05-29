@@ -7,6 +7,11 @@ import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import { ContattoPage } from './contatto/contatto';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { IonContent } from '@ionic/angular'; //28/05
+import {ViewChild, ElementRef } from '@angular/core'; //28/05
+import { MenuController } from '@ionic/angular'; //28/05
+
 
 @Component({
     selector: 'app-page-rubrica',
@@ -24,6 +29,7 @@ import { ContattoPage } from './contatto/contatto';
 })
 
 export class RubricaPage implements OnInit {
+    [x: string]: any;
 
     currentPage = '/rubrica';
     idServizio = 7;
@@ -31,13 +37,6 @@ export class RubricaPage implements OnInit {
     rubrica: Array<any> = [];
     rubricaFiltrata: Array<any> = [];
     // inserito il 15/05/2019
-    Pesche = [];
-    Campobasso = [];
-    Termoli = [];
-
-    NrPesche = '';
-    NrCampobasso = '';
-    NrTermoli = '';
 
     dataAggiornamento: string;
     searchTerm = '';
@@ -48,7 +47,7 @@ export class RubricaPage implements OnInit {
     rinvioAggiornamento = false;
     nrRinvii = 0;
     maxNrRinvii = 5;
-
+     
     step = 10;
     mostraTutti = false;
     mostraPrimi = true;
@@ -56,9 +55,12 @@ export class RubricaPage implements OnInit {
     nrElementiFiltrati = 0;
     nrElementiDaMostrare = this.step;
     nrElementiNascosti = 0;
+   
+    @ViewChild(IonContent) ionContent: IonContent;
 
-    sezioni = 'Campobasso';// default
-
+    sezioni = 'indietro';// per lo switch dei bottoni.
+    
+   
     constructor(
         private toastCtrl: ToastController,
         public storage: Storage,
@@ -66,8 +68,19 @@ export class RubricaPage implements OnInit {
         public http: HttpService,
         public alertCtrl: AlertController,
         public globalData: GlobalDataService,
-        public account: AccountService) {
+        public account: AccountService,
+        private menu: MenuController) {
+           
     }
+
+    //ti porta alla fine ed anche all'inizio della lista dei contatti
+    scrollContent(scroll) {
+        if (scroll === 'top') {
+          this.ionContent.scrollToTop(300);
+        } else {
+          this.ionContent.scrollToBottom(300);
+        }
+      }
 
     ngOnInit() {
         this.globalData.srcPage = this.currentPage;
@@ -91,6 +104,8 @@ export class RubricaPage implements OnInit {
             }
         );
     }
+
+
 
     loadData(event) {
         setTimeout(() => {
@@ -151,13 +166,15 @@ export class RubricaPage implements OnInit {
         this.setFiltro();
     }
 
-    setFiltro() {
-        //filtro barra di ricerca
-        this.rubricaFiltrata = this.filtra(this.searchTerm); 
-        //filtro per sezione
-        this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
 
-        
+
+    setFiltro() {
+        this.rubricaFiltrata = this.filtra(this.searchTerm); 
+        //filtro per sezione 
+        if(this.sezioni != 'indietro'){
+        this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
+    }
+
         this.nrElementiFiltrati = this.rubricaFiltrata.length;
         this.nrElementiNascosti = this.nrElementiFiltrati - this.nrElementiDaMostrare;
         if (this.nrElementiNascosti < 0) {
@@ -167,52 +184,14 @@ export class RubricaPage implements OnInit {
             this.rubricaFiltrata = this.rubricaFiltrata.slice(0, this.nrElementiDaMostrare - 1);
             this.mostraTutti = false;
         }
-    }
-
-    setFiltroSede() {
-        this.Pesche = [];
-        this.Campobasso = [];
-        this.Termoli = [];
-        this.Pesche = this.filtrasede(this.rubrica, "Campobasso");
-        if (this.Pesche) {
-            this.NrPesche = '(' + this.Pesche.length + ')';
-        } else {
-            this.NrPesche = '';
-        }
-      /*  this.dipartimentoNewsFiltrate = this.filtrasede(this.dipartimentoNews, this.searchTerm);
-        if (this.dipartimentoNewsFiltrate) {
-            this.nrNewsDipartimento = '(' + this.dipartimentoNewsFiltrate.length + ')';
-        } else {
-            this.nrNewsDipartimento = '';
-        }
-        this.corsoNewsFiltrate = this.filtra(this.corsoNews, this.searchTerm);
-        if (this.corsoNewsFiltrate) {
-            this.nrNewsCDS = '(' + this.corsoNewsFiltrate.length + ')' ;
-        } else {
-            this.nrNewsCDS = '';
     
-        }
-        */
-    }
     
-// qui vado a filtrare la sede
-    filtrasede(items, searchTerm) {
-        
-        if (searchTerm == null || searchTerm === undefined || searchTerm === '') {
-            return items;
-        }
+}
 
-        return items.filter((item) => {
-            try {
-                return (item.citta == searchTerm)
-                }catch (err) {
-                console.dir(err);
-            }
-        });
-    }
-
+    
+// qui vado a filtrare
     filtra(searchTerm) {
-        if (searchTerm == null || searchTerm === undefined) {
+        if (searchTerm == null || searchTerm === undefined || searchTerm == '') {
             return this.rubrica;
         }
 
@@ -224,7 +203,7 @@ export class RubricaPage implements OnInit {
                     (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
             } catch (err) {
                 console.log(err);
-            }
+            }3
         });
     }
 
@@ -242,7 +221,7 @@ export class RubricaPage implements OnInit {
             this.nrRinvii++;
 
             // console.log('Rinvio ' + this.nrRinvii);
-
+            
             if (this.nrRinvii < this.maxNrRinvii) {
                 setTimeout(() => {
                     this.aggiorna(interattivo, sync);
@@ -384,4 +363,5 @@ export class RubricaPage implements OnInit {
         this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
         this.showSearchBar = !this.showSearchBar;
     }
+
 }
