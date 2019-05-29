@@ -306,9 +306,9 @@ export class AppelliPage implements OnInit {
                 for (let i = 0; i < nonSup.length; i++) {
                     if (i == 0) {
                         message += 'L\'esame non sarà verbalizzato fino a che non avrai superato i seguenti esami propedeutici di:\n';
-                        message += '•<br>' + nonSup[i].DESCRIZIONE + '\n';
                     }
 
+                    message += '•' + nonSup[i].DESCRIZIONE + '\n';
                 }
             }
 
