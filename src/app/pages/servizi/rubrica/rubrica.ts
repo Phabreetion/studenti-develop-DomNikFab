@@ -36,7 +36,6 @@ export class RubricaPage implements OnInit {
 
     rubrica: Array<any> = [];
     rubricaFiltrata: Array<any> = [];
-    // inserito il 15/05/2019
 
     dataAggiornamento: string;
     searchTerm = '';
