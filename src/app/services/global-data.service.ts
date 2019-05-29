@@ -10,9 +10,9 @@ import {Storage} from '@ionic/storage';
 })
 export class GlobalDataService {
 
-    schema = 'http://';
+    schema = 'https://';
     ip = 'app.unimol.it/';
-    dir = 'app_2_1';
+    dir = 'app2_1';
 
     apiurl =  this.dir + '/api/';
     defaultBaseUrl: string = this.schema + this.ip + this.apiurl;

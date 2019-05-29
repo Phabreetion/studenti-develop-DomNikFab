@@ -36,7 +36,7 @@ export class HttpService {
 
     checkNative() {
         return new Promise((resolve) => {
-            this.postNative('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
+            this.postNative(this.globalData.defaultBaseUrl+'/ultimaVersione.php', {platform: 'Android'})
                 .then(
                     () => {
                     resolve(true);
@@ -207,7 +207,7 @@ export class HttpService {
                 // this.http.setHeader('*', 'Content-Type', 'application/json');
                 // this.http.setDataSerializer('json');
 
-                this.post('https://service.unimol.it/studenti/api/ultimaVersione.php', {platform: 'Android'})
+                this.post(this.globalData.defaultBaseUrl+'/ultimaVersione.php', {platform: 'Android'})
                     .then(data => {
                         console.dir(data);
                         this.connessioneInizializzata = true;
