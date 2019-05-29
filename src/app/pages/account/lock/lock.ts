@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AlertController} from '@ionic/angular';
+import {AlertController, NavController, NavParams} from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 
 @Component({
@@ -55,16 +56,16 @@ export class LockPage implements OnInit {
     logout() {
         // console.log('Torniamo al Login');
         this.storage.set('logged', false);
-        this.globalData.goTo(this.globalData.srcPage, '/login', 'root', false);
+        this.globalData.goTo(this.globalData.srcPage, '/login','root', false);
     }
 
     continua() {
         this.storage.set('logged', true);
 
         if ( this.globalData.srcPage ) {
-            this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'root', false);
+            this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage,'root', false);
         } else {
-            this.globalData.goHome();
+            this.globalData.goTo('/home', '/home','root', false);
         }
     }
 
