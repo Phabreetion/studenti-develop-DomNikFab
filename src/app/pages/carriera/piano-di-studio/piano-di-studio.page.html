@@ -175,14 +175,13 @@
 
 
                 <ion-item-options>
-                    <ion-item-option (click)="goToDettagliCorso(corso, ionItemSliding)" text-center>
+                    <ion-item-option (click)="goToDettagliCorso(corso, ionItemSliding)" class="swipeDettagliCorso" text-center>
                         Dettagli<br>corso
                     </ion-item-option>
-                    <ion-item-option (click)="goToMaterialeDidattico(corso, ionItemSliding)" color="danger" text-center>
+                    <ion-item-option (click)="goToMaterialeDidattico(corso, ionItemSliding)" class="swipeMaterialoDidattico" text-center>
                         Materiale<br>didattico
                     </ion-item-option>
-                    <ion-item-option (click)="goToAppelli(corso, ionItemSliding)" *ngIf="!corso.isSuperato()" color="secondary"
-                                     text-center>
+                    <ion-item-option (click)="goToAppelli(corso, ionItemSliding)" *ngIf="!corso.isSuperato()" class="swipeAppelli" text-center>
                         Appelli
                     </ion-item-option>
                 </ion-item-options>
