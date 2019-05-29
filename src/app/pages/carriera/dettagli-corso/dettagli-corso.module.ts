@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { DettagliCorsoPage } from './dettagli-corso.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-import {FooterComponent} from '../../footer/footer.component';
 
 const routes: Routes = [
   {
@@ -24,6 +23,6 @@ const routes: Routes = [
         FontAwesomeModule,
         RouterModule.forChild(routes)
     ],
-  declarations: [DettagliCorsoPage, FooterComponent]
+  declarations: [DettagliCorsoPage]
 })
 export class DettagliCorsoPageModule {}

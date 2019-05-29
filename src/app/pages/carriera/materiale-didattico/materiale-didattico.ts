@@ -5,7 +5,7 @@ import {
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
-import {DBService} from '../../../services/db-service';
+import {MaterialeDidatticoDbService} from '../../../services/materiale-didattico-db-service';
 import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
@@ -69,7 +69,7 @@ export class MaterialeDidatticoPage implements OnInit {
         public globalData: GlobalDataService,
         public modalCtrl: ModalController,
         public actionSheetCtrl: ActionSheetController,
-        public localdb: DBService,
+        public localdb: MaterialeDidatticoDbService,
         public toastsService: ToastsService,
         public account: AccountService,
         public platform: Platform) {
@@ -135,6 +135,14 @@ export class MaterialeDidatticoPage implements OnInit {
                     //
                     // if (JSON.stringify(this.files) !== JSON.stringify(files)) {
                     this.files = files;
+
+                    this.files.forEach(file => {
+                        this.localdb.isAllegatoScaricato(file).then(
+                            () => {file.scaricato = true; },
+                            () => {file.scaricato = false; }
+                        );
+                    });
+
                     setTimeout(() => {
                         this.controllaAggiornamento();
                     }, 1000);

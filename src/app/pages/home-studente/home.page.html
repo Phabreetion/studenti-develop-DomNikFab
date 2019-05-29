@@ -71,6 +71,11 @@
         </ion-label>
       </ion-col>
     </ion-row>
+    <ion-row (click)="visualizzaDettagli()">
+      <ion-col>
+        <ion-label *ngIf="matricola == 158940" text-wrap text-center>U'cines </ion-label>
+      </ion-col>
+    </ion-row>
 
     <ion-row>
       <ion-col *ngIf="!graficoLegacy" size="{{mainColSize()}}">

@@ -60,7 +60,6 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <!-- <ion-grid *ngIf="rinvioAggiornamento && !corsi" text-center>-->
     <ion-grid *ngIf="pianoDiStudioService.isLoading() && !corsi" text-center>
         <ion-row>
             <ion-col>

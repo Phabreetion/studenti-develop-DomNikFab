@@ -22,7 +22,7 @@ import {Storage} from '@ionic/storage';
 
 import {SyncService} from './services/sync.service';
 import {GlobalDataService} from './services/global-data.service';
-import {DBService} from './services/db-service';
+import {MaterialeDidatticoDbService} from './services/materiale-didattico-db-service';
 import {AccountService} from './services/account.service';
 import {Device} from '@ionic-native/device/ngx';
 import {HttpService} from './services/http.service';
@@ -173,7 +173,7 @@ export class AppComponent {
         // public firebase: Firebase,
         // private firebaseMessaging: FirebaseMessaging,
         public storage: Storage,
-        public db: DBService,
+        public db: MaterialeDidatticoDbService,
         public sync: SyncService,
         public http: HttpService,
         public globalData: GlobalDataService,

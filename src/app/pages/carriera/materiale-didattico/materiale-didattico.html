@@ -91,7 +91,8 @@
                                     <ion-col>
                                         <div text-wrap>
                                             <b>{{file.TITOLO}}</b>
-                                            <div *ngIf="file.scaricato == 1"><ion-icon class="overlayClass" name="checkmark-circle"></ion-icon></div>
+                                            <div *ngIf="file.scaricato"><ion-icon class="overlayClass" name="checkmark-circle"></ion-icon></div>
+                                            <div *ngIf="!file.scaricato"><ion-icon class="overlayClass" name="close"></ion-icon></div>
                                             <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
                                         </div>
                                     </ion-col>

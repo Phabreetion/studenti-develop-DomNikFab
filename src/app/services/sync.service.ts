@@ -455,7 +455,7 @@ export class SyncService {
                         }
 
                         //il token non è più valido -> al momento il token scade dopo 10 min di inutilizzo
-                        if (rej.error && rej.error.codice === -2) {
+                        if ( (rej.status === 401) || (rej.error && rej.error.codice === -2) ) {
                             GlobalDataService.log(4, 'Token scaduto', null);
 
                             //aggiorna il token

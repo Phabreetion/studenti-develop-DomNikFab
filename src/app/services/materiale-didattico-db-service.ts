@@ -13,7 +13,7 @@ import {SyncService} from './sync.service';
 @Injectable({
     providedIn: 'root'
 })
-export class DBService {
+export class MaterialeDidatticoDbService {
 
     public database: SQLiteObject;
 
@@ -42,7 +42,8 @@ export class DBService {
         presentationstyle : 'pagesheet', // iOS only
         fullscreen : 'yes', // Windows only
     };
-// remove commento, only for push
+
+
     constructor(
         public sqlite: SQLite,
         public platform: Platform,
@@ -153,13 +154,6 @@ export class DBService {
                     (result) => {
 
                     if (result.rows.length > 0) {
-                        // for (let i = 0; i < result.rows.length; i++) {
-                        //     console.log('Item:' + i);
-                        //     console.dir(result.rows.item(i));
-                        // }
-
-                        // prendo solo il primo
-                        // for (let i = 0; i < result.rows.length; i++) {
                         const all = result.rows.item(0);
                         allegato = {
                             id: all.id,
@@ -184,11 +178,12 @@ export class DBService {
     }
 
     isPiattaformaSupportata(): boolean {
+        console.log(this.platform.platforms());
         return this.platform.is('android') ||
-            this.platform.is('ios');
+            this.platform.is('ios') && (!this.platform.is('mobileweb'));
     }
 
-    isAllegatoScaricato(item: any):Promise<any> {
+    isAllegatoScaricato(item: any): Promise<boolean> {
         return new Promise( (resolve, reject) => {
             // console.log('Cerco allegati per ' + id);
             if (this.isPiattaformaSupportata()) {
@@ -201,12 +196,12 @@ export class DBService {
                         resolve( true );
                     },
                     (err) => {
-                        reject(err);
+                        reject(false);
                     }
                 );
             } else {
                 // console.log('Terminale Windows');
-                reject('Piattaforma non supportata');
+                reject(false);
             }
         });
     }

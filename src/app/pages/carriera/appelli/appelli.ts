@@ -4,7 +4,6 @@ import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
-import {Esse3Service} from '../../../services/esse3.service';
 import {HttpService} from '../../../services/http.service';
 import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
@@ -14,7 +13,6 @@ import {FiltroAppelliDisponibili} from '../../../models/FiltroAppelliDisponibili
 import {AppelliService} from '../../../services/appelli.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {AppelloPrenotato} from '../../../models/AppelloPrenotato';
-import {Appello} from '../../../models/Appello';
 
 const PAGE_URL = '/appelli';
 

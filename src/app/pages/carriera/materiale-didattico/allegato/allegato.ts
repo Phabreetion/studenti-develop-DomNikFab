@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalDataService} from '../../../../services/global-data.service';
-import {DBService} from '../../../../services/db-service';
+import {MaterialeDidatticoDbService} from '../../../../services/materiale-didattico-db-service';
 import {AlertController} from '@ionic/angular';
 import {ToastsService} from '../../../../services/toasts.service';
 
@@ -19,7 +19,7 @@ export class AllegatoPage implements OnInit {
     public isClickNote: boolean;
 
     constructor(public globalData: GlobalDataService,
-                private localdb: DBService,
+                private localdb: MaterialeDidatticoDbService,
                 public alertController: AlertController,
                 public toastsService: ToastsService) {}
 
