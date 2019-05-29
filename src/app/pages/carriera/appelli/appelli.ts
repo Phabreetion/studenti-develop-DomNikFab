@@ -286,7 +286,7 @@ export class AppelliPage implements OnInit {
     }
 
 
-    prenotaAppello(itemSliding, appello: AppelloDisponibile) {
+    async prenotaAppello(itemSliding, appello: AppelloDisponibile) {
         itemSliding.close();
 
         if (!appello.isPrenotabile()) {
@@ -296,10 +296,21 @@ export class AppelliPage implements OnInit {
                 this.toastService.appelloScaduto(appello.giorniPassatiDopoLaChiusura());
             }
         } else {
+            let message = '';
+
+            //message += (await this.pianoDiStudioService.hasTutteLePropedeuticitaSuperate(appello.ad_id, this.corsiMap)) ? '' : ' N.B. Non potrai verbalizzare questo esame finché non avrai verbalizzato tutte le propedeuticità';
+            const nonSup = await this.pianoDiStudioService.getPropedeuticitaNonSuperate(appello.ad_id, this.corsiMap);
+            for (let i = 0; i < nonSup.length; i++) {
+                if (i == 0) {
+                    message += 'L\'esame non sarà verbalizzato fino a che non avrai superato i seguenti esami propedeutici di:\n';
+                }
+                message += '•' + nonSup[i].DESCRIZIONE + '\n';
+            }
+
             this.alertCtrl.create({
                 header: 'Prenotazione',
                 subHeader: 'Vuoi prenotarti all\'appello di ' + appello.descrizione + ' ?',
-                message: 'La richiesta di prenotazione sarà inviata al portale dello studente.',
+                message: message,
                 buttons: [
                     {
                         text: 'No',

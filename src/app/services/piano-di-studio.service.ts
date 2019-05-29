@@ -38,7 +38,35 @@ export class PianoDiStudioService {
         });
     }
 
+    public async hasTutteLePropedeuticitaSuperate(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<boolean> {
+        return new Promise<boolean>(resolve => {
+            this.getPropedeuticita(ad_id_corso, corsiMap).then( corsiPropedeutici => {
+                let i = 0;
+                while (i < corsiPropedeutici.length && corsiPropedeutici[i].isSuperato()) {
+                    i++;
+                }
 
+                resolve(i >= corsiPropedeutici.length);
+            });
+        });
+    }
+
+    public async getPropedeuticitaNonSuperate(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<Corso[]> {
+        return new Promise<Corso[]>(resolve => {
+            this.getPropedeuticita(ad_id_corso, corsiMap).then( corsiPropedeutici => {
+                let corsiNonsuperati: Corso[];
+                corsiNonsuperati = [];
+
+                for (let i = 0; i < corsiPropedeutici.length; i++) {
+                    if (!corsiPropedeutici[i].isSuperato() ) {
+                        corsiNonsuperati.push(corsiPropedeutici[i]);
+                    }
+                }
+
+                resolve(corsiNonsuperati);
+            });
+        });
+    }
 
     public async getCorsi(): Promise<Corso[]> {
         return new Promise<Corso[]>( (resolve, reject) => {
