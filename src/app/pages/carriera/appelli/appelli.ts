@@ -21,7 +21,7 @@ const PAGE_URL = '/appelli';
 @Component({
     selector: 'app-page-appelli',
     templateUrl: 'appelli.html',
-
+    styleUrls: ['./appelli.scss'],
 })
 
 export class AppelliPage implements OnInit {
