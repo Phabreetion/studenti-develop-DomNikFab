@@ -199,7 +199,9 @@ export class RubricaPage implements OnInit {
                 return (item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.cognome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.email_utente.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
-                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)||
+                    (item.struttura.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
+                    (item.indirizzo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
             } catch (err) {
                 console.log(err);
             }3
@@ -223,6 +225,7 @@ export class RubricaPage implements OnInit {
             
             if (this.nrRinvii < this.maxNrRinvii) {
                 setTimeout(() => {
+                    console.log(this.rubrica);
                     this.aggiorna(interattivo, sync);
                 }, 2000);
                 return;
