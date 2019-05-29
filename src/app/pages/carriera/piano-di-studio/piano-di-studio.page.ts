@@ -273,8 +273,7 @@ export class PianoDiStudioPage implements OnInit {
         }
 
         this.globalData.corso = corso;
-        const ad_id = corso.AD_ID == null  ? 0 : corso.AD_ID;
-        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/' + corso.DESCRIZIONE, 'forward', false);
+        this.globalData.goTo(this, '/dettagli-corso', 'forward', false);
     }
 
     goToAppelli(corso: Corso, ionItemSliding?) {

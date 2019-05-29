@@ -390,8 +390,8 @@ export class AppelliPage implements OnInit {
 
 
     goToDettagliCorso(appello: AppelloDisponibile) {
-        const ad_id = appello.ad_id == null ? 0 : appello.ad_id;
-        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/', 'forward', false);
+        this.globalData.corso = this.corsiMap.get(appello.ad_id);
+        this.globalData.goTo(this, '/dettagli-corso', 'forward', false);
     }
 
     goToMaterialeDidattico(appello: AppelloDisponibile) {

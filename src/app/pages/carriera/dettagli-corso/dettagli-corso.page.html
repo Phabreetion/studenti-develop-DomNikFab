@@ -15,7 +15,8 @@
                         Dettagli corso
                     </ion-title>
                     <ion-buttons slot="end">
-                        <ion-back-button style="padding-right: 1em;" text="" icon="md-arrow-round-back"></ion-back-button>
+                        <ion-back-button style="padding-right: 1em;" text=""
+                                         icon="md-arrow-round-back"></ion-back-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-col>
@@ -29,21 +30,21 @@
         <ion-card-header>
             <ion-card-subtitle text-left><b>{{corso.ANNO}}° ANNO</b></ion-card-subtitle>
             <ion-card-title text-center><b><I>{{corso.DESCRIZIONE}}</I></b></ion-card-title>
-            <ion-card-subtitle text-center><b><I>CFU:&nbsp;{{corso.CFU}}</I></b> </ion-card-subtitle>
+            <ion-card-subtitle text-center><b><I>CFU:&nbsp;{{corso.CFU}}</I></b></ion-card-subtitle>
         </ion-card-header>
 
         <ion-card-content>
             <ion-grid no-padding>
 
                 <ion-row *ngIf=" !corso.hasDueProfessori()">
-                    <ion-col >
+                    <ion-col>
                         <b><I>Docente</I></b>
                         <br> {{corso.COGNOME}}
                     </ion-col>
                 </ion-row>
 
                 <ion-row *ngIf="corso.hasDueProfessori()">
-                    <ion-col >
+                    <ion-col>
                         <b><I>Docenti</I></b>
                         <br>
                         {{corso.NOME}}
@@ -53,23 +54,26 @@
                 </ion-row>
 
 
-
-                <ion-row *ngIf="corso.CONTENUTI" >
+                <ion-row *ngIf="corso.CONTENUTI">
                     <ion-col>
-                    <b><I>Contenuti</I></b>&nbsp;
-                    <ion-icon (click)="mostraContenuti()" [name]="isClickContenuti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
-                    <ion-card text-wrap *ngIf="isClickContenuti">
-                        <ion-card-content text-wrap>
-                            <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
-                        </ion-card-content>
-                    </ion-card>
+                        <b><I>Contenuti</I></b>&nbsp;
+                        <ion-icon (click)="mostraContenuti()"
+                                  [name]="isClickContenuti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'"
+                                  class="icona"></ion-icon>
+                        <ion-card text-wrap *ngIf="isClickContenuti">
+                            <ion-card-content text-wrap>
+                                <p *ngFor="let contenuto of corso.CONTENUTI.split('\n')">{{contenuto}}</p>
+                            </ion-card-content>
+                        </ion-card>
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corso.TESTI" >
+                <ion-row *ngIf="corso.TESTI">
                     <ion-col>
                         <b><I>Testi</I></b>&nbsp;
-                        <ion-icon (click)="mostraTesti()" [name]="isClickTesti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+                        <ion-icon (click)="mostraTesti()"
+                                  [name]="isClickTesti? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'"
+                                  class="icona"></ion-icon>
                         <ion-card text-wrap *ngIf="isClickTesti">
                             <ion-card-content text-wrap>
                                 <p *ngFor="let testo of corso.TESTI.split('\n')"> {{testo}}</p>
@@ -78,10 +82,12 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corso.OBIETTIVI_FORMATIVI" >
+                <ion-row *ngIf="corso.OBIETTIVI_FORMATIVI">
                     <ion-col>
                         <b><I>Obiettivi formativi</I></b>&nbsp;
-                        <ion-icon (click)="mostraObiettiviFormativi()" [name]="isClickObiettiviFormativi? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'" class="icona"></ion-icon>
+                        <ion-icon (click)="mostraObiettiviFormativi()"
+                                  [name]="isClickObiettiviFormativi? 'md-arrow-dropup-circle' : 'md-arrow-dropdown-circle'"
+                                  class="icona"></ion-icon>
                         <ion-card text-wrap *ngIf="isClickObiettiviFormativi">
                             <ion-card-content text-wrap>
                                 <p *ngFor="let obiettivo_Formativo of corso.OBIETTIVI_FORMATIVI.split('\n')">{{obiettivo_Formativo}}</p>
@@ -90,10 +96,10 @@
                     </ion-col>
                 </ion-row>
 
-                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0"  >
-                    <ion-col >
+                <ion-row *ngIf="corsiPropedeutici && corsiPropedeutici.length > 0">
+                    <ion-col>
                         <b><I>Propedeuticità</I></b> <br>
-                        <ion-label (click)="goToDettagliCorso(corsoPropedeutico)" *ngFor="let corsoPropedeutico of corsiPropedeutici">
+                        <ion-label *ngFor="let corsoPropedeutico of corsiPropedeutici"> <!--(click)="goToDettagliCorso(corsoPropedeutico)"-->
                             <ion-icon [name]="corsoPropedeutico.STATO === 'S'? 'checkmark-circle' : 'close-circle'"
                                       [color]="corsoPropedeutico.STATO === 'S'? 'success':'danger'"></ion-icon>
                             {{corsoPropedeutico.DESCRIZIONE}} <br>
@@ -131,18 +137,16 @@
                 </ion-row>
 
                 <ion-grid fixed no-padding>
-                <ion-row >
-                    <ion-col *ngIf="corso.DATA_ESAME">
-                        <b><I>Data esame</I></b>&nbsp;&nbsp;&nbsp;&nbsp;<br> {{corso.DATA_ESAME}}
-                    </ion-col>
+                    <ion-row>
+                        <ion-col *ngIf="corso.DATA_ESAME">
+                            <b><I>Data esame</I></b>&nbsp;&nbsp;&nbsp;&nbsp;<br> {{corso.DATA_ESAME}}
+                        </ion-col>
 
-                    <ion-col *ngIf="corso.DATA_VERBALE" text-left>
-                        <b><I>Data verbale</I></b><br>{{corso.DATA_VERBALE}}
-                    </ion-col>
-                </ion-row>
+                        <ion-col *ngIf="corso.DATA_VERBALE" text-left>
+                            <b><I>Data verbale</I></b><br>{{corso.DATA_VERBALE}}
+                        </ion-col>
+                    </ion-row>
                 </ion-grid>
-
-
 
 
                 <ion-row *ngIf="corso.SOVRANNUMERARIA == 1 || corso.NO_MEDIA == 1">
@@ -164,18 +168,21 @@
         </ion-card-content>
 
     </ion-card>
-<div class="button">
-    <ion-grid>
-        <ion-row>
-            <ion-col *ngIf="!corso.VOTO && !corso.GIUDIZIO">
-                <ion-button expand="block" [disabled]="!corsoConAppelli" (click)="goToAppelli()">Appelli</ion-button>
-            </ion-col>
-            <ion-col>
-                <ion-button expand="block" [disabled]="!corsoConMateriale" (click)="goToMaterialeDidattico()">Materiale didattico</ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</div>
+    <div class="button">
+        <ion-grid>
+            <ion-row>
+                <ion-col *ngIf="!corso.VOTO && !corso.GIUDIZIO">
+                    <ion-button expand="block" [disabled]="!corsoConAppelli" (click)="goToAppelli()">Appelli
+                    </ion-button>
+                </ion-col>
+                <ion-col>
+                    <ion-button expand="block" [disabled]="!corsoConMateriale" (click)="goToMaterialeDidattico()">
+                        Materiale didattico
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
 
     <ion-card text-wrap *ngIf="!corso">
@@ -194,20 +201,20 @@
 
 </ion-content>
 
-    <!--
+<!--
 <ion-component>
 <ion-footer  no-padding>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <fa-icon [hidden]="!http.getConnected()" [icon]="globalData.faLink"></fa-icon>
-      <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
-    </ion-buttons>
-    <div class="testo-footer">
-    </div>
-    <ion-buttons slot="end" no-padding>
-      <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
-    </ion-buttons>
-  </ion-toolbar>
+<ion-toolbar>
+<ion-buttons slot="start">
+  <fa-icon [hidden]="!http.getConnected()" [icon]="globalData.faLink"></fa-icon>
+  <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
+</ion-buttons>
+<div class="testo-footer">
+</div>
+<ion-buttons slot="end" no-padding>
+  <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+</ion-buttons>
+</ion-toolbar>
 </ion-footer>
 </ion-component>
 -->

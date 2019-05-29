@@ -54,12 +54,11 @@ export class DettagliCorsoPage implements OnInit {
 
 
         this.ad_id_corso = Number(this.route.snapshot.paramMap.get('ad_id'));
-        this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
         if (this.globalData.corso) {
             this.corso = this.globalData.corso;
-            this.globalData.corso = null;
+            console.log('a');
         } else {
-            this.corso = await this.pianoDiStudioService.getCorso(this.ad_id_corso, this.nome_corso);
+            this.corso = await this.pianoDiStudioService.getCorso(this.ad_id_corso);
         }
 
 
@@ -134,9 +133,8 @@ export class DettagliCorsoPage implements OnInit {
     }
 
     goToDettagliCorso(corso: Corso) {
-        this.globalData.corso = corso;
-        const ad_id = corso.AD_ID == null  ? 0 : corso.AD_ID;
-        this.globalData.goTo(this, '/dettagli-corso/' + ad_id + '/' + corso.DESCRIZIONE, 'forward', false);
+        this.globalData.corso = this.corsiMap.get(corso.AD_ID);
+        this.globalData.goTo(this, '/dettagli-corso', 'forward', false);
     }
 
 }
