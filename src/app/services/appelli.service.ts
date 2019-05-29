@@ -237,6 +237,9 @@ export class AppelliService {
         return new Promise<FiltroAppelliDisponibili>((resolve) => {
             this.storage.get('filtroAppelliDisponibili').then(
                 filtro => {
+                    if (!filtro) {
+                       filtro = new FiltroAppelliDisponibili();
+                    }
                     resolve(FiltroAppelliDisponibili.toObj(filtro));
                 }
             );

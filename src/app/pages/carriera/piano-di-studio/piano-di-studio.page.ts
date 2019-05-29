@@ -60,25 +60,22 @@ export class PianoDiStudioPage implements OnInit {
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
-        this.pianoDiStudioService.getCorsi().then( (data) => {
+        this.pianoDiStudioService.getCorsi().then( data => {
             this.corsi = data;
 
             this.corsiFiltrati = this.corsi;
             this.corsiTrovati = this.corsiFiltrati;
 
-            this.resetFiltri();
+            //this.resetFiltri();
 
-            this.pianoDiStudioService.loadFiltriFromStorage().then(
-                filtro => {
-                    this.filtro = filtro;
+            this.pianoDiStudioService.loadFiltriFromStorage().then(filtro => {
+                this.filtro = filtro;
 
-                    this.pianoDiStudioService.getMaxAnni().then(
-                        value => {
-                            this.filtro.setMaxAnni(value);
-                            this.updateFiltri();
-                        });
-                }
-            );
+                this.pianoDiStudioService.getMaxAnni().then( value => {
+                    this.filtro.setMaxAnni(value);
+                    this.updateFiltri();
+                });
+            });
         });
 
 
@@ -87,19 +84,6 @@ export class PianoDiStudioPage implements OnInit {
     ionViewDidEnter() {
         this.isSearchbarOpened = false;
         this.searchKey = '';
-        /*
-                //carico i filtri dallo storage ed eseguo il filtraggio.
-                this.pianoDiStudioService.loadFiltriFromStorage().then(
-                    filtro => {
-                        this.filtro = filtro;
-
-                        this.pianoDiStudioService.getMaxAnni().then(
-                            value => {
-                                this.filtro.setMaxAnni(value);
-                                this.updateFiltri();
-                            });
-                    }
-                );*/
     }
 
 

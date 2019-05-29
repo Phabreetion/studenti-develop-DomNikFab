@@ -168,6 +168,9 @@ export class PianoDiStudioService {
         return new Promise<FiltroPianoDiStudio>((resolve) => {
             this.storage.get('filtroPianoDiStudio').then(
                 filtro => {
+                    if (!filtro) {
+                        filtro = new FiltroPianoDiStudio();
+                    }
                     resolve(FiltroPianoDiStudio.toObj(filtro));
                 }
             );

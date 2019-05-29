@@ -342,8 +342,9 @@ export class SyncService {
 
             // se ci sono dati nella cache risolvi
             if ((!params) && (this.globalData.archive[id])) {
-                console.log('prelevo da cache');
+                console.log(id + ' -> prelevo da cache');
                 resolve(this.globalData.archive[id]);
+                return;
             }
 
             //se non presenti nella cache prova a prendeli dallo storage
@@ -352,6 +353,8 @@ export class SyncService {
                 (data) => {
                     //se i dati sono avvalorati devono essere risolti
                     if (data && (data[0] || data['timestamp'])) {
+                        console.log(id + ' -> prelevo da storage');
+
                         //salva nella cache i dati reperiti dallo storage se quest'ultimo è vuoto
                         if (!this.globalData.archive[id]) {
                             this.globalData.archive[id] = data;
@@ -361,8 +364,8 @@ export class SyncService {
                             this.dateUltimiAggiornamenti[id] = data['timestamp'];
                         }
 
-                        console.log('prelevo da storage');
                         resolve(data);
+                        return;
                     } else {
                         //cerca di risolvere i dati dal server
                         this.updateJson(id, params).then(
