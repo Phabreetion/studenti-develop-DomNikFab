@@ -16,9 +16,22 @@
                     </ion-title>
                     <ion-buttons slot="end">
                         <ion-back-button defaultHref="/carriera" text="Indietro"></ion-back-button>
+                        <ion-button icon-only (click)="toogleSearchbar()">
+                            <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
+                        </ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-col>
+        </ion-row>
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
         </ion-row>
     </ion-grid>
 </ion-header>
@@ -61,7 +74,7 @@
     </ion-list>
 
     <ion-list *ngIf="files?.length > 0">
-        <ion-item-sliding *ngFor="let file of files" >
+        <ion-item-sliding *ngFor="let file of fileTrovati" >
             <!-- (press)="onPress(item)" -->
             <!-- <ion-item #item (click)="open(slidingItem,item)" >  -->
             <ion-item (click)="info(file)">
@@ -97,7 +110,7 @@
             <!-- <ion-item-options side="right" (click)="close(slidingItem)"> -->
             <ion-item-options side="end">
 
-                <ion-item-option color="primary" (click)="apriFile(file)">
+                <ion-item-option color="primary" (click)="newApriFile(file)">
                     <ion-icon name="easel"></ion-icon>
                     Visualizza
                 </ion-item-option>
@@ -107,7 +120,7 @@
                     Dettagli
                 </ion-item-option>
                 -->
-                <ion-item-option color="danger" (click)="eliminaFile(file)">
+                <ion-item-option color="danger" (click)="newRimuoviFile(file)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi
                 </ion-item-option>
@@ -115,17 +128,17 @@
                 <!--
                 <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="danger" (click)="eliminaFile(file)">
                     <ion-icon style="padding:0;" name="trash"></ion-icon>
-                    <!--Elimina-->
+                    <!-Elimina-->
                 <!--
                 </button>
                 <button *ngIf="file.scaricato == 0" class="stileIconeFile" ion-button color="primary" (click)="download(file)">
                     <ion-icon style="padding:0;" name="md-download" ></ion-icon>
-                    <!--Download-->
+                    <!-Download-->
                 <!--
                 </button>
                 <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="light" (click)="apriFile(file, file.tipo_file)">
                     <ion-icon style="padding:0;" name="md-eye" color="primary"></ion-icon>
-                    <!--<font color="dodgerblue">Visualizza</font>-->
+                    <!-<font color="dodgerblue">Visualizza</font>-->
                 <!--
                 </button>
                 -->

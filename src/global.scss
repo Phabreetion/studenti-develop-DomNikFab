@@ -80,36 +80,33 @@
 
 .nome-esame{
   font-size: 1.0em;
-  color: #266acb;
-  font-weight: bold;
+
 }
 
 .voto {
   font-size: 1.0em;
-  color: #266acb;
   font-weight: bold;
   text-align: right;
 }
 
 .superato {
-  //border-left: 4px solid green;
-  background-color:#A5D6A7;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .superato-lode {
-  //border-left: 4px solid red;
-  background-color:#A5D6A7;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .idoneo {
-  //border-left: 4px solid green;
-  //background-color:#b5fbfc;
-  background-color:#C8E6C9;
+  background-color: #c6f2b3;
+  padding: 1em;
 }
 
 .da-sostenere {
-  //border-left: 4px solid red;
-  background-color:#f7f7f7;
+  background-color: rgb(255, 255, 255);
+  padding: 1em;
 }
 
 .medie ion-col div {
@@ -150,7 +147,7 @@
   }
 
   .dati-esame {
-    font-size: 0.8em;
+    font-size: 0.7em;
   }
 
   .logo {
@@ -191,7 +188,7 @@
   }
 
   .dati-esame {
-    font-size: 0.9em;
+    font-size: 0.8em;
   }
 
   .testo-footer{
@@ -223,10 +220,6 @@
 
 }
 
-.membro-commissione {
-  background-color:#f7f7f7;
-}
-
 /*
 ion-icon {
   &[class*="unimol-"] {
@@ -254,3 +247,31 @@ ion-icon {
   }
 }
 */
+
+
+.gestore-lista-piano-di-studio-css .modal-wrapper {
+  height: 85%;
+  width: 80%;
+  position: absolute;
+  display: block;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  //--background: rgba(0,0,0,0);
+  //background-color: rgba(0, 0, 0, 0);
+}
+.gestore-lista-appelli-disponibili-css .modal-wrapper {
+  height: 70%;
+  width: 80%;
+  position: absolute;
+  display: block;
+  border-radius: 10px;
+  -webkit-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
+  //--background: rgba(0,0,0,0);
+  //background-color: rgba(0, 0, 0, 0);
+}
+
+

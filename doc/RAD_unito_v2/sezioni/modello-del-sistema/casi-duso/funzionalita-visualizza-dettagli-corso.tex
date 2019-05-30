@@ -1,0 +1,27 @@
+\subsection{Funzionalità Visualizza dettagli corso}
+\label{req:visualizzaDettagliCorso}
+\paragraph{Visualizza dettagli corso \\}
+Questo caso d’uso consentirà allo studente di visualizzare i dettagli di un corso e includerà il caso d’uso \textit{getJson} passandogli l’ID del servizio per ottenere i dettagli del corso selezionato. Quest’ultimo elaborerà la richiesta e restituirà i dati relativi al corso selezionato. Il sistema mostrerà allo studente i dettagli del corso selezionato. Segue il diagramma dei casi d'uso corrispondente a questo caso d'uso: \ref{diag:gestionePianoStudio}. È possibile prendere visione anche del diagramma di sequenza (\ref{diag:visualizzaDettagliCorsoSD}) e del diagramma delle attività (\ref{diag:visualizzaDettagliCorsoAD}). \\ \\
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Visualizza dettagli corso}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Iniziato da \textit{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i corsi del piano di studio.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Seleziona un corso di cui visualizzare i dettagli. & \textbf{} \\
+	\hline
+	\textbf{} & \textbf{2} & \textbf{} & Include il caso d’uso \textit{getJson} passandogli l’ID del servizio. \\
+	\hline
+	\textbf{} & \textbf{3} & \textbf{} & Mostra i dettagli relativi al corso selezionato. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza i dettagli relativi al corso selezionato.} \\
+	\hline
+\end{tabular}
+
+\clearpage

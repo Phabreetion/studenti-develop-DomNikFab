@@ -1,0 +1,191 @@
+\subsection{Funzionalità Gestione appelli}
+\paragraph{Visualizza appelli disponibili}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare gli appelli disponibili. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------info1--------------------------- \= --inforegistrata1--- \= --info2--\=--inofregistarta2 \kill
+		%Scrivere da qui
+		\hspace{1cm} • \textbf{Descrizione} Basi di dati \> \textbf{Docente} Pareschi Remo
+		\\
+		\hspace{1cm} •  \textbf{CFU} 12  \> \textbf{Data} 15/06/2019 \\
+	\end{tabbing}
+	
+	\item \textit{Nessun appello disponibile:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, sceglie di visualizzare gli appelli disponibili. Il sistema non restituisce alcun appello disponibile e mostra il messaggio di errore “Nessun appello disponibile”.
+\end{itemize}
+
+\paragraph{Visualizza appelli prenotati}
+\begin{itemize}
+	\item \textit{Visualizzazione avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema mostra i dati relativi agli appelli prenotati: 
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Fisica \> 01/03/2019 \> \hspace{1cm}Orale \\
+	\end{tabbing}
+	
+	\item \textit{Nessun appello prenotato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, visualizza gli appelli prenotati. Il sistema non restituisce alcun appello prenotato e mostra il messaggio di errore “Nessun appello prenotato”. 
+\end{itemize}
+
+\paragraph{Ricerca appelli disponibili}
+\begin{itemize}
+	\item \textit{Ricerca avvenuta con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matematica”}}. Il sistema trova gli appelli disponibili e mostra i risultati:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\kill
+		%Scrivere da qui
+		\hspace{1cm} • Matematica  \> 16/02/2019  \\
+		\hspace{1cm} • Storia della Matematica \> 18/01/2019 \\
+	\end{tabbing}
+	
+	\item \textit{La ricerca non restituisce risultati:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato gli appelli disponibili, inserisce la parola chiave \textbf{\textit{“Matemagica”}}. Il sistema non restituisce alcun riscontro e mostra allo studente il messaggio di errore “Nessun appello trovato”.
+\end{itemize}
+
+\paragraph{Filtra appelli disponibili con memorizzazione}
+\begin{itemize}
+	\item \textit{Filtra per tipologia d’esame (scritto):}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli esami per tipologia \textbf{“scritto”}. Il sistema mostra:  
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico  \> 26/03/2019 \> \hspace{1cm}Scritto \\
+		\hspace{1cm} • Ingegneria del Software \> 01/04/2019 \> \hspace{1cm}Scritto-Orale  \\
+	\end{tabbing}
+	
+	\item \textit{Filtra per tipologia d’esame (orale):}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare gli appelli per tipologia di esame \textbf{“orale”}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------esame---------------------------\=--Data---\= --tipologia--\kill
+		%Scrivere da qui
+		\hspace{1cm} • Informatica giuridica  \> 10/04/2019\> \hspace{1cm}Orale \\
+		\hspace{1cm} • Matematica\> 18/04/2019 \> \hspace{1cm}Orale-Scritto  \\
+	\end{tabbing}
+	
+	\item \textit{Filtra per anno:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili, sceglie di filtrare in base all'anno in cui è previsto il corso e sceglie di filtrare gli appelli per visualizzare solo quelli afferenti al \textbf{secondo anno}. Il sistema mostra:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Voto--- \= --------Data------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Basi di dati e sistemi informativi \> 30 \> 15/07/2019 \\
+		\hspace{1cm} • Calcolo numerico \> 18 \> 26/06/2019 \\
+		\hspace{1cm} • Fisica \> 28 \> 29/06/2019 \\
+		\hspace{1cm} • Ingegneria del Software \> N/D \> 7/06/2019  \\
+	\end{tabbing}
+	
+	\item \textit{Memorizza filtro:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato il filtro “anno”, sceglie di memorizzarlo. Il sistema mantiene il filtro memorizzato anche in seguito alla chiusura del sistema . Alla successiva apertura dell’app, il sistema filtra di default gli appelli per “anno”.
+	
+	\item \textit{Nessuna memorizzzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un filtro, sceglie di non memorizzare le opzioni inserite. Alla successiva apertura dell'applicazione, il sistema mostra a Giuseppe tutti gli appelli disponibili.
+	
+	\item \textit{Il filtraggio non restituisce alcun risultato:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver scelto di filtrare gli appelli disponibili in base al parametro selezionato, non riceve risultati dal sistema. Il sistema mostra il messaggio “Nessun appello è stato trovato. Si prega di resettare le impostazioni precedentemente inserite!”
+\end{itemize}
+
+\paragraph{Ordina appelli disponibili con memorizzazione}
+\begin{itemize}
+	\item \textit{Ordinamento alfabetico crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento alfabetico crescente degli appelli. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+	\end{tabbing}
+	
+	\item \textit{Ordinamento alfabetico decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento alfabetico decrescente degli appelli. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\		
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per data crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per data crescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+	\end{tabbing} 
+	
+	\item \textit{Ordinamento per data decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per data decrescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------------------- \= --Data--- \= --------Docente------ \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \\
+	\end{tabbing} 
+	
+	\item \textit{Ordinamento per CFU crescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU crescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame--------------- \= --Data--- \= -------------Docente---------- \= -----CFU-----\kill
+		%Scrivere da qui
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\	
+	\end{tabbing}
+	
+	\item \textit{Ordinamento per CFU decrescente:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, decide di ordinare la lista degli appelli disponibili usando il criterio di ordinamento per CFU decrescente. Ad ordinamento effettuato, il sistema mostra i seguenti esami:
+	\begin{tabbing}
+		%La prima riga non viene stampata, serve solo per la spaziatura
+		\hspace{1cm}-----------------Esame------------------ \= --Data--- \= -----------Docente------------- \= -----CFU----- \kill
+		%Scrivere da qui
+		\hspace{1cm} • Algoritmi e Strutture Dati \> 07/04/2019 \> \hspace{1cm} G. Parlato \> 12 CFU\\
+		\hspace{1cm} • Ingegneria del Software \> 04/04/2019   \> \hspace{1cm} F. Fasano \> 9 CFU\\
+		\hspace{1cm} • Fisica \> 06/04/2019 \> \hspace{1cm} G. M. Piacentino  \> 7 CFU\\
+		\hspace{1cm} • Calcolo numerico \> 05/04/2019  \> \hspace{1cm} G. Capobianco \> 6 CFU\\	
+	\end{tabbing} 
+	
+	\item \textit{Memorizza ordinamento:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento per data, sceglie di memorizzare le sue preferenze di ordinamento. Alla successiva apertura dell’applicazione, il sistema ordina gli appelli disponibili sulla base dell'ultimo ordinamento memorizzato.
+	
+	\item \textit{Nessuna memorizzazione:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato l’elenco degli appelli disponibili ed aver applicato un ordinamento, sceglie di non memorizzare le sue preferenze di ordinamento. Il sistema mostra allo studente il messaggio “Le impostazioni non sono state salvate”.
+\end{itemize}
+
+\paragraph{Prenota appello}
+\begin{itemize}
+	\item \textit{Prenotazione effettuata con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema effettua la prenotazione all’appello e mostra il messaggio “La prenotazione è stata confermata”.
+	
+	\item \textit{Prenotazione fallita:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli disponibili, sceglie di prenotare l’appello di \textit{Fisica} e lo seleziona dalla lista. Il sistema prova ad effettuare la prenotazione ma l’operazione non ha successo, per cui mostra il messaggio di errore “Impossibile effettuare la prenotazione”.
+\end{itemize}
+
+\paragraph{Cancella prenotazione}
+\begin{itemize}
+	\item \textit{Cancellazione della prenotazione effettuata con successo:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} e lo seleziona dalla lista. Il sistema annulla la prenotazione all’appello e mostra il messaggio “La prenotazione è stata annullata con successo”.
+	
+	\item \textit{Cancellazione impossibile da effettuare:}
+	Lo studente Giuseppe, iscritto al terzo anno della facoltà di Informatica, dopo aver visualizzato la lista degli appelli prenotati, sceglie di cancellare la prenotazione all’appello di \textit{Ingegneria del software} previsto e lo seleziona dalla lista. Il sistema prova a cancellare la prenotazione, ma l’operazione non ha successo, per cui il sistema mostra il messaggio di errore “Impossibile annullare la prenotazione”.
+\end{itemize}

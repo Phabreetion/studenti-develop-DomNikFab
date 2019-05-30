@@ -1,0 +1,131 @@
+\subsection{Funzionalità previsione media}
+
+\paragraph{Simulazione della media\\}
+
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito opportunamente i voti, restituirà la simulazione della media e la salverà in locale.
+
+\begin{table}[H]
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+
+%\label{} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Simulazione della media}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+	\hline
+	\textbf{} & \textbf{1} & Selezionerà simulazione con esami. \textbf{} &  \\
+	\hline
+	\textbf{} & \textbf{2} &  & Mostrerà la carriera dello studente. \textbf{} \\
+	\hline
+	\textbf{} & \textbf{3} &Selezionerà gli esami da includere nel calcolo della media e inserirà i valori da simulare. \textbf{} & \\
+	\hline
+	\textbf{} & \textbf{4} & \textbf{} & Simulerà e restituirà la previsione della media salvando in locale. \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente tornerà alla Home Page.} \\
+	\hline
+\end{tabular}
+\caption{Simulazione della media} % Didascalia tabella
+\end{table}
+
+\paragraph{Simulazione della media con valori non validi o vuoti\\}
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e, dopo che lo studente avrà selezionato gli esami sui quali calcolare la simulazione della media e avrà inserito dei valori non validi oppure vuoti, restituirà un messaggio di errore allo studente.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Simulazione della media con valori non validi o vuoti.}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} &  \textbf{} & Mostrerà la carriera dello studente.  \\
+		\hline
+		\textbf{} & \textbf{2} & Selezionerà gli esami da includere nel calcolo della media e inserirà valori non validi o vuoti da simulare.  &  \textbf{} \\
+		\hline
+		\textbf{} & \textbf{3} & \textbf{} & Visualizzerà a video un messaggio di errore. \\
+		\hline
+	    \textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{3.1 Uno o entrambi i campi sono vuoti.[da modificare]\newline 3.2 Le credenziali inserite non sono valide (una o entrambe).[da modificare]} \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente chiuderà il messaggio e inserirà nuovamente i valori.} \\
+		\hline
+	\end{tabular}
+	\caption{Simulazione della media con valori non validi o vuoti} % Didascalia tabella
+\end{table}
+
+\paragraph{Esami da conseguire terminati\\}
+Il sistema all’apertura della sezione “previsione” mostrerà la carriera dello studente e segnalerà che lo studente ha terminato gli esami da conseguire.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Esami da conseguire terminati}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & Selezionerà simulazione con esami. \textbf{} &  \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Mostrerà la carriera dello studente e segnalerà che ha terminato gli esami da conseguire. \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente chiuderà il messaggio e lascerà la sezione.} \\
+		\hline
+	\end{tabular}
+	\caption{Esami da conseguire terminati} % Didascalia tabella
+\end{table}
+
+\paragraph{Mancata connessione\\}
+Al momento dell’apertura del sistema, quest’ultimo segnalerà all’utente l’impossibilità di connessione con il sincronizzatore.
+
+\begin{table}[H]
+	%\normalsize % Dimensione testo normale
+	\small % Dimensione testo piccola
+	%\footnotesize % Dimensione testo piccolissima
+	%\scriptsize % Dimensione del testo ulteriormente più piccola
+	%\label{} % Etichetta per riferimenti incrociati
+	\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+		\hline
+		\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Mancata connessione}} \\
+		\hline
+		\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da \textbf{Studente}.} \\
+		\hline
+		\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente accederà alla sezione Previsione.} \\
+		\hline
+		\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Sistema} \\
+		\hline
+		\textbf{} & \textbf{1} & \textbf{} & Invierà una richiesta al sincronizzatore per ottenere la carriera e attiverà un timer di sicurezza prima di considerare l’impossibilità di comunicare con il database. \\
+		\hline
+		\textbf{} & \textbf{2} & \textbf{} & Arriverà l’evento di Time out. Segnalerà il problema all’ utente e rimanderà alla Home Page. \\
+		\hline
+		\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente tornerà alla Home Page, cambierà sezione, o chiuderà il messaggio di errore.} \\
+		\hline
+	\end{tabular}
+	\caption{Mancata connessione} % Didascalia tabella
+\end{table}
+
+\clearpage

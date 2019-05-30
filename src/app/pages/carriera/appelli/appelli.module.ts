@@ -6,8 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { AppelliPage } from './appelli';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
+import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {FooterComponent} from '../../footer/footer.component';
 
 @NgModule({
+    entryComponents: [GestoreListaAppelliDisponbiliComponent],
     imports: [
         CommonModule,
         FormsModule,
@@ -20,6 +24,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
             }
         ])
     ],
-    declarations: [AppelliPage]
+    declarations: [AppelliPage, GestoreListaAppelliDisponbiliComponent]
 })
 export class AppelliPageModule {}
+

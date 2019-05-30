@@ -1,0 +1,162 @@
+<ion-header>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-toolbar>
+                <ion-buttons slot="start">
+                    <ion-menu-button></ion-menu-button>
+                </ion-buttons>
+                <ion-title>
+                    Piano di studio
+                </ion-title>
+
+                <ion-buttons slot="end">
+
+                    <ion-button icon-only (click)="openFiltri()">
+                        <ion-icon name="switch" style="font-size: 1.5em" ></ion-icon>
+                    </ion-button>  <!-- icona precedente "funnel" -->
+
+                    <ion-button icon-only (click)="toogleSearchbar()">
+                        <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
+                    </ion-button>
+
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-row>
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
+        </ion-row>
+        <ion-button (click)="resetFiltri()" *ngIf="filtro.isActive()" expand="block" size="small">Reset filtri
+        </ion-button>
+    </ion-grid>
+</ion-header>
+
+
+<ion-content no-padding>
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+
+    <ion-grid *ngIf="rinvioAggiornamento && !corsi" text-center>
+        <ion-row>
+            <ion-col>
+                <img class="progress" src="assets/img/progress.gif" />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-title><strong>Aggiornamento in corso</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label>un attimo di pazienza</ion-label>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+
+    <ion-list *ngIf="corsi">
+        <div *ngFor="let corso of corsiTrovati; let i = index">
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsi[i-1] && corsi[i].ANNO !== corsi[i-1].ANNO))">
+                <ion-title text-center>{{corso.ANNO}}°ANNO</ion-title>
+            </ion-item>
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (corsi[i-1] && corsi[i].CFU !== corsi[i-1].CFU))">
+                <ion-title text-center>{{corso.CFU}} CFU</ion-title>
+            </ion-item>
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsi[i-1] && corsi[i].DESCRIZIONE.charAt(0) !== corsi[i-1].DESCRIZIONE.charAt(0)))">
+                <ion-title text-center> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
+            </ion-item>
+            <ion-item
+                    *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (corsi[i-1] && corsi[i].isSuperato() !== corsi[i-1].isSuperato()))">
+                <ion-title text-center> {{corsi[i].isSuperato() ? 'SUPERATI' : 'NON SUPERATI'}}</ion-title>
+            </ion-item>
+
+            <ion-item-sliding>
+                <ion-item (click)="presentActionSheet(corso)">
+
+
+                    <ion-grid fixed no-padding >
+                        <ion-row [ngClass]="{'superato' : corso.VOTO && corso.LODE== 0, 'superato-lode' : corso.VOTO && corso.LODE == 1, 'idoneo' : corso.GIUDIZIO, 'da-sostenere' : corso.STATO !== 'S' }">
+                            <ion-col size="10">
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col class ="nome-esame">
+                                            <ion-icon *ngIf="corso.isSuperato() && corso.LODE==1" name="md-trophy"></ion-icon>
+                                            <ion-icon *ngIf="!corso.isSuperato() && corso.LODE==0" name="md-book" style="font-size: 1.2em"></ion-icon>
+                                            <fa-icon *ngIf="corso.isSuperato()  && corso.LODE==0" [icon]="globalData.faBookOpen"></fa-icon>
+                                            <b> {{corso.DESCRIZIONE}}</b>
+                                        </ion-col>
+                                    </ion-row>
+
+                                    <ion-row class="dati-esame">
+                                        <ion-col size="5"  >
+                                            &nbsp; &nbsp; <fa-icon [icon]="globalData.faCoins"></fa-icon> &nbsp; CFU: {{corso.CFU}}
+                                        </ion-col>
+                                        <ion-col *ngIf="corso.isSuperato()" >
+                                            <fa-icon [icon]="globalData.faCalendarDay"></fa-icon> &nbsp; {{corso.DATA_ESAME}}
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-col>
+
+                            <ion-col size="2" *ngIf="corso.VOTO || corso.VALUTAZIONE=='G'" align-self-center="true">
+                                <div *ngIf="corso.VOTO && corso.LODE==0" class="voto">{{corso.VOTO | slice:0:3}}</div>
+                                <div *ngIf="corso.VOTO && corso.LODE==1" class="voto">30L</div>
+                                <div *ngIf="!corso.VOTO" class="voto">{{corso.GIUDIZIO | slice:0:3}}</div>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+
+
+                <ion-item-options>
+                    <ion-item-option (click)="goToDettagliCorso(corso)" text-center>
+                        Dettagli<br>corso
+                    </ion-item-option>
+                    <ion-item-option (click)="goToMaterialeDidattico(corso)" color="danger" text-center>
+                        Materiale<br>didattico
+                    </ion-item-option>
+                    <ion-item-option (click)="goToAppelli(corso)" *ngIf="!corso.isSuperato()" color="secondary"
+                                     text-center>
+                        Appelli
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </div>
+    </ion-list>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()" name="crescent"></ion-spinner>
+            <ion-icon [hidden]="isLoading() || !http.getConnected()" name="checkmark"></ion-icon>
+            <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
+        </ion-buttons>
+
+        <div class="testo-footer" text-center>
+            Aggiornato al: {{sync.getDataUltimoAggiornamento(112)}}
+        </div>
+    </ion-toolbar>
+</ion-footer>

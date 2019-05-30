@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {GlobalDataService} from '../../../../services/global-data.service';
 import {DBService} from '../../../../services/db-service';
+import {AlertController} from '@ionic/angular';
+import {ToastsService} from '../../../../services/toasts.service';
 
 
 @Component({
@@ -15,14 +17,20 @@ export class AllegatoPage implements OnInit {
     ad_id: string;
 
     constructor(public globalData: GlobalDataService,
-                private localdb: DBService) {}
+                private localdb: DBService,
+                public alertController: AlertController,
+                public toastsService: ToastsService) {}
 
 
     ngOnInit() {
         this.allegato = this.globalData.allegato;
+        //console.log(this.allegato);
         if (this.allegato) {
             this.ad_id = this.allegato.AD_ID;
         }
+
+
+
         // Se non è presente l'id dell'attività didattica (nessun allegato)
         // Lo recuperiamo dai dati globali
         if (!this.ad_id) {
@@ -50,12 +58,83 @@ export class AllegatoPage implements OnInit {
         }
     }
 
+    async presentAlertConfermaDownload() {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Download file',
+            message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.download();
+
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
+    }
+
     download() {
         this.localdb.download(this.allegato);
     }
 
     apriFile() {
         this.localdb.apriFile(this.allegato);
+    }
+
+    newApriFile() {
+        if ( this.localdb.isPiattaformaSupportata()) {
+            console.log("a");
+            this.localdb.isAllegatoScaricato(this.allegato).then(
+                () => this.apriFile(),
+                () => this.presentAlertConfermaDownload()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+    async newRimuoviFile() {
+        if (this.localdb.isPiattaformaSupportata()) {
+            await this.localdb.isAllegatoScaricato(this.allegato).then(
+                () => this.presentAlertConfermaRimozione(),
+                () => this.toastsService.fileNonScaricato()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+
+    async presentAlertConfermaRimozione() {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Rimozione file',
+            message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.eliminaFile();
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
     }
 
     eliminaFile() {

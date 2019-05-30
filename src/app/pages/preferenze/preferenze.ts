@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Storage } from '@ionic/storage';
 import {AlertController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
@@ -12,7 +12,7 @@ import {AppVersion} from '@ionic-native/app-version/ngx';
     selector: 'app-page-preferenze',
     templateUrl: 'preferenze.html',
 })
-export class PreferenzePage implements OnInit {
+export class PreferenzePage implements OnInit, OnDestroy {
 
     currentPage = '/preferenze';
 
@@ -31,6 +31,11 @@ export class PreferenzePage implements OnInit {
     appVersionNum = '';
     step = 20;
     android = false;
+    baseurl = '';
+    clicks = 0;
+    avanzate = false;
+    logged = false;
+    userRole = 'student';
 
     constructor(
         public sync: SyncService,
@@ -46,127 +51,155 @@ export class PreferenzePage implements OnInit {
     // CONTROLLA TUTTE LE IMPOSTAZIONI PRIMA DEL CARICAMENTO DELLA PAGINA
     ngOnInit() {
         this.globalData.srcPage = '/preferenze';
+
+        this.userRole = this.globalData.userRole;
+        this.baseurl = this.globalData.baseurl;
+
         this.account.controllaAccount().then(
             (ok) => {
-                this.http.getConnected();
-                this.android = this.globalData.android;
-
-                this.storage.get('token').then((value) => {
-                    this.token = value;
-                });
-
-                // Prende la versione dell'app settata nel file config.xml
-                this.appVersionProvider.getVersionNumber().then((value) => {
-                    this.appVersionNum = value;
-                }, (err) => {
-                    GlobalDataService.log(2, 'REJECT in getVersionNumber', err);
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO
-                this.storage.get('aggiornamentiApp').then((value) => {
-                    if (value != null) {
-                        this.aggiornamentiApp = value;
-                    } else {
-                        this.aggiornamentiApp = true;
-                    }
-                });
-
-                // Usa una versione del grafico differente per evitare problemi con Android 8
-                this.storage.get('graficoLegacy').then((value) => {
-                    if (value != null) {
-                        this.graficoLegacy = value;
-                    } else {
-                        this.graficoLegacy = false;
-                    }
-                });
-
-                // Usa una versione del grafico differente per evitare problemi con Android 8
-                this.storage.get('includiNoMedia').then((value) => {
-                    if (value != null) {
-                        this.includiNoMedia = value;
-                    } else {
-                        this.includiNoMedia = true;
-                    }
-                });
-
-                // Consente di visualizzate o nascondere gli avvisi di connessione lenta
-                this.storage.get('connessioneLenta').then((value) => {
-                    if (value != null) {
-                        this.connessioneLenta = value;
-                    } else {
-                        this.connessioneLenta = true;
-                    }
-                });
-
-                // Consente di scegliere tra chiamate http con plugin nativo o tramite Angular
-                this.storage.get('httpNativo').then((value) => {
-                    if (value != null) {
-                        this.httpNativo = value;
-                    } else {
-                        this.httpNativo = true;
-                    }
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO
-                this.storage.get('newsDipartimento').then((value) => {
-                    if (value != null) {
-                        this.newsDipartimento = value;
-                    } else {
-                        this.newsDipartimento = true;
-                    }
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER NEWS CDS
-                this.storage.get('newsCds').then((value) => {
-                    if (value != null) {
-                        this.newsCds = value;
-                    } else {
-                        this.newsCds = true;
-                    }
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER NEWS ANNO CORSO
-                this.storage.get('newsAteneo').then((value) => {
-                    if (value != null) {
-                        this.newsAteneo = value;
-                    } else {
-                        this.newsAteneo = true;
-                    }
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER ESAMI APPELLI
-                this.storage.get('carriera').then((value) => {
-                    if (value != null) {
-                        this.carriera = value;
-                    } else {
-                        this.carriera = true;
-                    }
-                });
-
-                // CONTROLLO IMPOSTAZIONI PER ESAMI VERBALIZZATI
-                this.storage.get('esamiVerbalizzati').then((value) => {
-                    if (value != null) {
-                        this.esamiVerbalizzati = value;
-                    } else {
-                        this.esamiVerbalizzati = true;
-                    }
-                });
-
-                // INCREMENTO NR ELEMENTI VISUALIZZATI SU UNA SCHEDA
-                this.storage.get('step').then((value) => {
-                    if (value != null) {
-                        this.step = value;
-                    } else {
-                        this.step = 20;
-                    }
-                });
-            }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                this.logged = true;
+            },
+            (err) => {
+                this.logged = false;
             }
         );
+
+        this.http.getConnected();
+        this.android = this.globalData.android;
+
+        if (this.logged) {
+
+            this.storage.get('token').then((value) => {
+                this.token = value;
+            });
+
+            // Usa una versione del grafico differente per evitare problemi con Android 8
+            this.storage.get('graficoLegacy').then((value) => {
+                if (value != null) {
+                    this.graficoLegacy = value;
+                } else {
+                    this.graficoLegacy = false;
+                }
+            });
+
+            // Usa una versione del grafico differente per evitare problemi con Android 8
+            this.storage.get('includiNoMedia').then((value) => {
+                if (value != null) {
+                    this.includiNoMedia = value;
+                } else {
+                    this.includiNoMedia = true;
+                }
+            });
+
+            // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO
+            this.storage.get('newsDipartimento').then((value) => {
+                if (value != null) {
+                    this.newsDipartimento = value;
+                } else {
+                    this.newsDipartimento = true;
+                }
+            });
+
+            // CONTROLLO IMPOSTAZIONI PER NEWS CDS
+            this.storage.get('newsCds').then((value) => {
+                if (value != null) {
+                    this.newsCds = value;
+                } else {
+                    this.newsCds = true;
+                }
+            });
+
+            // CONTROLLO IMPOSTAZIONI PER NEWS ANNO CORSO
+            this.storage.get('newsAteneo').then((value) => {
+                if (value != null) {
+                    this.newsAteneo = value;
+                } else {
+                    this.newsAteneo = true;
+                }
+            });
+
+            // CONTROLLO IMPOSTAZIONI PER ESAMI APPELLI
+            this.storage.get('carriera').then((value) => {
+                if (value != null) {
+                    this.carriera = value;
+                } else {
+                    this.carriera = true;
+                }
+            });
+
+            // CONTROLLO IMPOSTAZIONI PER ESAMI VERBALIZZATI
+            this.storage.get('esamiVerbalizzati').then((value) => {
+                if (value != null) {
+                    this.esamiVerbalizzati = value;
+                } else {
+                    this.esamiVerbalizzati = true;
+                }
+            });
+
+        }
+
+        // Prende la versione dell'app settata nel file config.xml
+        this.appVersionProvider.getVersionNumber().then((value) => {
+            this.appVersionNum = value;
+        }, (err) => {
+            GlobalDataService.log(2, 'REJECT in getVersionNumber', err);
+        });
+
+        // CONTROLLO IMPOSTAZIONI PER NEWS DIPARTIMENTO
+        this.storage.get('aggiornamentiApp').then((value) => {
+            if (value != null) {
+                this.aggiornamentiApp = value;
+            } else {
+                this.aggiornamentiApp = true;
+            }
+        });
+
+        // Consente di visualizzate o nascondere gli avvisi di connessione lenta
+        this.storage.get('connessioneLenta').then((value) => {
+            if (value != null) {
+                this.connessioneLenta = value;
+            } else {
+                this.connessioneLenta = true;
+            }
+        });
+
+        // Consente di scegliere tra chiamate http con plugin nativo o tramite Angular
+        this.storage.get('httpNativo').then((value) => {
+            if (value != null) {
+                this.httpNativo = value;
+            } else {
+                this.httpNativo = true;
+            }
+        });
+
+
+        // INCREMENTO NR ELEMENTI VISUALIZZATI SU UNA SCHEDA
+        this.storage.get('step').then((value) => {
+            if (value != null) {
+                this.step = value;
+            } else {
+                this.step = 20;
+            }
+        });
+
+        // URL DEL BACKEND
+        this.storage.get('baseurl').then((value) => {
+            if (value != null) {
+                this.baseurl = value;
+            } else {
+                this.baseurl = this.globalData.defaultBaseUrl;
+            }
+        });
+
     }
 
-    ionViewWillLeave() {
+    ngOnDestroy() {
+        this.salvaPreferenzeLocali();
+
+        if (!this.logged) {
+            return;
+        }
+
         const storedNewsAteneo = this.storage.get('newsAteneo');
         const storedNewsDipartimento = this.storage.get('newsDipartimento');
         const storedNewsCds = this.storage.get('newsCds');
@@ -182,10 +215,15 @@ export class PreferenzePage implements OnInit {
                     this.salvaPreferenze();
                 }
             });
+        this.salvaPreferenze();
     }
 
 
     salvaPreferenze() {
+        if (!this.logged) {
+            return;
+        }
+
         this.salvaPreferenzeLocali();
 
         const url = this.sync.getUrlPreferenzeNotifiche();
@@ -276,10 +314,26 @@ export class PreferenzePage implements OnInit {
         this.storage.set('includiNoMedia', this.includiNoMedia);
         this.storage.set('connessioneLenta', this.connessioneLenta);
         this.storage.set('httpNativo', this.httpNativo);
+        this.storage.set('baseurl', this.baseurl);
         this.http.httpNativo = this.httpNativo;
+        if (this.baseurl) {
+            this.globalData.baseurl = this.baseurl;
+        } else {
+            // Ripristino i valori di default
+            this.baseurl = this.globalData.defaultBaseUrl;
+            this.globalData.baseurl = this.baseurl;
+            this.storage.set('baseurl', this.baseurl);
+        }
     }
 
     showAccounts() {
         this.globalData.goTo(this.currentPage, '/accounts', 'forward', false);
+    }
+
+    attivaAvanzate() {
+        this.clicks++;
+        if (this.clicks > 10) {
+            this.avanzate = true;
+        }
     }
 }

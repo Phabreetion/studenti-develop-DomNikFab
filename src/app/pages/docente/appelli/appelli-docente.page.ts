@@ -265,7 +265,7 @@ export class AppelliDocentePage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, sync).then(
+        this.sync.getJson(this.idServizio, null, sync).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.appelli, data[0]) ) {
                     this.appelli = data[0];

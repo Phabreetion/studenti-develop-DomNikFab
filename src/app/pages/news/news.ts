@@ -262,7 +262,7 @@ export class NewsPage implements OnInit {
         this.rinvioAggiornamentoNewsCDS = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizioCDS, sync).then(
+        this.sync.getJson(this.idServizioCDS, null, sync).then(
             (data) => {
                 if (JSON.stringify(this.corsoNews) !== JSON.stringify(data['news'])) {
                     this.corsoNews = data['news'];
@@ -332,7 +332,7 @@ export class NewsPage implements OnInit {
         this.rinvioAggiornamentoNewsDipartimento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizioDipartimento, sync).then(
+        this.sync.getJson(this.idServizioDipartimento, null, sync).then(
             (data) => {
                 if (JSON.stringify(this.dipartimentoNews) !== JSON.stringify(data['news'])) {
                     this.dipartimentoNews = data['news'];
@@ -401,7 +401,7 @@ export class NewsPage implements OnInit {
         this.rinvioAggiornamentoNewsAteneo = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizioAteneo, sync).then(
+        this.sync.getJson(this.idServizioAteneo, null, sync).then(
             (data) => {
                 if (JSON.stringify(this.ateneoNews) !== JSON.stringify(data['news'])) {
                     this.ateneoNews = data['news'];

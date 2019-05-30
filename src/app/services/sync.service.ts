@@ -1,20 +1,23 @@
-import {Injectable, NgZone} from '@angular/core';
-import {AlertController, LoadingController, Platform, ToastController} from '@ionic/angular';
+import { Injectable, NgZone } from '@angular/core';
+import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular';
 // import {Md5} from 'ts-md5';
-import {Storage} from '@ionic/storage';
-import {AppVersion} from '@ionic-native/app-version/ngx';
-import {Device} from '@ionic-native/device/ngx';
+import { Storage } from '@ionic/storage';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { Device } from '@ionic-native/device/ngx';
 // import {FCM} from '@ionic-native/fcm/ngx';
 
 import 'rxjs/add/operator/map';
-import {GlobalDataService} from './global-data.service';
-import {NotificheService} from './notifiche.service';
-import {HttpService} from './http.service';
+import { GlobalDataService } from './global-data.service';
+import { NotificheService } from './notifiche.service';
+import { HttpService } from './http.service';
+import { CryptoService } from './crypto.service';
 // import {timeout} from 'rxjs/operators';
 
 /*
 ID SERVIZI
 "APPELLI', 1
+'NEW PIANO DI STUDIO', 112
+'NEW PROPEDEUTICITÀ', 113
 'ESAMI_DA_SOSTENERE', 2
 'CREDITI_A_SCELTA', 3
 'LIBRETTO', 4
@@ -30,9 +33,9 @@ ID SERVIZI
 'SERVIZIO_NEWS_DIPARTIMENTO', 14
 'SERVIZIO_NEWS_CDS', 15
 'SERVIZIO_NEWS_ATENEO', 16
-'SERVIZIO_CALENDARIO', 17
+'SERVIZIO_ORARIO', 17
 'SERVIZIO_MATERIALE_DIDATTICO', 18
-'SERVIZIO_ACCOUNTS', 19
+'SERVIZIO_ACCOUNTS', 19                        //
 */
 
 @Injectable({
@@ -40,31 +43,18 @@ ID SERVIZI
 })
 
 export class SyncService {
-
-    baseurl = this.globalData.baseurl;
-
-    urlCheckToken: string = this.baseurl + 'checkToken.php';
-    urlSync: string = this.baseurl + 'sincronizza.php';
-    urlConfermaRegistra: string = this.baseurl + 'confermaRegistrazione.php';
-    urlAppelliPrenotabili: string = this.baseurl + 'appelliPrenotabili.php';
-    urlPreferenzeNotifiche: string = this.baseurl + 'salvaPreferenzeNotifiche.php';
-    urlAggiornaTokenNotifiche: string = this.baseurl + 'aggiornaTokenNotifiche.php';
-    urlAggiornaDeviceInfo: string = this.baseurl + 'aggiornaDeviceInfo.php';
-    urlControllaMessaggi: string = this.baseurl + 'controllaMessaggi.php';
-    urlReimpostaMessaggi: string = this.baseurl + 'reimpostaMessaggi.php';
-    urlUltimaVersione: string = this.baseurl + 'ultimaVersione.php';
-    urlSottoscrizioneCalendario: string = this.baseurl + 'sottoscrizioneCalendario.php';
-    urlDettaglioAppello: string = this.baseurl + 'dettaglioAppello.php';
-
     private user = 'username';
     private mat_id = 'matid';
     private psw = 'psw';
     private uuid = 'virtual';
     private token = 'token';
     private tokenNotifiche = 'tokenNotifiche';
+    private params: string[];
 
+    private passphrase: string;
 
     loading = [];
+    dateUltimiAggiornamenti = [];
 
     private timeout = 30000;
 
@@ -93,9 +83,15 @@ export class SyncService {
                 public alertCtrl: AlertController,
                 public loadingCtrl: LoadingController,
                 public ngZone: NgZone,
-                public globalData: GlobalDataService ) {
-        // this.http.setHeader('*', 'Content-Type', 'application/json');
-        // this.http.setDataSerializer('json');
+                public globalData: GlobalDataService,
+                public crypto: CryptoService) {
+
+        this.storage.get('passphrase_key').then(
+            (key) => {
+                this.passphrase = key;
+            });
+
+
     }
 
     getTimeout() {
@@ -103,39 +99,51 @@ export class SyncService {
     }
 
     getUrlSync() {
-        return this.urlSync;
+        return this.globalData.getBaseUrl() + 'sincronizza.php';
     }
 
     getUrlConfermaRegistrazione() {
-        return this.urlConfermaRegistra;
+        return this.globalData.getBaseUrl() + 'confermaRegistrazione.php';
     }
 
     getUrlAppelliPrenotabili() {
-        return this.urlAppelliPrenotabili;
+        return this.globalData.getBaseUrl() + 'appelliPrenotabili.php';
     }
 
     getUrlPreferenzeNotifiche() {
-        return this.urlPreferenzeNotifiche;
+        return this.globalData.getBaseUrl() + 'salvaPreferenzeNotifiche.php';
     }
 
     getUrlAggiornaTokenNotifiche() {
-        return this.urlAggiornaTokenNotifiche;
+        return this.globalData.getBaseUrl() + 'aggiornaTokenNotifiche.php';
     }
 
     getUrlAggiornaDeviceInfo() {
-        return this.urlAggiornaDeviceInfo;
+        return this.globalData.getBaseUrl() + 'aggiornaDeviceInfo.php';
     }
 
     getUrlControllaMessaggi() {
-        return this.urlControllaMessaggi;
+        return this.globalData.getBaseUrl() + 'controllaMessaggi.php';
     }
 
     getUrlReimpostaMessaggi() {
-        return this.urlReimpostaMessaggi;
+        return this.globalData.getBaseUrl() + 'reimpostaMessaggi.php';
     }
 
     getUrlUltimaVersione() {
-        return this.urlUltimaVersione;
+        return this.globalData.getBaseUrl() + 'ultimaVersione.php';
+    }
+
+    getUrlSottoscrizioneCalendario() {
+        return this.globalData.getBaseUrl() + 'sottoscrizioneCalendario.php';
+    }
+
+    getUrlDettaglioAppello() {
+        return this.globalData.getBaseUrl() + 'dettaglioAppello.php';
+    }
+
+    getUrlCheckToken() {
+        return this.globalData.getBaseUrl() + 'checkToken.php';
     }
 
     getTokenString() {
@@ -162,8 +170,8 @@ export class SyncService {
         return this.uuid;
     }
 
-    getUrlDettaglioAppello() {
-        return this.urlDettaglioAppello;
+    getUrlAnnoCorrente() {
+        return this.globalData.getBaseUrl() + 'annoCorrente.php';
     }
 
     sincronizza() {
@@ -171,7 +179,7 @@ export class SyncService {
 
         switch (this.globalData.userRole) {
             case 'student':
-                elencoServizi = [ 1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 ];
+                elencoServizi = [ 112, 1, 2, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 113 ];
                 break;
             case 'teacher':
                 elencoServizi = [ 7, 13, 14, 16, 19, 102];
@@ -182,13 +190,13 @@ export class SyncService {
 
 
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.aggiornaDeviceInfo().then(
+            /*this.aggiornaDeviceInfo().then(
                 () => {
                     GlobalDataService.log(0, 'Aggiornato il Device', null);
                 }, (err) => {
                     GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
                 }
-            );
+            );*/
             this.controllaVersione().then(
                 () => {
                     GlobalDataService.log(0, 'Constollo versione OK', null);
@@ -199,7 +207,7 @@ export class SyncService {
         }
 
         for (const i of elencoServizi) {
-            this.getJson(i, true).then(
+            this.getJson(i, null, true).then(
                 (data) => {
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
@@ -209,24 +217,49 @@ export class SyncService {
         }
     }
 
+    /**
+     * Questa funzione restituisce true se il servizio è attualmente in aggiornamento,false altrimenti.
+     * @param idServizio: id del servizio
+     */
+    isLoading(idServizio: number): boolean {
+        return this.loading[idServizio];
+    }
 
-    getJson(id: number, sync: boolean) {
+    /**
+     * Questa funzione restiuiscre la data dell'ultimo aggiornamento del servizio.
+     * @param idServizio: id del servizio
+     */
+    getDataUltimoAggiornamento(idServizio: number): string {
+        if (!this.dateUltimiAggiornamenti[idServizio]) {
+            return 'Mai';
+        }
 
+        if (this.dateUltimiAggiornamenti[idServizio] == 'in corso...') {
+            return 'in corso...';
+        }
+
+        return GlobalDataService.timestamp2string(this.dateUltimiAggiornamenti[112]);
+    }
+
+
+
+    getJson(id: number, params: string[], sync: boolean) {
+        this.params = params;
         return new Promise((resolve, reject) => {
             this.storage.get(id.toString()).then(
                 (data) => {
                     if (data && (data[0] || data['timestamp'])) {
                         if (sync) {
-                            this.getJsonLista(id).then(); // Aggiornamento in background
+                            this.getJsonLista(id, params).then(); // Aggiornamento in background
                         }
                         resolve(data);
                     } else {
-                        this.getJsonLista(id).then(
+                        this.getJsonLista(id, params).then(
                             (dati) => resolve(dati),
                             (err) => reject(err)
                         ).catch(err => reject(err));
                     }
-                }, () => this.getJsonLista(id).then(
+                }, () => this.getJsonLista(id, params).then(
                     (data) => resolve(data),
                     (err) =>  reject(err)
                 ).catch(err => reject(err))
@@ -234,7 +267,26 @@ export class SyncService {
         });
     }
 
-    private getJsonLista(id: number) {
+    private getJsonLista(id: number, params: string[]) {
+        //  let jsonLista = [];
+        if (id == null) {
+            return;
+        }
+
+        return new Promise((resolve, reject) => {
+            if ( (!params) && (this.globalData.archive[id]) ) {
+                // Async update
+                this.updateJson(id, params);
+                // Return cached data
+                resolve(this.globalData.archive[id]);
+            } else {
+                // Default sync
+                return this.updateJson(id, params);
+            }
+        });
+    }
+
+    private updateJson(id: number, params: string[]) {
         //  let jsonLista = [];
         if (id == null) {
             return;
@@ -242,6 +294,7 @@ export class SyncService {
 
         return new Promise((resolve, reject) => {
             this.loading[id] = true;
+            this.dateUltimiAggiornamenti[id] = 'in corso...';
             this.storage.get('token').then(
                 (val) => {
                     this.token = val;
@@ -255,25 +308,43 @@ export class SyncService {
 
                             let url = this.getUrlSync();
 
-                            // const body = JSON.stringify({
-                            //     token: this.token,
-                            //     uuid: this.uuid,
-                            //     id_servizio: id
-                            // });
+
+
+                            console.log(this.passphrase + ' - ' +
+                                this.token + ' - ' +
+                                this.uuid + ' - ' +
+                                id.toString() + ' - ' +
+                                this.params);
+
+                            const token_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.token);
+                            const uuid_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.uuid);
+                            const id_servizio_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, id.toString());
+                            let parametri_cifrati;
+                            if (this.params == null) {
+                                parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params);
+                            } else {
+                                parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params.toString());
+                            }
+
 
                             const body = {
-                                token: this.token,
-                                uuid: this.uuid,
-                                id_servizio: id
+                                token: token_cifrato,
+                                uuid: uuid_cifrato,
+                                id_servizio: id_servizio_cifrato,
+                                parametri: parametri_cifrati
                             };
 
-
+// console.log('[+]-->');
+// console.log(url);
+// console.log(body);
                             this.services.getJSON(url, body).then(
                                 (dati) => {
-
-                                    // Salvo i json nello storage
-                                    if (dati) {
-                                        this.storage.set(id.toString(), dati).then(
+                                    let dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, dati['cifrato']);
+                                    dec = JSON.parse(dec);
+                                    // console.log(dec);
+                                    if (dec) {
+                                        this.globalData.archive[id] = dec;
+                                        this.storage.set(id.toString(), dec).then(
                                             () => {
                                             }, (storageErr) => {
                                                 GlobalDataService.log(2, 'Errore in local storage', storageErr);
@@ -282,10 +353,13 @@ export class SyncService {
                                         // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
                                     }
 
+                                    this.dateUltimiAggiornamenti[id] = dati['timestamp'];
                                     this.loading[id] = false;
-                                    resolve(dati);
+                                    resolve(dec);
                                 },
                                 (rej) => {
+//  console.log('[+]rej-->');
+// console.log(rej);
                                     this.loading[id] = false;
                                     if (rej.error) {
                                         const errore = JSON.parse(rej.error);
@@ -296,14 +370,14 @@ export class SyncService {
                                             GlobalDataService.log(1, 'Token scaduto', null);
 
                                             let storedUsername = this.storage.get('username');
-                                            let storedPassword = this.storage.get('password');
+                                            let storedPassword = this.crypto.CryptoJSAesDecrypt(this.passphrase, this.storage.get('password'));
 
                                             Promise.all([storedUsername, storedPassword]).then(
                                                 data => {
                                                     storedUsername = data[0];
                                                     storedPassword = data[1];
 
-                                                    url = this.urlCheckToken;
+                                                    url = this.getUrlCheckToken();
                                                     const bodyCheckToken = {
                                                         token: this.token,
                                                         username: storedUsername,
@@ -314,7 +388,7 @@ export class SyncService {
                                                     this.ngZone.run(() => {
                                                         this.services.post(url, bodyCheckToken).then(
                                                             () => {
-                                                                this.getJsonLista(id).then(
+                                                                this.getJsonLista(id, params).then(
                                                                     (res) => {
                                                                         GlobalDataService.log(0, 'getJsonLista', res);
                                                                     }, (err) => {
@@ -324,21 +398,7 @@ export class SyncService {
                                                             }
                                                         );
 
-                                                        // // Aggiorniamo la validità del token
-                                                        // this.http.post(url, bodyCheckToken, {})
-                                                        //     .then(response => {
-                                                        //             GlobalDataService.log(0, url, response);
-                                                        //             this.getJsonLista(id).then(
-                                                        //                 (res) => {
-                                                        //                     GlobalDataService.log(0, 'getJsonLista', res);
-                                                        //                 }, (err) => {
-                                                        //                     GlobalDataService.log(2, 'getJsonLista reject', err);
-                                                        //                 }
-                                                        //             );
-                                                        //         },
-                                                        //         (err) => {
-                                                        //             GlobalDataService.log(2, url, err);
-                                                        //         });
+
                                                     });
                                                 }, (err) => {
                                                     GlobalDataService.log(2, 'Credenziali non accessibili', err);
@@ -359,91 +419,6 @@ export class SyncService {
                                     }
                                 }
                             ).catch(() => { this.loading[id] = false; });
-
-                            //
-                            // this.http.post(url, body, {})
-                            //     .then(response => {
-                            //         GlobalDataService.log(0, url, response);
-                            //
-                            //         const dati = JSON.parse(response.data);
-                            //
-                            //         // Salvo i json nello storage
-                            //         if (dati) {
-                            //             this.storage.set(id.toString(), dati).then(
-                            //                 () => {
-                            //                 }, (storageErr) => {
-                            //                     GlobalDataService.log(2, 'Errore in local storage', storageErr);
-                            //                 }
-                            //             );
-                            //             // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
-                            //         }
-                            //
-                            //         this.loading[id] = false;
-                            //         resolve(dati);
-                            //     }, (rej) => {
-                            //         GlobalDataService.log(2, 'Rejected', rej);
-                            //
-                            //         this.loading[id] = false;
-                            //         if (rej.error) {
-                            //             const errore = JSON.parse(rej.error);
-                            //             const stato = rej.status;
-                            //             const codice = errore.codice;
-                            //
-                            //             if (stato === 401 && codice === -2) {
-                            //                 GlobalDataService.log(1, 'Token scaduto', null);
-                            //
-                            //                 let storedUsername = this.storage.get('username');
-                            //                 let storedPassword = this.storage.get('password');
-                            //
-                            //                 Promise.all([storedUsername, storedPassword]).then(
-                            //                     data => {
-                            //                         storedUsername = data[0];
-                            //                         storedPassword = data[1];
-                            //
-                            //                         url = this.urlCheckToken;
-                            //                         const bodyCheckToken = {
-                            //                             token: this.token,
-                            //                             username: storedUsername,
-                            //                             password: storedPassword
-                            //                         };
-                            //
-                            //                         // TODO: Gestire cambio password da ESSE3
-                            //                         this.ngZone.run(() => {
-                            //                             // Aggiorniamo la validità del token
-                            //                             this.http.post(url, bodyCheckToken, {})
-                            //                                 .then(response => {
-                            //                                         GlobalDataService.log(0, url, response);
-                            //                                         this.getJsonLista(id).then(
-                            //                                             (res) => {
-                            //                                                 GlobalDataService.log(0, 'getJsonLista', res);
-                            //                                             }, (err) => {
-                            //                                                 GlobalDataService.log(2, 'getJsonLista reject', err);
-                            //                                             }
-                            //                                         );
-                            //                                     },
-                            //                                     (err) => {
-                            //                                         GlobalDataService.log(2, url, err);
-                            //                                     });
-                            //                         });
-                            //                     }, (err) => {
-                            //                         GlobalDataService.log(2, 'Credenziali non accessibili', err);
-                            //                     });
-                            //
-                            //             } else {
-                            //                 this.toastCtrl.create({
-                            //                     message: errore.msg,
-                            //                     duration: 3000
-                            //                 }).then(
-                            //                     (toast) => { toast.present(); },
-                            //                     (err) => { GlobalDataService.log(2, 'Toast fallito', err); });
-                            //             }
-                            //         }
-                            //
-                            //     })
-                            //     .catch(exception => {
-                            //         this.loading[id] = false;
-                            //         GlobalDataService.log(2, 'Catch', exception);
-                            //     });
                         }, (err) => {
                             // Nessun uuid - probabile versione web
                             this.storage.set('uuid', 'uuid').then(
@@ -507,23 +482,14 @@ export class SyncService {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
                 }
             );
-            //
-            // this.http.post(url, body, {}).then(
-            //     (response) => {
-            //         // SALVA LE PREFERENZE IN LOCALE
-            //         GlobalDataService.log(0, url, response);
-            //         this.notificheService.aggiornaSottoscrizioni();
-            //     },
-            //     (err) => {
-            //         GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
-            //     });
+
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
         });
     }
 
-    aggiornaDeviceInfo() {
+    aggiornaDeviceInfo(tokenNotifichePar: string) {
 
         return new Promise((resolve, reject) => {
             if (this.platform.is('ios') || (this.platform.is('android'))) {
@@ -571,8 +537,11 @@ export class SyncService {
                                         osVersion: this.device.version,
                                         manufacturer: this.device.manufacturer,
                                         isVirtual: this.device.isVirtual,
-                                        uuid: this.device.uuid
+                                        uuid: this.device.uuid,
+                                        tokenNotifiche: tokenNotifichePar
                                     };
+
+
                                     this.services.post(url, body).then(
                                         (response) => {
                                             this.storage.set('lastDeviceUpdate', tsOggi).then(
@@ -609,6 +578,57 @@ export class SyncService {
         });
     }
 
+    aggiornaAnnoCorrente() {
+        return new Promise((resolve, reject) => {
+
+            // verifichiamo la presenza di un aggiornamento solo se non lo abbiamo già fatto nelle ultime 24 ore
+            this.storage.get('lastCheckAA').then(
+                (data) => {
+                    const oggi = new Date();
+                    const ultimoCheck = new Date(data);
+                    const oreTrascorse = GlobalDataService.differenzaOre(oggi, ultimoCheck);
+                    if ((data != null) && (oreTrascorse < 24)) {
+                        resolve(true);
+                        return;
+                    }
+
+                    this.storage.set('lastCheckAA', oggi);
+
+                    this.services.post(this.getUrlAnnoCorrente(), {token: this.token}).then(
+                        (response) => {
+                            if (response) {
+                                if (response != null) {
+                                    const annoCorrente: string = response.toString();
+                                    this.storage.set('annoCorrente', annoCorrente);
+                                }
+                            }
+                        },
+                        (err) => {
+                            console.log('Non è possibile ricevere dati ora.' + err);
+                            reject(err);
+                        }
+                    );
+                }, (err) => {
+                    // Se non abbiamo mai salvato l'ultimo check, inizializziamolo ad oggi
+                    this.storage.set('lastCheckAA', new Date(75, 2, 20).getTime());
+                    this.services.post(this.getUrlAnnoCorrente(), {token: this.token}).then(
+                        (response) => {
+                            if (response) {
+                                if (response != null) {
+                                    const annoCorrente: string = response.toString();
+                                    this.storage.set('annoCorrente', annoCorrente);
+                                }
+                            }
+                        },
+                        (error) => {
+                            console.log('Non è possibile ricevere dati ora.' + error);
+                            reject(err);
+                        }
+                    );
+                }
+            );
+        });
+    }
 
 
     controllaMessaggi() {
@@ -711,13 +731,6 @@ export class SyncService {
                                         platform: this.device.platform
                                     };
 
-                                    // const header = {
-                                    //     headers: { 'Content-Type': 'application/json' }
-                                    // };
-
-                                    // this.http.setHeader('*', 'Content-Type', 'application/json');
-                                    // this.http.setDataSerializer('json');
-
                                     this.services.post(urlUltimaVersione, body)
                                         .then(
                                             (ultimaVersione) => {
@@ -757,7 +770,7 @@ export class SyncService {
                                                                         target = 'studenti-unimol/id1275911366?mt=8';
                                                                         break;
                                                                     }
-                                                                    case 'Android' : {
+                                                                    case 'Android': {
                                                                         target = 'it.unimol.app.studenti';
                                                                         break;
                                                                     }
@@ -875,11 +888,11 @@ export class SyncService {
                     // Se non ci sono dati in locale forziamo l'aggiornamento remoto
                     if (val != null) {
                         const oggi = new Date();
-                        const ultimoCheck =  new Date(val['timestamp'] * 1000);
+                        const ultimoCheck = new Date(val['timestamp'] * 1000);
                         const oreTrascorse = GlobalDataService.differenzaOre(oggi, ultimoCheck);
-                        resolve( oreTrascorse );
+                        resolve(oreTrascorse);
                     } else {
-                        resolve( 999 );
+                        resolve(999);
                     }
                 },
                 (err) => {
@@ -889,63 +902,7 @@ export class SyncService {
         });
     }
 
-
-    sottoscriviCalendario(codice, stato) {
-        GlobalDataService.log(0, 'Sottoscrivo ' + codice + ' con stato ' + stato, null);
-
-        return new Promise((resolve, reject) => {
-            this.storage.get('token').then(
-                (token) => {
-                    GlobalDataService.log(1, 'Token ' + token, null);
-
-                    this.token = token;
-                    this.storage.get('uuid').then(
-                        (uuid) => {
-
-                            GlobalDataService.log(0, 'uuid: ' + uuid, null);
-
-                            this.uuid = uuid;
-                            if (this.uuid === undefined || this.uuid == null) {
-                                this.uuid = 'uuid';
-                            }
-
-                            let body;
-                            const url = this.urlSottoscrizioneCalendario;
-                            body = {
-                                token: this.token,
-                                uuid: this.uuid,
-                                codice: codice,
-                                stato: stato
-                            };
-
-                            GlobalDataService.log(0, 'url: ' + url, null);
-                            this.services.post(url, body).then(
-                                (data) => {
-                                    resolve(data);
-                                },
-                                (err) => {
-                                    GlobalDataService.log(2, url, err);
-
-                                    this.toastCtrl.create({
-                                        message: 'Impossibile completare l\'operazione. Verificare la connessione ad Internet.',
-                                        duration: 3000
-                                    }).then(
-                                        (toast) => {toast.present(); },
-                                        (errToast) => { GlobalDataService.log(2, 'Errore Toast', errToast); });
-                                    reject(err);
-                                });
-                        }, (err) => {
-                            // TO BE CHECKED!
-                            GlobalDataService.log(2, 'Errore', err);
-                        });
-                },
-                (err) => {
-                    GlobalDataService.log(2, 'Errore', err);
-                });
-
-        });
-    }
-
+  
     dataIsChanged(array1, array2) {
         GlobalDataService.log(0, 'Data1: ', array1);
         GlobalDataService.log(0, 'Data2: ', array2);

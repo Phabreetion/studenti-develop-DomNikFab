@@ -1,0 +1,35 @@
+\subsection{Funzionalità notifiche}
+
+\subsubsection{Gestione notifiche}
+
+Il caso d'uso \emph{Gestione notifiche} è identico per tutte le notifiche, ciò che cambia è unicamente il contenuto della modifica. Vedi Tabella~\vref{tab:caso-duso-gestione-notifiche}.
+
+\begin{table}
+%\normalsize % Dimensione testo normale
+\small % Dimensione testo piccola
+%\footnotesize % Dimensione testo piccolissima
+%\scriptsize % Dimensione del testo ulteriormente più piccola
+\caption{Tabella caso d'uso - Gestione notifiche} % Didascalia tabella
+\label{tab:caso-duso-gestione-notifiche} % Etichetta per riferimenti incrociati
+\begin{tabular}{| p{\useCaseLeft} | p{\useCaseNum} | p{\useCaseTwoCol} | p{\useCaseTwoCol} |}
+	\hline
+	\textbf{Nome caso d'uso} & \multicolumn{3}{p{\useCaseMulticol} |}{\textbf{Gestione notifiche}} \\
+	\hline
+	\textbf{Attori partecipanti} & \multicolumn{3}{p{\useCaseMulticol} |}{Inizializzato da Firebase. Partecipa Studente.} \\
+	\hline
+	\textbf{Condizioni d'ingresso} & \multicolumn{3}{p{\useCaseMulticol} |}{Connessione ad Internet.} \\
+	\hline
+	\textbf{Flusso degli eventi} & \textbf{\#} & \textbf{Studente} & \textbf{Firebase} \\
+	\hline
+	\textbf{} & \textbf{1} & \textbf{} & Invia una notifica. \\
+	\hline
+	\textbf{} & \textbf{2} & Riceve la notifica. & \textbf{} \\
+	\hline
+	\textbf{Eccezioni} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo Studente ha disabilitato la ricezione delle notifiche.} \\
+	\hline
+	\textbf{Condizioni d'uscita} & \multicolumn{3}{p{\useCaseMulticol} |}{Lo studente visualizza la notifica.} \\
+	\hline
+\end{tabular}
+\end{table}
+
+\clearpage
