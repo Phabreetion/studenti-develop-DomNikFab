@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { MaterialeDidatticoPage } from './materiale-didattico';
+import { MaterialeDidatticoPage } from './materiale-didattico.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({

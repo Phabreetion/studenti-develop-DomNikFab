@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {LoadingController, ToastController, AlertController, ModalController, ActionSheetController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
@@ -18,8 +18,8 @@ const PAGE_URL = '/appelli';
 
 @Component({
     selector: 'app-page-appelli',
-    templateUrl: 'appelli.html',
-    styleUrls: ['./appelli.scss'],
+    templateUrl: 'appelli.page.html',
+    styleUrls: ['./appelli.page.scss'],
 })
 
 export class AppelliPage implements OnInit {

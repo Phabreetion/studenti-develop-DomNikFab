@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController,
-    ModalController, NavController, Platform, ToastController
+    ModalController, Platform, ToastController
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
@@ -13,8 +13,8 @@ import {ToastsService} from '../../../services/toasts.service';
 
 @Component({
     selector: 'app-materiale-didattico',
-    templateUrl: 'materiale-didattico.html',
-    styleUrls: ['./materiale-didattico.scss'],
+    templateUrl: 'materiale-didattico.page.html',
+    styleUrls: ['./materiale-didattico.page.scss'],
 
 })
 

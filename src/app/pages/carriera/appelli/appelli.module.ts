@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { AppelliPage } from './appelli';
+import { AppelliPage } from './appelli.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 
