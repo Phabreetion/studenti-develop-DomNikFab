@@ -13,9 +13,9 @@ import localeIt from '@angular/common/locales/it'
 
 
 @Component({
-    selector: 'app-page-orario',
-    templateUrl: 'orario.page.html',
-    styleUrls: ['orario.page.scss'],
+  selector: 'app-page-orario',
+  templateUrl: 'orario.page.html',
+  styleUrls: ['orario.page.scss'],
 })
 
 @NgModule({
@@ -115,16 +115,16 @@ export class OrarioPage implements OnInit {
                 var nomeMateria = "";
                 nomeMateria = lesson["description"];
 
-                if (nomeMateria.length>35){  
-                nomeMateria=nomeMateria.substring(0, 30)+"...";
+                if (nomeMateria.length > 35) {
+                  nomeMateria = nomeMateria.substring(0, 30) + "...";
                 }
 
                 let event = {
-                  title: nomeMateria ,
+                  title: nomeMateria,
                   startTime: new Date(lesson["start"]),
-                  endTime: new Date(lesson["end"]),
+                  endTime: new Date(lesson["end"]), 
                   desc: lesson["name"],
-                  
+
                 }
                 this.eventSource.push(event);
 
@@ -136,6 +136,9 @@ export class OrarioPage implements OnInit {
 
               this.myCal.loadEvents();
 
+              
+
+              //this.globalData.goTo('orario', 'orario', 'forward', false);
             },
             (err) => {
               GlobalDataService.log(2, 'Errore in aggiorna', err);
@@ -171,6 +174,8 @@ export class OrarioPage implements OnInit {
   today() {
     this.calendar.currentDate = new Date();
   }
+
+  
 
   onViewTitleChanged(title) {
     this.viewTitle = title;
@@ -270,6 +275,7 @@ export class OrarioPage implements OnInit {
     this.dataAggiornamento = SyncService.dataAggiornamento(lista);
     this.listaCorsi = lista[0];
 
+    // console.log(this.listaCorsi);
     this.storage.get('CorsiSeguiti').then(
       (dati) => {
         this.listaCorsiSeguiti = dati;
@@ -278,33 +284,21 @@ export class OrarioPage implements OnInit {
 
         if (this.listaCorsiSeguiti != null) {
 
-          console.log(this.listaCorsiSeguiti);
+          // console.log(this.listaCorsi);
           this.listaCorsi.forEach(corso => {
             this.listaCorsiSeguiti.forEach(corsoSeguito => {
 
               if (corso["CODICE"] === corsoSeguito) {
-
-                //   console.log("sot");
-                this.listaCorsi["SOTTOSCRITTO"] = 1;
-              } else {
-                // console.log("UNsot");
-                this.listaCorsi["SOTTOSCRITTO"] = 0;
+                corso["SOTTOSCRITTO"] = 1;
               }
             });
 
-            this.inizializzato = true;
+           
 
           });
-        } else {
-          //   console.log("data");
-          this.listaCorsi.forEach(corso => {
-
-            this.listaCorsi["SOTTOSCRITTO"] = 0;
-            this.inizializzato = true;
-
-            //console.log(this.listaCorsi["SOTTOSCRITTO"]);
-          })
         }
+
+        this.inizializzato = true;
 
         if (!this.listaCorsi || !this.listaCorsi[0]) {
           return this.aggiornaLista(true, true);
@@ -346,6 +340,9 @@ export class OrarioPage implements OnInit {
         this.aggiornaOrario(false, true);
       }
     )
+    setTimeout(() => {
+     this.doRefresh(null);
+  }, 2000);
   }
 }
 
