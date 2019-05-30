@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AlertController, ModalController, NavParams} from '@ionic/angular';
-import {AppelliPage} from '../appelli';
+import {AppelliPage} from '../appelli.page';
 import {ToastsService} from '../../../../services/toasts.service';
 
 @Component({
