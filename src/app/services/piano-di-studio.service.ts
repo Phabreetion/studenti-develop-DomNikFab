@@ -142,9 +142,13 @@ export class PianoDiStudioService {
             ).catch( () => { resolve(maxAnni); } );
         });
     }
-    
-    public isLoading() {
-        this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
+
+    public getDataUltimoAggiornamentoCorsi(): string {
+        return this.sync.getDataUltimoAggiornamento(ID_SERVIZIO_PIANO_DI_STUDIO);
+    }
+
+    public isLoading(): boolean {
+        return this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
     }
 
     public async getCorso(ad_id_corso: number): Promise<Corso> {

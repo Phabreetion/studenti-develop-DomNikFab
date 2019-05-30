@@ -394,10 +394,10 @@
         </div>
 
         <div *ngIf="sezioni=='disponibili'" class="testo-footer">
-            Aggiornato al: {{sync.getDataUltimoAggiornamento(1)}}
+            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliDisponibili()}}
         </div>
         <div *ngIf="sezioni=='prenotati'" class="testo-footer">
-            Aggiornato al: {{sync.getDataUltimoAggiornamento(10)}}
+            Aggiornato al: {{appelliService.getDataUltimoAggiornamentoAppelliPrenotati()}}
         </div>
 
         <ion-spinner [hidden]="!appelliService.isAppelliLoading()" slot="end"></ion-spinner>

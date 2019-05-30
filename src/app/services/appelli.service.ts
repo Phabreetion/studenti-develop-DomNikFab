@@ -206,12 +206,12 @@ export class AppelliService {
         return this.sync.isLoading(ID_SERVIZIO_APPELLI_DISPONIBILI);
     }
 
-    public getDataUltimoAggiornamentoAppelliDisponibili() {
-        this.sync.getDataUltimoAggiornamento(1);
+    public getDataUltimoAggiornamentoAppelliDisponibili(): string {
+        return this.sync.getDataUltimoAggiornamento(1);
     }
 
-    public getDataUltimoAggiornamentoAppelliPrenotati() {
-        this.sync.getDataUltimoAggiornamento(10);
+    public getDataUltimoAggiornamentoAppelliPrenotati(): string {
+        return this.sync.getDataUltimoAggiornamento(10);
     }
 
     public isAppelliPrenotatiLoading(): boolean {
