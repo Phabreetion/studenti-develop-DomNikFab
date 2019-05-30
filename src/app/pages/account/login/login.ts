@@ -49,8 +49,6 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
         // Prende la versione dell'app settata nel file config.xml
         this.appVersionProvider.getVersionNumber().then((value) => {
             this.appVersionNum = value;
-        }, (err) => {
-            GlobalDataService.log(2, 'REJECT in getVersionNumber', err);
         });
 
         this.account.controllaAccount().then(
@@ -152,7 +150,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                                 (errToast) => { GlobalDataService.log(2, 'Errore Toast', errToast); });
                             this.storage.set('logged', true).then(
                                 () => {
-                                    this.globalData.goHome(this.currentPage);
+                                    this.globalData.goTo(this.currentPage, '/home', 'root', false);
                                 }, (errStorage) => {
                                     GlobalDataService.log(2, 'Errore nella scrittura dei dati sullo storage!', errStorage);
                                 });
@@ -196,7 +194,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                             } else {
                                 switch (risultato) {
                                     case 'unlocked' : {
-                                        this.globalData.goHome(this.currentPage);
+                                        this.globalData.goTo(this.currentPage, '/home', 'root', false);
                                         break;
                                     }
                                     case 'logged': {
@@ -213,6 +211,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
                     );
                 },
                 (err) => {
+                    console.log('errore login');
                     loading.dismiss();
                     GlobalDataService.log(2, 'Login Reject', err);
                 }).catch(

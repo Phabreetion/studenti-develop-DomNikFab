@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import {Platform, ToastController} from '@ionic/angular';
+import { Platform, ToastController, AlertController } from '@ionic/angular';
 import {Chart} from 'chart.js';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
@@ -52,6 +52,7 @@ export class HomePage implements OnInit {
     token: string;
     cds: string;
     dipartimento: string;
+    tokenNotifiche: string;
 
 
     dataAggiornamento: string;
@@ -76,12 +77,6 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
-
-        if (this.globalData.userRole !== 'student') {
-            this.globalData.goHome();
-            return;
-        }
-
         this.globalData.srcPage = '/home';
 
         this.storage.get('token').then(
@@ -111,6 +106,7 @@ export class HomePage implements OnInit {
                             this.caricaPreferenze();
                             this.aggiornaStatoApp();
                             this.caricaDatiDaStorage();
+                            this.checkDispositivi();
 
                             this.aggiorna(false, true);
                         }, (err) => {
@@ -143,14 +139,17 @@ export class HomePage implements OnInit {
         const token = this.storage.get('token');
         const cds = this.storage.get('nome_cds');
         const dipartimento = this.storage.get('nome_dip');
+        const tokenNotifiche = this.storage.get('tokenNotifiche');
 
-        Promise.all([nome, cognome, matricola, token, cds, dipartimento]).then(data => {
+
+        Promise.all([nome, cognome, matricola, token, cds, dipartimento, tokenNotifiche]).then(data => {
             this.nome = data[0];
             this.cognome = data[1];
             this.matricola = data[2];
             this.token = data[3];
             this.cds = data[4];
             this.dipartimento = data[5];
+            this.tokenNotifiche = data[6];
         });
     }
 
@@ -203,17 +202,28 @@ export class HomePage implements OnInit {
             });
     }
 
+    checkDispositivi() {
+        this.storage.get(AccountService.KEY_CHECK_DISPOSITIVI).then( (value) => {
+            if(value !== true) {
+                this.account.controlloDispositiviConnessi();
+                this.storage.set(AccountService.KEY_CHECK_DISPOSITIVI, true);
+            }
+        });
+    }
+
     aggiornaStatoApp() {
         // Aggiorna la versione del dispositivo aul server
         // Controlla se è presente una versione aggiornata dell'App
         // Aggiorna la sottoscrizione delle notifiche periodicamente
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.sync.aggiornaDeviceInfo().then(
+            console.log('homepage ts chiama aggionraDevice()');
+            this.sync.aggiornaDeviceInfo(this.tokenNotifiche).then(
                 () => {
                     GlobalDataService.log(1, 'Aggiornato il Device', null);
                 }, (err) => {
                     GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
                 }
+
             );
             this.sync.controllaVersione().then(
                 () => {
@@ -635,7 +645,7 @@ export class HomePage implements OnInit {
     }
 
     visualizzaDettagli() {
-        this.globalData.goTo(this.currentPage, '/dettagli-studente', 'forward', false);
+        this.globalData.goTo(this.currentPage, '/dettagli-utente', 'forward', false);
     }
 
     mainColSize() {
@@ -646,6 +656,11 @@ export class HomePage implements OnInit {
         }
     }
 
+    dettagliEsame(esame) {
+        // console.dir(esame);
+        this.globalData.esame = esame;
+        this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
+    }
 
     // Simula l'assistente vocale (TEST)
     // inizioAscolto() {

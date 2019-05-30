@@ -1,6 +1,6 @@
 import {Storage} from '@ionic/storage';
 import {Component, OnInit} from '@angular/core';
-import {MenuController} from '@ionic/angular';
+import { MenuController, AlertController } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
@@ -16,8 +16,10 @@ export class TutorialPage implements OnInit {
 
     currentPage = '/tutorial';
 
+    ticks = 0;
     show: boolean;
     timer: any;
+    sub: any;
     progress: any;
     showProgress: boolean;
     time = 20; // soglia tempo
@@ -79,7 +81,8 @@ export class TutorialPage implements OnInit {
         private menu: MenuController,
         private storage: Storage,
         public globalData: GlobalDataService,
-        public account: AccountService) {
+        public account: AccountService,
+        public alertController: AlertController) {
     }
 
     // ionViewWillEnter() {
@@ -94,12 +97,12 @@ export class TutorialPage implements OnInit {
         // this.timer = Observable.timer(500);
         // this.timer.subscribe(x => this.progressChange());
         this.account.controllaAccount().then(
-            () => {
+            (ok) => {
                 this.scaricaTutto();
                 this.show = true;
                 this.showProgress = true;
                 this.progress = 'Aggiornamento dati in corso...';
-            }, () => {
+            }, (err) => {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
@@ -132,7 +135,7 @@ export class TutorialPage implements OnInit {
     }
 
     doContinua() {
-        this.globalData.goHome(this.currentPage);
+        this.globalData.goTo(this.currentPage, '/home', 'root', false);
     }
 
     // goToLastSlide() {

@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {Storage} from '@ionic/storage';
 import {Platform, ToastController} from '@ionic/angular';
-import {SyncService} from '../../services/sync.service';
-import {GlobalDataService} from '../../services/global-data.service';
-import {NotificheService} from '../../services/notifiche.service';
-import {AccountService} from '../../services/account.service';
-import {HttpService} from '../../services/http.service';
+import {SyncService} from '../../../services/sync.service';
+import {GlobalDataService} from '../../../services/global-data.service';
+import {NotificheService} from '../../../services/notifiche.service';
+import {AccountService} from '../../../services/account.service';
+import {HttpService} from '../../../services/http.service';
 
 
 @Component({
@@ -27,7 +27,7 @@ export class HomeDocentePage implements OnInit {
     idDocente: number;
     token: string;
     dipartimento: string;
-
+    tokenNotifiche: string;
 
     dataAggiornamento: string;
     aggiornamentoVerificato = false;
@@ -74,9 +74,12 @@ export class HomeDocentePage implements OnInit {
                             // srcPage lo azzeriamo perchè siamo già sulla home page
                             this.globalData.srcPage = '';
 
+                            this.sync.aggiornaAnnoCorrente();
+
                             this.caricaPreferenze();
                             this.aggiornaStatoApp();
                             this.caricaDatiDaStorage();
+                            this.checkDispositivi();
 
                             this.aggiorna(false, true);
                         }, (err) => {
@@ -108,13 +111,15 @@ export class HomeDocentePage implements OnInit {
         const idDocente = this.storage.get('id_docente');
         const token = this.storage.get('token');
         const dipartimento = this.storage.get('nome_dip');
+        const tokenNotifiche = this.storage.get('tokenNotifiche');
 
-        Promise.all([nome, cognome, idDocente, token, dipartimento]).then(data => {
+        Promise.all([nome, cognome, idDocente, token, dipartimento, tokenNotifiche]).then(data => {
             this.nome = data[0];
             this.cognome = data[1];
             this.idDocente = data[2];
             this.token = data[3];
             this.dipartimento = data[4];
+            this.tokenNotifiche = data[5];
         });
     }
 
@@ -139,7 +144,7 @@ export class HomeDocentePage implements OnInit {
         // Controlla se è presente una versione aggiornata dell'App
         // Aggiorna la sottoscrizione delle notifiche periodicamente
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.sync.aggiornaDeviceInfo().then(
+            this.sync.aggiornaDeviceInfo(this.tokenNotifiche).then(
                 () => {
                     GlobalDataService.log(1, 'Aggiornato il Device', null);
                 }, (err) => {
@@ -161,6 +166,15 @@ export class HomeDocentePage implements OnInit {
                 }
             );
         }
+    }
+
+    checkDispositivi() {
+        this.storage.get(AccountService.KEY_CHECK_DISPOSITIVI).then( (value) => {
+            if(value !== true) {
+                this.account.controlloDispositiviConnessi();
+                this.storage.set(AccountService.KEY_CHECK_DISPOSITIVI, true);
+            }
+        });
     }
 
     aggiorna(interattivo: boolean, sync: boolean) {

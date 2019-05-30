@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalController} from '@ionic/angular';
+import {ModalController, NavController} from '@ionic/angular';
 import {Storage} from '@ionic/storage';
 import {GlobalDataService} from '../../../services/global-data.service';
 
 
 @Component({
-    selector: 'app-page-dettagli-studente',
-    templateUrl: 'dettagli-studente.html',
+    selector: 'app-page-dettagli-utente',
+    templateUrl: 'dettagli-utente.html',
 })
 
 export class DettagliUtentePage implements OnInit {
 
-    currentPage = '/dettagli-studente';
+    currentPage = '/dettagli-utente';
     matId: number;
     username: string;
     nome: string;
@@ -31,7 +31,7 @@ export class DettagliUtentePage implements OnInit {
     }
 
     onGoBack()  {
-        this.globalData.goHome(this.currentPage);
+        this.globalData.goTo(this.currentPage, '/home','back', false);
     }
 
 
@@ -60,7 +60,7 @@ export class DettagliUtentePage implements OnInit {
             this.dipId = data[9];
             if (!this.token) {
                 this.modalCtrl.dismiss();
-                this.globalData.goTo(this.currentPage, '/login', 'root', false);
+                this.globalData.goTo(this.currentPage, '/login','root', false);
             }
         });
     }

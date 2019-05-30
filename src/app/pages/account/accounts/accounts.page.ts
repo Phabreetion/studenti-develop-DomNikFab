@@ -188,7 +188,13 @@ export class AccountsPage implements OnInit {
                     handler: () => {
                         this.disconnetti(item);
                     }
-                }, {
+                },{
+                    text: 'Disconnetti Tutti',
+                    icon: 'refresh-circle',
+                    handler: () => {
+                        this.disconettiTutti();
+                    }
+                },{
                     text: 'Chiudi',
                     role: 'cancel',
                     icon: 'close',
@@ -202,11 +208,8 @@ export class AccountsPage implements OnInit {
 
     disconnetti(item) {
         if (item.token === this.tokenLocale || item.token === 'test') {
-            this.toastCtrl.create({
-                message: 'Per disconnettere il dispositivo in uso da questa schermata. ' +
-                'Usare la funzione Disconnetti nel menu laterale.',
-                duration: 5000
-            }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+            this.presentToast('Per disconnettere il dispositivo in uso da questa schermata. ' +
+                'Usare la funzione Disconnetti nel menu laterale.');
         } else {
             this.account.disconnetti(item.token).then(
                 () => {
@@ -216,84 +219,33 @@ export class AccountsPage implements OnInit {
                     GlobalDataService.log(2, 'Disconnessione fallita!', err);
                 }
             );
-            //
-            // let body;
-            //
-            // body = JSON.stringify({
-            //     token: item.token,
-            // });
-            //
-            // this.loadingCtrl.create({
-            //     message: 'Attendere...'
-            // }).then(loading => {
-            //
-            //     loading.present();
-            //
-            //     this.ngZone.run(() => {
-            //
-            //         this.http.post(this.sync.getUrlDisconnetti(), body, {})
-            //             .pipe(timeout(this.sync.getTimeout()))
-            //             .subscribe(
-            //                 data => {
-            //                     loading.dismiss();
-            //                     if (data) {
-            //                         this.toastCtrl.create({
-            //                             message: 'Il dispositivo è stato disconnesso.',
-            //                             duration: 5000
-            //                         }).then(
-            //                             (toast) => {toast.present(); },
-            //                             (toastErr) => {
-            //                                 GlobalDataService.log(2, 'Toast fallito!', toastErr);
-            //                             });
-            //                         // this.navCtrl.pop();
-            //                         this.navCtrl.navigateBack('/preferenze').then(
-            //                             () => { },
-            //                             (errNavigate => {
-            //                                 GlobalDataService.log(
-            //                                     2,
-            //                                     'Errore nella chiamata al NavController ',
-            //                                     errNavigate);
-            //                             }));
-            //                     } else {
-            //                         this.toastCtrl.create({
-            //                             message: 'Si è verificato un problema durante l\'elaborazione della richiesta.',
-            //                             duration: 5000
-            //                         }).then(
-            //                             (toast) => {toast.present(); },
-            //                             (toastErr) => {
-            //                                 GlobalDataService.log(2, 'Toast fallito!', toastErr);
-            //                             });
-            //                         // this.navCtrl.pop();
-            //                         this.navCtrl.navigateBack('/preferenze').then(
-            //                             () => { },
-            //                             (errNavigate => {
-            //                                 GlobalDataService.log(
-            //                                     2,
-            //                                     'Errore nella chiamata al NavController ',
-            //                                     errNavigate);
-            //                             }));
-            //                     }
-            //                     this.aggiorna(true, true);
-            //                 },
-            //                 err => {
-            //                     loading.dismiss();
-            //                     GlobalDataService.log(
-            //                         2,
-            //                         'Nessuna connessione ad Internet',
-            //                         err);
-            //                     this.toastCtrl.create({
-            //                         message: 'Nessuna connessione ad Internet. ' +
-            //                         'Per poter scollegare un dispoditivo devi essere connesso ad Internet.',
-            //                         duration: 10000
-            //                     }).then(
-            //                         (toast) => {toast.present(); },
-            //                         (toastErr) => {
-            //                             GlobalDataService.log(2, 'Toast fallito!', toastErr);
-            //                         });
-            //                 });
-            //     });
-            // });
         }
+    }
+
+    disconettiTutti() {
+        this.accounts.forEach(account => {
+            if (account.token !== this.tokenLocale) {
+                this.account.disconnettiNoDialogs(account.token).catch(
+                    (err) => {
+                        GlobalDataService.log(2, 'Disconnessione fallita!', err);
+                        this.presentToast("Alcuni dispositivi non sono stati disconnessi.")
+                    });
+            }
+        });
+        this.globalData.goTo(this.currentPage, '/preferenze', 'back', false);
+    }
+
+    presentToast(msg: string) {
+        const toast = this.toastCtrl.create({
+            message: msg,
+            duration: 4000
+        }).then(
+            (toast) => {
+                toast.present()
+            },
+            (toastErr) => {
+                GlobalDataService.log(2, 'Toast fallito!', toastErr);
+            });
     }
 
     timestamp2string(date): string {

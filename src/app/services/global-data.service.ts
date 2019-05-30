@@ -1,4 +1,4 @@
-import {Injectable, NgZone} from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {NavController, Platform} from '@ionic/angular';
@@ -18,13 +18,15 @@ import {Corso} from '../models/Corso';
 export class GlobalDataService {
 
     schema = 'https://';
-    ip = 'service.unimol.it';
-    dir = '/app_2_1';
+    ip = 'app.unimol.it/';
+    dir = 'app_2_1';
+
     apiurl =  this.dir + '/api/';
     defaultBaseUrl: string = this.schema + this.ip + this.apiurl;
     baseurl;
 
     archive = [];
+    passphrase_private_key: string = 'faustofasano2019_appunimol';
 
     utente_test = false;
 
@@ -88,50 +90,13 @@ export class GlobalDataService {
         if (level >= minLog) {
             if (reason) { console.log(reason); }
             if (msg) { console.dir(msg); }
-
-            /*
-            Il trace non serve
-
-            if (level >= minTrace) {
-                let stack = null;
-                try { throw true; } catch (e) { stack = e.stack; }
-                if (stack) {
-                    mapStackTrace(stack, function (mappedStack) {
-                        let trace = '';
-                        try {
-                            // Nel trace la prima chiamata è relativa al metodo log stesso
-                            // a noi invece interessa solo la chiamata precedente ad essa
-                            trace = mappedStack.join('\n');
-                            const start = trace.split(' at ', 2).join(' at ').length + 4;
-                            trace = trace.slice(start);
-                            const end = trace.indexOf('\n');
-                            trace = trace.slice(0, end);
-                        } catch (e) {
-                            trace = '';
-                        }
-                        if (reason) { console.log(reason + ' (' + trace + ')'); }
-                        if (msg) { console.dir(msg); }
-                    }, {
-                        filter: function (line) {
-                            // process only sources containing typescript sources
-                            // return /(\.ts)/.test(line);
-                        }
-                    });
-                } else {
-                    if (reason) { console.log(reason); }
-                    if (msg) { console.dir(msg); }
-                }
-            } else {
-                if (reason) { console.log(reason); }
-                if (msg) { console.dir(msg); }
-            }
-            */
+         
         }
 
     }
 
     static toTitleCase(str) {
-        return str.replace(/\w\S*/g, function(txt) {
+        return str.replace(/\w\S*/g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
     }
@@ -148,7 +113,29 @@ export class GlobalDataService {
 
     static differenzaMinuti(laterdate, earlierdate): number {
         const difference = laterdate.getTime() - earlierdate.getTime();
-        return Math.ceil(difference / 1000 / 60);
+        return Math.floor(difference / 1000 / 60);
+    }
+
+    static formatStringDate(stringDate): string {
+        const day = stringDate.slice(0, 10);
+        const hour = stringDate.slice(11, 19);
+        const dayParts = day.split('-');
+        const hourParts = hour.split(':');
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        return this.timestamp2string(mydate.getTime() / 1000);
+    }
+
+    static sleepBW(milliseconds) {
+        const start = new Date().getTime();
+        for (let i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds) {
+                break;
+            }
+        }
+    }
+
+    static async sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     static timestamp2string(timestamp): string {
@@ -162,7 +149,7 @@ export class GlobalDataService {
 
         if (dataFormattata) {
             return dataFormattata;
-        } else  {
+        } else {
             return '';
         }
     }
@@ -192,7 +179,7 @@ export class GlobalDataService {
         const hour = stringDate.slice(11, 19);
         const dayParts = day.split(daySeparator);
         const hourParts = hour.split(hourSeparator);
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
@@ -283,7 +270,7 @@ export class GlobalDataService {
                             }));
                         break;
                     }
-                    default : {
+                    default: {
                         this.srcPage = toPage; // Navigate Root
                         this.navCtrl.navigateRoot(toPage).then(
                             () => {
@@ -325,7 +312,7 @@ export class GlobalDataService {
                         }));
                     break;
                 }
-                default : {
+                default: {
                     this.srcPage = toPage; // Navigate Root
                     this.navCtrl.navigateRoot(toPage).then(
                         () => {

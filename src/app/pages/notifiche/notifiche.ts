@@ -272,7 +272,7 @@ export class NotifichePage implements OnInit {
 
     pulisciTesto(testo) {
         try {
-            return decodeURIComponent(encodeURI(testo));
+            return decodeURIComponent(escape(testo));
         } catch (e) {
             return testo;
         }
@@ -354,7 +354,11 @@ export class NotifichePage implements OnInit {
             refresher.complete();
         }
     }
-    
+
+    toggleInOut() {
+        this.showSearchBar = !this.showSearchBar;
+        this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
+    }
 
     date2string(stringDate): string {
         return GlobalDataService.formatStringDateTime(stringDate, '-', ':');

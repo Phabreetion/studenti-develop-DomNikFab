@@ -1,16 +1,17 @@
-import {Injectable, NgZone} from '@angular/core';
-import {AlertController, LoadingController, Platform, ToastController} from '@ionic/angular';
+import { Injectable, NgZone } from '@angular/core';
+import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular';
 // import {Md5} from 'ts-md5';
-import {Storage} from '@ionic/storage';
-import {AppVersion} from '@ionic-native/app-version/ngx';
-import {Device} from '@ionic-native/device/ngx';
+import { Storage } from '@ionic/storage';
+import { AppVersion } from '@ionic-native/app-version/ngx';
+import { Device } from '@ionic-native/device/ngx';
 // import {FCM} from '@ionic-native/fcm/ngx';
 
 import 'rxjs/add/operator/map';
-import {GlobalDataService} from './global-data.service';
-import {NotificheService} from './notifiche.service';
-import {HttpService} from './http.service';
-import {ToastsService} from './toasts.service';
+import { GlobalDataService } from './global-data.service';
+import { NotificheService } from './notifiche.service';
+import { HttpService } from './http.service';
+import { CryptoService } from './crypto.service';
+// import {timeout} from 'rxjs/operators';
 
 /*
 ID SERVIZI
@@ -32,7 +33,7 @@ ID SERVIZI
 'SERVIZIO_NEWS_DIPARTIMENTO', 14
 'SERVIZIO_NEWS_CDS', 15
 'SERVIZIO_NEWS_ATENEO', 16
-'SERVIZIO_CALENDARIO', 17
+'SERVIZIO_ORARIO', 17
 'SERVIZIO_MATERIALE_DIDATTICO', 18
 'SERVIZIO_ACCOUNTS', 19
 */
@@ -54,11 +55,16 @@ export class SyncService {
     private uuid = 'virtual';
     private token = 'token';
     private tokenNotifiche = 'tokenNotifiche';
+    private params: string[];
 
-    //array di booleani per memorizzare i servizi attualmente in aggiornamento
+    private passphrase: string;
+
     loading = [];
+<<<<<<< HEAD
 
     //array di stringhe per memorizzare le date dell'ultimo aggiornamento dei servizi
+=======
+>>>>>>> develop
     dateUltimiAggiornamenti = [];
 
     //array di interi per memorizzare il numero di rinvii che un servizio ha richiesto
@@ -115,7 +121,18 @@ export class SyncService {
                 public loadingCtrl: LoadingController,
                 public ngZone: NgZone,
                 public globalData: GlobalDataService,
+<<<<<<< HEAD
                 public toastService: ToastsService) {
+=======
+                public crypto: CryptoService) {
+
+        this.storage.get('passphrase_key').then(
+            (key) => {
+                this.passphrase = key;
+            });
+
+
+>>>>>>> develop
     }
 
     getTimeout() {
@@ -194,12 +211,20 @@ export class SyncService {
         return this.uuid;
     }
 
+    getUrlAnnoCorrente() {
+        return this.globalData.getBaseUrl() + 'annoCorrente.php';
+    }
+
     sincronizza() {
         let elencoServizi = [];
 
         switch (this.globalData.userRole) {
             case 'student':
+<<<<<<< HEAD
                 elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 112, 113];
+=======
+                elencoServizi = [ 112, 1, 2, 4, 5, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17, 18, 19, 113 ];
+>>>>>>> develop
                 break;
             case 'teacher':
                 elencoServizi = [7, 13, 14, 16, 19, 102];
@@ -210,13 +235,13 @@ export class SyncService {
 
 
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.aggiornaDeviceInfo().then(
+            /*this.aggiornaDeviceInfo().then(
                 () => {
                     GlobalDataService.log(0, 'Aggiornato il Device', null);
                 }, (err) => {
                     GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
                 }
-            );
+            );*/
             this.controllaVersione().then(
                 () => {
                     GlobalDataService.log(0, 'Constollo versione OK', null);
@@ -329,10 +354,14 @@ export class SyncService {
      * @param sync: true se si vuole avviare un aggiornamento dei dati in background, false se si vogliono solamente recuperare gli ultimi dati dallo storage.
      */
     getJson(id: number, params: string[], sync: boolean) {
+<<<<<<< HEAD
         /*console.log(this.loading);
         console.log(this.numRinvii);
         console.log(this.dateUltimiAggiornamenti);*/
 
+=======
+        this.params = params;
+>>>>>>> develop
         return new Promise((resolve, reject) => {
 
             //Viene avviato un aggiornamento in background
@@ -404,6 +433,7 @@ export class SyncService {
                 const token = data[0];
                 const uuid = data[1];
 
+<<<<<<< HEAD
                 // Nessun token -> La richiesta verrà respina sicuramente
                 // Comunica all'utente di rieffettuare la login
                 if (token === undefined || token == null || token === '') {
@@ -477,6 +507,127 @@ export class SyncService {
                                 }
                             );
                         } else {
+=======
+
+
+                            console.log(this.passphrase + ' - ' +
+                                this.token + ' - ' +
+                                this.uuid + ' - ' +
+                                id.toString() + ' - ' +
+                                this.params);
+
+                            const token_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.token);
+                            const uuid_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.uuid);
+                            const id_servizio_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, id.toString());
+                            let parametri_cifrati;
+                            if (this.params == null) {
+                                parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params);
+                            } else {
+                                parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params.toString());
+                            }
+
+
+                            const body = {
+                                token: token_cifrato,
+                                uuid: uuid_cifrato,
+                                id_servizio: id_servizio_cifrato,
+                                parametri: parametri_cifrati
+                            };
+
+// console.log('[+]-->');
+// console.log(url);
+// console.log(body);
+                            this.services.getJSON(url, body).then(
+                                (dati) => {
+                                    let dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, dati['cifrato']);
+                                    dec = JSON.parse(dec);
+                                    // console.log(dec);
+                                    if (dec) {
+                                        this.globalData.archive[id] = dec;
+                                        this.storage.set(id.toString(), dec).then(
+                                            () => {
+                                            }, (storageErr) => {
+                                                GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                                            }
+                                        );
+                                        // this.storage.set(id.toString() + '_timestamp', dati['timestamp']);
+                                    }
+
+                                    this.dateUltimiAggiornamenti[id] = dati['timestamp'];
+                                    this.loading[id] = false;
+                                    resolve(dec);
+                                },
+                                (rej) => {
+//  console.log('[+]rej-->');
+// console.log(rej);
+                                    this.loading[id] = false;
+                                    if (rej.error) {
+                                        const errore = JSON.parse(rej.error);
+                                        const stato = rej.status;
+                                        const codice = errore.codice;
+
+                                        if (stato === 401 && codice === -2) {
+                                            GlobalDataService.log(1, 'Token scaduto', null);
+
+                                            let storedUsername = this.storage.get('username');
+                                            let storedPassword = this.crypto.CryptoJSAesDecrypt(this.passphrase, this.storage.get('password'));
+
+                                            Promise.all([storedUsername, storedPassword]).then(
+                                                data => {
+                                                    storedUsername = data[0];
+                                                    storedPassword = data[1];
+
+                                                    url = this.getUrlCheckToken();
+                                                    const bodyCheckToken = {
+                                                        token: this.token,
+                                                        username: storedUsername,
+                                                        password: storedPassword
+                                                    };
+
+                                                    // TODO: Gestire cambio password da ESSE3
+                                                    this.ngZone.run(() => {
+                                                        this.services.post(url, bodyCheckToken).then(
+                                                            () => {
+                                                                this.getJsonLista(id, params).then(
+                                                                    (res) => {
+                                                                        GlobalDataService.log(0, 'getJsonLista', res);
+                                                                    }, (err) => {
+                                                                        GlobalDataService.log(2, 'getJsonLista reject', err);
+                                                                    }
+                                                                );
+                                                            }
+                                                        );
+
+
+                                                    });
+                                                }, (err) => {
+                                                    GlobalDataService.log(2, 'Credenziali non accessibili', err);
+                                                });
+
+                                        } else {
+                                            this.toastCtrl.create({
+                                                message: errore.msg,
+                                                duration: 3000
+                                            }).then(
+                                                (toast) => {
+                                                    toast.present();
+                                                },
+                                                (err) => {
+                                                    GlobalDataService.log(2, 'Toast fallito', err);
+                                                });
+                                        }
+                                    }
+                                }
+                            ).catch(() => { this.loading[id] = false; });
+                        }, (err) => {
+                            // Nessun uuid - probabile versione web
+                            this.storage.set('uuid', 'uuid').then(
+                                () => { },
+                                (storageErr) => {
+                                    GlobalDataService.log(2, 'Errore in local storage', storageErr);
+                                });
+                            GlobalDataService.log(2, 'Nessun uuid', err);
+>>>>>>> develop
                             this.loading[id] = false;
                             this.toastService.erroreAggiornamentoDati();
                             reject();
@@ -569,23 +720,14 @@ export class SyncService {
                     GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
                 }
             );
-            //
-            // this.http.post(url, body, {}).then(
-            //     (response) => {
-            //         // SALVA LE PREFERENZE IN LOCALE
-            //         GlobalDataService.log(0, url, response);
-            //         this.notificheService.aggiornaSottoscrizioni();
-            //     },
-            //     (err) => {
-            //         GlobalDataService.log(2, 'Il token non può essere aggiornato ancora.', err);
-            //     });
+
         }, (err) => {
             // Non aggiorniamo
             GlobalDataService.log(2, 'Il token non è presente', err);
         });
     }
 
-    aggiornaDeviceInfo() {
+    aggiornaDeviceInfo(tokenNotifichePar: string) {
 
         return new Promise((resolve, reject) => {
             if (this.platform.is('ios') || (this.platform.is('android'))) {
@@ -633,9 +775,16 @@ export class SyncService {
                                         osVersion: this.device.version,
                                         manufacturer: this.device.manufacturer,
                                         isVirtual: this.device.isVirtual,
-                                        uuid: this.device.uuid
+                                        uuid: this.device.uuid,
+                                        tokenNotifiche: tokenNotifichePar
                                     };
+<<<<<<< HEAD
                                     this.http.post(url, body).then(
+=======
+
+
+                                    this.services.post(url, body).then(
+>>>>>>> develop
                                         (response) => {
                                             this.storage.set('lastDeviceUpdate', tsOggi).then(
                                                 () => {
@@ -671,6 +820,57 @@ export class SyncService {
         });
     }
 
+    aggiornaAnnoCorrente() {
+        return new Promise((resolve, reject) => {
+
+            // verifichiamo la presenza di un aggiornamento solo se non lo abbiamo già fatto nelle ultime 24 ore
+            this.storage.get('lastCheckAA').then(
+                (data) => {
+                    const oggi = new Date();
+                    const ultimoCheck = new Date(data);
+                    const oreTrascorse = GlobalDataService.differenzaOre(oggi, ultimoCheck);
+                    if ((data != null) && (oreTrascorse < 24)) {
+                        resolve(true);
+                        return;
+                    }
+
+                    this.storage.set('lastCheckAA', oggi);
+
+                    this.services.post(this.getUrlAnnoCorrente(), {token: this.token}).then(
+                        (response) => {
+                            if (response) {
+                                if (response != null) {
+                                    const annoCorrente: string = response.toString();
+                                    this.storage.set('annoCorrente', annoCorrente);
+                                }
+                            }
+                        },
+                        (err) => {
+                            console.log('Non è possibile ricevere dati ora.' + err);
+                            reject(err);
+                        }
+                    );
+                }, (err) => {
+                    // Se non abbiamo mai salvato l'ultimo check, inizializziamolo ad oggi
+                    this.storage.set('lastCheckAA', new Date(75, 2, 20).getTime());
+                    this.services.post(this.getUrlAnnoCorrente(), {token: this.token}).then(
+                        (response) => {
+                            if (response) {
+                                if (response != null) {
+                                    const annoCorrente: string = response.toString();
+                                    this.storage.set('annoCorrente', annoCorrente);
+                                }
+                            }
+                        },
+                        (error) => {
+                            console.log('Non è possibile ricevere dati ora.' + error);
+                            reject(err);
+                        }
+                    );
+                }
+            );
+        });
+    }
 
     controllaMessaggi() {
         return new Promise((resolve, reject) => {
@@ -776,6 +976,7 @@ export class SyncService {
                                         platform: this.device.platform
                                     };
 
+<<<<<<< HEAD
                                     // const header = {
                                     //     headers: { 'Content-Type': 'application/json' }
                                     // };
@@ -784,6 +985,9 @@ export class SyncService {
                                     // this.http.setDataSerializer('json');
 
                                     this.http.post(urlUltimaVersione, body)
+=======
+                                    this.services.post(urlUltimaVersione, body)
+>>>>>>> develop
                                         .then(
                                             (ultimaVersione) => {
 
@@ -822,7 +1026,7 @@ export class SyncService {
                                                                         target = 'studenti-unimol/id1275911366?mt=8';
                                                                         break;
                                                                     }
-                                                                    case 'Android' : {
+                                                                    case 'Android': {
                                                                         target = 'it.unimol.app.studenti';
                                                                         break;
                                                                     }
@@ -955,6 +1159,7 @@ export class SyncService {
         });
     }
 
+<<<<<<< HEAD
 
     //@TODO a che serve? non la usa nessuno! leviamo?
     sottoscriviCalendario(codice, stato) {
@@ -1017,6 +1222,9 @@ export class SyncService {
         });
     }
 
+=======
+  
+>>>>>>> develop
     dataIsChanged(array1, array2) {
         GlobalDataService.log(0, 'Data1: ', array1);
         GlobalDataService.log(0, 'Data2: ', array2);
