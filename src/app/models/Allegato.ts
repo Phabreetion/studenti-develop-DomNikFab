@@ -1,4 +1,4 @@
-export class File {
+export class Allegato {
 
     /**
      * Non ne ho la benchè minima idea, serve per passare a materiale didattico
@@ -39,7 +39,9 @@ export class File {
     /**
      * Titolo del file.
      */
-    public TITOLO: string
+    public TITOLO: string;
+
+    public scaricato: boolean;
 
 
     constructor( AD_ID?: number, ALLEGATO_ID?: number, AUTORE?: string, CLS_ID?: number, COMUNITA_ID?: number, DATA_INS?: string, ESTENSIONE?: string, FILENAME?: string, TESTO?: string, TITOLO?: string) {
@@ -55,9 +57,10 @@ export class File {
         this.TESTO = TESTO;
         this.TITOLO = TITOLO;
 
+        this.scaricato = false;
     }
 
-    public static toObj(obj: Object): File {
-        return Object.assign(new File(), obj);
+    public static toObj(obj: Object): Allegato {
+        return Object.assign(new Allegato(), obj);
     }
 }

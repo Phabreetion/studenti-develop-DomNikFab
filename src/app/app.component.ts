@@ -504,7 +504,7 @@ export class AppComponent {
 
             this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
                 //@TODO aggiungere tutte le route del menu
-                const back_button_off = [ '/piano-di-studio', '/appelli', '/medie', '/news', '/notifiche', '/rubrica', '/questionari', '/tasse', '/servizi-online', '/impostazioni', '/appelli-docente'];
+                const back_button_off = [ '/piano-di-studio', '/appelli', '/medie', '/news',  '/notifiche', '/rubrica', '/questionari', '/tasse', '/servizi-online', '/impostazioni', '/appelli-docente'];
 
                 if (outlet && outlet.canGoBack() && !back_button_off.includes(this.router.url)) {
                     // torna indetro fino alla home

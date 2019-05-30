@@ -121,50 +121,7 @@ export class AppelliPage implements OnInit {
 
         if (this.ad_id_insegnamento != 0) {
             this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
-        } /*else {
-            this.appelliService.loadFiltriFromStorage().then(
-                filtro => {
-                    this.filtro = filtro;
-
-                    this.pianoDiStudioService.getMaxAnni().then(
-                        value => {
-                            this.filtro.setMaxAnni(value);
-                            this.updateFiltri();
-                        });
-                }
-            );
-        }*/
-        /*
-        const corsiMapPromise = this.pianoDiStudioService.getCorsiAsMap();
-        const appelliDisponibiliPromise = this.appelliService.getAppelliDisponibili();
-        const appelliPrenotatiPromise = this.appelliService.getAppelliPrenotati();
-
-        Promise.all([appelliDisponibiliPromise, appelliPrenotatiPromise, corsiMapPromise]).then(
-            (data) => {
-                this.appelli = data[0];
-                this.prenotazioni = data[1];
-                this.corsiMap = data[2];
-
-                 else {
-                    //carico i filtri dallo storage ed eseguo il filtraggio.
-                    this.appelliService.loadFiltriFromStorage().then(
-                        filtro => {
-                            this.filtro = filtro;
-
-                            this.pianoDiStudioService.getMaxAnni().then(
-                                value => {
-                                    this.filtro.setMaxAnni(value);
-                                    this.updateFiltri();
-                                }
-                            );
-                            console.log('fine promise ion view1');
-                        }
-                    );
-                    console.log('fine promise ion view2');
-                }
-                console.log('fine promise ion view3');
-            }
-        );*/
+        }
     }
 
 

@@ -1,23 +1,23 @@
 <ion-header>
-  <ion-grid no-padding>
-    <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
-      <ion-col>
-        <ion-label> </ion-label>
-      </ion-col>
-    </ion-row>
-    <ion-row no-padding>
-      <ion-col no-padding>
-        <ion-toolbar>
-          <ion-buttons slot="start">
-            <ion-menu-button></ion-menu-button>
-          </ion-buttons>
-          <ion-title>
-            Unimol
-          </ion-title>
-        </ion-toolbar>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-col no-padding>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-menu-button></ion-menu-button>
+                    </ion-buttons>
+                    <ion-title>
+                        App Unimol
+                    </ion-title>
+                </ion-toolbar>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-header>
 
 <ion-content>
@@ -46,12 +46,16 @@
                         </ion-item>
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
-                            <ion-checkbox [(ngModel)]="isTerminiAccettati" name="termini" expand="block" required></ion-checkbox>
+                            <ion-checkbox [(ngModel)]="isTerminiAccettati" name="termini" expand="block"
+                                          required></ion-checkbox>
                             Accetta i termini
                         </div>
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
-                            <ion-button expand="block" (click)="login();" [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) ">Login</ion-button>
+                            <ion-button expand="block" (click)="login();"
+                                        [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) ">
+                                Login
+                            </ion-button>
                         </div>
                         <div *ngIf="fingerprintIsAvbailable">
                             <ion-grid>

@@ -421,8 +421,6 @@ export class SyncService {
                 const token = data[0];
                 const uuid = data[1];
 
-                console.log('ciao');
-
                 // Nessun token -> La richiesta verrà respina sicuramente
                 // Comunica all'utente di rieffettuare la login
                 if (token === undefined || token == null || token === '') {

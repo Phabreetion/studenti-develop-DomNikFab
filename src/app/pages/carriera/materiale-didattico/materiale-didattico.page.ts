@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController,
-    ModalController, Platform, ToastController
+    Platform, ToastController
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
@@ -10,6 +10,8 @@ import {ActivatedRoute} from '@angular/router';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import {ToastsService} from '../../../services/toasts.service';
+import {Allegato} from '../../../models/Allegato';
+import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -19,42 +21,22 @@ import {ToastsService} from '../../../services/toasts.service';
 })
 
 export class MaterialeDidatticoPage implements OnInit {
-    currentPage = '/materiale-didattico';
-    idServizio = 18;
+
     ad: string;
-    files: Array<any>;
-    fileTrovati: File[];
 
 
+    //allegati
+    allegati: Allegato[];
+    allegatiFiltrati: Allegato[];
+    allegatiTrovati: Allegato[];
 
-    pageloading = false;
 
     loading: any;
     dataAggiornamento: string;
     aggiornamentoVerificato = false;
     rinvioAggiornamento = false;
-    nrRinvii = 0;
-    maxNrRinvii = 5;
 
-    url: string;
-    // fileInfo:any;
-    // elencoFile:any;
-    // ultimoAggiornamento:any;
-    // aggiornamentoTmp:any;
-    //
-    // metodo = 'files';
-    //
-    // fileScaricati:any = [];
-    // showDoubleArrow = true;
-    noFile = false;
-    token: any;
-    IPServer: any;
-    iS: any;
-    i: any;
-    opened = false;
-    maxLength = 60; // Lunghezza massima del testo da visualizzare
 
-    //ricerca
     //ricerca
     @ViewChild('searchbar') searchbar: any;
     isSearchbarOpened = false;
@@ -67,8 +49,7 @@ export class MaterialeDidatticoPage implements OnInit {
         public sync: SyncService,
         public http: HttpService,
         public globalData: GlobalDataService,
-        public modalCtrl: ModalController,
-        public actionSheetCtrl: ActionSheetController,
+        public actionSheetController: ActionSheetController,
         public localdb: MaterialeDidatticoDbService,
         public toastsService: ToastsService,
         public account: AccountService,
@@ -77,164 +58,105 @@ export class MaterialeDidatticoPage implements OnInit {
     }
 
     ngOnInit() {
-        this.account.controllaAccount().then(
-            (ok) => {
-                this.pageloading = true;
-                this.ad = this.route.snapshot.paramMap.get('id');
-                this.currentPage = '/materiale-didattico/' + this.ad;
-                // this.ad = this.navParams.get('ad');
-                this.http.checkConnection();
-                this.aggiorna(false, true);
-            }, (err) => {
-                this.globalData.goTo(this.currentPage, '/login', 'root', false);
-            }
-        );
+        this.http.checkConnection();
 
 
+        this.ad = this.route.snapshot.paramMap.get('id');
+
+        this.localdb.getAllegatiJson().then(allegati => {
+            this.allegati = allegati;
+            console.log(this.allegati);
+
+            this.allegatiFiltrati = [];
+            this.allegati.forEach(allegato => {
+                if (allegato.AD_ID == Number(this.ad)) {
+                    this.allegatiFiltrati.push(allegato);
+                }
+            });
+
+            this.allegati.forEach(file => {
+                this.localdb.isAllegatoScaricato(file).then(
+                    () => {
+                        file.scaricato = true;
+                    },
+                    () => {
+                        file.scaricato = false;
+                    }
+                );
+            });
+
+            //ordina in maniera alfabetica
+            this.allegatiFiltrati.sort(function (a, b) {
+                return a.FILENAME.localeCompare(b.FILENAME);
+            });
+
+            this.allegatiTrovati = this.allegatiFiltrati;
+
+            console.log(this.allegatiFiltrati);
+        });
 
     }
 
-    aggiorna(interattivo: boolean, sync: boolean) {
+    async presentActionSheet(allegato: Allegato) {
+        const actionSheet = await this.actionSheetController.create({
+            header: allegato.TITOLO,
+            buttons: [
+                {
+                    text: 'Apri',
+                    icon: 'easel',
+                    handler: () => {
+                        this.newApriFile(allegato);
+                    }
+                }, {
+                    text: 'Download',
+                    icon: 'download',
+                    handler: () => {
+                        this.newApriFile(allegato);
+                    }
+                }, {
+                    text: 'Elimina',
+                    icon: 'trash',
+                    handler: () => {
+                        this.newRimuoviFile(allegato);
+                    }
+                }, {
+                    text: 'Chiudi',
+                    icon: 'close',
+                    handler: () => {
+                        this.actionSheetController.dismiss().catch();
+                    }
+                }]
+        });
 
-        if (this.sync.loading[this.idServizio]) {
-            this.rinvioAggiornamento = true;
-            this.dataAggiornamento = 'in corso';
-            this.nrRinvii++;
+        await actionSheet.present();
+    }
 
-            // console.log('Rinvio ' + this.nrRinvii);
+    isLoading() {
+        return this.sync.loading[18];
+    }
 
-            if (this.nrRinvii < this.maxNrRinvii) {
-                setTimeout(() => {
-                    this.aggiorna(interattivo, sync);
-                }, 2000);
-                return;
-            } else {
-                if (this.http.connessioneLenta) {
-                    this.toastCtrl.create({
-                        message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
-                        duration: 3000,
-                        position: 'bottom'
-                    }).then( (toast) => {toast.present(); }, (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
-                }
-            }
-        }
-        this.rinvioAggiornamento = false;
-        this.nrRinvii = 0;
+    doRefresh(refresher) {
+        refresher.complete();
 
-        this.sync.getJson(this.idServizio, null, true).then(
-            (data) => {
-
-                this.pageloading = false;
-                const json = data[0];
-                const files = this.filtra(json, this.ad);
-                files.sort(function (a, b) {
-                    return a.FILENAME.localeCompare(b.FILENAME);
+        this.localdb.getAllegatiJsonAggiornato().then((allegatiAggiornati) => {
+            if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {
+                this.allegatiFiltrati = [];
+                this.allegati.forEach(allegato => {
+                    if (allegato.AD_ID == Number(this.ad)) {
+                        this.allegatiFiltrati.push(allegato);
+                    }
                 });
 
-                if ( this.sync.dataIsChanged(this.files, files) ) {
-                    //
-                    // if (JSON.stringify(this.files) !== JSON.stringify(files)) {
-                    this.files = files;
-
-                    this.files.forEach(file => {
-                        this.localdb.isAllegatoScaricato(file).then(
-                            () => {file.scaricato = true; },
-                            () => {file.scaricato = false; }
-                        );
-                    });
-
-                    setTimeout(() => {
-                        this.controllaAggiornamento();
-                    }, 1000);
-
-                    // console.dir(files)
-                    // console.dir(this.files);
-                }
-
-                this.fileTrovati = this.files;
-
-                this.dataAggiornamento = SyncService.dataAggiornamento(data);
-            },
-            (err) => {
-            }).catch(err => {
-                console.dir(err);
-            }
-        );
-    }
-
-    filtra(items, ad) {
-        return items.filter((item) => {
-            try {
-                // console.dir(item)
-                return (item.AD_ID.indexOf(ad) > -1);
-            } catch (err) {
-                console.dir(err);
+                //ordina in maniera alfabetica
+                this.allegati.sort(function (a, b) {
+                    return a.FILENAME.localeCompare(b.FILENAME);
+                });
             }
         });
     }
 
-    controllaAggiornamento() {
-        // La verifica dell'aggiornamento in background la facciamo solo una volta
-        if (this.aggiornamentoVerificato) {
-            return;
-        }
-        // Se stiamo caricando dati dal server rimandiamo la verifica
-        if (this.sync.loading[this.idServizio]) {
-            setTimeout(() => {
-                this.controllaAggiornamento();
-            }, 1000);
-        } else {
-            this.aggiornamentoVerificato = true;
-            this.aggiorna(false, false);
-        }
-    }
-
-    isLoading() {
-        return this.sync.loading[this.idServizio];
-    }
-
-    doRefresh(refresher) {
-        if (refresher) {
-            refresher.target.complete();
-        }
-
-        this.aggiorna(true, true);
-    }
-
-    troncaTesto(testo: string) {
-        if (!testo) {
-            return '';
-        }
-        if (testo.length > this.maxLength) {
-            testo = testo.substring(0, this.maxLength - 1) + ' ...';
-        }
-        return testo;
-    }
-
-    stripHTML(html) {
-
-        // return html.replace(/<\/?[^>]+>/gi, "");
-        let testo = html;
-        if (testo && typeof testo === 'string') {
-            // strip script/html tags
-            testo = testo.replace(/<script[^>]*>([\S\s]*?)<\/script>/gmi, '');
-            testo = testo.replace(/&nbsp;*/gmi, '');
-            testo = testo.replace(/<\/?\w(?:[^"'>]|"[^"]*"|'[^']*')*>/gmi, '');
-            testo = testo.replace(/\\r\\n|\\r|\\n/g, '');
-        }
-
-        return testo;
-    }
 
     info(item) {
-        // console.dir(item);
-        // this.modalCtrl.create({
-        //     component: AllegatoPage,
-        //     componentProps: { allegato : item }
-        // }).then(
-        //     (modal) => modal.present()
-        // );
-
         this.globalData.allegato = item;
 
         this.globalData.srcPage = '/materiale-didattico';
@@ -279,7 +201,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
 
     newApriFile(item) {
-        if ( this.localdb.isPiattaformaSupportata()) {
+        if (this.localdb.isPiattaformaSupportata()) {
 
             this.localdb.isAllegatoScaricato(item).then(
                 () => this.apriFile(item),
@@ -362,50 +284,12 @@ export class MaterialeDidatticoPage implements OnInit {
         return nomeIcona;
     }
 
-    onPress(item) {
-        // console.dir(item);
-
-        this.actionSheetCtrl.create({
-            header: item.DESCRIZIONE,
-            buttons: [
-                {
-                    text: 'Apri',
-                    icon: 'easel',
-                    handler: () => {
-                        this.newApriFile(item);
-                    }
-                }, {
-                    text: 'Dettagli',
-                    icon: 'information-circle',
-                    handler: () => {
-                        this.info(item);
-                    }
-                }, {
-                    text: 'Rimuovi',
-                    icon: 'trash',
-                    handler: () => {
-                        this.newRimuoviFile(item);
-                    }
-                }, {
-                    text: 'Chiudi',
-                    icon: 'close',
-                    role: 'cancel',
-                    handler: () => {
-                        // console.log('Cancel clicked');
-                    }
-                }
-            ]
-        }).then(
-            (actionSheet) => actionSheet.present()
-        );
-    }
-
 
     search() {
-        this.fileTrovati = this.files;
+        this.allegatiTrovati = this.allegatiFiltrati;
 
         const searchKeyLowered = this.searchKey.toLowerCase();
-        this.fileTrovati = this.files.filter(file => file.FILENAME.toLowerCase().search(searchKeyLowered) >= 0);
+        this.allegatiTrovati = this.allegatiFiltrati.filter(file => file.FILENAME.toLowerCase().search(searchKeyLowered) >= 0);
     }
 
 
@@ -413,14 +297,14 @@ export class MaterialeDidatticoPage implements OnInit {
         this.isSearchbarOpened = !this.isSearchbarOpened;
 
         if (this.isSearchbarOpened) {
-            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+            setTimeout(() => {
+                this.searchbar.setFocus();
+            }, 150);
         }
 
         this.searchKey = '';
         this.search();
     }
-
-
 
 
 }

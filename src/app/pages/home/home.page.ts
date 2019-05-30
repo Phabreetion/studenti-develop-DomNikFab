@@ -204,7 +204,7 @@ export class HomePage implements OnInit {
 
     checkDispositivi() {
         this.storage.get(AccountService.KEY_CHECK_DISPOSITIVI).then( (value) => {
-            if(value !== true) {
+            if (value !== true) {
                 this.account.controlloDispositiviConnessi();
                 this.storage.set(AccountService.KEY_CHECK_DISPOSITIVI, true);
             }

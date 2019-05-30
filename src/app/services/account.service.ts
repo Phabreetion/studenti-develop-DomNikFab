@@ -419,8 +419,7 @@ export class AccountService {
                                     reject(ex);
                                 });
                         }
-                
-                // else (nessun utente connesso)
+                        // else (nessun utente connesso)
             }, (err) => {
                 // TO BE CHECKED!
                 GlobalDataService.log(2, 'Errore nella lettura dei dati dallo storage!', err);

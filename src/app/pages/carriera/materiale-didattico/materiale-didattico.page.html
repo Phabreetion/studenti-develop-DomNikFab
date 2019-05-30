@@ -16,7 +16,6 @@
                     </ion-title>
                     <ion-buttons slot="end">
                         <ion-back-button [style]="platform.is('android') ? 'padding-right: 1em;' : ''" text=""></ion-back-button>
-                        <!--<ion-back-button defaultHref="/carriera" text="Indietro"></ion-back-button>-->
                         <ion-button icon-only (click)="toogleSearchbar()">
                             <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
                         </ion-button>
@@ -40,7 +39,16 @@
 
 <ion-content>
 
-    <ion-grid *ngIf="rinvioAggiornamento && !files" text-center>
+    <ion-refresher (ionRefresh)="doRefresh($event)" slot="fixed">
+        <ion-refresher-content
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-grid *ngIf="rinvioAggiornamento && !allegati" text-center>
         <ion-row>
             <ion-col>
                 <img class="progress" src="assets/img/progress.gif" />
@@ -58,7 +66,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-list *ngIf="!rinvioAggiornamento && files?.length == 0">
+    <ion-list *ngIf="!rinvioAggiornamento && allegati?.length == 0">
         <ion-item text-center>
             <ion-grid>
                 <ion-row>
@@ -75,8 +83,8 @@
         </ion-item>
     </ion-list>
 
-    <ion-list *ngIf="files?.length > 0">
-        <ion-item-sliding *ngFor="let file of fileTrovati" >
+    <ion-list *ngIf="allegati?.length > 0">
+        <ion-item-sliding *ngFor="let file of allegatiTrovati" (click)="presentActionSheet(file)">
             <ion-item (click)="info(file)">
                 <ion-grid fixed no-padding>
                     <ion-row>
@@ -114,41 +122,16 @@
                 </ion-grid>
 
             </ion-item>
-            <!-- <ion-item-options side="right" (click)="close(slidingItem)"> -->
             <ion-item-options side="end">
 
                 <ion-item-option color="primary" (click)="newApriFile(file)">
                     <ion-icon name="easel"></ion-icon>
                     Visualizza
                 </ion-item-option>
-                <!--
-                <ion-item-option color="primary" (click)="info(file)">
-                    <ion-icon name="information-circle"></ion-icon>
-                    Dettagli
-                </ion-item-option>
-                -->
                 <ion-item-option color="danger" (click)="newRimuoviFile(file)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi
                 </ion-item-option>
-
-                <!--
-                <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="danger" (click)="eliminaFile(file)">
-                    <ion-icon style="padding:0;" name="trash"></ion-icon>
-                    <!-Elimina-->
-                <!--
-                </button>
-                <button *ngIf="file.scaricato == 0" class="stileIconeFile" ion-button color="primary" (click)="download(file)">
-                    <ion-icon style="padding:0;" name="md-download" ></ion-icon>
-                    <!-Download-->
-                <!--
-                </button>
-                <button *ngIf="file.scaricato == 1" class="stileIconeFile" ion-button color="light" (click)="apriFile(file, file.tipo_file)">
-                    <ion-icon style="padding:0;" name="md-eye" color="primary"></ion-icon>
-                    <!-<font color="dodgerblue">Visualizza</font>-->
-                <!--
-                </button>
-                -->
 
             </ion-item-options>
         </ion-item-sliding>

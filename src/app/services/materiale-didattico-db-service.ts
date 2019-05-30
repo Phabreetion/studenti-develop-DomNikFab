@@ -9,6 +9,9 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ng
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {GlobalDataService} from './global-data.service';
 import {SyncService} from './sync.service';
+import {Allegato} from '../models/Allegato';
+import {Corso} from '../models/Corso';
+import {All} from 'tslint/lib/rules/completedDocsRule';
 
 @Injectable({
     providedIn: 'root'
@@ -178,7 +181,6 @@ export class MaterialeDidatticoDbService {
     }
 
     isPiattaformaSupportata(): boolean {
-        console.log(this.platform.platforms());
         return this.platform.is('android') ||
             this.platform.is('ios') && (!this.platform.is('mobileweb'));
     }
@@ -205,6 +207,42 @@ export class MaterialeDidatticoDbService {
             }
         });
     }
+
+
+    getAllegatiJson(): Promise<Allegato[]> {
+        return new Promise<Allegato[]>( (resolve, reject) => {
+            return this.sync.getJson(18, null, false).then((data) => {
+                const allegati: Allegato[] = data[0];
+
+                //conversione di tutti i corsi in istanze dalla classe Corso
+                for (let i = 0; i < allegati.length; i++) {
+                    allegati[i] = Allegato.toObj(allegati[i]);
+                }
+
+                resolve(allegati);
+            }).catch( (err) => {
+                reject(err);
+            });
+        });
+    }
+
+    getAllegatiJsonAggiornato(): Promise<Allegato[]> {
+        return new Promise<Allegato[]>( (resolve, reject) => {
+            return this.sync.getJsonAggiornato(18, null).then((data) => {
+                const allegati: Allegato[] = data[0];
+
+                //conversione di tutti i corsi in istanze dalla classe Corso
+                for (let i = 0; i < allegati.length; i++) {
+                    allegati[i] = Allegato.toObj(allegati[i]);
+                }
+
+                resolve(allegati);
+            }).catch( (err) => {
+                reject(err);
+            });
+        });
+    }
+
 
     hasPermission() {
         return new Promise((resolve, reject) => {
