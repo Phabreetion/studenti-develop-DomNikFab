@@ -1,4 +1,4 @@
-import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
+import {Component, QueryList, ViewChildren} from '@angular/core';
 
 import {
     ActionSheetController,
@@ -6,7 +6,6 @@ import {
     IonRouterOutlet,
     MenuController,
     ModalController,
-    NavController,
     Platform,
     PopoverController
 } from '@ionic/angular';
@@ -38,7 +37,6 @@ import {ToastsService} from './services/toasts.service';
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
-    public mostraMenu = true;
 
     public appPages = [
         {
@@ -152,7 +150,6 @@ export class AppComponent {
 
 
     constructor(
-        public navController: NavController,
         public alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
         public popoverCtrl: PopoverController,
@@ -162,7 +159,6 @@ export class AppComponent {
         public menu: MenuController,
         public appVersion: AppVersion,
         public network: Network,
-        public ngZone: NgZone,
         public platform: Platform,
         public device: Device,
         // public push: Push,
@@ -181,7 +177,7 @@ export class AppComponent {
         //    private firebaseMessaging: FirebaseMessaging,
     ) {
         this.initializeApp();
-        this.backButtonEvent();
+        this.backButtonEvent().then();
     }
 
     initializeApp() {
@@ -232,13 +228,13 @@ export class AppComponent {
 
                 this.appVersion.getVersionNumber().then(
                     (appVersion) => {
-                        this.storage.set('appVersion', appVersion);
+                        this.storage.set('appVersion', appVersion).then();
                     }, (err) => {
                         GlobalDataService.log(2, 'ERROR in getVersionNumber', err);
                     });
             } else {
-                this.storage.set('uuid', 'virtual');
-                this.storage.set('appVersion', '2.0.v');
+                this.storage.set('uuid', 'virtual').then();
+                this.storage.set('appVersion', '2.0.v').then();
             }
 
             // moment.locale('it');
@@ -527,7 +523,7 @@ export class AppComponent {
             try {
                 const element = await this.menu.getOpen();
                 if (element) {
-                    this.menu.close();
+                    this.menu.close().then();
                     return;
                 }
             } catch (error) {
@@ -537,7 +533,7 @@ export class AppComponent {
             try {
                 const element = await this.actionSheetCtrl.getTop();
                 if (element) {
-                    element.dismiss();
+                    element.dismiss().then();
                     return;
                 }
             } catch (error) {
@@ -547,7 +543,7 @@ export class AppComponent {
             try {
                 const element = await this.popoverCtrl.getTop();
                 if (element) {
-                    element.dismiss();
+                    element.dismiss().then();
                     return;
                 }
             } catch (error) {
@@ -557,7 +553,7 @@ export class AppComponent {
             try {
                 const element = await this.modalCtrl.getTop();
                 if (element) {
-                    element.dismiss();
+                    element.dismiss().then();
                     return;
                 }
             } catch (error) {
@@ -579,16 +575,13 @@ export class AppComponent {
                         this.lastTimeBackPress = new Date().getTime();
                     }
                 } else {
-                    this.storage.get('user_role').then(role => {
-                        if (role == 'student') {
-                            this.globalData.goTo(this.router.url, '/home', 'forward', false);
-                        } else if (role == 'teacher') {
-                            this.globalData.goTo(this.router.url, '/home-docente', 'forward', false);
-                        } else {
-                            this.globalData.goTo(this.router.url, '/login', 'forward', false);
-                        }
-                    });
-
+                    if (this.globalData.userRole == 'student') {
+                        this.globalData.goTo(this.router.url, '/home', 'forward', false);
+                    } else if (this.globalData.userRole == 'teacher') {
+                        this.globalData.goTo(this.router.url, '/home-docente', 'forward', false);
+                    } else {
+                        this.globalData.goTo(this.router.url, '/login', 'forward', false);
+                    }
                 }
             });
         });
