@@ -83,4 +83,8 @@ export class AppelloPrenotato extends Appello  {
         return this.giorniRimanentiPrimaDellEsame() - 5 > 0;
     }
 
+    isEsameOggi(): boolean {
+        return this.giorniRimanentiPrimaDellEsame() == 0;
+    }
+
 }

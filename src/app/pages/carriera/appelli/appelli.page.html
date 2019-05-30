@@ -367,6 +367,15 @@
                                             </ion-card-subtitle>
                                         </ion-col>
                                     </ion-row>
+
+                                    <ion-row *ngIf="prenotazione.isEsameOggi()" text-center>
+                                        <ion-col color="lightgrey">
+                                            <ion-card-subtitle class="countdown" style="color:darkcyan">
+                                                <I>Devi sostenere l'esame oggi!</I>
+                                            </ion-card-subtitle>
+                                        </ion-col>
+                                    </ion-row>
+
                                 </ion-row>
                             </ion-grid>
                         </ion-item>
