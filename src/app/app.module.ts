@@ -34,7 +34,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { Transfer} from '@ionic-native/transfer';
 
 import { NotiziaPageModule} from './pages/news/notizia/notizia.module';
-import { DettagliUtentePageModule } from './pages/home-studente/dettagli-studente/dettagli-studente.module';
+import { DettagliUtentePageModule } from './pages/home/dettagli-utente/dettagli-utente.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Toast} from '@ionic-native/toast/ngx';
@@ -46,6 +46,8 @@ import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
 // import 'hammerjs';
+import { NgCalendarModule  } from 'ionic2-calendar';
+import {FiltroInsegnamentiPageModule} from './pages/docente/insegnamenti-docente/filtro/filtro-insegnamenti.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -59,10 +61,13 @@ import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-
         AppRoutingModule,
         DettagliUtentePageModule,
         NotiziaPageModule,
-        DettagliCorsoPageModule,
+        NgCalendarModule,
+        //EsamePageModule,
         HttpClientModule,
         FontAwesomeModule,
         FiltroPageModule,
+        DettagliCorsoPageModule,
+        FiltroInsegnamentiPageModule
     ],
     providers: [
         AndroidPermissions,

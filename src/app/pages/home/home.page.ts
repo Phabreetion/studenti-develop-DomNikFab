@@ -52,6 +52,7 @@ export class HomePage implements OnInit {
     token: string;
     cds: string;
     dipartimento: string;
+    tokenNotifiche: string;
 
 
     dataAggiornamento: string;
@@ -76,12 +77,6 @@ export class HomePage implements OnInit {
     }
 
     ngOnInit() {
-
-        if (this.globalData.userRole !== 'student') {
-            this.globalData.goHome();
-            return;
-        }
-
         this.globalData.srcPage = '/home';
 
         this.storage.get('token').then(
@@ -144,14 +139,17 @@ export class HomePage implements OnInit {
         const token = this.storage.get('token');
         const cds = this.storage.get('nome_cds');
         const dipartimento = this.storage.get('nome_dip');
+        const tokenNotifiche = this.storage.get('tokenNotifiche');
 
-        Promise.all([nome, cognome, matricola, token, cds, dipartimento]).then(data => {
+
+        Promise.all([nome, cognome, matricola, token, cds, dipartimento, tokenNotifiche]).then(data => {
             this.nome = data[0];
             this.cognome = data[1];
             this.matricola = data[2];
             this.token = data[3];
             this.cds = data[4];
             this.dipartimento = data[5];
+            this.tokenNotifiche = data[6];
         });
     }
 
@@ -218,12 +216,14 @@ export class HomePage implements OnInit {
         // Controlla se è presente una versione aggiornata dell'App
         // Aggiorna la sottoscrizione delle notifiche periodicamente
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            this.sync.aggiornaDeviceInfo().then(
+            console.log('homepage ts chiama aggionraDevice()');
+            this.sync.aggiornaDeviceInfo(this.tokenNotifiche).then(
                 () => {
                     GlobalDataService.log(1, 'Aggiornato il Device', null);
                 }, (err) => {
                     GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
                 }
+
             );
             this.sync.controllaVersione().then(
                 () => {
@@ -645,7 +645,7 @@ export class HomePage implements OnInit {
     }
 
     visualizzaDettagli() {
-        this.globalData.goTo(this.currentPage, '/dettagli-studente', 'forward', false);
+        this.globalData.goTo(this.currentPage, '/dettagli-utente', 'forward', false);
     }
 
     mainColSize() {
