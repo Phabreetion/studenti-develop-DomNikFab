@@ -658,7 +658,7 @@ export class HomePage implements OnInit {
 
     dettagliEsame(esame) {
         // console.dir(esame);
-        this.globalData.esame = esame;
+        this.globalData.corso = esame;
         this.globalData.goTo(this.currentPage, '/esame', 'forward', false);
     }
 

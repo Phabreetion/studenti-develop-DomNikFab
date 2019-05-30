@@ -125,19 +125,6 @@ export class GlobalDataService {
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
-    static sleepBW(milliseconds) {
-        const start = new Date().getTime();
-        for (let i = 0; i < 1e7; i++) {
-            if ((new Date().getTime() - start) > milliseconds) {
-                break;
-            }
-        }
-    }
-
-    static async sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
     static timestamp2string(timestamp): string {
         const d = new Date(timestamp * 1000);
         const dataFormattata =
@@ -163,15 +150,6 @@ export class GlobalDataService {
         const mydate = new Date( dayParts[2], dayParts[1] - 1, dayParts[0], hourParts[0], hourParts[1], hourParts[2]);
 
         return mydate;
-    }
-
-    static formatStringDate(stringDate): string {
-        const day = stringDate.slice(0, 10);
-        const hour = stringDate.slice(11, 19);
-        const dayParts = day.split('-');
-        const hourParts = hour.split(':');
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
-        return this.timestamp2string(mydate.getTime() / 1000);
     }
 
     static formatStringDateTime(stringDate, daySeparator, hourSeparator): string {

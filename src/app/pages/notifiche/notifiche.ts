@@ -355,10 +355,6 @@ export class NotifichePage implements OnInit {
         }
     }
 
-    toggleInOut() {
-        this.showSearchBar = !this.showSearchBar;
-        this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
-    }
 
     date2string(stringDate): string {
         return GlobalDataService.formatStringDateTime(stringDate, '-', ':');
