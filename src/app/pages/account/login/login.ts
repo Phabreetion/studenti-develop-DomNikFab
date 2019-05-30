@@ -27,6 +27,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     fingerprintIsAvbailable = false;
     fingerprintOptions: FingerprintOptions;
     fingerprintResult = '';
+    isTerminiAccettati: boolean;
 
     constructor(
         public platform: Platform,
@@ -40,7 +41,8 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
         // public menu: MenuController,
         public storage: Storage,
         public account: AccountService) {
-
+        this.isTerminiAccettati = false;
+        console.log(this.isTerminiAccettati);
     }
 
     ngOnInit() {
@@ -164,6 +166,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     }
 
     login() {
+        console.log(this.isTerminiAccettati);
         this.loadingCtrl.create().then(loading => {
             loading.present();
 

@@ -46,7 +46,12 @@
                         </ion-item>
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
-                            <ion-button expand="block" (click)="login()" [disabled]="!f.valid">Login</ion-button>
+                            <ion-checkbox [(ngModel)]="isTerminiAccettati" name="termini" expand="block" required></ion-checkbox>
+                            Accetta i termini
+                        </div>
+                        <br/>
+                        <div *ngIf="!fingerprintIsAvbailable">
+                            <ion-button expand="block" (click)="login();" [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) ">Login</ion-button>
                         </div>
                         <div *ngIf="fingerprintIsAvbailable">
                             <ion-grid>
