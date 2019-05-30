@@ -98,7 +98,7 @@ export class DisconnettiPage implements OnInit {
                                 (toast) => {toast.present(); },
                                 (errToast) => { GlobalDataService.log(2, 'Errore Toast', errToast); });
                         } else {
-                            this.globalData.goHome(this.globalData.srcPage);
+                            this.globalData.goTo(this.globalData.srcPage, '/home', 'root', false);
                         }
                     }, (reject) => {
                         GlobalDataService.log(
@@ -119,7 +119,7 @@ export class DisconnettiPage implements OnInit {
         if ( this.globalData.srcPage ) {
             this.globalData.goTo(this.globalData.srcPage, this.globalData.srcPage, 'root', false);
         } else {
-            this.globalData.goHome();
+            this.globalData.goTo('/home', '/home', 'root', false);
 
         }
     }
@@ -152,7 +152,7 @@ export class DisconnettiPage implements OnInit {
                 {
                     text: 'Annulla',
                     handler: () => {
-                        this.globalData.goHome();
+                        this.globalData.goTo('/home', '/home', 'root', false);
                     }
                 }
             ]

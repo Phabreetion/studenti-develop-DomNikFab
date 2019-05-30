@@ -68,6 +68,12 @@ export class AppComponent {
             role: 'teacher'
         },
         {
+            title: 'Insegnamenti',
+            url: '/insegnamenti-docente',
+            icon: 'bookmark',
+            role: 'teacher'
+        },
+        {
             title: 'Previsione Media',
             url: '/medie',
             icon: 'calculator',
@@ -77,7 +83,7 @@ export class AppComponent {
             title: 'Orario',
             url: '/orario',
             icon: 'calendar',
-            role: 'disabled'
+            role: 'student'
         },
         {
             title: 'News',
@@ -310,69 +316,6 @@ export class AppComponent {
 
     initPushNotification() {
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            /****
-             *  PROVA PLUGIN PUSH
-             */
-            //
-            //
-            // // to check if we have permission
-            // this.push.hasPermission()
-            //     .then((res: any) => {
-            //         console.dir(res);
-            //
-            //         if (res.isEnabled) {
-            //             console.log('We have permission to send push notifications');
-            //         } else {
-            //             console.log('We do not have permission to send push notifications');
-            //         }
-            //
-            //     });
-
-
-            /*
-        const options: PushOptions = {
-            android: {},
-            ios: {
-                alert: 'true',
-                badge: 'true',
-                sound: 'true'
-            },
-            windows: {},
-            browser: {
-                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            }
-        }
-
-        const pushObject : PushObject = this.push.init(options);
-
-        pushObject.subscribe('testbeta').then(
-            (esito) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription OK', esito);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription ERR', err);
-            }
-        );
-
-        pushObject.on('notification').subscribe(
-            (notification: any) => {
-                console.log('****** PUSH ****** Received a notification', notification);
-                this.mostraNotifica(notification);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Error receiving a notification', err);
-            });
-
-        pushObject.on('registration').subscribe(
-            (registration: any) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device registered', registration);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device NOT registered', err);
-            });
-
-        pushObject.on('error').subscribe(
-            error => GlobalDataService.log(2, '****** PUSH ****** Error with Push plugin', error));
-
-*/
-
             /***
              *  Plugin FCM per le notifiche push
              */
@@ -451,15 +394,15 @@ export class AppComponent {
             GlobalDataService.log(1, 'FCM: uso dati dal JSON', dati);
 
             titolo = dati.title;
-            messaggio = decodeURIComponent(encodeURI(dati.message));
+            messaggio = decodeURIComponent(escape(dati.message));
         } else if (data.aps) {
             GlobalDataService.log(1, 'FCM: uso data.aps.title', data.aps);
             titolo = data.aps.alert.title;
-            messaggio = decodeURIComponent(encodeURI(data.aps.alert.body));
+            messaggio = decodeURIComponent(escape(data.aps.alert.body));
         } else if (data.title) {
             GlobalDataService.log(1, 'FCM: uso data.title', data);
             titolo = data.title;
-            messaggio = decodeURIComponent(encodeURI(data.body));
+            messaggio = decodeURIComponent(escape(data.body));
         }
 
         if (titolo) {
