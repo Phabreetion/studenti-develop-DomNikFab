@@ -267,6 +267,7 @@ doc/**/*.xdv
 doc/**/*-converted-to.*
 ## Main pdf of the document
 doc/*/*.pdf
+doc/altro/*/*.pdf
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 doc/**/*.bbl
 doc/**/*.bcf

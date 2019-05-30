@@ -16,8 +16,10 @@ export class TutorialPage implements OnInit {
 
     currentPage = '/tutorial';
 
+    ticks = 0;
     show: boolean;
     timer: any;
+    sub: any;
     progress: any;
     showProgress: boolean;
     time = 20; // soglia tempo
@@ -94,12 +96,12 @@ export class TutorialPage implements OnInit {
         // this.timer = Observable.timer(500);
         // this.timer.subscribe(x => this.progressChange());
         this.account.controllaAccount().then(
-            () => {
+            (ok) => {
                 this.scaricaTutto();
                 this.show = true;
                 this.showProgress = true;
                 this.progress = 'Aggiornamento dati in corso...';
-            }, () => {
+            }, (err) => {
                 this.globalData.goTo(this.currentPage, '/login', 'root', false);
             }
         );
@@ -132,7 +134,7 @@ export class TutorialPage implements OnInit {
     }
 
     doContinua() {
-        this.globalData.goHome(this.currentPage);
+        this.globalData.goTo(this.currentPage, '/home', 'root', false);
     }
 
     // goToLastSlide() {

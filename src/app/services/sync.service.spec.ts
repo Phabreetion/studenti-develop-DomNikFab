@@ -1,7 +1,6 @@
 import { TestBed, inject } from '@angular/core/testing';
 
 import { SyncService } from './sync.service';
-import {Market} from '@ionic-native/market';
 
 describe('SyncService', () => {
   beforeEach(() => {

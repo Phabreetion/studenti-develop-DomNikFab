@@ -1,11 +1,16 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {LoadingController, ToastController, AlertController } from '@ionic/angular';
+import {LoadingController, ToastController, AlertController, ModalController} from '@ionic/angular';
 import {ActivatedRoute} from '@angular/router';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {Esse3Service} from '../../../services/esse3.service';
 import {HttpService} from '../../../services/http.service';
+import {GestoreListaCorsiComponent} from '../piano-di-studio/gestore-lista-corsi/gestore-lista-corsi.component';
+import {GestoreListaAppelliDisponbiliComponent} from './gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
+import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
+import {Corso} from '../../../models/Corso';
+import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 // import {cursorTo} from "readline";
 
 @Component({
@@ -22,7 +27,7 @@ export class AppelliPage implements OnChanges, OnInit {
     insegnamento: string;
     dataAggiornamento: string;
     sezioni: string;
-    appelli: Array<any>;
+    appelli: AppelloDisponibile[];
     prenotazioni: Array<any>;
     nrAppelli = '';
     nrPrenotazioni = '';
@@ -36,6 +41,12 @@ export class AppelliPage implements OnChanges, OnInit {
     nrRinvii = 0;
     maxNrRinvii = 5;
 
+    corsi: Corso[];
+
+    public isSearchbarOpened = false;
+    private appelliTrovati: AppelloDisponibile[];
+    private searchKey: string;
+
     constructor(
         private route: ActivatedRoute,
         private sync: SyncService,
@@ -45,7 +56,11 @@ export class AppelliPage implements OnChanges, OnInit {
         private loadingCtrl: LoadingController,
         public globalData: GlobalDataService,
         public account: AccountService,
-        public esse3: Esse3Service) {
+        public esse3: Esse3Service,
+        private modalController: ModalController,
+        private pianoDiStudioService: PianoDiStudioService) {
+
+        this.searchKey = '';
 
         if (this.sezioni == null) {
             this.sezioni = 'disponibili';
@@ -60,9 +75,10 @@ export class AppelliPage implements OnChanges, OnInit {
         this.ngOnInit();
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.globalData.srcPage = this.currentPage;
-
+        console.log(this.appelli);
+        this.corsi = await this.pianoDiStudioService.getCorsi();
         this.account.controllaAccount().then(
             (ok) => {
                 this.http.getConnected();
@@ -103,30 +119,42 @@ export class AppelliPage implements OnChanges, OnInit {
         this.nrRinvii = 0;
 
 
-        this.sync.getJson(this.idServizioDisponibili, sync).then(
+        this.sync.getJson(this.idServizioDisponibili, null, sync).then(
             (data) => {
                 const newData = data[0];
+
+                this.appelli = data[0];
+
+                for (let i = 0; i < data[0].length; i++) {
+                    this.appelli[i] = AppelloDisponibile.toObj(this.appelli[i]);
+                }
+
+                this.appelliTrovati = this.appelli;
+
+                console.log(this.appelli);
+
+                this.dataAggiornamentoDisponibili = SyncService.dataAggiornamento(data);
+                if (this.insegnamento != null) {
+                    const val = this.insegnamento;
+                    if (val && val.trim() !== '') {
+                        this.appelli = data[0].filter((item) => {
+                            return (item.codice === val);
+                        });
+                    }
+                }
+                if (this.appelli.length > 0 ) {
+                    this.nrAppelli = '(' + this.appelli.length + ')';
+                } else {
+                    this.nrAppelli = '';
+                }
+                setTimeout(() => {
+                    this.controllaAggiornamentoDisponibili();
+                }, 1000);
+
                 // Ottimizziamo il refresh ignorandolo in caso di dati non modificati
                 // TODO: si potrebbe ottimizzare il contronto tra array con qualcosa di più efficiente dello stringify
                 if (JSON.stringify(this.appelli) !== JSON.stringify(newData)) {
-                    this.appelli = data[0];
-                    this.dataAggiornamentoDisponibili = SyncService.dataAggiornamento(data);
-                    if (this.insegnamento != null) {
-                        const val = this.insegnamento;
-                        if (val && val.trim() !== '') {
-                            this.appelli = data[0].filter((item) => {
-                                return (item.codice === val);
-                            });
-                        }
-                    }
-                    if (this.appelli.length > 0 ) {
-                        this.nrAppelli = '(' + this.appelli.length + ')';
-                    } else {
-                        this.nrAppelli = '';
-                    }
-                    setTimeout(() => {
-                        this.controllaAggiornamentoDisponibili();
-                    }, 1000);
+                    //spostato tutto su... wip
                 }
             },
             (err) => {
@@ -160,12 +188,15 @@ export class AppelliPage implements OnChanges, OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizioPrenotati, sync).then(
+        this.sync.getJson(this.idServizioPrenotati, null, sync).then(
             (data) => {
                 const newData = data[0];
                 // console.dir(newData);
                 if (JSON.stringify(this.prenotazioni) !== JSON.stringify(newData)) {
                     this.prenotazioni = data[0];
+                    this.controllaPrenotazioni();
+                    //this.controllaPrenotazioniOutOfTime();
+                    console.log(this.prenotazioni);
                     // console.dir(this.prenotazioni);
                     this.dataAggiornamentoPrenotati = SyncService.dataAggiornamento(data);
                     if (this.prenotazioni.length > 0) {
@@ -183,6 +214,8 @@ export class AppelliPage implements OnChanges, OnInit {
             }).catch(err => {
             console.log('Eccezione in aggiorna: ' + err);
         });
+
+        console.log(this.appelli);
     }
 
     controllaAggiornamentoDisponibili() {
@@ -218,11 +251,10 @@ export class AppelliPage implements OnChanges, OnInit {
     }
 
     isLoading() {
-        switch (this.sezioni) {
-            case 'disponibili':
-                return this.sync.loading[this.idServizioDisponibili];
-            default :
-                return this.sync.loading[this.idServizioPrenotati];
+        if (this.sezioni === 'disponibili') {
+            return this.sync.loading[this.idServizioDisponibili];
+        } else {
+            return this.sync.loading[this.idServizioPrenotati];
         }
     }
 
@@ -427,4 +459,106 @@ export class AppelliPage implements OnChanges, OnInit {
         return item.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
     }
 
+    controllaPrenotazioniOutOfTime() {
+        this.prenotazioni = this.prenotazioni.filter((prenotazione)=>{!this.isOutOfTime(prenotazione)} );
+    }
+
+    isPrenotabile(appello): boolean {
+        let dataInizioSplittata: string[] = appello.p10_app_data_inizio_iscr.toString().split('/'); // [dd],[mm],[yyyy]
+
+        const data_inizio = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+        // const data_fine = new Date(item.p10_app_data_fine_iscr);
+        const data_odierna = new Date();
+
+
+        return data_odierna.getTime() >= data_inizio.getTime(); // && data_odierna <= data_fine;
+    }
+
+    giorniRimanentiPrimaDellApertura(appello): number {
+        const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
+
+        let dataInizioSplittata: string[] = appello.p10_app_data_inizio_iscr.toString().split('/'); // [dd],[mm],[yyyy]
+        const data_inizio = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+        const data_odierna = new Date();
+
+
+        return Math.ceil(Math.abs(data_odierna.getTime() - data_inizio.getTime()) / MS_GIORNO);
+    }
+
+
+    //conteggio giorni rimanenti per prenotare l'esame
+    giorniRimanentiPrimaDellaChiusura(appello): number {
+        const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
+
+        let dataInizioSplittata: string[] = appello.p10_app_data_fine_iscr.toString().split('/'); // [dd],[mm],[yyyy]
+        const data_fine = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+        const data_odierna = new Date();
+
+
+        return Math.ceil(Math.abs(data_odierna.getTime() - data_fine.getTime()) / MS_GIORNO);
+    }
+
+    /**
+     * Conteggio per i giorni rimanenti
+     */
+    giorniRimanentiPerEsame(appello): number {
+        const MS_GIORNO = 24 * 60 * 60 * 1000; // numero di millisecondi in un giorno
+
+        let dataEsameSplittata: string[] = appello.data_ora_app.toString().split('/'); // [dd],[mm],[yyyy]
+        const data_esame = new Date(parseInt(dataEsameSplittata[2]), parseInt(dataEsameSplittata[1]) -1, parseInt(dataEsameSplittata[0])); // YYYY/MM/DD
+        const data_odierna = new Date();
+
+        return Math.ceil(Math.abs(data_odierna.getTime() - data_esame.getTime()) / MS_GIORNO);
+    }
+
+    isOutOfTime(appello): boolean {
+        let dataInizioSplittata: string[] = appello.data_ora_app.toString().split('/'); // [dd],[mm],[yyyy]
+
+        const data_esame = new Date(parseInt(dataInizioSplittata[2]), parseInt(dataInizioSplittata[1]) - 1, parseInt(dataInizioSplittata[0])); // YYYY/MM//DD
+        const data_odierna = new Date();
+
+
+        return data_odierna.getTime() >= data_esame.getTime(); // && data_odierna <= data_fine;
+    }
+
+    async openFiltri() {
+        const modal = await this.modalController.create( {
+            component: GestoreListaAppelliDisponbiliComponent,
+            cssClass: 'gestore-lista-appelli-disponibili-css',
+            componentProps: {
+                'page': this
+            }
+        });
+
+
+        return await modal.present();
+    }
+
+
+    controllaPrenotazioni() {
+        this.prenotazioni = this.prenotazioni.filter( (appello) => {
+            return this.isPrenotazioneSuperata(appello);
+        });
+    }
+
+
+    isPrenotazioneSuperata(prenotazione): boolean {
+        console.log(prenotazione.ad_id);
+        let i = 0;
+        while(i < this.corsi.length && (this.corsi[i].AD_ID != parseInt(prenotazione.ad_id) || this.corsi[i].isSuperato())){
+            i++;
+        }
+        return i < this.corsi.length;
+    }
+
+    search() {
+        const searchKeyLowered = this.searchKey.toLowerCase();
+        this.appelliTrovati = this.appelli.filter(appello => appello.descrizione.toLowerCase().search(searchKeyLowered) >= 0);
+    }
+
+    toogleSearchbar() {
+        this.isSearchbarOpened = !this.isSearchbarOpened;
+        this.searchKey = '';
+        this.search();
+    }
 }

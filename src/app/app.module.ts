@@ -34,18 +34,20 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // import { Transfer} from '@ionic-native/transfer';
 
 import { NotiziaPageModule} from './pages/news/notizia/notizia.module';
-import { DettagliUtentePageModule } from './pages/home-studente/dettagli-studente/dettagli-studente.module';
+import { DettagliUtentePageModule } from './pages/home/dettagli-utente/dettagli-utente.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FCM} from '@ionic-native/fcm/ngx';
-import {EsamePageModule} from './pages/carriera/esame/esame.module';
 import {Toast} from '@ionic-native/toast/ngx';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FiltroPageModule} from './pages/docente/appelli/filtro/filtro.module';
-import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
+import {FooterComponent} from './pages/footer/footer.component';
+import {DettagliCorsoPageModule} from './pages/carriera/dettagli-corso/dettagli-corso.module';
 // import {Push} from "@ionic-native/push/ngx";
 // import {Firebase} from "@ionic-native/firebase/ngx";
 
 // import 'hammerjs';
+import { NgCalendarModule  } from 'ionic2-calendar';
+import {FiltroInsegnamentiPageModule} from './pages/docente/insegnamenti-docente/filtro/filtro-insegnamenti.module';
 
 @NgModule({
     declarations: [AppComponent],
@@ -59,10 +61,13 @@ import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
         AppRoutingModule,
         DettagliUtentePageModule,
         NotiziaPageModule,
-        EsamePageModule,
+        NgCalendarModule,
+        //EsamePageModule,
         HttpClientModule,
         FontAwesomeModule,
-        FiltroPageModule
+        FiltroPageModule,
+        DettagliCorsoPageModule,
+        FiltroInsegnamentiPageModule
     ],
     providers: [
         AndroidPermissions,
@@ -90,7 +95,9 @@ import {FiltroPage} from './pages/docente/appelli/filtro/filtro.page';
         SyncService,
         Toast,
         // Transfer,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy}
+    ],
+    exports: [
     ],
     bootstrap: [AppComponent]
 })

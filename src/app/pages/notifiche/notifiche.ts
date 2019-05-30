@@ -218,7 +218,7 @@ export class NotifichePage implements OnInit {
         this.rinvioAggiornamento = false;
         this.nrRinvii = 0;
 
-        this.sync.getJson(this.idServizio, sync).then(
+        this.sync.getJson(this.idServizio, null, sync).then(
             (data) => {
                 if ( this.sync.dataIsChanged(this.notifiche, data['notifiche']) ) {
                     this.notifiche = data['notifiche'];
@@ -265,7 +265,7 @@ export class NotifichePage implements OnInit {
 
     pulisciTesto(testo) {
         try {
-            return decodeURIComponent(encodeURI(testo));
+            return decodeURIComponent(escape(testo));
         } catch (e) {
             return testo;
         }
@@ -347,9 +347,14 @@ export class NotifichePage implements OnInit {
             refresher.complete();
         }
     }
-    
+
+    toggleInOut() {
+        this.showSearchBar = !this.showSearchBar;
+        this.flyInOutState === 'out' ? this.flyInOutState = 'in' : this.flyInOutState = 'out';
+    }
 
     date2string(stringDate): string {
         return GlobalDataService.formatStringDateTime(stringDate, '-', ':');
     }
+
 }

@@ -22,7 +22,7 @@ export class DBService {
         location: 'default'
     };
 
-    urlAllegatoTest: string = this.globalData.schema + this.globalData.ip + this.globalData.dir + '/test_json/test.pdf';
+    urlAllegatoTest: string = this.globalData.baseurl + '/test_json/test.pdf';
 
     private browser: any;
     options: InAppBrowserOptions = {
@@ -42,7 +42,7 @@ export class DBService {
         presentationstyle : 'pagesheet', // iOS only
         fullscreen : 'yes', // Windows only
     };
-
+// remove commento, only for push
     constructor(
         public sqlite: SQLite,
         public platform: Platform,
@@ -183,10 +183,15 @@ export class DBService {
         });
     }
 
-    allegatoScaricato(item: any) {
+    isPiattaformaSupportata(): boolean {
+        return this.platform.is('android') ||
+            this.platform.is('ios');
+    }
+
+    isAllegatoScaricato(item: any):Promise<any> {
         return new Promise( (resolve, reject) => {
             // console.log('Cerco allegati per ' + id);
-            if (this.platform.is('android') || this.platform.is('ios')) {
+            if (this.isPiattaformaSupportata()) {
                 const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
                 const downloadDir = this.file.dataDirectory;
 
@@ -323,7 +328,7 @@ export class DBService {
     }
 
     apriFile(item) {
-        this.allegatoScaricato(item).then(
+        this.isAllegatoScaricato(item).then(
             () => {
 
                 this.getAllegato(item.ALLEGATO_ID).then(

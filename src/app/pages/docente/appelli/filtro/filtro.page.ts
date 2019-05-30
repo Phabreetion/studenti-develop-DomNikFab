@@ -9,7 +9,7 @@ import {NavController, NavParams} from '@ionic/angular';
 
 export class FiltroPage implements  OnInit {
     page: any;
-    monthsName = 'Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre';
+    monthNames = 'Gennaio, Febbraio, Marzo, Aprile, Maggio, Giugno, Luglio, Agosto, Settembre, Ottobre, Novembre, Dicembre';
     monthShortNames = 'Gen, Feb, Mar, Apr, Mag, Giu, Lug, Ago, Set, Ott, Nov, Dic';
 
     constructor(private navCtrl: NavController, private navParams: NavParams) {

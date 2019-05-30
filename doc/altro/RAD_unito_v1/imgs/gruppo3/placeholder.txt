@@ -1,0 +1,1 @@
+# Cancellare questo file quando in questa cartella sarà inserito almeno un file. Questo file è stato necessario in quanto Git non permette di caricare sul repo cartelle vuote.

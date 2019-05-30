@@ -1,28 +1,34 @@
-import {Injectable, NgZone} from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {NavController, Platform} from '@ionic/angular';
 
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
-import {mapStackTrace} from 'sourcemapped-stacktrace';
-import {faWifi, faLink, faUnlink} from '@fortawesome/free-solid-svg-icons';
+// import {mapStackTrace} from 'sourcemapped-stacktrace';
+import {faWifi, faLink, faUnlink, faCoins, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
 import {Storage} from '@ionic/storage';
+import {faBookOpen} from '@fortawesome/free-solid-svg-icons/faBookOpen';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class GlobalDataService {
 
     schema = 'https://';
-    ip = 'service.unimol.it';
-    dir = '/app_2_1';
-    apiurl =  this.dir + '/api/';
-    baseurl: string = this.schema + this.ip + this.apiurl;
+    ip = 'app.unimol.it/';
+    dir = 'app_2_1';
 
+    apiurl =  this.dir + '/api/';
+    defaultBaseUrl: string = this.schema + this.ip + this.apiurl;
+    baseurl;
+
+    archive = [];
+    passphrase_private_key: string = 'faustofasano2019_appunimol';
 
     utente_test = false;
 
-    userRole = 'student';
+    userRole = 'none';
 
     android = false;
     iPhoneX = false;
@@ -60,6 +66,9 @@ export class GlobalDataService {
     faWifi = faWifi;
     faLink = faLink;
     faUnlink = faUnlink;
+    faCoins = faCoins;
+    faCalendarDay = faCalendarDay;
+    faBookOpen = faBookOpen;
 
 
     appello: any;
@@ -76,47 +85,15 @@ export class GlobalDataService {
         const minLog = 3;
         const minTrace = 10; // disabilitato, lo usiamo solo nel dubugging, problemi con l'emulatore ios
         if (level >= minLog) {
-            // if (reason) { console.log(reason); }
-            // if (msg) { console.dir(msg); }
-            if (level >= minTrace) {
-                let stack = null;
-                try { throw true; } catch (e) { stack = e.stack; }
-                if (stack) {
-                    mapStackTrace(stack, function (mappedStack) {
-                        let trace = '';
-                        try {
-                            // Nel trace la prima chiamata è relativa al metodo log stesso
-                            // a noi invece interessa solo la chiamata precedente ad essa
-                            trace = mappedStack.join('\n');
-                            const start = trace.split(' at ', 2).join(' at ').length + 4;
-                            trace = trace.slice(start);
-                            const end = trace.indexOf('\n');
-                            trace = trace.slice(0, end);
-                        } catch (e) {
-                            trace = '';
-                        }
-                        if (reason) { console.log(reason + ' (' + trace + ')'); }
-                        if (msg) { console.dir(msg); }
-                    }, {
-                        filter: function (line) {
-                            // process only sources containing typescript sources
-                            // return /(\.ts)/.test(line);
-                        }
-                    });
-                } else {
-                    if (reason) { console.log(reason); }
-                    if (msg) { console.dir(msg); }
-                }
-            } else {
-                if (reason) { console.log(reason); }
-                if (msg) { console.dir(msg); }
-            }
+            if (reason) { console.log(reason); }
+            if (msg) { console.dir(msg); }
+         
         }
 
     }
 
     static toTitleCase(str) {
-        return str.replace(/\w\S*/g, function(txt) {
+        return str.replace(/\w\S*/g, function (txt) {
             return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
         });
     }
@@ -141,7 +118,7 @@ export class GlobalDataService {
         const hour = stringDate.slice(11, 19);
         const dayParts = day.split('-');
         const hourParts = hour.split(':');
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
@@ -169,7 +146,7 @@ export class GlobalDataService {
 
         if (dataFormattata) {
             return dataFormattata;
-        } else  {
+        } else {
             return '';
         }
     }
@@ -179,7 +156,7 @@ export class GlobalDataService {
         const hour = stringDate.slice(11, 19);
         const dayParts = day.split(daySeparator);
         const hourParts = hour.split(hourSeparator);
-        const mydate = new Date( dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
+        const mydate = new Date(dayParts[0], dayParts[1] - 1, dayParts[2], hourParts[0], hourParts[1], hourParts[2]);
         return this.timestamp2string(mydate.getTime() / 1000);
     }
 
@@ -258,7 +235,7 @@ export class GlobalDataService {
                             }));
                         break;
                     }
-                    default : {
+                    default: {
                         this.srcPage = toPage; // Navigate Root
                         this.navCtrl.navigateRoot(toPage).then(
                             () => {
@@ -300,7 +277,7 @@ export class GlobalDataService {
                         }));
                     break;
                 }
-                default : {
+                default: {
                     this.srcPage = toPage; // Navigate Root
                     this.navCtrl.navigateRoot(toPage).then(
                         () => {
@@ -316,6 +293,49 @@ export class GlobalDataService {
         }
     }
 
+    initialize() {
+        this.storage.get('baseurl').then(
+            (value) => {
+                if (value != null) {
+                    this.baseurl = value;
+                } else {
+                    this.baseurl = this.defaultBaseUrl;
+                }
+            }, (err) => {
+                this.baseurl = this.defaultBaseUrl;
+            });
+        this.storage.get('user_role').then(
+            (value) => {
+                if (value != null) {
+                    this.userRole = value;
+                } else {
+                    this.logged ? this.userRole = 'student' : this.userRole = 'none';
+                }
+            }, (err) => {
+                this.logged ? this.userRole = 'student' : this.userRole = 'none';
+            });
+    }
+
+    getBaseUrl(): string {
+        if (!this.baseurl) {
+            this.storage.get('baseurl').then(
+                (value) => {
+                    if (value != null) {
+                        this.baseurl = value;
+                    } else {
+                        this.baseurl = this.defaultBaseUrl;
+                    }
+                    return this.baseurl;
+
+                }, (err) => {
+                    this.baseurl = this.defaultBaseUrl;
+                    return this.baseurl;
+                });
+        } else {
+            return this.baseurl;
+        }
+    }
+
     constructor(
         private navCtrl: NavController,
         private platform: Platform,
@@ -323,13 +343,7 @@ export class GlobalDataService {
         private screenOrientation: ScreenOrientation,
         private ngZone: NgZone) {
 
-        this.storage.get('user_role').then(
-            (value) => {
-                if (value != null) {
-                    this.userRole = value;
-                } else {
-                    this.userRole = 'student';
-                }
-            });
+        this.initialize();
     }
+
 }

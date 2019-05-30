@@ -3,8 +3,8 @@ import {Component, NgZone, QueryList, ViewChildren} from '@angular/core';
 import {
     ActionSheetController,
     AlertController,
-    IonRouterOutlet, MenuController,
-    Platform
+    IonRouterOutlet, MenuController, ModalController, NavController,
+    Platform, PopoverController
 } from '@ionic/angular';
 
 import { Network} from '@ionic-native/network/ngx';
@@ -20,15 +20,14 @@ import { SyncService} from './services/sync.service';
 import { GlobalDataService} from './services/global-data.service';
 import { DBService} from './services/db-service';
 import { AccountService} from './services/account.service';
-import { Router} from '@angular/router';
 import { Toast } from '@ionic-native/toast/ngx';
 import {Device} from '@ionic-native/device/ngx';
 import {HttpService} from './services/http.service';
+import {Router} from '@angular/router';
+
 // import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
 // import {Firebase} from '@ionic-native/firebase/ngx';
 // import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
-
-// import {isCombinedNodeFlagSet} from 'tslint';
 
 @Component({
     selector: 'app-root',
@@ -51,8 +50,8 @@ export class AppComponent {
             role: 'teacher'
         },
         {
-            title: 'Carriera',
-            url: '/carriera',
+            title: 'Piano di studio',
+            url: '/piano-di-studio',
             icon: 'book',
             role: 'student'
         },
@@ -69,6 +68,12 @@ export class AppComponent {
             role: 'teacher'
         },
         {
+            title: 'Insegnamenti',
+            url: '/insegnamenti-docente',
+            icon: 'bookmark',
+            role: 'teacher'
+        },
+        {
             title: 'Previsione Media',
             url: '/medie',
             icon: 'calculator',
@@ -77,13 +82,14 @@ export class AppComponent {
         {
             title: 'Orario',
             url: '/orario',
-            icon: 'calendar'
+            icon: 'calendar',
+            role: 'student'
         },
         {
             title: 'News',
             url: '/news',
             icon: 'information-circle',
-            role: 'all'
+            role: 'logged'
         },
         // {
         //     title: 'Calendario',
@@ -94,13 +100,13 @@ export class AppComponent {
             title: 'Notifiche',
             url: '/notifiche',
             icon: 'megaphone',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Rubrica',
             url: '/rubrica',
             icon: 'contacts',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Questionari',
@@ -124,32 +130,35 @@ export class AppComponent {
             title: 'Impostazioni',
             url: '/preferenze',
             icon: 'options',
-            role: 'student'
+            role: 'all'
         },
         {
             title: 'Blocca',
             url: '/lock',
             icon: 'lock',
-            role: 'all'
+            role: 'logged'
         },
         {
             title: 'Disconnetti',
             url: '/disconnetti',
             icon: 'log-out',
-            role: 'all'
+            role: 'logged'
         }
     ];
 
     // set up hardware back button event.
-    lastTimeBackPress = 0;
-    timePeriodToExit = 2000;
+    private lastTimeBackPress = 0;
+    private TIME_PERIOD_TO_EXIT = 2000;
 
     @ViewChildren(IonRouterOutlet) routerOutlets: QueryList<IonRouterOutlet>;
 
 
     constructor(
+        public navController: NavController,
         public alertCtrl: AlertController,
         public actionSheetCtrl: ActionSheetController,
+        public popoverCtrl: PopoverController,
+        public modalCtrl: ModalController,
         public toast: Toast,
         public router: Router,
         public menu: MenuController,
@@ -192,7 +201,9 @@ export class AppComponent {
             }
 
             this.splashScreen.hide();
+
             this.globalData.landscape = false;
+            this.globalData.initialize();
 
             this.http.setHttpType();
 
@@ -234,39 +245,7 @@ export class AppComponent {
 
             // moment.locale('it');
 
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            // // IONIC 4 registerBackButtonAction non c'è!
-            // let lastTimeBackPress = 0;
-            // const timePeriodToExit = 2000;
-            //
-            // this.platform.registerBackButtonAction(() => {
-            //     // get current active page
-            //     // TODO: questa soluzione non è ottimale, la versione commentata è invece funzionante,
-            //     // ma non riporta alla Home in caso di sotto-pagine
-            //     // Purtroppo, al momento, la generazione della versione ottimizzata (flag --prod)
-            //     // minimizza il codice per cui il nome della pagina non corrisponde
-            //     const view = this.nav.getActive();
-            //     const componentName = view.component.toString();
-            //     if (componentName.indexOf('idServizio=9') > -1) {
-            //         // Double check to exit app
-            //         if (new Date().getTime() - lastTimeBackPress < timePeriodToExit) {
-            //             this.platform.exitApp(); // Exit from app
-            //         } else {
-            //             const toast = this.toastCtrl.create({
-            //                 message: 'Premi di nuovo per uscire',
-            //                 duration: 2000,
-            //                 position: 'bottom'
-            //             });
-            //             toast.present();
-            //             lastTimeBackPress = new Date().getTime();
-            //         }
-            //     } else {
-            //         // go to previous page
-            //         this.navCtrl.navigateRoot('/home');
-            //     }
-            //
-            // });
+
 
             this.http.checkConnection();
 
@@ -337,69 +316,6 @@ export class AppComponent {
 
     initPushNotification() {
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            /****
-             *  PROVA PLUGIN PUSH
-             */
-            //
-            //
-            // // to check if we have permission
-            // this.push.hasPermission()
-            //     .then((res: any) => {
-            //         console.dir(res);
-            //
-            //         if (res.isEnabled) {
-            //             console.log('We have permission to send push notifications');
-            //         } else {
-            //             console.log('We do not have permission to send push notifications');
-            //         }
-            //
-            //     });
-
-
-            /*
-        const options: PushOptions = {
-            android: {},
-            ios: {
-                alert: 'true',
-                badge: 'true',
-                sound: 'true'
-            },
-            windows: {},
-            browser: {
-                pushServiceURL: 'http://push.api.phonegap.com/v1/push'
-            }
-        }
-
-        const pushObject : PushObject = this.push.init(options);
-
-        pushObject.subscribe('testbeta').then(
-            (esito) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription OK', esito);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Subscription ERR', err);
-            }
-        );
-
-        pushObject.on('notification').subscribe(
-            (notification: any) => {
-                console.log('****** PUSH ****** Received a notification', notification);
-                this.mostraNotifica(notification);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Error receiving a notification', err);
-            });
-
-        pushObject.on('registration').subscribe(
-            (registration: any) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device registered', registration);
-            }, (err) => {
-                GlobalDataService.log(2, '****** PUSH ****** Device NOT registered', err);
-            });
-
-        pushObject.on('error').subscribe(
-            error => GlobalDataService.log(2, '****** PUSH ****** Error with Push plugin', error));
-
-*/
-
             /***
              *  Plugin FCM per le notifiche push
              */
@@ -478,15 +394,15 @@ export class AppComponent {
             GlobalDataService.log(1, 'FCM: uso dati dal JSON', dati);
 
             titolo = dati.title;
-            messaggio = decodeURIComponent(encodeURI(dati.message));
+            messaggio = decodeURIComponent(escape(dati.message));
         } else if (data.aps) {
             GlobalDataService.log(1, 'FCM: uso data.aps.title', data.aps);
             titolo = data.aps.alert.title;
-            messaggio = decodeURIComponent(encodeURI(data.aps.alert.body));
+            messaggio = decodeURIComponent(escape(data.aps.alert.body));
         } else if (data.title) {
             GlobalDataService.log(1, 'FCM: uso data.title', data);
             titolo = data.title;
-            messaggio = decodeURIComponent(encodeURI(data.body));
+            messaggio = decodeURIComponent(escape(data.body));
         }
 
         if (titolo) {
@@ -538,52 +454,74 @@ export class AppComponent {
     }
 
 
-
-    // active hardware back button
-    backButtonEvent() {
-        this.platform.backButton.subscribe(async () => {
+    /**
+     * Questa funzione gestisce l'evento generato dal back-button di Android.
+     * Gli ActionSheet, i Popover, i Modal e i SideMenu verrano chiusi se erano precedentemente aperti
+     * Il back-button inoltre tornerà indetro alla schermanta precedente fino alla home.
+     * Se nella schermata home dopo due click ravvicinati chiuderà l'app
+     */
+    async backButtonEvent() {
+        this.platform.backButton.subscribeWithPriority(0, async () => {
+            // close side menu
+            try {
+                const element = await this.menu.getOpen();
+                if (element) {
+                    this.menu.close();
+                    return;
+                }
+            } catch (error) {
+            }
 
             // close action sheet
             try {
                 const element = await this.actionSheetCtrl.getTop();
                 if (element) {
                     element.dismiss();
+                    return;
                 }
-            } catch (error) { }
-
-            // close side menu
-            try {
-                const element = await this.menu.getOpen();
-                if (element !== null) {
-                    this.menu.close();
-                }
-            } catch (error) { }
-
-            if (this.router.url === '/home') {
-                if ((new Date().getTime() - this.lastTimeBackPress) < this.timePeriodToExit) {
-                    // this.platform.exitApp(); // Exit from app
-                    navigator['app'].exitApp(); // work for ionic 4
-                } else {
-                    this.toast.show(
-                        'Premi ancora per uscire.',
-                        '2000',
-                        'center')
-                        .subscribe(() => {
-                            // console.log(JSON.stringify(toast));
-                        });
-                    this.lastTimeBackPress = new Date().getTime();
-                }
-            } else {
-                // this.toast.show(
-                //     this.router.url,
-                //     '2000',
-                //     'center')
-                //     .subscribe(() => {
-                //         // console.log(JSON.stringify(toast));
-                //     });
-                this.globalData.goHome();
-               // console.log(this.router.url);
+            } catch (error) {
             }
+
+            // close popover
+            try {
+                const element = await this.popoverCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            // close Modal
+            try {
+                const element = await this.modalCtrl.getTop();
+                if (element) {
+                    element.dismiss();
+                    return;
+                }
+            } catch (error) {
+            }
+
+            this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
+                if (outlet && outlet.canGoBack()) {
+                    // torna indetro fino alla home
+                    outlet.pop(); //la pop richiama l'ultima schermata dallo stack delle pagine
+                } else if (this.router.url === '/home') {
+                    // prova ad uscire dall'app con due tap ravvicinati
+                    if (new Date().getTime() - this.lastTimeBackPress < this.TIME_PERIOD_TO_EXIT) {
+                        navigator['app'].exitApp(); // Exit from app, work for ionic 4
+                    } else {
+                        this.toast.show(
+                            `Premi ancora per uscire`,
+                            '2000',
+                            'center')
+                            .subscribe(toast => {
+                                // console.log(JSON.stringify(toast));
+                            });
+                        this.lastTimeBackPress = new Date().getTime();
+                    }
+                }
+            });
         });
     }
 }

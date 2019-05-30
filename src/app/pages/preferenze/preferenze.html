@@ -14,6 +14,9 @@
           <ion-title>
             Preferenze
           </ion-title>
+          <ion-buttons slot="end">
+            <ion-back-button defaultHref="/login" text="Indietro"></ion-back-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-col>
     </ion-row>
@@ -22,28 +25,28 @@
 
 <ion-content padding id="page3">
   <form id="preferenzeNotifiche-form1">
-    <ion-item-divider color="light" id="preferenzeNotifiche-list-item-divider1">
+    <ion-item-divider  *ngIf="this.logged" color="light" id="preferenzeNotifiche-list-item-divider1">
       Attiva Notifiche
     </ion-item-divider>
-    <ion-item id="preferenzeNotifiche-toggle2">
+    <ion-item *ngIf="this.logged" id="preferenzeNotifiche-toggle2">
       <ion-label>
         News Dipartimento
       </ion-label>
       <ion-toggle name="dipartimento" [(ngModel)]="newsDipartimento"></ion-toggle>
     </ion-item>
-    <ion-item id="preferenzeNotifiche-toggle3">
+    <ion-item  *ngIf="this.logged" id="preferenzeNotifiche-toggle3">
       <ion-label>
         News Corso di studi
       </ion-label>
       <ion-toggle name="cds" [(ngModel)]="newsCds"></ion-toggle>
     </ion-item>
-    <ion-item id="preferenzeNotifiche-toggle4">
+    <ion-item  *ngIf="this.logged" id="preferenzeNotifiche-toggle4">
       <ion-label>
         News Ateneo
       </ion-label>
       <ion-toggle name="ateneo" [(ngModel)]="newsAteneo"></ion-toggle>
     </ion-item>
-    <ion-item id="preferenzeNotifiche-toggle5">
+    <ion-item  *ngIf="this.logged && this.userRole=='student'" id="preferenzeNotifiche-toggle5">
       <ion-label>
         Aggiornamenti Carriera
       </ion-label>
@@ -59,29 +62,39 @@
       </ion-label>
       <ion-toggle name="aggiornamentiApp" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="aggiornamentiApp"></ion-toggle>
     </ion-item>
-    <ion-item *ngIf="globalData.android" id="preferenzeAggiornamento-toggle3">
+    <ion-item *ngIf="this.logged && this.userRole=='student' && globalData.android" id="preferenzeAggiornamento-toggle3">
       <ion-label>
         Usa grafico legacy
       </ion-label>
       <ion-toggle name="graficoLegacy" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="graficoLegacy"></ion-toggle>
     </ion-item>
-    <ion-item id="preferenzeAggiornamento-toggle5">
+    <ion-item *ngIf="this.logged && this.userRole=='student'" id="preferenzeAggiornamento-toggle5">
       <ion-label>
         Includi esami fuori dal calcolo media nel grafico
       </ion-label>
       <ion-toggle name="includiNoMedia" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="includiNoMedia"></ion-toggle>
-    </ion-item>
-    <ion-item id="preferenzeAggiornamento-toggle4">
-      <ion-label>
-        Mostra avviso di connessione lenta
-      </ion-label>
-      <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
     </ion-item>
     <ion-item id="preferenzeAggiornamento-toggle6">
       <ion-label>
         Usa chiamate HTTP native
       </ion-label>
       <ion-toggle name="httpNativo" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="httpNativo"></ion-toggle>
+    </ion-item>
+
+    <ion-item-divider *ngIf="this.avanzate" color="light" id="avanzate-divider">
+      Avanzate
+    </ion-item-divider>
+    <ion-item *ngIf="this.avanzate" id="preferenzeAggiornamento-toggle4">
+      <ion-label>
+        Mostra avviso di connessione lenta
+      </ion-label>
+      <ion-toggle name="connessioneLenta" (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="connessioneLenta"></ion-toggle>
+    </ion-item >
+    <ion-item *ngIf="this.avanzate" id="baseurl">
+      <ion-label>
+        Backend URL
+      </ion-label>
+      <ion-input name="baseurl" clearInput (ionChange)="salvaPreferenzeLocali()" [(ngModel)]="baseurl"></ion-input>
     </ion-item>
     <!--
     <ion-item id="preferenzeAggiornamento-range1">
@@ -99,7 +112,7 @@
 
   </form>
 
-  <ion-button expand="block" fill="outline" (click)="showAccounts()">
+  <ion-button *ngIf="this.logged"  expand="block" fill="outline" (click)="showAccounts()">
     Mostra account collegati
   </ion-button>
 </ion-content>
@@ -111,7 +124,7 @@
       <fa-icon [hidden]="http.getConnected()"  [icon]="globalData.faUnlink"></fa-icon>
     </ion-buttons>
 
-    <div class="testo-footer">
+    <div class="testo-footer" (click)="attivaAvanzate()">
       ver. {{appVersionNum}}
     </div>
 

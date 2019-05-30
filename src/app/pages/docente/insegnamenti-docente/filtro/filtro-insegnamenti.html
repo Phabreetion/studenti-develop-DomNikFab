@@ -1,0 +1,30 @@
+<ion-content no-padding>
+  <div>
+  <ion-title>
+    Filtri
+  </ion-title>
+  <ion-item>
+    <ion-searchbar [(ngModel)]="page.searchTerm" (ionCancel)="cancelSearchTerm()" (ionChange)="applicaFiltri()" (ionInput)="applicaFiltri()"></ion-searchbar>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>AA corrente</ion-label>
+    <ion-toggle [(ngModel)]="page.filtraAnnoCorrente" (ionChange)="applicaFiltri()"></ion-toggle>
+  </ion-item>
+  </div>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button icon-start (click)="reset()">
+          <ion-icon name="refresh"></ion-icon>Reset
+        </ion-button>
+      </ion-col>
+      <ion-col text-center>
+        <ion-button icon-start (click)="chiudi()">
+          <ion-icon name="close"></ion-icon>Chiudi
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
