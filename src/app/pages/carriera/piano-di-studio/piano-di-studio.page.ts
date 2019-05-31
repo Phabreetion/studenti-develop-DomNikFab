@@ -265,7 +265,7 @@ export class PianoDiStudioPage implements OnInit {
             ionItemSliding.close();
         }
 
-        this.globalData.goTo(this, ['/appelli/', corso.AD_ID], 'forward', false);
+        this.globalData.goTo(this, ['/appelli/', corso.AD_ID, corso.DESCRIZIONE], 'forward', false);
     }
 
     goToMaterialeDidattico(corso: Corso, ionItemSliding?) {

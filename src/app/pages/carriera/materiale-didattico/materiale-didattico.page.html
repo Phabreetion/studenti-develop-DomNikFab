@@ -99,14 +99,12 @@
                                             <strong>{{file.TITOLO}}</strong>
                                             <div *ngIf="file.scaricato"><ion-icon class="overlayClass" name="download"></ion-icon></div>
                                             <div *ngIf="!file.scaricato"><ion-icon class="overlayClass" name="close"></ion-icon></div>
-                                            <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
                                         </div>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <div text-wrap>
                                         {{file.FILENAME}}
-                                        <!--<div *ngIf="file.scaricato == 0"><ion-icon class="overlayCheckmarkGrigio" name="checkmark-circle"></ion-icon></div>--> <!--MOD 12 LUG BUG 10-->
                                     </div>
                                 </ion-row>
                                 <ion-row>
@@ -124,7 +122,7 @@
             </ion-item>
             <ion-item-options side="end">
 
-                <ion-item-option color="primary" (click)="info(file)">
+                <ion-item-option color="secondary" (click)="goToDettagliFile(file)">
                     <ion-icon name="information-circle"></ion-icon>
                     Dettagli<br>file
                 </ion-item-option>
@@ -134,12 +132,12 @@
                     Download
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.scaricato" color="primary" (click)="newApriFile(file)">
+                <ion-item-option *ngIf="file.scaricato" color="waring" (click)="apriFile(file)">
                     <ion-icon name="easel"></ion-icon>
                     Apri<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.scaricato" color="danger" (click)="newRimuoviFile(file)">
+                <ion-item-option *ngIf="file.scaricato" color="danger" (click)="rimuoviFile(file)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi<br>file
                 </ion-item-option>

@@ -6,45 +6,46 @@
 
     <ion-list>
         <ion-list-header><strong>Ordina per</strong></ion-list-header>
-            <ion-item>
+        <ion-item>
 
-     <div class="selezione">
-        <ion-label class="mostraLabel">Ordina per</ion-label>
-         <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"  cancelText="Annulla" value="0" class="menuOrdinamento">
+            <div class="selezione">
+                <ion-label class="mostraLabel">Ordina per</ion-label>
+                <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"
+                            cancelText="Annulla" value="0" class="menuOrdinamento">
 
-            <ion-select-option [value]="0">
-                Anno
-            </ion-select-option>
-            <ion-select-option [value]="2">
-                Nome corso
-            </ion-select-option>
-            <ion-select-option [value]="4">
-                CFU
-            </ion-select-option>
-            <ion-select-option [value]="6">
-                Voto
-            </ion-select-option>
-        </ion-select>
-    </div>
+                    <ion-select-option [value]="0">
+                        Anno
+                    </ion-select-option>
+
+                    <ion-select-option [value]="2">
+                        Nome corso
+                    </ion-select-option>
+
+                    <ion-select-option [value]="4">
+                        CFU
+                    </ion-select-option>
+
+                    <ion-select-option [value]="6">
+                        Voto
+                    </ion-select-option>
+
+                </ion-select>
+            </div>
         </ion-item>
-
     </ion-list>
 
-
-
     <div class="button">
-
-        <ion-button  expand="block" size="small"  fill="outline" *ngIf="sourcePage.filtro.tipoOrdinamento"
-                     (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
+        <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento == 1" expand="block" size="small" fill="outline"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
             <ion-icon name="arrow-round-down"></ion-icon>
             <p>Decrescente</p>
         </ion-button>
-        <ion-button  expand="block" size="small" fill="outline" *ngIf="!sourcePage.filtro.tipoOrdinamento"
-                     (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
+
+        <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento == 0" expand="block" size="small" fill="outline"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
             <ion-icon name="arrow-round-up"></ion-icon>
             <p>Crescente</p>
         </ion-button>
-
     </div>
 
 
@@ -54,7 +55,6 @@
             <ion-label>Stato</ion-label>
             <ion-select [(ngModel)]="sourcePage.filtro.filtroPerTipologia"
                         (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
-
                 <ion-select-option [value]=0>
                     Nessuno
                 </ion-select-option>
@@ -66,15 +66,15 @@
                 <ion-select-option [value]=2>
                     Esame non sostenuto
                 </ion-select-option>
-
             </ion-select>
         </ion-item>
     </ion-list>
 
     <ion-list>
-    <ion-item>
+        <ion-item>
             <ion-label>Anno</ion-label>
-            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
+            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()"
+                        cancelText="Annulla" value="0">
 
                 <ion-select-option [value]="0">
                     Nessuno
@@ -88,22 +88,24 @@
         </ion-item>
     </ion-list>
 
-<div class="ok">
-    <ion-grid>
-        <ion-row>
-            <ion-col>
-                <ion-button expand="block" color="primary" (click)="presentAlertPerConfermaReset()">
-                    <ion-icon name="refresh"></ion-icon> <p>Reset</p>
-                </ion-button>
-            </ion-col>
+    <div class="ok">
+        <ion-grid>
+            <ion-row>
+                <ion-col>
+                    <ion-button expand="block" color="primary" (click)="presentAlertPerConfermaReset()">
+                        <ion-icon name="refresh"></ion-icon>
+                        <p>Reset</p>
+                    </ion-button>
+                </ion-col>
 
-            <ion-col>
-                <ion-button expand="block" color="primary" (click)="presentAlertPerConfermaMemorizzazione()">
-                    <ion-icon name="bookmark"></ion-icon> <p>Memorizza</p>
-                </ion-button>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-</div>
+                <ion-col>
+                    <ion-button expand="block" color="primary" (click)="presentAlertPerConfermaMemorizzazione()">
+                        <ion-icon name="bookmark"></ion-icon>
+                        <p>Memorizza</p>
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </div>
 
 </ion-content>

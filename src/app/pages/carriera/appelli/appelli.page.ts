@@ -28,6 +28,7 @@ export class AppelliPage implements OnInit {
     //verrà passato nella query string per determinare quali appelli visualizzare
     //se 0 visualizza tutti
     ad_id_insegnamento: number;
+    nome_corso: string;
 
     //sezione in cui si ci trova
     sezioni: string; //'disponibili' o 'prenotati'
@@ -85,6 +86,7 @@ export class AppelliPage implements OnInit {
         this.sezioni = 'disponibili';
 
         this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
+        this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
 
         this.pianoDiStudioService.getCorsiAsMap().then((corsiMap) => {
             this.corsiMap = corsiMap;
@@ -119,9 +121,9 @@ export class AppelliPage implements OnInit {
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
-        if (this.ad_id_insegnamento != 0) {
+        /*if (this.ad_id_insegnamento != 0) {
             this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
-        }
+        }*/
     }
 
 

@@ -1,40 +1,46 @@
 <ion-content>
     <div class="preferenze">
         <div class="text">Preferenze</div>
-        <ion-button (click)="closeFiltri()" class="exit" color="danger"><strong>X</strong></ion-button>
+        <ion-button class="exit" (click)="closeFiltri()" color="danger"><strong>X</strong></ion-button>
     </div>
 
     <ion-list>
-        <ion-list-header><b>Ordina per</b></ion-list-header>
-            <ion-item>
+        <ion-list-header><strong>Ordina per</strong></ion-list-header>
+        <ion-item>
 
-                <div class="selezione">
-                    <ion-label class="mostraLabel">Ordina per</ion-label>
-                    <ion-select (ngModelChange)="updateSourcePage()" [(ngModel)]="sourcePage.filtro.idOrdinamento" cancelText="Annulla" value="0" class="menuOrdinamento">
-                        <ion-select-option [value]="0" >
-                            Data appello
-                        </ion-select-option>
-                        <ion-select-option [value]="2">
-                            Nome esame
-                        </ion-select-option>
-                        <ion-select-option [value]="4">
-                            CFU
-                        </ion-select-option>
-                        <ion-select-option [value]="6">
-                            Anno
-                        </ion-select-option>
-                    </ion-select>
-                </div>
-            </ion-item>
+            <div class="selezione">
+                <ion-label class="mostraLabel">Ordina per</ion-label>
+                <ion-select [(ngModel)]="sourcePage.filtro.idOrdinamento" (ngModelChange)="updateSourcePage()"
+                            cancelText="Annulla" value="0" class="menuOrdinamento">
+                    <ion-select-option [value]="0">
+                        Data appello
+                    </ion-select-option>
+
+                    <ion-select-option [value]="2">
+                        Nome esame
+                    </ion-select-option>
+
+                    <ion-select-option [value]="4">
+                        CFU
+                    </ion-select-option>
+
+                    <ion-select-option [value]="6">
+                        Anno
+                    </ion-select-option>
+                </ion-select>
+            </div>
+        </ion-item>
     </ion-list>
 
     <div class="button">
-
-        <ion-button (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()" *ngIf="sourcePage.filtro.tipoOrdinamento" expand="block" fill="outline" size="small">
+        <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento == 1" expand="block" fill="outline" size="small"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 0; updateSourcePage()">
             <ion-icon name="arrow-round-down"></ion-icon>
             <p>Decrescente</p>
         </ion-button>
-        <ion-button (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()" *ngIf="!sourcePage.filtro.tipoOrdinamento" expand="block" fill="outline" size="small">
+
+        <ion-button *ngIf="sourcePage.filtro.tipoOrdinamento == 0" expand="block" fill="outline" size="small"
+                    (click)="sourcePage.filtro.tipoOrdinamento = 1; updateSourcePage()">
             <ion-icon name="arrow-round-up"></ion-icon>
             <p>Crescente</p>
         </ion-button>
@@ -42,37 +48,38 @@
 
     <ion-list>
         <ion-list-header><b>Filtra per</b></ion-list-header>
-            <ion-item>
-                <ion-label>Stato</ion-label>
-                <ion-select [(ngModel)]="sourcePage.filtro.filtraPerTipologia"
-                            (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
-                    <ion-select-option [value]=0>
-                        Nessuno
-                    </ion-select-option>
-                    <ion-select-option [value]=1>
-                        Scritto
-                    </ion-select-option>
-                    <ion-select-option [value]=2>
-                        Orale
-                    </ion-select-option>
-                    <ion-select-option [value]=3>
-                        Scritto e orale
-                    </ion-select-option>
-                </ion-select>
-            </ion-item>
+        <ion-item>
+            <ion-label>Stato</ion-label>
+            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerTipologia"
+                        (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
+                <ion-select-option [value]=0>
+                    Nessuno
+                </ion-select-option>
+                <ion-select-option [value]=1>
+                    Scritto
+                </ion-select-option>
+                <ion-select-option [value]=2>
+                    Orale
+                </ion-select-option>
+                <ion-select-option [value]=3>
+                    Scritto e orale
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
     </ion-list>
 
     <ion-list>
         <ion-item>
             <ion-label>Anno</ion-label>
-                <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
-                    <ion-select-option [value]="0">
-                        Nessuno
-                    </ion-select-option>
-                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
-                        {{anno}}° anno
-                    </ion-select-option>
-                </ion-select>
+            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()"
+                        cancelText="Annulla" value="0">
+                <ion-select-option [value]="0">
+                    Nessuno
+                </ion-select-option>
+                <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
+                    {{anno}}° anno
+                </ion-select-option>
+            </ion-select>
         </ion-item>
     </ion-list>
 

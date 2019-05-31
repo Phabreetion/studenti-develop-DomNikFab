@@ -91,7 +91,7 @@
                   text-center>
             <ion-row>
                 <ion-col>
-                    <img class="progress" src="assets/img/progress.gif"/>
+                    <img class="progress" src="../../../../assets/img/progress.gif"/>
                 </ion-col>
             </ion-row>
             <ion-row>
@@ -106,46 +106,31 @@
             </ion-row>
         </ion-grid>
 
-        <div *ngIf="appelli?.length == 0 && http.connected && !appelliService.isAppelliDisponibiliLoading()"
-             text-center>
-            <ion-grid>
-                <ion-row>
-                    <ion-col text-center>
-                        <h2 *ngIf="ad_id_insegnamento == 0">Non sono disponibili appelli</h2>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col>
-                        <img src="../../../../assets/img/sad.png" alt="Sad sad sad"/>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </div>
-
         <ion-grid *ngIf="appelli?.length > 0">
 
             <ion-item *ngIf="appelliTrovati?.length <= 0" text-center lines="none">
-                <ion-label style="color:gray">
-                    Nessun appello trovato.<br>{{filtro.isActive()? 'Si prega di modificare le preferenze inserite.' : ''}}
+                <ion-label text-wrap style="color:gray">
+                    {{nome_corso? 'Nessun appello trovato per l\'esame di ' + nome_corso: 'Nessun appello trovato.'}}
+                    <br>
+                    {{filtro.isActive()? 'Si prega di modificare le preferenze inserite.' : ''}}
                 </ion-label>
             </ion-item>
 
             <div *ngFor="let appello of appelliTrovati; let i = index">
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
+                        *ngIf="(filtro.idOrdinamento === 0) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].getDataEsame().getTime() !== appelliTrovati[i-1].getDataEsame().getTime() ))">
                     <ion-title text-center style="font-size: 85% ">{{appello.data_ora_app.substring(0, 10)}}</ion-title>
                 </ion-item>
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].descrizione.charAt(0) !== appelliTrovati[i-1].descrizione.charAt(0)))">
+                        *ngIf="(filtro.idOrdinamento === 2) && (i===0 || (appelliTrovati[i-1] && appelliTrovati[i].descrizione.charAt(0) !== appelliTrovati[i-1].descrizione.charAt(0)))">
                     <ion-title text-center style="font-size: 90% ">{{appello.descrizione.charAt(0)}}</ion-title>
                 </ion-item>
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 4 || filtro.idOrdinamento === 5) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).CFU !== corsiMap.get(appelliTrovati[i-1].ad_id).CFU))">
+                        *ngIf="(filtro.idOrdinamento === 4) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).CFU !== corsiMap.get(appelliTrovati[i-1].ad_id).CFU))">
                     <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).CFU}} CFU</ion-title>
                 </ion-item>
-
                 <ion-item
-                        *ngIf="(filtro.idOrdinamento === 6 || filtro.idOrdinamento === 7) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).ANNO !== corsiMap.get(appelliTrovati[i-1].ad_id).ANNO))">
+                        *ngIf="(filtro.idOrdinamento === 6) && (i===0 || (appelliTrovati[i-1] && corsiMap.get(appelliTrovati[i].ad_id).ANNO !== corsiMap.get(appelliTrovati[i-1].ad_id).ANNO))">
                     <ion-title text-center style="font-size: 90% ">{{corsiMap.get(appello.ad_id).ANNO}}° ANNO
                     </ion-title>
                 </ion-item>

@@ -1,25 +1,29 @@
 import {Corso} from './Corso';
-import {DISATTIVO} from './FiltroAppelliDisponibili';
 
-export const ORDINAMENTO_ANNO_CRESCENTE = 0;
-export const ORDINAMENTO_ANNO_DECRESCENTE = 1;
-export const ORDINAMENTO_ALFABETICO_CRESCENTE = 2;
-export const ORDINAMENTO_ALFABETICO_DECRESCENTE = 3;
-export const ORDINAMENTO_CFU_CRESCENTE = 4;
-export const ORDINAMENTO_CFU_DECRESCENTE = 5;
-export const ORDINAMENTO_VOTO_CRESCENTE = 6;
-export const ORDINAMENTO_VOTO_DECRESCENTE = 7;
+const ORDINAMENTO_ANNO = 0;
+const ORDINAMENTO_ALFABETICO = 2;
+const ORDINAMENTO_CFU = 4;
+const ORDINAMENTO_VOTO = 6;
 
-export const FILTRO_ESAME_SOSTENUTO = 1;
-export const FILTRO_PER_NON_SOSTENUTO = 2;
+const CRESCENTE = 0;
+const DECRESCENTE = 1;
+
+const FILTRO_ESAME_SOSTENUTO = 1;
+const FILTRO_PER_NON_SOSTENUTO = 2;
+
+const DISATTIVO = 0;
 
 export class FiltroPianoDiStudio {
+    //serve per avere il massimo degli anni
+    maxAnni: number;
 
+    //filtri
     filtroPerTipologia: number;
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
+
+    //ordinamento
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
-    maxAnni: number;
 
 
     constructor() {
@@ -62,7 +66,7 @@ export class FiltroPianoDiStudio {
 
         switch (this.idOrdinamento + this.tipoOrdinamento) {
 
-            case ORDINAMENTO_ANNO_CRESCENTE:
+            case ORDINAMENTO_ANNO + CRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta l'anno dei corsi per decidere quale viene prima
@@ -84,7 +88,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_ANNO_DECRESCENTE:
+            case ORDINAMENTO_ANNO + DECRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta l'anno dei corsi per decidere quale viene prima
@@ -106,7 +110,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_ALFABETICO_CRESCENTE:
+            case ORDINAMENTO_ALFABETICO + CRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta la descrizione dei corsi per decidere quale viene prima
@@ -123,7 +127,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_ALFABETICO_DECRESCENTE:
+            case ORDINAMENTO_ALFABETICO + DECRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta la descrizione dei corsi per decidere quale viene prima
@@ -140,7 +144,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_CFU_CRESCENTE:
+            case ORDINAMENTO_CFU + CRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta i CFU dei corsi per decidere quale viene prima
@@ -162,7 +166,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_CFU_DECRESCENTE:
+            case ORDINAMENTO_CFU + DECRESCENTE:
                 corsi.sort(
                     (one, two) => {
                         //conforonta i CFU dei corsi per decidere quale viene prima
@@ -184,7 +188,7 @@ export class FiltroPianoDiStudio {
                 );
                 break;
 
-            case ORDINAMENTO_VOTO_CRESCENTE:
+            case ORDINAMENTO_VOTO + CRESCENTE:
                 corsi.sort((one, two) => {
                     //conforonta i corsi superati con quelli superati
                     if (!one.isSuperato() && two.isSuperato()) {
@@ -244,7 +248,7 @@ export class FiltroPianoDiStudio {
                 });
                 break;
 
-            case ORDINAMENTO_VOTO_DECRESCENTE:
+            case ORDINAMENTO_VOTO + DECRESCENTE:
                 corsi.sort((one, two) => {
                     //conforonta i corsi superati con quelli superati
                     if (one.isSuperato() && !two.isSuperato()) {

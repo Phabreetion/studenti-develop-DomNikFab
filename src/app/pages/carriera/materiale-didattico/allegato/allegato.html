@@ -86,13 +86,14 @@
 
 
         <ion-grid>
-            <ion-row>
+            <ion-row *ngIf="allegato.scaricato">
                 <ion-col text-center>
                     <ion-button icon-left color="light" (click)="newApriFile()">
                         <ion-icon name="easel" color="primary"></ion-icon>
                         Apri
                     </ion-button>
                 </ion-col>
+
                 <ion-col text-center>
                     <ion-button icon-left color="danger" (click)="newRimuoviFile()">
                         <ion-icon name="trash"></ion-icon>
@@ -100,6 +101,16 @@
                     </ion-button>
                 </ion-col>
             </ion-row>
+
+            <ion-row *ngIf="!allegato.scaricato">
+                <ion-col text-center>
+                    <ion-button icon-left color="light" (click)="download()">
+                        <ion-icon name="download" color="primary"></ion-icon>
+                        Download
+                    </ion-button>
+                </ion-col>
+            </ion-row>
+
         </ion-grid>
     </ion-card>
 

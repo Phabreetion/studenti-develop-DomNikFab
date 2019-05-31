@@ -361,6 +361,10 @@ export class MaterialeDidatticoDbService {
         );
     }
 
+
+
+
+
     apriFile(item) {
         if (this.isPiattaformaSupportata()) {
             this.isAllegatoScaricato(item).then(() => {
@@ -381,25 +385,7 @@ export class MaterialeDidatticoDbService {
             }, (error) => {
                 GlobalDataService.log(2, 'Impossibile recuperare il file', error);
                 this.messaggi.fileNonScaricato();
-                //return;
-                /*this.alertCtrl.create({
-                    header: 'Apertura File',
-                    message: 'Il file non e\' presente sul dispositivo. Vuoi scaricarlo ora?',
-                    buttons: [
-                        {
-                            text: 'Si',
-                            handler: () => {
-                                this.download(item);
-                            }
-                        },
-                        {
-                            text: 'No',
-                            role: 'cancel',
-                            handler: () => {
-                            }
-                        }
-                    ]
-                }).then(alert => alert.present());*/
+                return;
             });
         } else {
             //toast

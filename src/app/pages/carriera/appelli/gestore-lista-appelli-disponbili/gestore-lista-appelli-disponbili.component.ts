@@ -25,9 +25,10 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
     }
 
     updateSourcePage() {
-        console.log('anno: ' + this.sourcePage.filtro.filtroPerAnno);
         console.log('ordinamento: ' + this.sourcePage.filtro.idOrdinamento);
         console.log('crescenza/discenza: ' + this.sourcePage.filtro.tipoOrdinamento);
+        console.log('anno: ' + this.sourcePage.filtro.filtroPerAnno);
+        console.log('tipologia: ' + this.sourcePage.filtro.filtroPerTipologia);
 
         this.sourcePage.updateFiltri();
     }

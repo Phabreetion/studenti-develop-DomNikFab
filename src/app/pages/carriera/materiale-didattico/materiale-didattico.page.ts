@@ -104,15 +104,15 @@ export class MaterialeDidatticoPage implements OnInit {
                 buttons: [{
                     text: 'Dettagli file',
                     icon: 'information-circle',
-                    handler: () => { this.info(allegato); }
+                    handler: () => { this.goToDettagliFile(allegato); }
                 }, {
                     text: 'Apri',
                     icon: 'easel',
-                    handler: () => { this.newApriFile(allegato); }
+                    handler: () => { this.apriFile(allegato); }
                 }, {
                     text: 'Elimina',
                     icon: 'trash',
-                    handler: () => { this.newRimuoviFile(allegato).then(); }
+                    handler: () => { this.rimuoviFile(allegato).then(); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
@@ -125,7 +125,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 buttons: [{
                     text: 'Dettagli file',
                     icon: 'information-circle',
-                    handler: () => { this.info(allegato); }
+                    handler: () => { this.goToDettagliFile(allegato); }
                 }, {
                     text: 'Download',
                     icon: 'download',
@@ -168,23 +168,14 @@ export class MaterialeDidatticoPage implements OnInit {
     }
 
 
-    info(item) {
+    goToDettagliFile(item) {
         this.globalData.allegato = item;
 
-        this.globalData.srcPage = '/materiale-didattico';
         this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
     }
 
     download(item) {
         this.localdb.download(item);
-    }
-
-    apriFile(item) {
-        this.localdb.apriFile(item);
-    }
-
-    eliminaFile(item) {
-        this.localdb.eliminaFile(item);
     }
 
     async presentAlertConfermaDownload(item) {
@@ -212,11 +203,11 @@ export class MaterialeDidatticoPage implements OnInit {
     }
 
 
-    newApriFile(item) {
+    apriFile(item) {
         if (this.localdb.isPiattaformaSupportata()) {
 
             this.localdb.isAllegatoScaricato(item).then(
-                () => this.apriFile(item),
+                () => this.localdb.apriFile(item),
                 () => this.presentAlertConfermaDownload(item)
             );
         } else {
@@ -224,7 +215,7 @@ export class MaterialeDidatticoPage implements OnInit {
         }
     }
 
-    async newRimuoviFile(item) {
+    async rimuoviFile(item) {
         if (this.localdb.isPiattaformaSupportata()) {
             await this.localdb.isAllegatoScaricato(item).then(
                 () => this.presentAlertConfermaRimozione(item),
@@ -244,7 +235,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.eliminaFile(item);
+                        this.localdb.eliminaFile(item);
                     }
                 },
                 {
@@ -317,6 +308,5 @@ export class MaterialeDidatticoPage implements OnInit {
         this.searchKey = '';
         this.search();
     }
-
 
 }

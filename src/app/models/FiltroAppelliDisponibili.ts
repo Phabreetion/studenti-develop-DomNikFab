@@ -1,28 +1,21 @@
 import {AppelloDisponibile} from './AppelloDisponibile';
-import {ExtraEntryPointObject} from '@angular-devkit/build-angular';
 import {GlobalDataService} from '../services/global-data.service';
 import {Corso} from './Corso';
-import {forEach} from '@angular-devkit/schematics';
 
 
-export const CRESCENTE = 0;
-export const DECRESCENTE = 1;
+const CRESCENTE = 0;
+const DECRESCENTE = 1;
 
-export const ORDINAMENTO_DATA_CRESCENTE = 0;
-export const ORDINAMENTO_DATA_DECRESCENTE = 1;
-export const ORDINAMENTO_ALFABETICO_CRESCENTE = 2;
-export const ORDINAMENTO_ALFABETICO_DECRESCENTE = 3;
-export const ORDINAMENTO_CFU_CRESCENTE = 4;
-export const ORDINAMENTO_CFU_DECRESCENTE = 5;
-export const ORDINAMENTO_ANNO_CRESCENTE = 6;
-export const ORDINAMENTO_ANNO_DECRESCENTE = 7;
+const ORDINAMENTO_DATA = 0;
+const ORDINAMENTO_ALFABETICO = 2;
+const ORDINAMENTO_CFU = 4;
+const ORDINAMENTO_ANNO = 6;
 
-export const DISATTIVO = 0;
-export const ATTIVO = 1;
+const DISATTIVO = 0;
 
-export const FILTRO_SCRITTO = 1;
-export const FILTRO_ORALE = 2;
-export const FILTRO_SCRITTO_E_ORALE = 3;
+const FILTRO_SCRITTO = 1;
+const FILTRO_ORALE = 2;
+const FILTRO_SCRITTO_E_ORALE = 3;
 
 
 export class FiltroAppelliDisponibili {
@@ -32,15 +25,10 @@ export class FiltroAppelliDisponibili {
 
     //filtro
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
-    filtraPerTipologia: number; //0  non attivo
-
-
-    filtraScrittoOraleAttivo: boolean;
-    filtraOraleAttivo: boolean;
-    filtraScrittoAttivo: boolean;
+    filtroPerTipologia: number; //0  non attivo
 
     //ordinamento
-    idOrdinamento: number;
+    idOrdinamento: number;  //0 data --- 2 alfabetico --- 4 cfu --- 6 anno
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
 
 
@@ -55,13 +43,30 @@ export class FiltroAppelliDisponibili {
         return Object.assign(new FiltroAppelliDisponibili(), obj);
     }
 
+    isActive(): boolean {
+        return this.filtroPerAnno > DISATTIVO || this.filtroPerTipologia > DISATTIVO;
+    }
+    setMaxAnni(maxAnni: number) {
+        this.maxAnni = maxAnni;
+    }
+
+    getIterableAnni(): any[] {
+        const arr = [];
+
+        for (let i = 0; i < this.maxAnni; i++) {
+            arr.push(i + 1);
+        }
+
+        return arr;
+    }
+
     reset() {
         //Filtri
         this.filtroPerAnno = DISATTIVO;
-        this.filtraPerTipologia = DISATTIVO;
+        this.filtroPerTipologia = DISATTIVO;
 
         //Ordinamento
-        this.idOrdinamento = ORDINAMENTO_DATA_CRESCENTE;
+        this.idOrdinamento = ORDINAMENTO_DATA;
         this.tipoOrdinamento = CRESCENTE;
     }
 
@@ -69,7 +74,7 @@ export class FiltroAppelliDisponibili {
 
         switch (this.idOrdinamento + this.tipoOrdinamento) {
 
-            case ORDINAMENTO_DATA_CRESCENTE:
+            case ORDINAMENTO_DATA + CRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta le date degli appelli per decidere quale viene prima
@@ -96,7 +101,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_DATA_DECRESCENTE:
+            case ORDINAMENTO_DATA + DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta le date degli appelli per decidere quale viene prima
@@ -123,7 +128,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_ALFABETICO_CRESCENTE:
+            case ORDINAMENTO_ALFABETICO + CRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta le descrizioni degli appelli per decidere quale viene prima
@@ -150,7 +155,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_ALFABETICO_DECRESCENTE:
+            case ORDINAMENTO_ALFABETICO + DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta le descrizioni degli appelli per decidere quale viene prima
@@ -177,7 +182,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_CFU_CRESCENTE:
+            case ORDINAMENTO_CFU + CRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta i CFU degli appelli per decidere quale viene prima
@@ -199,7 +204,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_CFU_DECRESCENTE:
+            case ORDINAMENTO_CFU + DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta i CFU degli appelli per decidere quale viene prima
@@ -221,7 +226,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_ANNO_CRESCENTE:
+            case ORDINAMENTO_ANNO + CRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta gli anni degli appelli per decidere quale viene prima
@@ -243,7 +248,7 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
 
-            case ORDINAMENTO_ANNO_DECRESCENTE:
+            case ORDINAMENTO_ANNO + DECRESCENTE:
                 appelli.sort(
                     (one, two) => {
                         //conforonta gli anni degli appelli per decidere quale viene prima
@@ -268,24 +273,6 @@ export class FiltroAppelliDisponibili {
         return appelli;
     }
 
-    setMaxAnni(maxAnni: number) {
-        this.maxAnni = maxAnni;
-    }
-
-    getIterableAnni(): any[] {
-        const arr = [];
-
-        for (let i = 0; i < this.maxAnni; i++) {
-            arr.push(i + 1);
-        }
-
-        return arr;
-    }
-
-    isActive(): boolean {
-        return this.filtroPerAnno > DISATTIVO || this.filtraPerTipologia > DISATTIVO;
-    }
-
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
 
 
@@ -293,7 +280,7 @@ export class FiltroAppelliDisponibili {
             appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
         }
 
-        switch (this.filtraPerTipologia) {
+        switch (this.filtroPerTipologia) {
             case FILTRO_SCRITTO:
                 appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
 
