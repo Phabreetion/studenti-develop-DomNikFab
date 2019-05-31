@@ -48,25 +48,10 @@
     </div>
 
 
-    <!--
-    <ion-list>
-        <ion-list-header><b>Filtra per</b></ion-list-header>
-
-        <ion-item>
-            <ion-label>Sostenuto </ion-label>
-            <ion-toggle [(ngModel)]="sourcePage.filtro.filtroSuperatiAttivo" (ngModelChange)="checkToogleSuperati()"></ion-toggle>
-        </ion-item>
-
-        <ion-item>
-            <ion-label>Non sostenuto</ion-label>
-            <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
-        </ion-item>
-        -->
-
     <ion-list>
         <ion-list-header><b>Filtra per</b></ion-list-header>
         <ion-item>
-            <ion-label>Tipologia</ion-label>
+            <ion-label>Stato</ion-label>
             <ion-select [(ngModel)]="sourcePage.filtro.filtroPerTipologia"
                         (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
 

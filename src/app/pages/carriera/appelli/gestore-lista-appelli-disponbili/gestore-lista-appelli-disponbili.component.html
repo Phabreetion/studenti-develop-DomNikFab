@@ -43,7 +43,7 @@
     <ion-list>
         <ion-list-header><b>Filtra per</b></ion-list-header>
             <ion-item>
-                <ion-label>Tipologia</ion-label>
+                <ion-label>Stato</ion-label>
                 <ion-select [(ngModel)]="sourcePage.filtro.filtraPerTipologia"
                             (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
                     <ion-select-option [value]=0>
@@ -76,7 +76,7 @@
         </ion-item>
     </ion-list>
 
-    <div class="buttons">
+    <div class="ok">
         <ion-grid>
             <ion-row>
                 <ion-col>

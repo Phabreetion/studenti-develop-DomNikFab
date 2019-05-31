@@ -11,7 +11,7 @@
                     <ion-menu-button></ion-menu-button>
                 </ion-buttons>
                 <ion-title>
-                    Piano di studio
+                     Piano di studio
                 </ion-title>
 
                 <ion-buttons slot="end">
@@ -39,7 +39,7 @@
                            *ngIf="isSearchbarOpened"
                            [(ngModel)]="searchKey"
                            placeholder="Cerca"
-                           showCancelButton="true"
+                           showCancelButton="treu"
                            animated="true"
                            (ionCancel)="toogleSearchbar()"
                            (ngModelChange)="search()">
@@ -109,7 +109,7 @@
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 0 || filtro.idOrdinamento === 1) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].ANNO !== corsiTrovati[i-1].ANNO))">
-                <ion-title text-center style="font-size: 90% ">{{corso.ANNO}}°ANNO</ion-title>
+                <ion-title text-center style="font-size: 90% ">{{corso.ANNO}}° ANNO</ion-title>
             </ion-item>
             <ion-item
                     *ngIf="(filtro.idOrdinamento === 2 || filtro.idOrdinamento === 3) && (i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0)))">

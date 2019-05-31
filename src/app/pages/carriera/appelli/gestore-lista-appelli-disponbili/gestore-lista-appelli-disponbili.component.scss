@@ -30,10 +30,11 @@ ion-item {
     margin-right: 5em;
   }
   @media screen and (max-width: 1142px) {
-    margin: auto auto 0 auto;
+    margin-left: 5em;
+    margin-right: 5em;
   }
   @media screen and (max-width: 450px) {
-    margin: 0.5em 1em 0.5em 1em;
+    margin: 0.5em 1em  1em;
 
   }
 }

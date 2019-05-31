@@ -204,11 +204,11 @@ ion-icon {
   -moz-box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   box-shadow: 3px 3px 10px 3px rgba(0,0,0,0.52);
   @media screen and (max-width: 768px) {
-    height: 85%;
-    width: 80%;
+    height: 29em;
+    width: 78%;
   }
   @media screen and (max-width: 450px){
-    height: 34.5em;
+    height: 32.5em;
     width: 80%;
   }
 }
@@ -222,22 +222,5 @@ $primary_color: #3274a2;   //#3880ff colore precedente
   top: 5px;
 }
 
-.ok{
-  margin-left: 20em;
-  margin-right: 20em;
-  padding-bottom: 0;
-  margin-bottom: 0;
-  margin-bottom: 0;
-  @media screen and (max-width: 1827px) {
-    margin-left: 5em;
-    margin-right: 5em;
-  }
-  @media screen and (max-width: 1142px) {
-    margin: auto auto 0 auto;
-  }
-  @media screen and (max-width: 450px) {
-    margin: auto 1em 0 1em;
 
-  }
-}
 
