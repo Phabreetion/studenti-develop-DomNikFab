@@ -3,9 +3,9 @@ import {SyncService} from './sync.service';
 import {Corso} from '../models/Corso';
 import {Storage} from '@ionic/storage';
 import {FiltroPianoDiStudio} from '../models/FiltroPianoDiStudio';
-import {forEach} from '@angular-devkit/schematics';
 
-const ID_SERVIZIO_PIANO_DI_STUDIO = 112;
+//@TODO sostituire appena funzionerà nuovamente con 112
+const ID_SERVIZIO_PIANO_DI_STUDIO = 12;
 const ID_SERVIZIO_PROPEDEUTICITA = 113;
 
 @Injectable({
