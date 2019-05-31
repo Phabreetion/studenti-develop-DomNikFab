@@ -54,7 +54,6 @@ export class MaterialeDidatticoPage implements OnInit {
     ngOnInit() {
         this.http.checkConnection();
 
-
         this.ad_id_corso = this.route.snapshot.paramMap.get('id');
 
         this.localdb.getAllegatiJson().then(allegati => {
@@ -68,7 +67,8 @@ export class MaterialeDidatticoPage implements OnInit {
                 }
             });
 
-            this.allegati.forEach(file => {
+            //controlla presenza nello storage di tutti i file
+            this.allegatiFiltrati.forEach(file => {
                 this.localdb.isAllegatoScaricato(file).then(
                     () => {
                         file.scaricato = true;
@@ -91,36 +91,52 @@ export class MaterialeDidatticoPage implements OnInit {
 
     }
 
+    ionViewDidEnter() {
+        this.isSearchbarOpened = false;
+        this.searchKey = '';
+    }
+
     async presentActionSheet(allegato: Allegato) {
-        const actionSheet = await this.actionSheetController.create({
-            header: allegato.TITOLO,
-            buttons: [
-                {
+        let actionSheet;
+        if (allegato.scaricato) {
+            actionSheet = await this.actionSheetController.create({
+                header: allegato.TITOLO,
+                buttons: [{
+                    text: 'Dettagli file',
+                    icon: 'information-circle',
+                    handler: () => { this.info(allegato); }
+                }, {
                     text: 'Apri',
                     icon: 'easel',
-                    handler: () => {
-                        this.newApriFile(allegato);
-                    }
-                }, {
-                    text: 'Download',
-                    icon: 'download',
-                    handler: () => {
-                        this.newApriFile(allegato);
-                    }
+                    handler: () => { this.newApriFile(allegato); }
                 }, {
                     text: 'Elimina',
                     icon: 'trash',
-                    handler: () => {
-                        this.newRimuoviFile(allegato).then();
-                    }
+                    handler: () => { this.newRimuoviFile(allegato).then(); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
-                    handler: () => {
-                        this.actionSheetController.dismiss().catch();
-                    }
+                    handler: () => { this.actionSheetController.dismiss().catch(); }
                 }]
-        });
+            });
+        } else {
+            actionSheet = await this.actionSheetController.create({
+                header: allegato.TITOLO,
+                buttons: [{
+                    text: 'Dettagli file',
+                    icon: 'information-circle',
+                    handler: () => { this.info(allegato); }
+                }, {
+                    text: 'Download',
+                    icon: 'download',
+                    handler: () => { this.download(allegato); }
+                }, {
+                    text: 'Chiudi',
+                    icon: 'close',
+                    handler: () => { this.actionSheetController.dismiss().catch(); }
+                }]
+            });
+        }
 
         await actionSheet.present();
     }
@@ -129,8 +145,10 @@ export class MaterialeDidatticoPage implements OnInit {
         return this.sync.loading[18];
     }
 
-    doRefresh(refresher) {
-        refresher.complete();
+    doRefresh(event) {
+        if (event) {
+            event.target.complete();
+        }
 
         this.localdb.getAllegatiJsonAggiornato().then((allegatiAggiornati) => {
             if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {

@@ -179,8 +179,8 @@ export class MaterialeDidatticoDbService {
     }
 
     isPiattaformaSupportata(): boolean {
-        return this.platform.is('android') ||
-            this.platform.is('ios') && (!this.platform.is('mobileweb'));
+        return !this.platform.is('mobileweb') && (this.platform.is('android') ||
+            this.platform.is('ios'));
     }
 
     /**
@@ -196,11 +196,17 @@ export class MaterialeDidatticoDbService {
                 const downloadDir = this.file.dataDirectory;
 
                 this.file.checkFile(downloadDir, fileName).then(
-                    (data) => { console.dir(data); resolve(true); },
-                    () => { reject(false); }
+                    (data) => {
+                        console.dir(data);
+                        resolve(true);
+                    },
+                    () => {
+                        reject(false);
+                    }
                 );
             } else {
                 reject(false);
+                return;
             }
         });
     }
@@ -358,40 +364,34 @@ export class MaterialeDidatticoDbService {
     }
 
     apriFile(item) {
-        this.isAllegatoScaricato(item).then(
-            () => {
+        this.isAllegatoScaricato(item).then(() => {
+                this.getAllegato(item.ALLEGATO_ID).then((allegato) => {
+                    // console.dir(allegato);
+                    if (allegato != null) {
+                        if (this.platform.is('android') || this.platform.is('ios')) {
+                            const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
+                            const downloadDir = this.file.dataDirectory;
+                            const pathCompleto = downloadDir + fileName;
 
-                this.getAllegato(item.ALLEGATO_ID).then(
-                    (allegato) => {
-                        // console.dir(allegato);
-                        if (allegato != null) {
-                            if (this.platform.is('android') || this.platform.is('ios')) {
-                                const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
-                                const downloadDir = this.file.dataDirectory;
-                                const pathCompleto = downloadDir + fileName;
+                            this.fileOpener.open(pathCompleto, allegato.tipo)
+                                .then(() => {
+                                    // console.log('File aperto!'));
+                                }).catch(e => {
+                                // console.log('Errore apertura file', e);
+                                this.messaggi.fileNonSupportato();
+                            });
 
-                                this.fileOpener.open(pathCompleto, allegato.tipo)
-                                    .then(() => {
-                                        // console.log('File aperto!'));
-                                    }).catch(e => {
-                                    // console.log('Errore apertura file', e);
-                                    this.messaggi.fileNonSupportato();
-                                });
-
-                            } else {
-                                // console.log('Terminale Windows');
-                                this.messaggi.piattaformaNonSupportata();
-                            }
                         } else {
-                            this.messaggi.fileNonScaricato();
-                            // console.log('Allegato non presente');
+                            // console.log('Terminale Windows');
+                            this.messaggi.piattaformaNonSupportata();
                         }
-                    },
-                    (err) => {
-                        GlobalDataService.log(2, 'Impossibile recuperare l\'allegato', err);
+                    } else {
                         this.messaggi.fileNonScaricato();
                     }
-                );
+                }, (err) => {
+                    GlobalDataService.log(2, 'Impossibile recuperare l\'allegato', err);
+                    this.messaggi.fileNonScaricato();
+                });
             },
             (error) => {
                 GlobalDataService.log(2, 'Impossibile recuperare il file', error);
@@ -403,7 +403,7 @@ export class MaterialeDidatticoDbService {
                         {
                             text: 'Si',
                             handler: () => {
-                                this.download(item);
+                                this.apriFile(item);
                             }
                         },
                         {
