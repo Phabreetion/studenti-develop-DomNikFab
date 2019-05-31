@@ -1,17 +1,15 @@
-import { Injectable } from '@angular/core';
-import { SQLite, SQLiteObject } from '@ionic-native/sqlite/ngx';
+import {Injectable} from '@angular/core';
+import {SQLite, SQLiteObject} from '@ionic-native/sqlite/ngx';
 import {AlertController, LoadingController, Platform} from '@ionic/angular';
-import { File } from '@ionic-native/file/ngx';
+import {File} from '@ionic-native/file/ngx';
 import {AndroidPermissions} from '@ionic-native/android-permissions/ngx';
 import {FileOpener} from '@ionic-native/file-opener/ngx';
 import {ToastsService} from './toasts.service';
-import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
+import {FileTransfer, FileTransferObject} from '@ionic-native/file-transfer/ngx';
 import {InAppBrowser, InAppBrowserOptions} from '@ionic-native/in-app-browser/ngx';
 import {GlobalDataService} from './global-data.service';
 import {SyncService} from './sync.service';
 import {Allegato} from '../models/Allegato';
-import {Corso} from '../models/Corso';
-import {All} from 'tslint/lib/rules/completedDocsRule';
 
 @Injectable({
     providedIn: 'root'
@@ -29,21 +27,21 @@ export class MaterialeDidatticoDbService {
 
     private browser: any;
     options: InAppBrowserOptions = {
-        location : 'yes', // Or 'no'
-        hidden : 'no', // Or  'yes'
-        clearcache : 'yes',
-        clearsessioncache : 'yes',
-        zoom : 'yes', // Android only ,shows browser zoom controls
-        hardwareback : 'yes',
-        mediaPlaybackRequiresUserAction : 'no',
-        shouldPauseOnSuspend : 'no', // Android only
-        closebuttoncaption : 'Close', // iOS only
-        disallowoverscroll : 'no', // iOS only
-        toolbar : 'yes', // iOS only
-        enableViewportScale : 'no', // iOS only
-        allowInlineMediaPlayback : 'no', // iOS only
-        presentationstyle : 'pagesheet', // iOS only
-        fullscreen : 'yes', // Windows only
+        location: 'yes', // Or 'no'
+        hidden: 'no', // Or  'yes'
+        clearcache: 'yes',
+        clearsessioncache: 'yes',
+        zoom: 'yes', // Android only ,shows browser zoom controls
+        hardwareback: 'yes',
+        mediaPlaybackRequiresUserAction: 'no',
+        shouldPauseOnSuspend: 'no', // Android only
+        closebuttoncaption: 'Close', // iOS only
+        disallowoverscroll: 'no', // iOS only
+        toolbar: 'yes', // iOS only
+        enableViewportScale: 'no', // iOS only
+        allowInlineMediaPlayback: 'no', // iOS only
+        presentationstyle: 'pagesheet', // iOS only
+        fullscreen: 'yes', // Windows only
     };
 
 
@@ -101,7 +99,7 @@ export class MaterialeDidatticoDbService {
 
         // this.openDb();
 
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
                 (db: SQLiteObject) => {
                     const data = new Date();
@@ -151,31 +149,31 @@ export class MaterialeDidatticoDbService {
     getAllegato(id): Promise<any> {
         // console.log('Cerco allegati per ' + id);
         let allegato = null;
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db) => {
                 db.executeSql('SELECT * FROM allegati WHERE id = ?', [id]).then(
                     (result) => {
 
-                    if (result.rows.length > 0) {
-                        const all = result.rows.item(0);
-                        allegato = {
-                            id: all.id,
-                            ad_id: all.ad_id,
-                            tipo: all.tipo,
-                            estensione: all.estensione,
-                            data: all.data,
-                            scaricato: all.scaricato
-                        };
-                        resolve( allegato );
-                    } else {
-                        reject();
-                    }
+                        if (result.rows.length > 0) {
+                            const all = result.rows.item(0);
+                            allegato = {
+                                id: all.id,
+                                ad_id: all.ad_id,
+                                tipo: all.tipo,
+                                estensione: all.estensione,
+                                data: all.data,
+                                scaricato: all.scaricato
+                            };
+                            resolve(allegato);
+                        } else {
+                            reject();
+                        }
 
-                }, (errore) => {
-                    // console.log('Errore select allegato ');
-                    console.dir(errore);
-                    reject();
-                });
+                    }, (errore) => {
+                        // console.log('Errore select allegato ');
+                        console.dir(errore);
+                        reject();
+                    });
             });
         });
     }
@@ -185,24 +183,23 @@ export class MaterialeDidatticoDbService {
             this.platform.is('ios') && (!this.platform.is('mobileweb'));
     }
 
-    isAllegatoScaricato(item: any): Promise<boolean> {
-        return new Promise( (resolve, reject) => {
-            // console.log('Cerco allegati per ' + id);
+    /**
+     * Controlla nella memoria del telefono se è presente l'allegato.
+     *
+     * @param allegato: l'allegato da scaricare
+     */
+    isAllegatoScaricato(allegato: Allegato): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+
             if (this.isPiattaformaSupportata()) {
-                const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
+                const fileName = allegato.ALLEGATO_ID + '.' + allegato.ESTENSIONE;
                 const downloadDir = this.file.dataDirectory;
 
                 this.file.checkFile(downloadDir, fileName).then(
-                    (data) => {
-                        console.dir(data);
-                        resolve( true );
-                    },
-                    (err) => {
-                        reject(false);
-                    }
+                    (data) => { console.dir(data); resolve(true); },
+                    () => { reject(false); }
                 );
             } else {
-                // console.log('Terminale Windows');
                 reject(false);
             }
         });
@@ -210,7 +207,7 @@ export class MaterialeDidatticoDbService {
 
 
     getAllegatiJson(): Promise<Allegato[]> {
-        return new Promise<Allegato[]>( (resolve, reject) => {
+        return new Promise<Allegato[]>((resolve, reject) => {
             return this.sync.getJson(18, null, false).then((data) => {
                 const allegati: Allegato[] = data[0];
 
@@ -220,14 +217,14 @@ export class MaterialeDidatticoDbService {
                 }
 
                 resolve(allegati);
-            }).catch( (err) => {
+            }).catch((err) => {
                 reject(err);
             });
         });
     }
 
     getAllegatiJsonAggiornato(): Promise<Allegato[]> {
-        return new Promise<Allegato[]>( (resolve, reject) => {
+        return new Promise<Allegato[]>((resolve, reject) => {
             return this.sync.getJsonAggiornato(18, null).then((data) => {
                 const allegati: Allegato[] = data[0];
 
@@ -237,7 +234,7 @@ export class MaterialeDidatticoDbService {
                 }
 
                 resolve(allegati);
-            }).catch( (err) => {
+            }).catch((err) => {
                 reject(err);
             });
         });
@@ -370,18 +367,18 @@ export class MaterialeDidatticoDbService {
                         if (allegato != null) {
                             if (this.platform.is('android') || this.platform.is('ios')) {
                                 const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
-                                const downloadDir = this.file.dataDirectory ;
+                                const downloadDir = this.file.dataDirectory;
                                 const pathCompleto = downloadDir + fileName;
 
                                 this.fileOpener.open(pathCompleto, allegato.tipo)
                                     .then(() => {
                                         // console.log('File aperto!'));
                                     }).catch(e => {
-                                        // console.log('Errore apertura file', e);
-                                        this.messaggi.fileNonSupportato();
-                                    });
+                                    // console.log('Errore apertura file', e);
+                                    this.messaggi.fileNonSupportato();
+                                });
 
-                            }  else {
+                            } else {
                                 // console.log('Terminale Windows');
                                 this.messaggi.piattaformaNonSupportata();
                             }

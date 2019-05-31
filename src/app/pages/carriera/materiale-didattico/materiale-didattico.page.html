@@ -48,7 +48,7 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <ion-grid *ngIf="rinvioAggiornamento && !allegati" text-center>
+    <ion-grid *ngIf="this.sync.isLoading(18) && !allegati" text-center>
         <ion-row>
             <ion-col>
                 <img class="progress" src="assets/img/progress.gif" />
@@ -66,7 +66,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-list *ngIf="!rinvioAggiornamento && allegati?.length == 0">
+    <ion-list *ngIf="!this.sync.isLoading(18) && allegati?.length == 0">
         <ion-item text-center>
             <ion-grid>
                 <ion-row>
@@ -149,7 +149,7 @@
         </ion-buttons>
 
         <div class="testo-footer">
-            Aggiornato al: {{dataAggiornamento}}
+            Aggiornato al: {{this.sync.getDataUltimoAggiornamento(18)}}
         </div>
 
         <ion-buttons slot="end" no-padding>

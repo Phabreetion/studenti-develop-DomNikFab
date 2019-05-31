@@ -11,7 +11,6 @@ import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {Allegato} from '../../../models/Allegato';
-import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -22,19 +21,14 @@ import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 
 export class MaterialeDidatticoPage implements OnInit {
 
-    ad: string;
+    //parametro passato dalla query string
+    ad_id_corso: string;
 
 
     //allegati
     allegati: Allegato[];
     allegatiFiltrati: Allegato[];
     allegatiTrovati: Allegato[];
-
-
-    loading: any;
-    dataAggiornamento: string;
-    aggiornamentoVerificato = false;
-    rinvioAggiornamento = false;
 
 
     //ricerca
@@ -61,7 +55,7 @@ export class MaterialeDidatticoPage implements OnInit {
         this.http.checkConnection();
 
 
-        this.ad = this.route.snapshot.paramMap.get('id');
+        this.ad_id_corso = this.route.snapshot.paramMap.get('id');
 
         this.localdb.getAllegatiJson().then(allegati => {
             this.allegati = allegati;
@@ -69,7 +63,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
             this.allegatiFiltrati = [];
             this.allegati.forEach(allegato => {
-                if (allegato.AD_ID == Number(this.ad)) {
+                if (allegato.AD_ID == Number(this.ad_id_corso)) {
                     this.allegatiFiltrati.push(allegato);
                 }
             });
@@ -117,7 +111,7 @@ export class MaterialeDidatticoPage implements OnInit {
                     text: 'Elimina',
                     icon: 'trash',
                     handler: () => {
-                        this.newRimuoviFile(allegato);
+                        this.newRimuoviFile(allegato).then();
                     }
                 }, {
                     text: 'Chiudi',
@@ -142,7 +136,7 @@ export class MaterialeDidatticoPage implements OnInit {
             if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {
                 this.allegatiFiltrati = [];
                 this.allegati.forEach(allegato => {
-                    if (allegato.AD_ID == Number(this.ad)) {
+                    if (allegato.AD_ID == Number(this.ad_id_corso)) {
                         this.allegatiFiltrati.push(allegato);
                     }
                 });

@@ -226,13 +226,6 @@ export class SyncService {
 
 
         if (this.platform.is('ios') || (this.platform.is('android'))) {
-            /*this.aggiornaDeviceInfo().then(
-                () => {
-                    GlobalDataService.log(0, 'Aggiornato il Device', null);
-                }, (err) => {
-                    GlobalDataService.log(2, 'Impossibile aggiornare le info sul device', err);
-                }
-            );*/
             this.controllaVersione().then(
                 () => {
                     GlobalDataService.log(0, 'Constollo versione OK', null);
@@ -276,7 +269,7 @@ export class SyncService {
             return 'in corso...';
         }
 
-        return GlobalDataService.timestamp2string(this.dateUltimiAggiornamenti[112]);
+        return GlobalDataService.timestamp2string(this.dateUltimiAggiornamenti[idServizio]);
     }
 
     /**
@@ -471,13 +464,13 @@ export class SyncService {
                     (dati) => {
                         let dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, dati['cifrato']);
                         dec = JSON.parse(dec);
-                        console.log(dec);
+
                         if (dec) {
                             this.globalData.archive[id] = dec;
                             this.salvaJSon(id, dec as JSON);
                         }
 
-                        this.dateUltimiAggiornamenti[id] = dati['timestamp'];
+                        this.dateUltimiAggiornamenti[id] = dec['timestamp'];
                         this.loading[id] = false;
                         resolve(dec);
                     }, (rej) => {

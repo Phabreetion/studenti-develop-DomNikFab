@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../../../services/global-data.service';
 import {MaterialeDidatticoDbService} from '../../../../services/materiale-didattico-db-service';
 import {AlertController} from '@ionic/angular';
@@ -21,7 +21,8 @@ export class AllegatoPage implements OnInit {
     constructor(public globalData: GlobalDataService,
                 private localdb: MaterialeDidatticoDbService,
                 public alertController: AlertController,
-                public toastsService: ToastsService) {}
+                public toastsService: ToastsService) {
+    }
 
 
     ngOnInit() {
@@ -32,7 +33,6 @@ export class AllegatoPage implements OnInit {
         }
 
 
-
         // Se non è presente l'id dell'attività didattica (nessun allegato)
         // Lo recuperiamo dai dati globali
         if (!this.ad_id) {
@@ -40,9 +40,6 @@ export class AllegatoPage implements OnInit {
         }
     }
 
-    onGoBack() {
-        this.globalData.goTo(this.currentPage, '/materiale-didattico' + this.ad_id, 'backward', false);
-    }
 
     formatStringDate(stringDate): string {
         return stringDate;
@@ -51,7 +48,6 @@ export class AllegatoPage implements OnInit {
         // else
         //     return this.providers.formatStringDate(stringDate);
 
-        this.isClickNote = false;
     }
 
     pulisciAllegato(item: string): string {
@@ -95,8 +91,8 @@ export class AllegatoPage implements OnInit {
     }
 
     newApriFile() {
-        if ( this.localdb.isPiattaformaSupportata()) {
-            console.log("a");
+        if (this.localdb.isPiattaformaSupportata()) {
+            console.log('a');
             this.localdb.isAllegatoScaricato(this.allegato).then(
                 () => this.apriFile(),
                 () => this.presentAlertConfermaDownload()
@@ -145,18 +141,13 @@ export class AllegatoPage implements OnInit {
         this.localdb.eliminaFile(this.allegato);
     }
 
-   public mostraNote(){
-
-        if(this.isClickNote === true){
-
+    public mostraNote() {
+        if (this.isClickNote === true) {
             this.isClickNote = false;
             return this.isClickNote;
-
-        }else{
-
-        this.isClickNote = true;
-        return this.isClickNote;
-
+        } else {
+            this.isClickNote = true;
+            return this.isClickNote;
         }
     }
 
