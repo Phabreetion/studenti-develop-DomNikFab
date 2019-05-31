@@ -14,8 +14,7 @@ ion-item {
     height: auto;
   }
   @media screen and (max-width: 450px) {
-    margin: auto 1em 0 1em;
-    margin-button: auto 1em 0 0.5em;
+    margin: 0.2em 1em 0.2em 1em;
   }
 
 }
@@ -34,7 +33,7 @@ ion-item {
     margin: auto auto 0 auto;
   }
   @media screen and (max-width: 450px) {
-    margin: auto 1em 0 1em;
+    margin: 0.5em 1em 0.5em 1em;
 
   }
 }

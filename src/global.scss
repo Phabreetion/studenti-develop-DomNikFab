@@ -190,7 +190,7 @@ ion-icon {
     width: 80%;
   }
   @media screen and (max-width: 450px){
-    height: 32em;
+    height: 32.5em;
     width: 80%;
   }
 }
@@ -207,6 +207,10 @@ ion-icon {
     height: 85%;
     width: 80%;
   }
+  @media screen and (max-width: 450px){
+    height: 34.5em;
+    width: 80%;
+  }
 }
 
 $primary_color: #3274a2;   //#3880ff colore precedente
@@ -216,5 +220,24 @@ $primary_color: #3274a2;   //#3880ff colore precedente
   font-size: 1.5em;
   position: relative;
   top: 5px;
+}
+
+.ok{
+  margin-left: 20em;
+  margin-right: 20em;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin-bottom: 0;
+  @media screen and (max-width: 1827px) {
+    margin-left: 5em;
+    margin-right: 5em;
+  }
+  @media screen and (max-width: 1142px) {
+    margin: auto auto 0 auto;
+  }
+  @media screen and (max-width: 450px) {
+    margin: auto 1em 0 1em;
+
+  }
 }
 

@@ -40,29 +40,29 @@
         </ion-button>
     </div>
 
-    <br>
-
     <ion-list>
         <ion-list-header><b>Filtra per</b></ion-list-header>
-        <ion-item>
-            <ion-label>Scritto</ion-label>
-            <ion-toggle (ngModelChange)="checkToogleScritto()"
-                        [(ngModel)]="sourcePage.filtro.filtraScrittoAttivo"></ion-toggle>
-        </ion-item>
-        <ion-item>
-            <ion-label>Orale</ion-label>
-            <ion-toggle (ngModelChange)="checkToogleOrale()"
-                        [(ngModel)]="sourcePage.filtro.filtraOraleAttivo">
-            </ion-toggle>
-        </ion-item>
+            <ion-item>
+                <ion-label>Tipologia</ion-label>
+                <ion-select [(ngModel)]="sourcePage.filtro.filtraPerTipologia"
+                            (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
+                    <ion-select-option [value]=0>
+                        Nessuno
+                    </ion-select-option>
+                    <ion-select-option [value]=1>
+                        Scritto
+                    </ion-select-option>
+                    <ion-select-option [value]=2>
+                        Orale
+                    </ion-select-option>
+                    <ion-select-option [value]=3>
+                        Scritto e orale
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+    </ion-list>
 
-        <ion-item>
-            <ion-label>Scritto e Orale</ion-label>
-            <ion-toggle (ngModelChange)="checkToogleOraleScritto()"
-                        [(ngModel)]="sourcePage.filtro.filtraScrittoOraleAttivo">
-            </ion-toggle>
-        </ion-item>
-
+    <ion-list>
         <ion-item>
             <ion-label>Anno</ion-label>
                 <ion-select (ngModelChange)="updateSourcePage()" [(ngModel)]="sourcePage.filtro.filtroPerAnno" cancelText="Annulla" value="0">

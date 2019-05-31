@@ -4,6 +4,10 @@ import {GlobalDataService} from '../services/global-data.service';
 import {Corso} from './Corso';
 import {forEach} from '@angular-devkit/schematics';
 
+
+export const CRESCENTE = 0;
+export const DECRESCENTE = 1;
+
 export const ORDINAMENTO_DATA_CRESCENTE = 0;
 export const ORDINAMENTO_DATA_DECRESCENTE = 1;
 export const ORDINAMENTO_ALFABETICO_CRESCENTE = 2;
@@ -16,6 +20,10 @@ export const ORDINAMENTO_ANNO_DECRESCENTE = 7;
 export const DISATTIVO = 0;
 export const ATTIVO = 1;
 
+export const FILTRO_SCRITTO = 1;
+export const FILTRO_ORALE = 2;
+export const FILTRO_SCRITTO_E_ORALE = 3;
+
 
 export class FiltroAppelliDisponibili {
 
@@ -24,6 +32,9 @@ export class FiltroAppelliDisponibili {
 
     //filtro
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
+    filtraPerTipologia: number; //0  non attivo
+
+
     filtraScrittoOraleAttivo: boolean;
     filtraOraleAttivo: boolean;
     filtraScrittoAttivo: boolean;
@@ -45,14 +56,13 @@ export class FiltroAppelliDisponibili {
     }
 
     reset() {
-        this.filtroPerAnno = 0;
+        //Filtri
+        this.filtroPerAnno = DISATTIVO;
+        this.filtraPerTipologia = DISATTIVO;
 
-        this.filtraScrittoOraleAttivo = false;
-        this.filtraScrittoAttivo = false;
-        this.filtraOraleAttivo = false;
-
-        this.idOrdinamento = 0;
-        this.tipoOrdinamento = 0;
+        //Ordinamento
+        this.idOrdinamento = ORDINAMENTO_DATA_CRESCENTE;
+        this.tipoOrdinamento = CRESCENTE;
     }
 
     ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso>): AppelloDisponibile[] {
@@ -277,18 +287,25 @@ export class FiltroAppelliDisponibili {
     }
 
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
-        if (this.filtraScrittoAttivo) {
-            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
-        }
-        if (this.filtraOraleAttivo) {
-            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
-        }
-        if (this.filtraScrittoOraleAttivo) {
-            appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
-        }
+
 
         if (this.filtroPerAnno > DISATTIVO) {
             appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
+        }
+
+        switch (this.filtraPerTipologia) {
+            case FILTRO_SCRITTO:
+                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
+
+                break;
+            case FILTRO_ORALE:
+                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
+
+                break;
+            case FILTRO_SCRITTO_E_ORALE:
+                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
+
+                break;
         }
 
         return appelli;
