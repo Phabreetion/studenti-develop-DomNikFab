@@ -65,11 +65,11 @@
     <ion-list>
         <ion-item>
             <ion-label>Anno</ion-label>
-                <ion-select (ngModelChange)="updateSourcePage()" [(ngModel)]="sourcePage.filtro.filtroPerAnno" cancelText="Annulla" value="0">
+                <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
                     <ion-select-option [value]="0">
                         Nessuno
                     </ion-select-option>
-                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]=anno>
+                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
                         {{anno}}° anno
                     </ion-select-option>
                 </ion-select>

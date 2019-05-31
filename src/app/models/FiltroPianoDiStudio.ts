@@ -307,16 +307,7 @@ export class FiltroPianoDiStudio {
     }
 
     filtra(corsi: Corso[]): Corso[] {
-        /*  if (this.filtroSuperatiAttivo) {
-              corsi = corsi.filter(corso => corso.isSuperato());
-          }
 
-          if (this.filtroNonSuperatiAttivo) {
-              corsi = corsi.filter(corso => !corso.isSuperato());
-          }
-
-
-  */
         switch (this.filtroPerTipologia) {
             case FILTRO_ESAME_SOSTENUTO:
                 corsi = corsi.filter(corso => corso.isSuperato());
