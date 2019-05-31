@@ -22,28 +22,7 @@ export class GestoreListaCorsiComponent implements OnInit {
         this.sourcePage = this.navParam.get('page');
     }
 
-    /**
-     * Questa funzione evita che, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami non superati.
-     */
-    checkToogleSuperati(): void {
-        //se i toogle sono entrambi attivi, disattiva quello dei non superati
-        if (this.sourcePage.filtro.filtroNonSuperatiAttivo && this.sourcePage.filtro.filtroSuperatiAttivo) {
-            this.sourcePage.filtro.filtroNonSuperatiAttivo = false;
-        }
 
-        this.updateSourcePage();
-    }
-
-    /**
-     * Questa funzione evita che, attivando entrambi i toogle, resti attivo anche il toogle per il filtro degli esami superati.
-     */
-    checkToogleNonSuperati(): void {
-        if (this.sourcePage.filtro.filtroNonSuperatiAttivo && this.sourcePage.filtro.filtroSuperatiAttivo) {
-            this.sourcePage.filtro.filtroSuperatiAttivo = false;
-        }
-
-        this.updateSourcePage();
-    }
 
     async presentAlertPerConfermaMemorizzazione() {
         const alert = await this.alertController.create({
@@ -93,8 +72,6 @@ export class GestoreListaCorsiComponent implements OnInit {
      * Rende effettivi le modifiche ai filtri sulla lista dei corsi.
      */
     updateSourcePage() {
-        console.log('superati: ' + this.sourcePage.filtro.filtroSuperatiAttivo);
-        console.log('non superati: ' + this.sourcePage.filtro.filtroNonSuperatiAttivo);
         console.log('anno: ' + this.sourcePage.filtro.filtroPerAnno);
         console.log('ordinamento: ' + this.sourcePage.filtro.idOrdinamento);
         console.log('crescenza/discenza: ' + this.sourcePage.filtro.tipoOrdinamento);

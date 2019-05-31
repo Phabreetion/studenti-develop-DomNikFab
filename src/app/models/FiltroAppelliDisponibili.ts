@@ -283,7 +283,7 @@ export class FiltroAppelliDisponibili {
     }
 
     isActive(): boolean {
-        return this.filtraOraleAttivo || this.filtraScrittoAttivo || this.filtraScrittoOraleAttivo || this.filtroPerAnno > 0;
+        return this.filtroPerAnno > DISATTIVO || this.filtraPerTipologia > DISATTIVO;
     }
 
     filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {

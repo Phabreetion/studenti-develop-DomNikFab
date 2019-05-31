@@ -69,7 +69,7 @@
                     <ion-select-option [value]="0">
                         Nessuno
                     </ion-select-option>
-                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
+                    <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]=anno>
                         {{anno}}° anno
                     </ion-select-option>
                 </ion-select>

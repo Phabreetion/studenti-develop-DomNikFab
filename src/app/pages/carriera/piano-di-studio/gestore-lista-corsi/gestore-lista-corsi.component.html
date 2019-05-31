@@ -48,7 +48,7 @@
     </div>
 
 
-
+    <!--
     <ion-list>
         <ion-list-header><b>Filtra per</b></ion-list-header>
 
@@ -61,16 +61,44 @@
             <ion-label>Non sostenuto</ion-label>
             <ion-toggle align-items-center [(ngModel)]="sourcePage.filtro.filtroNonSuperatiAttivo" (ngModelChange)="checkToogleNonSuperati()"></ion-toggle>
         </ion-item>
+        -->
 
+    <ion-list>
+        <ion-list-header><b>Filtra per</b></ion-list-header>
         <ion-item>
+            <ion-label>Tipologia</ion-label>
+            <ion-select [(ngModel)]="sourcePage.filtro.filtroPerTipologia"
+                        (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0" class="menuOrdinamento">
+
+                <ion-select-option [value]=0>
+                    Nessuno
+                </ion-select-option>
+
+                <ion-select-option [value]=1>
+                    Esame sostenuto
+                </ion-select-option>
+
+                <ion-select-option [value]=2>
+                    Esame non sostenuto
+                </ion-select-option>
+
+            </ion-select>
+        </ion-item>
+    </ion-list>
+
+    <ion-list>
+    <ion-item>
             <ion-label>Anno</ion-label>
             <ion-select [(ngModel)]="sourcePage.filtro.filtroPerAnno" (ngModelChange)="updateSourcePage()" cancelText="Annulla" value="0">
+
                 <ion-select-option [value]="0">
                     Nessuno
                 </ion-select-option>
+
                 <ion-select-option *ngFor="let anno of sourcePage.filtro.getIterableAnni()" [value]="anno">
                     {{anno}}° anno
                 </ion-select-option>
+
             </ion-select>
         </ion-item>
     </ion-list>

@@ -69,34 +69,7 @@ export class GestoreListaAppelliDisponbiliComponent implements OnInit {
         await alert.present();
     }
 
-    checkToogleScritto() {
-        if (this.sourcePage.filtro.filtraOraleAttivo || this.sourcePage.filtro.filtraScrittoOraleAttivo) {
-            this.sourcePage.filtro.filtraScrittoAttivo = true;
-            this.sourcePage.filtro.filtraOraleAttivo = false;
-            this.sourcePage.filtro.filtraScrittoOraleAttivo = false;
-        }
-        this.updateSourcePage();
-    }
 
-
-    checkToogleOrale() {
-        if (this.sourcePage.filtro.filtraScrittoAttivo || this.sourcePage.filtro.filtraScrittoOraleAttivo) {
-            this.sourcePage.filtro.filtraScrittoAttivo = false;
-            this.sourcePage.filtro.filtraOraleAttivo = true;
-            this.sourcePage.filtro.filtraScrittoOraleAttivo = false;
-        }
-        this.updateSourcePage();
-    }
-
-    checkToogleOraleScritto() {
-        if (this.sourcePage.filtro.filtraScrittoAttivo || this.sourcePage.filtro.filtraOraleAttivo) {
-            this.sourcePage.filtro.filtraScrittoAttivo = false;
-            this.sourcePage.filtro.filtraOraleAttivo = false;
-            this.sourcePage.filtro.filtraScrittoOraleAttivo = true;
-        }
-
-        this.updateSourcePage();
-    }
 
 
     /**

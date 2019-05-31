@@ -1,4 +1,5 @@
 import {Corso} from './Corso';
+import {DISATTIVO} from './FiltroAppelliDisponibili';
 
 export const ORDINAMENTO_ANNO_CRESCENTE = 0;
 export const ORDINAMENTO_ANNO_DECRESCENTE = 1;
@@ -9,10 +10,12 @@ export const ORDINAMENTO_CFU_DECRESCENTE = 5;
 export const ORDINAMENTO_VOTO_CRESCENTE = 6;
 export const ORDINAMENTO_VOTO_DECRESCENTE = 7;
 
+export const FILTRO_ESAME_SOSTENUTO = 1;
+export const FILTRO_PER_NON_SOSTENUTO = 2;
+
 export class FiltroPianoDiStudio {
 
-    filtroSuperatiAttivo: boolean;
-    filtroNonSuperatiAttivo: boolean;
+    filtroPerTipologia: number;
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
     idOrdinamento: number;
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
@@ -30,7 +33,7 @@ export class FiltroPianoDiStudio {
     }
 
     isActive(): boolean {
-        return this.filtroSuperatiAttivo || this.filtroNonSuperatiAttivo || this.filtroPerAnno > 0;
+        return this.filtroPerTipologia > DISATTIVO ||  this.filtroPerAnno > DISATTIVO;
     }
 
     setMaxAnni(maxAnni: number) {
@@ -48,11 +51,11 @@ export class FiltroPianoDiStudio {
     }
 
     reset() {
-        this.filtroSuperatiAttivo = false;
-        this.filtroNonSuperatiAttivo = false;
-        this.filtroPerAnno = 0;
         this.idOrdinamento = 0;
         this.tipoOrdinamento = 0;
+
+        this.filtroPerAnno = DISATTIVO;
+        this.filtroPerTipologia = DISATTIVO;
     }
 
     ordina(corsi: Corso[]): Corso[] {
@@ -304,12 +307,23 @@ export class FiltroPianoDiStudio {
     }
 
     filtra(corsi: Corso[]): Corso[] {
-        if (this.filtroSuperatiAttivo) {
-            corsi = corsi.filter(corso => corso.isSuperato());
-        }
+        /*  if (this.filtroSuperatiAttivo) {
+              corsi = corsi.filter(corso => corso.isSuperato());
+          }
 
-        if (this.filtroNonSuperatiAttivo) {
-            corsi = corsi.filter(corso => !corso.isSuperato());
+          if (this.filtroNonSuperatiAttivo) {
+              corsi = corsi.filter(corso => !corso.isSuperato());
+          }
+
+
+  */
+        switch (this.filtroPerTipologia) {
+            case FILTRO_ESAME_SOSTENUTO:
+                corsi = corsi.filter(corso => corso.isSuperato());
+                break;
+            case FILTRO_PER_NON_SOSTENUTO:
+                corsi = corsi.filter(corso => !corso.isSuperato());
+                break;
         }
 
         if (this.filtroPerAnno > 0) {
