@@ -105,9 +105,9 @@
         <ion-col>
           <div text-wrap>{{item.DESCRIZIONE}}</div>
         </ion-col>
-        <ion-col size="4" no-padding class="voto" align-self-center="true">
-          <ion-icon float-right [class.hide]="!item.SOTTOSCRITTO" name="calendar"></ion-icon>
-        </ion-col>
+        <ion-grid  size="4" no-padding class="voto" align-self-center="true">
+          <ion-icon *ngIf="item.SOTTOSCRITTO==1" float-right  name="calendar"></ion-icon>
+        </ion-grid>
 
       </ion-item>
 

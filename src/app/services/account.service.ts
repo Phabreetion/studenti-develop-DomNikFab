@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GlobalDataService } from './global-data.service';
 import { Md5 } from 'ts-md5';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { NotificheService } from './notifiche.service';
 import { SyncService } from './sync.service';
@@ -13,6 +13,7 @@ import { CryptoService } from './crypto.service';
 })
 export class AccountService {
 
+    static readonly KEY_CHECK_DISPOSITIVI = 'CHECK_DISPOSITIVI';
     logged: boolean;
 
     urlRegistra = 'registra.php';
@@ -30,6 +31,7 @@ export class AccountService {
         public sync: SyncService,
         public globalData: GlobalDataService,
         public notificheService: NotificheService,
+        public alertController: AlertController,
         public crypto: CryptoService
     ) { }
 
@@ -148,7 +150,6 @@ export class AccountService {
                 break;
             }
         }
-
     }
 
     /**
@@ -493,4 +494,44 @@ export class AccountService {
         });
     }
 
+    disconnettiNoDialogs(token: string) {
+        return new Promise((resolve, reject) => {
+            this.services.post(this.getUrlDisconnetti(), { token: token }).then( (response) => {
+                    if (response) {
+                        resolve(true);
+                    } else {
+                        reject();
+                    }
+                }, err => {
+                    GlobalDataService.log(2, 'Nessuna connessione ad Internet', err);
+                });
+        });
+    }
+
+    controlloDispositiviConnessi() {
+        let numDevices = 0;
+        const keyServizioDispositivi = '19';
+        this.storage.get(keyServizioDispositivi).then((data) => {
+            numDevices = data[0].length;
+            if (numDevices > 1) {
+                this.alertController.create({
+                    header: 'Rilevati più dispositivi',
+                    message: 'Hai più dispositivi collegati al tuo account, vuoi andare alla sezione dei dispositivi connessi?',
+                    buttons: [
+                        {
+                            text: 'Vai',
+                            handler: () => {
+                                this.globalData.goTo('', '/accounts', 'forward', false);
+                            }
+                        },
+                        {
+                            text: 'Chiudi',
+                            role: 'cancel',
+                            cssClass: 'secondary'
+                        }
+                    ]
+                }).then((alert) => alert.present());
+            }
+        });
+    }
 }

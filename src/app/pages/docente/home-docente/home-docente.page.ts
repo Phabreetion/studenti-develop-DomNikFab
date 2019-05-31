@@ -79,6 +79,7 @@ export class HomeDocentePage implements OnInit {
                             this.caricaPreferenze();
                             this.aggiornaStatoApp();
                             this.caricaDatiDaStorage();
+                            this.checkDispositivi();
 
                             this.aggiorna(false, true);
                         }, (err) => {
@@ -165,6 +166,15 @@ export class HomeDocentePage implements OnInit {
                 }
             );
         }
+    }
+
+    checkDispositivi() {
+        this.storage.get(AccountService.KEY_CHECK_DISPOSITIVI).then( (value) => {
+            if(value !== true) {
+                this.account.controlloDispositiviConnessi();
+                this.storage.set(AccountService.KEY_CHECK_DISPOSITIVI, true);
+            }
+        });
     }
 
     aggiorna(interattivo: boolean, sync: boolean) {
