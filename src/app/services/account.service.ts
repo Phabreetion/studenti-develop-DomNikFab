@@ -53,7 +53,7 @@ export class AccountService {
 
                     this.storage.get('passphrase_key').then(
                         (value) => {
-                            if (value == null) {
+                            if (value === undefined || value == null || value === '') {
                                 this.crypto.getChiavi();
                             } else {
                                 // this.crypto.checkChiavi();
@@ -86,7 +86,7 @@ export class AccountService {
     }
 
 
-    salvaDatiLogin(username, password, tokenNotifiche, carriera) {
+    salvaDatiLogin(username, password, tokenNotifiche, carriera, passPhrase, publicKey, privateKey) {
 
         const userRole = carriera['user_role'];
         this.globalData.userRole = userRole;
@@ -109,7 +109,9 @@ export class AccountService {
         const promiseDipId = this.storage.set('dipID', carriera['dip_id']);
         const promiseDip = this.storage.set('nome_dip', carriera['nome_dip']);
         const promiseUserRole = this.storage.set('user_role', userRole);
-
+        const promisePassPhrase = this.storage.set('passphrase_key', passPhrase);
+        const promisePublicKey = this.storage.set('public_key', publicKey);
+        const promisePrivateKey =  this.storage.set('private_key', privateKey);
 
         switch (userRole) {
             case 'student': {
@@ -121,7 +123,7 @@ export class AccountService {
 
                 Promise.all([promiseUserRole, promiseTokenNotifiche, promiseUsername, promisePassword,
                     promiseToken, promiseMatId, promiseMatId, promiseMatricola, promiseCdsId, promiseDipId,
-                    promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged]).then(
+                    promiseCds, promiseDip, promiseNome, promiseCognome, promiseSesso, promiseLogged, promisePassPhrase, promisePublicKey, promisePrivateKey]).then(
                         (datiStorage) => {
                             GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
                             this.notificheService.aggiornaSottoscrizioni();
@@ -140,7 +142,7 @@ export class AccountService {
 
                 Promise.all([promiseTokenNotifiche, promiseUsername, promisePassword,
                     promiseToken, promiseDipId, promiseDip, promiseNome, promiseCognome,
-                    promiseId, promiseIdDocente, promiseRuolo, promiseEmail, promiseLogged]).then(
+                    promiseId, promiseIdDocente, promiseRuolo, promiseEmail, promiseLogged, promisePassPhrase, promisePublicKey, promisePrivateKey]).then(
                         (datiStorage) => {
                             GlobalDataService.log(2, 'Dati salvati nello storage locale', datiStorage);
                             this.notificheService.aggiornaSottoscrizioni();
@@ -327,7 +329,7 @@ export class AccountService {
                                                         () => {
                                                             this.notificheService.rimuoviSottoscrizioni().then(
                                                                 () => {
-                                                                    this.salvaDatiLogin(username, password, tokenNotifiche, carriera);
+                                                                    this.salvaDatiLogin(username, password, tokenNotifiche, carriera, this.passphrase, this.public_key, this.private_key);
                                                                     this.sync.aggiornaDeviceInfo(tokenNotifiche);
                                                                     resolve('logged');
 

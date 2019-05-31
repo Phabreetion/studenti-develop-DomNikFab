@@ -58,7 +58,6 @@ export class SyncService {
     private tokenNotifiche = 'tokenNotifiche';
     private params: string[];
 
-    private passphrase: string;
 
     loading = [];
 
@@ -121,13 +120,6 @@ export class SyncService {
                 public globalData: GlobalDataService,
                 public toastService: ToastsService,
                 public crypto: CryptoService) {
-
-        this.storage.get('passphrase_key').then(
-            (key) => {
-                this.passphrase = key;
-            });
-
-
     }
 
     getTimeout() {
@@ -409,10 +401,12 @@ export class SyncService {
             //Promise per ottente i dati dallo storage
             const pToken = this.storage.get('token');
             const pUuid = this.storage.get('uuid');
+            const pPassPhrase = this.storage.get('passphrase_key');
 
-            Promise.all([pToken, pUuid]).then((data) => {
+            Promise.all([pToken, pUuid, pPassPhrase]).then((data) => {
                 const token = data[0];
                 const uuid = data[1];
+                const passphrase = data[2];
 
                 // Nessun token -> La richiesta verrà respina sicuramente
                 // Comunica all'utente di rieffettuare la login
@@ -431,20 +425,22 @@ export class SyncService {
                 //Costruiamo la richiesta http da inviare al server
                 const url = this.getUrlSync();
 
-                console.log(this.passphrase + ' - ' +
-                                this.token + ' - ' +
-                                this.uuid + ' - ' +
+                console.log(passphrase + ' - ' +
+                                token + ' - ' +
+                                uuid + ' - ' +
                                 id.toString() + ' - ' +
                                 this.params);
 
-                const token_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, token);
-                const uuid_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, uuid);
-                const id_servizio_cifrato = this.crypto.CryptoJSAesEncrypt(this.passphrase, id.toString());
+                console.log('token' + token);
+                console.log('passphrase' + passphrase);
+                const token_cifrato = this.crypto.CryptoJSAesEncrypt(passphrase, token);
+                const uuid_cifrato = this.crypto.CryptoJSAesEncrypt(passphrase, uuid);
+                const id_servizio_cifrato = this.crypto.CryptoJSAesEncrypt(passphrase, id.toString());
                 let parametri_cifrati;
                 if (this.params == null) {
-                    parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params);
+                    parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
                 } else {
-                    parametri_cifrati = this.crypto.CryptoJSAesEncrypt(this.passphrase, this.params);
+                    parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
                 }
 
 
@@ -462,7 +458,7 @@ export class SyncService {
 
                 this.http.getJSON(url, body).then(
                     (dati) => {
-                        let dec = this.crypto.CryptoJSAesDecrypt(this.passphrase, dati['cifrato']);
+                        let dec = this.crypto.CryptoJSAesDecrypt(passphrase, dati['cifrato']);
                         dec = JSON.parse(dec);
 
                         if (dec) {
@@ -496,7 +492,7 @@ export class SyncService {
                             //aggiorna il token
                             //se l'aggiornamento non va a buon fine viene segnalato all'utente
                             //se l'aggiornamento va a buon fine viene ritentato updateJson
-                            this.refreshToken(token).then(
+                            this.refreshToken(token, passphrase).then(
                                 () => {
                                     this.updateJson(id, params).then(
                                         (newData) => resolve(newData),
@@ -538,10 +534,10 @@ export class SyncService {
      *
      * @param token: token da aggiornare
      */
-    private refreshToken(token) {
+    private refreshToken(token, passphrase) {
         return new Promise((resolve, reject) => {
             let storedUsername = this.storage.get('username');
-            let storedPassword = this.crypto.CryptoJSAesDecrypt(this.passphrase, this.storage.get('password'));
+            let storedPassword = this.crypto.CryptoJSAesDecrypt(passphrase, this.storage.get('password'));
 
             Promise.all([storedUsername, storedPassword]).then(
                 data => {
