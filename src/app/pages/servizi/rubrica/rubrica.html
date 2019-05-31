@@ -20,11 +20,17 @@
                          (click)="setFiltro()"
                          (ionChange)="setFiltro()"
                          (ionCancel)="onSearchCancel()"
-                         (ionClear)="onSearchCancel()">
-          </ion-searchbar>
+                         (ionClear)="onSearchCancel()"
+                         placeholder="Inserisci qualcosa, per il momento lo lascio."
+                         type= "email || number || password || search || tel || text || url"
+                         showCancelButton="false" cancelButtonText="Custom Cancel"
+                         spellcheck="true">
+                         
+                         <!-- showcancelbutton  tasto che cancellare ciò che ho scritto-->
+          </ion-searchbar> <!--spellcheck abilita il correttore ortografico -->
           <ion-buttons slot="end">
             <ion-button icon-only (click)="toggleInOut()">
-              <ion-icon name="search" color="primary" style="font-size: 1.5em;"></ion-icon>
+              <ion-icon name="Search" color="primary" style="font-size: 1.5em;"></ion-icon>
             </ion-button>
           </ion-buttons>
         </ion-toolbar>
@@ -38,6 +44,23 @@
   <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <ion-grid>
+      <ion-row>
+        <ion-col>
+          <ion-segment scrollable [(ngModel)]="sezioni" (ionChange)="setFiltro()" color="primary" >
+            <ion-segment-button value="indietro" >Tutti</ion-segment-button>
+            <ion-segment-button value="Pesche (Is)">Pesche</ion-segment-button>
+            <ion-segment-button value="Campobasso">Campobasso</ion-segment-button>
+            <ion-segment-button value="Termoli" small>Termoli</ion-segment-button>         
+
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+
+
+  
 
   <ion-grid *ngIf="!rubrica || rubrica?.length == 0 && rinvioAggiornamento" text-center>
     <ion-row>
@@ -76,18 +99,21 @@
           <ion-col size="11"><div text-wrap>{{contatto.email_utente}}</div></ion-col>
         </ion-row>
         <ion-row>
-          <ion-col size="1" align-self-center="true"><ion-icon name="call" item-start color="primary"></ion-icon></ion-col>
+          <ion-col size="1" align-self-center="true"><ion-icon name="call" item-start color="success"></ion-icon></ion-col>
           <ion-col size="11"><div text-wrap>{{contatto.tel1}}</div></ion-col>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
   <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
     <ion-infinite-scroll-content
             loadingSpinner="bubbles"
             loadingText="Caricamento dati...">
-    </ion-infinite-scroll-content>
+          
+            <ion-button expand="block" (click)="scrollContent('top')">Torna all'inizio</ion-button> <!--cosi torno su-->
+           
+          </ion-infinite-scroll-content>
+    
   </ion-infinite-scroll>
 
   <!--
@@ -110,7 +136,6 @@
 
 </ion-content>
 
-
 <ion-footer  no-padding>
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -128,3 +153,4 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>
+
