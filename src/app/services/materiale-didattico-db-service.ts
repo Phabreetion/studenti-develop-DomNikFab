@@ -369,7 +369,7 @@ export class MaterialeDidatticoDbService {
                     const downloadDir = this.file.dataDirectory;
                     const pathCompleto = downloadDir + fileName;
 
-                    this.fileOpener.open(pathCompleto, item.ESTENZIONE)
+                    this.fileOpener.open(pathCompleto, allegato.tipo)
                         .then(() => {
                             // console.log('File aperto!'));
                         }).catch(() => {
