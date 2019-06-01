@@ -3,20 +3,19 @@ import {GlobalDataService} from '../services/global-data.service';
 import {Corso} from './Corso';
 
 
-const CRESCENTE = 0;
-const DECRESCENTE = 1;
+const DISATTIVO = 0;
+const FILTRO_SCRITTO = 1;
+const FILTRO_ORALE = 2;
+const FILTRO_SCRITTO_E_ORALE = 3;
+
 
 const ORDINAMENTO_DATA = 0;
 const ORDINAMENTO_ALFABETICO = 2;
 const ORDINAMENTO_CFU = 4;
 const ORDINAMENTO_ANNO = 6;
 
-const DISATTIVO = 0;
-
-const FILTRO_SCRITTO = 1;
-const FILTRO_ORALE = 2;
-const FILTRO_SCRITTO_E_ORALE = 3;
-
+const CRESCENTE = 0;
+const DECRESCENTE = 1;
 
 export class FiltroAppelliDisponibili {
 
@@ -25,19 +24,17 @@ export class FiltroAppelliDisponibili {
 
     //filtro
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
-    filtroPerTipologia: number; //0  non attivo
+    filtroPerTipologia: number; //0 non attivo -- 1 scritto -- 2 orale -- 3 scritto+orale
 
     //ordinamento
     idOrdinamento: number;  //0 data --- 2 alfabetico --- 4 cfu --- 6 anno
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
 
 
-
     constructor() {
         //default value
         this.reset();
     }
-
 
     static toObj(obj: Object): FiltroAppelliDisponibili {
         return Object.assign(new FiltroAppelliDisponibili(), obj);
@@ -46,6 +43,7 @@ export class FiltroAppelliDisponibili {
     isActive(): boolean {
         return this.filtroPerAnno > DISATTIVO || this.filtroPerTipologia > DISATTIVO;
     }
+
     setMaxAnni(maxAnni: number) {
         this.maxAnni = maxAnni;
     }
@@ -68,6 +66,31 @@ export class FiltroAppelliDisponibili {
         //Ordinamento
         this.idOrdinamento = ORDINAMENTO_DATA;
         this.tipoOrdinamento = CRESCENTE;
+    }
+
+    filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
+        if (this.isActive()) {
+            if (this.filtroPerAnno > DISATTIVO && this.filtroPerAnno <= this.maxAnni) {
+                appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
+            }
+
+            switch (this.filtroPerTipologia) {
+                case FILTRO_SCRITTO:
+                    appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
+
+                    break;
+                case FILTRO_ORALE:
+                    appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
+
+                    break;
+                case FILTRO_SCRITTO_E_ORALE:
+                    appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
+
+                    break;
+            }
+        }
+
+        return appelli;
     }
 
     ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso>): AppelloDisponibile[] {
@@ -270,31 +293,6 @@ export class FiltroAppelliDisponibili {
                 );
                 break;
         }
-        return appelli;
-    }
-
-    filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
-
-
-        if (this.filtroPerAnno > DISATTIVO) {
-            appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
-        }
-
-        switch (this.filtroPerTipologia) {
-            case FILTRO_SCRITTO:
-                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'S');
-
-                break;
-            case FILTRO_ORALE:
-                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'O');
-
-                break;
-            case FILTRO_SCRITTO_E_ORALE:
-                appelli = appelli.filter(appello => appello.tipo_iscr_cod === 'SO');
-
-                break;
-        }
-
         return appelli;
     }
 

@@ -10,8 +10,6 @@ import { HttpService } from './http.service';
 export class Esse3Service {
 
     baseurl = this.globalData.baseurl;
-    urlPrenotaAppello: string = this.baseurl + 'prenotaAppello.php';
-    urlCancellaPrenotazione: string = this.baseurl + 'cancellaPrenotazione.php';
     urlSession: string = this.baseurl + 'getSession.php';
 
 
@@ -28,7 +26,7 @@ export class Esse3Service {
         return this.globalData.getBaseUrl()  + 'getSession.php';
     }
 
-    // Sembra non essere mai usata!
+    //@TODO Sembra non essere mai usata!
     getSid(): Promise<string> {
         return new Promise(resolve => {
             this.storage.get('token').then(
@@ -71,9 +69,6 @@ export class Esse3Service {
                             body = {
                                 token: token,
                             };
-                            // this.http.post(url, body)
-                            //     .toPromise()
-                            //     .then(
                             this.services.getJSON(url, body).then(
                                 (json) => {
                                     const sid = json['sid'];
@@ -92,7 +87,6 @@ export class Esse3Service {
                         }
                     );
                 }, (err) => {
-                    // TO BE CHECKED!
                     GlobalDataService.log(2, 'Errore', err);
                 }
             );

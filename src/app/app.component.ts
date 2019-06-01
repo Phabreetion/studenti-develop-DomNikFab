@@ -28,10 +28,6 @@ import {HttpService} from './services/http.service';
 import {Router} from '@angular/router';
 import {ToastsService} from './services/toasts.service';
 
-// import {Push, PushObject, PushOptions} from '@ionic-native/push/ngx';
-// import {Firebase} from '@ionic-native/firebase/ngx';
-// import {FirebaseMessaging} from '@ionic-native/firebase-messaging/ngx';
-
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
@@ -167,20 +163,16 @@ export class AppComponent {
         public network: Network,
         public platform: Platform,
         public device: Device,
-        // public push: Push,
         public screenOrientation: ScreenOrientation,
         public splashScreen: SplashScreen,
         public statusBar: StatusBar,
         public fcm: FCM,
-        // public firebase: Firebase,
-        // private firebaseMessaging: FirebaseMessaging,
         public storage: Storage,
         public db: MaterialeDidatticoDbService,
         public sync: SyncService,
         public http: HttpService,
         public globalData: GlobalDataService,
         public account: AccountService
-        //    private firebaseMessaging: FirebaseMessaging,
     ) {
         this.initializeApp();
         this.backButtonEvent().then();
@@ -194,7 +186,7 @@ export class AppComponent {
             } else {
                 this.globalData.android = false;
                 this.statusBar.styleDefault();
-                if (this.device.model.startsWith('iPhone11') || this.device.isVirtual ) {
+                if (this.device.model.startsWith('iPhone11') || this.device.isVirtual) {
                     this.statusBar.overlaysWebView(true);
                     this.globalData.iPhoneX = true;
                 }
@@ -215,23 +207,18 @@ export class AppComponent {
             }
 
             if (this.platform.is('ios') || (this.platform.is('android'))) {
-                // this.statusBar.styleDefault();
-                // this.splashScreen.hide();
-                // if (this.platform.is('tablet')) {
-                // } else {
-                //     this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT);
-                // }
-
                 if (this.screenOrientation.type.startsWith('landscape')) {
                     this.globalData.landscape = true;
                 }
 
+                //memorizziamo in una variabile globale i cambiamenti dell'orientamento dello schermo
                 this.screenOrientation.onChange().subscribe(
                     () => {
                         this.globalData.landscape = this.screenOrientation.type.startsWith('landscape');
                     }
                 );
 
+                //memorizzo nello storage la versione attuale dell'app
                 this.appVersion.getVersionNumber().then(
                     (appVersion) => {
                         this.storage.set('appVersion', appVersion).then();
@@ -239,31 +226,23 @@ export class AppComponent {
                         GlobalDataService.log(2, 'ERROR in getVersionNumber', err);
                     });
             } else {
+                //in caso di test da mobile si impostano nello storage questi valori di default
                 this.storage.set('uuid', 'virtual').then();
                 this.storage.set('appVersion', '2.0.v').then();
             }
-
-            // moment.locale('it');
-
-
 
             this.http.checkConnection();
 
             // watch network for a disconnect
             this.network.onDisconnect().subscribe(() => {
-                console.log('Rilevata Disconnessione');
+                //console.log('Rilevata Disconnessione');
                 this.http.setConnected(false);
-                // Forza l'aggiornamento del DOM
-                // this.ngZone.run(() => {
-                // });
             });
 
             // watch network for a connection
             this.network.onConnect().subscribe(() => {
-                console.log('Rilevata Connessione');
+                //console.log('Rilevata Connessione');
                 this.http.setConnected(true);
-                // this.ngZone.run(() => {
-                // });
             });
 
             this.initPushNotification();
@@ -323,44 +302,44 @@ export class AppComponent {
             try {
                 this.fcm.getToken().then(
                     (token) => {
-                    // console.log('FCM GETTOKEN = ' + token);
-                    if (token != null) {
-                        this.sync.aggiornaTokenNotifiche(token);
-                    }
-                }, (err) => {
-                    GlobalDataService.log(2, 'FCM: Reject in getToken', err);
-                }).catch((ex) => {
+                        // console.log('FCM GETTOKEN = ' + token);
+                        if (token != null) {
+                            this.sync.aggiornaTokenNotifiche(token);
+                        }
+                    }, (err) => {
+                        GlobalDataService.log(2, 'FCM: Reject in getToken', err);
+                    }).catch((ex) => {
                     GlobalDataService.log(2, 'FCM: Eccezione in getToken', ex);
 
                 });
 
                 this.fcm.onNotification().subscribe(
                     (data) => {
-                    GlobalDataService.log(1, 'FCM: ricevuta una notifica', data);
+                        GlobalDataService.log(1, 'FCM: ricevuta una notifica', data);
 
-                    this.mostraNotifica(data);
+                        this.mostraNotifica(data);
 
-                    // if (data && data.wasTapped) {
-                    //     // console.log('Received in background');
-                    //     // Notifica con app in background
-                    //     this.mostraNotifica(data);
-                    // } else {
-                    //     // Notifica con app in primo piano
-                    //     this.mostraNotifica(data);
-                    // }
-                }, (err) => {
-                    GlobalDataService.log(2, 'FCM: Reject onNotification', err);
-                });
+                        // if (data && data.wasTapped) {
+                        //     // console.log('Received in background');
+                        //     // Notifica con app in background
+                        //     this.mostraNotifica(data);
+                        // } else {
+                        //     // Notifica con app in primo piano
+                        //     this.mostraNotifica(data);
+                        // }
+                    }, (err) => {
+                        GlobalDataService.log(2, 'FCM: Reject onNotification', err);
+                    });
 
                 this.fcm.onTokenRefresh().subscribe(
                     (token) => {
-                    // console.log('FCM TOKEN AGGIORNATO = ' + token);
-                    if (token != null) {
-                        this.sync.aggiornaTokenNotifiche(token);
-                    }
-                }, (err) => {
-                    GlobalDataService.log(2, 'FCM: Reject onTokenRefresh', err);
-                });
+                        // console.log('FCM TOKEN AGGIORNATO = ' + token);
+                        if (token != null) {
+                            this.sync.aggiornaTokenNotifiche(token);
+                        }
+                    }, (err) => {
+                        GlobalDataService.log(2, 'FCM: Reject onTokenRefresh', err);
+                    });
 
                 this.fcm.subscribeToTopic('testbeta').then(
                     (res) => {
@@ -504,7 +483,7 @@ export class AppComponent {
 
             this.routerOutlets.forEach((outlet: IonRouterOutlet) => {
                 //@TODO aggiungere tutte le route del menu
-                const back_button_off = [ '/piano-di-studio', '/appelli', '/medie', '/news',  '/notifiche', '/rubrica', '/questionari', '/tasse', '/servizi-online', '/impostazioni', '/appelli-docente'];
+                const back_button_off = ['/piano-di-studio', '/appelli', '/medie', '/news', '/notifiche', '/rubrica', '/questionari', '/tasse', '/servizi-online', '/impostazioni', '/appelli-docente', '/insegnamenti-docente', '/orario'];
 
                 if (outlet && outlet.canGoBack() && !back_button_off.includes(this.router.url)) {
                     // torna indetro fino alla home

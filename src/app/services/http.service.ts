@@ -37,7 +37,7 @@ export class HttpService {
 
     checkNative() {
         return new Promise((resolve) => {
-            this.postNative(this.globalData.defaultBaseUrl+'/ultimaVersione.php', {platform: 'Android'})
+            this.postNative(this.globalData.defaultBaseUrl + '/ultimaVersione.php', {platform: 'Android'})
                 .then(
                     () => {
                     resolve(true);
@@ -79,10 +79,8 @@ export class HttpService {
 
     getJSON(url: string, body: any) {
         if (this.httpNativo) {
-            console.log('nativo');
             return this.getJSONNative(url, body);
         } else {
-            console.log('non nativo');
             return this.getJSONAngular(url, body);
         }
     }
@@ -189,14 +187,6 @@ export class HttpService {
         });
     }
 
-    // return this.http.get('https://httpbin.org/ip')
-    //     .pipe(
-    //         map(
-    //     res => { res.json(); },
-    //     err => { console.dir(err); }));
-
-
-
     getConnected(): boolean {
         // console.log(this.connessioneInizializzata);
 
@@ -232,25 +222,6 @@ export class HttpService {
                         this.connessioneInCorso = false;
                         return this.connected;
                     });
-
-                // this.http.get('https://service.unimol.it/studenti/api/ultimaVersione.php')
-                //    // .pipe(map(res => res.json()))
-                //     .subscribe(
-                //         (data) => {
-                //             // console.dir(data);
-                //             this.connessione Inizializzata = true;
-                //             this.connected = true;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         },
-                //         (err) => {
-                //             // console.dir(err);
-                //             this.connessioneInizializzata = true;
-                //             this.connected = false;
-                //             this.connessioneInCorso = false;
-                //             return this.connected;
-                //         }
-                //     );
             } catch (e) {
                 console.dir(e);
                 this.connessioneInCorso = false;
@@ -269,29 +240,5 @@ export class HttpService {
 
     checkConnection() {
         this.getConnected();
-        // this.http.get('https://httpbin.org/ip', {}, {})
-        //     .then(
-        //         (data) => {
-        //             this.setConnected(true);
-        //             console.dir(data);
-        //         },
-        //         (err) => {
-        //             this.setConnected(false);
-        //             console.dir(err);
-        //         })
     }
-
-    // testNetworkStartup() {
-    //     this.services.get('https://httpbin.org/ip', {})
-    //         .then(data => {
-    //             return true;
-    //         }, (err) => {
-    //             return false;
-    //         });
-    //     // return this.http.get('https://httpbin.org/ip')
-    //     //     .pipe(
-    //     //         map(
-    //     //     res => { res.json(); },
-    //     //     err => { console.dir(err); }));
-    // }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {GlobalDataService} from './global-data.service';
 import {Storage} from '@ionic/storage';
 import {FCM} from '@ionic-native/fcm/ngx';
@@ -6,16 +6,17 @@ import {Platform} from '@ionic/angular';
 import {HttpService} from './http.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class NotificheService {
 
-  constructor(
-      private storage: Storage,
-      public services: HttpService,
-      private fcm: FCM,
-      private platform: Platform,
-  ) { }
+    constructor(
+        private storage: Storage,
+        public services: HttpService,
+        private fcm: FCM,
+        private platform: Platform,
+    ) {
+    }
 
     sottoscrivi(topic) {
         this.fcm.subscribeToTopic(topic).then(
@@ -194,7 +195,6 @@ export class NotificheService {
                     }, (err) => {
                         GlobalDataService.log(2, 'Non è presente dipID nello storage!', err);
                     }
-
                 );
 
                 topic = 'UNIMOL';

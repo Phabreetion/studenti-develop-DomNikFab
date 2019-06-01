@@ -1,5 +1,11 @@
 import {Corso} from './Corso';
 
+
+const DISATTIVO = 0;
+const FILTRO_ESAME_SOSTENUTO = 1;
+const FILTRO_PER_NON_SOSTENUTO = 2;
+
+
 const ORDINAMENTO_ANNO = 0;
 const ORDINAMENTO_ALFABETICO = 2;
 const ORDINAMENTO_CFU = 4;
@@ -8,21 +14,17 @@ const ORDINAMENTO_VOTO = 6;
 const CRESCENTE = 0;
 const DECRESCENTE = 1;
 
-const FILTRO_ESAME_SOSTENUTO = 1;
-const FILTRO_PER_NON_SOSTENUTO = 2;
-
-const DISATTIVO = 0;
-
 export class FiltroPianoDiStudio {
-    //serve per avere il massimo degli anni
+
+    //serve per determinare quel è il massimo filtro per anno
     maxAnni: number;
 
     //filtri
-    filtroPerTipologia: number;
+    filtroPerTipologia: number; //0 non attivo --- 1 esami superati --- 2 esami non superati
     filtroPerAnno: number; //0 non attivo -> altrimenti gli altri
 
     //ordinamento
-    idOrdinamento: number;
+    idOrdinamento: number; //0 anno --= 2 alfabetico --- 4 cfu --- 6 voto
     tipoOrdinamento: number; //0 crescente --- 1 decrescente
 
 
@@ -37,7 +39,7 @@ export class FiltroPianoDiStudio {
     }
 
     isActive(): boolean {
-        return this.filtroPerTipologia > DISATTIVO ||  this.filtroPerAnno > DISATTIVO;
+        return this.filtroPerTipologia > DISATTIVO || this.filtroPerAnno > DISATTIVO;
     }
 
     setMaxAnni(maxAnni: number) {
@@ -55,11 +57,32 @@ export class FiltroPianoDiStudio {
     }
 
     reset() {
-        this.idOrdinamento = 0;
-        this.tipoOrdinamento = 0;
-
+        //reset filtri
         this.filtroPerAnno = DISATTIVO;
         this.filtroPerTipologia = DISATTIVO;
+
+        //reset ordinamento
+        this.idOrdinamento = ORDINAMENTO_ANNO;
+        this.tipoOrdinamento = CRESCENTE;
+    }
+
+    filtra(corsi: Corso[]): Corso[] {
+        if (this.isActive()) {
+            if (this.filtroPerAnno > DISATTIVO && this.filtroPerAnno <= this.maxAnni) {
+                corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
+            }
+
+            switch (this.filtroPerTipologia) {
+                case FILTRO_ESAME_SOSTENUTO:
+                    corsi = corsi.filter(corso => corso.isSuperato());
+                    break;
+                case FILTRO_PER_NON_SOSTENUTO:
+                    corsi = corsi.filter(corso => !corso.isSuperato());
+                    break;
+            }
+        }
+
+        return corsi;
     }
 
     ordina(corsi: Corso[]): Corso[] {
@@ -307,23 +330,7 @@ export class FiltroPianoDiStudio {
                 });
                 break;
         }
-        return corsi;
-    }
 
-    filtra(corsi: Corso[]): Corso[] {
-
-        switch (this.filtroPerTipologia) {
-            case FILTRO_ESAME_SOSTENUTO:
-                corsi = corsi.filter(corso => corso.isSuperato());
-                break;
-            case FILTRO_PER_NON_SOSTENUTO:
-                corsi = corsi.filter(corso => !corso.isSuperato());
-                break;
-        }
-
-        if (this.filtroPerAnno > 0) {
-            corsi = corsi.filter(corso => corso.ANNO == this.filtroPerAnno);
-        }
         return corsi;
     }
 

@@ -55,10 +55,8 @@ export class AccountService {
                         (value) => {
                             if (value === undefined || value == null || value === '') {
                                 this.crypto.getChiavi();
-                            } else {
-                                // this.crypto.checkChiavi();
-                                console.log(value);
                             }
+                            //console.log(value);
                         });
                     if (logged) {
                         if (!this.globalData.userRole) {

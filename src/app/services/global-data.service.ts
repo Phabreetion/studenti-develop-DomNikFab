@@ -1,11 +1,10 @@
-import { Injectable, NgZone } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 
 import {ScreenOrientation} from '@ionic-native/screen-orientation/ngx';
 import {NavController, Platform} from '@ionic/angular';
-
 // Includiamo una libreria che ci consente di risolvere il map sul trace per avere il file in cui il log è stato chiamato
 // import {mapStackTrace} from 'sourcemapped-stacktrace';
-import {faWifi, faLink, faUnlink, faCoins, faCalendarDay} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarDay, faCoins, faLink, faUnlink, faWifi} from '@fortawesome/free-solid-svg-icons';
 import {Storage} from '@ionic/storage';
 import {faBookOpen} from '@fortawesome/free-solid-svg-icons/faBookOpen';
 import {faPencilAlt} from '@fortawesome/free-solid-svg-icons/faPencilAlt';
@@ -26,7 +25,7 @@ export class GlobalDataService {
     baseurl;
 
     archive = [];
-    passphrase_private_key: string = 'faustofasano2019_appunimol';
+    passphrase_private_key = 'faustofasano2019_appunimol';
 
     utente_test = false;
 
@@ -88,11 +87,13 @@ export class GlobalDataService {
         const minLog = 3;
         const minTrace = 10; // disabilitato, lo usiamo solo nel dubugging, problemi con l'emulatore ios
         if (level >= minLog) {
-            if (reason) { console.log(reason); }
-            if (msg) { console.dir(msg); }
-         
+            if (reason) {
+                console.log(reason);
+            }
+            if (msg) {
+                console.dir(msg);
+            }
         }
-
     }
 
     static toTitleCase(str) {
@@ -147,9 +148,7 @@ export class GlobalDataService {
         const dayParts = day.split('/');
         const hourParts = hour.split(':');
 
-        const mydate = new Date( dayParts[2], dayParts[1] - 1, dayParts[0], hourParts[0], hourParts[1], hourParts[2]);
-
-        return mydate;
+        return new Date(dayParts[2], dayParts[1] - 1, dayParts[0], hourParts[0], hourParts[1], hourParts[2]);
     }
 
     static formatStringDateTime(stringDate, daySeparator, hourSeparator): string {
@@ -314,7 +313,7 @@ export class GlobalDataService {
                 } else {
                     this.baseurl = this.defaultBaseUrl;
                 }
-            }, (err) => {
+            }, () => {
                 this.baseurl = this.defaultBaseUrl;
             });
         this.storage.get('user_role').then(
@@ -324,7 +323,7 @@ export class GlobalDataService {
                 } else {
                     this.logged ? this.userRole = 'student' : this.userRole = 'none';
                 }
-            }, (err) => {
+            }, () => {
                 this.logged ? this.userRole = 'student' : this.userRole = 'none';
             });
     }
@@ -341,7 +340,7 @@ export class GlobalDataService {
                     }
                     return this.baseurl;
 
-                }, (err) => {
+                }, () => {
                     this.baseurl = this.defaultBaseUrl;
                     return this.baseurl;
                 });
