@@ -54,6 +54,12 @@ export class AppComponent {
             role: 'student'
         },
         {
+            title: 'Materiale diattico',
+            url: '/materiale-didattico-figo',
+            icon: 'download',
+            role: 'student'
+        },
+        {
             title: 'Appelli',
             url: '/appelli',
             icon: 'bookmark',

@@ -51,7 +51,7 @@ export class MaterialeDidatticoDbService {
         public fileOpener: FileOpener,
         public transfer: FileTransfer,
         public file: File,
-        public messaggi: ToastsService,
+        public toastService: ToastsService,
         public loadingCtrl: LoadingController,
         public alertCtrl: AlertController,
         public inAppBrowser: InAppBrowser,
@@ -91,13 +91,83 @@ export class MaterialeDidatticoDbService {
 
 
     /* ----   ALLEGATI  ___ */
+    getTuttiAllegatiFromDB(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
+                db.executeSql('SELECT * FROM allegati', []).then(
+                    (result) => {
 
+                        const files = [];
+                        if (result.rows.length > 0) {
 
-    inserisciAllegato(id, ad_id, tipo, estensione) {
+                            for (let i = 0; i < result.rows.length; ++i) {
+                                const item = result.rows.item(i);
 
-        // console.log(id + ' - ' + ad_id + ' - ' + tipo + ' - ' + estensione);
+                                files.push(item);
+                            }
 
-        // this.openDb();
+                            resolve(files);
+                        } else {
+                            resolve(files);
+                        }
+                    }, (errore) => {
+                        console.dir(errore);
+                        reject();
+                    });
+            });
+        });
+    }
+
+    getTuttiAllegatiScaricatiFromDB(): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
+                db.executeSql('SELECT * FROM allegati WHERE scaricato = 1', []).then(
+                    (result) => {
+
+                        const files = [];
+                        if (result.rows.length > 0) {
+
+                            for (let i = 0; i < result.rows.length; ++i) {
+                                const item = result.rows.item(i);
+
+                                files.push(item);
+                            }
+
+                            resolve(files);
+                        } else {
+                            resolve(files);
+                        }
+                    }, (errore) => {
+                        console.dir(errore);
+                        reject();
+                    });
+            });
+        });
+    }
+
+    getAllegatoFromDB(id): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.sqlite.create(this.dbOptions).then((db) => {
+                db.executeSql('SELECT * FROM allegati WHERE id = ?', [id]).then(
+                    (result) => {
+
+                        if (result.rows.length > 0) {
+                            const firstItem = result.rows.item(0);
+                            resolve(firstItem);
+                        } else {
+                            reject();
+                        }
+
+                    }, (errore) => {
+                        // console.log('Errore select allegato ');
+                        console.dir(errore);
+                        reject();
+                    });
+            });
+        });
+    }
+
+    inserisciAllegatoInDB(id, ad_id, tipo, estensione) {
 
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
@@ -119,8 +189,6 @@ export class MaterialeDidatticoDbService {
                                         console.dir(erroreAggiornamentoTabellaFiles);
                                         reject(erroreAggiornamentoTabellaFiles);
                                     });
-
-
                             } else {
                                 db.executeSql(
                                     'INSERT INTO allegati (id, tipo, ad_id, estensione, data, scaricato) VALUES (?, ?, ?, ?, ?, ?) ',
@@ -146,35 +214,33 @@ export class MaterialeDidatticoDbService {
         });
     }
 
-    getAllegato(id): Promise<any> {
-        // console.log('Cerco allegati per ' + id);
-        let allegato = null;
+    removeAllegatoFromDB(id) {
         return new Promise((resolve, reject) => {
-            this.sqlite.create(this.dbOptions).then((db) => {
-                db.executeSql('SELECT * FROM allegati WHERE id = ?', [id]).then(
-                    (result) => {
-
-                        if (result.rows.length > 0) {
-                            const all = result.rows.item(0);
-                            allegato = {
-                                id: all.id,
-                                ad_id: all.ad_id,
-                                tipo: all.tipo,
-                                estensione: all.estensione,
-                                data: all.data,
-                                scaricato: all.scaricato
-                            };
-                            resolve(allegato);
-                        } else {
-                            reject();
-                        }
-
-                    }, (errore) => {
-                        // console.log('Errore select allegato ');
-                        console.dir(errore);
-                        reject();
-                    });
-            });
+            this.sqlite.create(this.dbOptions).then(
+                (db: SQLiteObject) => {
+                    db.executeSql('select * from allegati where id=' + id, [])
+                        .then((esitoQuery) => {
+                            if (esitoQuery.rows.length > 0) {
+                                db.executeSql('DELETE FROM allegati WHERE id = ?', [id]).then(
+                                    () => {
+                                        // console.log('Update tabella files Ok.');
+                                        resolve();
+                                    }, (erroreAggiornamentoTabellaFiles) => {
+                                        // console.log('Errore update tabella files: ');
+                                        console.dir(erroreAggiornamentoTabellaFiles);
+                                        reject(erroreAggiornamentoTabellaFiles);
+                                    });
+                            }
+                        }, (erroreSelect) => {
+                            // console.log('Errore select * from allegati: ');
+                            console.dir(erroreSelect);
+                            reject(erroreSelect);
+                        });
+                }, (error) => {
+                    console.error('Impossibile aprire il database...');
+                    console.dir(error);
+                    reject(error);
+                }).catch(e => console.log(e)); // -- Sqlite
         });
     }
 
@@ -316,9 +382,9 @@ export class MaterialeDidatticoDbService {
                                 entry.file(success => {
                                     const mimeType = success.type;
                                     // console.log('download complete: ' + entry.toURL());
-                                    this.messaggi.downloadCompletato();
+                                    this.toastService.downloadCompletato();
 
-                                    this.inserisciAllegato(item.ALLEGATO_ID, item.AD_ID, mimeType, item.ESTENSIONE).then(
+                                    this.inserisciAllegatoInDB(item.ALLEGATO_ID, item.AD_ID, mimeType, item.ESTENSIONE).then(
                                         () => {
                                             loading.dismiss();
                                             this.apriFile(item);
@@ -331,20 +397,20 @@ export class MaterialeDidatticoDbService {
                                 }, error => {
                                     loading.dismiss();
                                     GlobalDataService.log(2, 'entry.file fallito!', error);
-                                    this.messaggi.erroreAperturaFile();
+                                    this.toastService.erroreAperturaFile();
                                 });
 
                             }, (err) => {
                                 loading.dismiss();
                                 // console.log('ERR');
                                 console.dir(err);
-                                this.messaggi.erroreDownload();
+                                this.toastService.erroreDownload();
                             }
                         ).catch(
                             (ex) => {
                                 loading.dismiss();
                                 GlobalDataService.log(2, 'Eccezione in download!', ex);
-                                this.messaggi.erroreDownload();
+                                this.toastService.erroreDownload();
                             }
                         );
                     }, (err) => {
@@ -356,19 +422,15 @@ export class MaterialeDidatticoDbService {
                 }
             }, (err) => {
                 GlobalDataService.log(2, 'Errore permessi', err);
-                this.messaggi.permessoNonAttivo();
+                this.toastService.permessoNonAttivo();
             }
         );
     }
 
-
-
-
-
     apriFile(item) {
         if (this.isPiattaformaSupportata()) {
             this.isAllegatoScaricato(item).then(() => {
-                this.getAllegato(item.ALLEGATO_ID).then((allegato) => {
+                this.getAllegatoFromDB(item.ALLEGATO_ID).then((allegato) => {
                     const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
                     const downloadDir = this.file.dataDirectory;
                     const pathCompleto = downloadDir + fileName;
@@ -378,25 +440,23 @@ export class MaterialeDidatticoDbService {
                             // console.log('File aperto!'));
                         }).catch(() => {
                         // console.log('Errore apertura file', e);
-                        this.messaggi.fileNonSupportato();
+                        this.toastService.fileNonSupportato();
                     });
 
                 }).catch();
             }, (error) => {
                 GlobalDataService.log(2, 'Impossibile recuperare il file', error);
-                this.messaggi.fileNonScaricato();
+                this.toastService.fileNonScaricato();
                 return;
             });
         } else {
-            //toast
-            this.messaggi.piattaformaNonSupportata();
+            this.toastService.piattaformaNonSupportata();
         }
 
     }
 
-
     eliminaFile(item) {
-        if (this.platform.is('android') || this.platform.is('ios')) {
+        if (this.isPiattaformaSupportata()) {
             const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
             const downloadDir = this.file.dataDirectory;
 
@@ -406,19 +466,20 @@ export class MaterialeDidatticoDbService {
 
                     this.file.removeFile(downloadDir, fileName).then(
                         () => {
-                            this.messaggi.successoEliminazione();
+                            this.removeAllegatoFromDB(item.ALLEGATO_ID);
+                            this.toastService.successoEliminazione();
                             return true;
                         },
                         (err) => {
                             GlobalDataService.log(2, 'Impossibile eliminare l\'allegato', err);
-                            this.messaggi.fallimentoEliminazione();
+                            this.toastService.fallimentoEliminazione();
                             return false;
                         }
                     );
                     return true;
                 },
                 (err) => {
-                    this.messaggi.fileNonScaricato();
+                    this.toastService.fileNonScaricato();
                     GlobalDataService.log(1, 'Nulla da cancellare!', err);
                     return true;
                 }
@@ -426,7 +487,7 @@ export class MaterialeDidatticoDbService {
 
         } else {
             // console.log('Terminale Windows');
-            this.messaggi.piattaformaNonSupportata();
+            this.toastService.piattaformaNonSupportata();
             return false;
         }
     }

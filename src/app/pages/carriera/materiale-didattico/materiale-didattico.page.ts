@@ -89,6 +89,8 @@ export class MaterialeDidatticoPage implements OnInit {
             console.log(this.allegatiFiltrati);
         });
 
+        this.localdb.getTuttiAllegatiFromDB().then();
+
     }
 
     ionViewDidEnter() {

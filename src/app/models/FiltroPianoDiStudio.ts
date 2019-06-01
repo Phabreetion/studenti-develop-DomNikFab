@@ -86,7 +86,14 @@ export class FiltroPianoDiStudio {
     }
 
     ordina(corsi: Corso[]): Corso[] {
+        //id ordinamento -> 0 anno - 2 alfabetico - 4 cfu - 6 voto (scelgo numeri pari per gli id)
+        //tipo ordinamento -> 0 crescente - 1 decrescente (scelgo questi due valori per necessita)
 
+        //la somma di id ordinamento e tipo ordinamento restituisce la combinazione di ordinamento desiderata
+        //una somma pari mi restituisce un ordinamento crescente
+        //una somma dispari mi restituisce un ordinamento decrescente
+
+        //es.  2 alfabetico + 1 descrescente = ordinamento alfabetico descrescente
         switch (this.idOrdinamento + this.tipoOrdinamento) {
 
             case ORDINAMENTO_ANNO + CRESCENTE:

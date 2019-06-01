@@ -25,10 +25,9 @@ const PAGE_URL = '/appelli';
 export class AppelliPage implements OnInit {
 
 
-    //verrà passato nella query string per determinare quali appelli visualizzare
-    //se 0 visualizza tutti
-    ad_id_insegnamento: number;
-    nome_corso: string;
+    //verranno passate nella query string per determinare quali appelli visualizzare e il nome dell'corso
+    ad_id_insegnamento: number; //se 0 visualizza tutti
+    nome_corso: string; //nome corso
 
     //sezione in cui si ci trova
     sezioni: string; //'disponibili' o 'prenotati'
@@ -68,22 +67,11 @@ export class AppelliPage implements OnInit {
                 public pianoDiStudioService: PianoDiStudioService,
                 public appelliService: AppelliService) {
         this.filtro = new FiltroAppelliDisponibili();
+        this.searchKey = '';
     }
 
     ngOnInit() {
-        //controllo l'account, se non verificato rimanda alla pagina di login
-        this.account.controllaAccount().then(
-            () => {
-                this.http.getConnected();
-            },
-            () => {
-                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
-            }
-        );
-
-        this.isSearchbarOpened = false;
-        this.searchKey = '';
-        this.sezioni = 'disponibili';
+        this.http.getConnected();
 
         this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
         this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
@@ -96,6 +84,7 @@ export class AppelliPage implements OnInit {
 
                 if (this.ad_id_insegnamento != 0) {
                     this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                    this.appelliTrovati = this.filtro.ordina(this.appelliTrovati, this.corsiMap);
                 } else {
                     //carico i filtri dallo storage ed eseguo il filtraggio.
                     this.appelliService.loadFiltriFromStorage().then((filtro) => {
@@ -120,10 +109,6 @@ export class AppelliPage implements OnInit {
         this.sezioni = 'disponibili';
         this.isSearchbarOpened = false;
         this.searchKey = '';
-
-        /*if (this.ad_id_insegnamento != 0) {
-            this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
-        }*/
     }
 
 
