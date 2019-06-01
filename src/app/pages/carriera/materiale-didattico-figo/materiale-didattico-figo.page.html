@@ -23,13 +23,44 @@
                 </ion-toolbar>
             </ion-col>
         </ion-row>
+
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar #searchbar
+                           *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
+        </ion-row>
+
     </ion-grid>
 </ion-header>
 
 <ion-content>
     <ion-list>
-        <ion-item *ngFor="let allegato of allegatiScaricati">
-            {{allegato.id}}.{{allegato.estensione}}
-        </ion-item>
+        <ion-item-sliding *ngFor="let allegato of allegatiScaricati">
+            <ion-item>
+                id: {{allegato.id}}<br>
+                filename: {{allegato.filename}}
+            </ion-item>
+
+            <ion-item-options side="end">
+                <ion-item-option color="primary">
+                    Apri
+                </ion-item-option>
+                <ion-item-option color="danger">
+                    Elimina
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
     </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

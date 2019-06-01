@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {MaterialeDidatticoDbService} from '../../../services/materiale-didattico-db-service';
 
@@ -11,6 +11,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     public allegatiScaricati: Array<any>;
 
+    //ricerca
+    @ViewChild('searchbar') searchbar: any;
+    isSearchbarOpened = false;
+    searchKey: string;
+
     constructor(
         public globalData: GlobalDataService,
         public matDidatticoService: MaterialeDidatticoDbService
@@ -18,12 +23,27 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     ngOnInit() {
-        this.matDidatticoService.getTuttiAllegatiScaricatiFromDB().then((allegati) => {
-            this.allegatiScaricati = allegati;
-        });
+        if (this.matDidatticoService.isPiattaformaSupportata()) {
+            this.matDidatticoService.getTuttiAllegatiScaricatiFromDB().then((allegati) => {
+                this.allegatiScaricati = allegati;
+            });
+        }
     }
 
     toogleSearchbar() {
+        this.isSearchbarOpened = !this.isSearchbarOpened;
 
+        if (this.isSearchbarOpened) {
+            setTimeout(() => {
+                this.searchbar.setFocus();
+            }, 150);
+        }
+
+        this.searchKey = '';
+        this.search();
+    }
+
+    search() {
+        //@TODO
     }
 }

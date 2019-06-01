@@ -24,8 +24,6 @@ export class MaterialeDidatticoDbService {
     };
 
     urlAllegatoTest: string = this.globalData.baseurl + '/test_json/test.pdf';
-
-    private browser: any;
     options: InAppBrowserOptions = {
         location: 'yes', // Or 'no'
         hidden: 'no', // Or  'yes'
@@ -43,7 +41,7 @@ export class MaterialeDidatticoDbService {
         presentationstyle: 'pagesheet', // iOS only
         fullscreen: 'yes', // Windows only
     };
-
+    private browser: any;
 
     constructor(
         public sqlite: SQLite,
@@ -68,15 +66,19 @@ export class MaterialeDidatticoDbService {
                 this.database = db;
 
                 db.executeSql('CREATE TABLE IF NOT EXISTS allegati (' +
-                    'id integer primary key, ' +
-                    'ad_id varchar(50), ' +
-                    'data bigint(10),' +
-                    'tipo varchar(50), ' +
-                    'estensione varchar(50), ' +
-                    'scaricato NUMERIC)', []).then((op) => {
+                    'id integer primary key, ' + //id dell'allegato
+                    'ad_id_corso varchar(50), ' + //id dell'corso
+                    'nome_corso varchar(50), ' + //nome del corso
+                    'autore varchar(50), ' + //prof che ha caricato il file
+                    'data_inseritmento varchar(30), ' + //data in cui il prof ha caricato il file
+                    'filename varchar(100), ' + //nome del file
+                    'estensione varchar(50), ' + //estenzione del file (utile per determinare l'icona)
+                    'titolo varchar(50), ' + //titolo assegnato dal prof al file
+                    'tipo varchar(50), ' + //utile per capire con che programma dovrà essere aperto il file
+                    'scaricato integer ' + //1 se scaricato --- 0 se non scaricato ancora
+                    ')', []).then(() => {
                     // console.log('Tabella allegati creata: ', op);
                 }, (err) => {
-                    // console.log('Errore creazione tabella: ');
                     console.dir(err);
                 });
             }, (error) => {
@@ -167,42 +169,41 @@ export class MaterialeDidatticoDbService {
         });
     }
 
-    inserisciAllegatoInDB(id, ad_id, tipo, estensione) {
+    inserisciAllegatoInDB(allegato, tipo) {
 
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
                 (db: SQLiteObject) => {
-                    const data = new Date();
+                    console.log('a');
 
-                    db.executeSql('select * from allegati where id=' + id, [])
+                    db.executeSql('select * from allegati where id = ?', [allegato.ALLEGATO_ID])
                         .then((esitoQuery) => {
+                            console.log('b');
                             if (esitoQuery.rows.length > 0) {
-                                db.executeSql(
-                                    'UPDATE allegati SET (tipo, ad_id, estensione, data, scaricato) = (?, ?, ?, ?, ?) ' +
-                                    'WHERE id = ?',
-                                    [tipo, ad_id, estensione, data, 1, id]).then(
+                                db.executeSql('UPDATE allegati SET (ad_id_corso, nome_corso, autore, data_inseritmento, filename, estensione, tipo, titolo, scaricato) = (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id = ?',
+                                    [allegato.AD_ID, 'nomecorso', allegato.AUTORE, allegato.DATA_INS, allegato.FILENAME, allegato.ESTENSIONE, tipo, allegato.TITOLO, 1, allegato.ALLEGATO_ID]).then(
                                     () => {
-                                        // console.log('Update tabella files Ok.');
+                                        console.log('Update tabella files Ok.');
                                         resolve();
                                     }, (erroreAggiornamentoTabellaFiles) => {
-                                        // console.log('Errore update tabella files: ');
+                                        console.log('Errore update tabella files: ');
                                         console.dir(erroreAggiornamentoTabellaFiles);
                                         reject(erroreAggiornamentoTabellaFiles);
                                     });
                             } else {
                                 db.executeSql(
-                                    'INSERT INTO allegati (id, tipo, ad_id, estensione, data, scaricato) VALUES (?, ?, ?, ?, ?, ?) ',
-                                    [id, tipo, ad_id, estensione, data, 1]).then(() => {
-                                    // console.log('Insert files Ok.');
+                                    'INSERT INTO allegati (id, ad_id_corso, nome_corso, autore, data_inseritmento, filename, estensione, tipo, titolo, scaricato) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                    [allegato.ALLEGATO_ID, allegato.AD_ID, 'nomecorso', allegato.AUTORE, allegato.DATA_INS, allegato.FILENAME, allegato.ESTENSIONE, tipo, allegato.TITOLO, 1]).then(() => {
+                                    console.log('Insert files Ok.');
                                     resolve();
                                 }, (erroreQuery) => {
-                                    // console.log('Errore insert allegati: ');
+                                    console.log('Errore insert allegati: ');
                                     console.dir(erroreQuery);
                                     reject(erroreQuery);
                                 });
                             }
                         }, (erroreSelect) => {
-                            // console.log('Errore select * from allegati: ');
+                            console.log('Errore select * from allegati: ');
                             console.dir(erroreSelect);
                             reject(erroreSelect);
                         });
@@ -218,10 +219,10 @@ export class MaterialeDidatticoDbService {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
                 (db: SQLiteObject) => {
-                    db.executeSql('select * from allegati where id=' + id, [])
+                    db.executeSql('select * from allegati where id = ?', [id])
                         .then((esitoQuery) => {
                             if (esitoQuery.rows.length > 0) {
-                                db.executeSql('DELETE FROM allegati WHERE id = ?', [id]).then(
+                                db.executeSql('UPDATE allegati SET (scaricato) = 0 WHERE id = ?', [id]).then(
                                     () => {
                                         // console.log('Update tabella files Ok.');
                                         resolve();
@@ -262,7 +263,7 @@ export class MaterialeDidatticoDbService {
                 const downloadDir = this.file.dataDirectory;
 
                 this.file.checkFile(downloadDir, fileName).then(
-                    (data) => {
+                    () => {
                         resolve(true);
                     },
                     () => {
@@ -376,27 +377,28 @@ export class MaterialeDidatticoDbService {
                             }
                         ).then(
                             (entry) => {
-                                // console.log('SCARICATO');
-                                // console.dir(entry);
+                                console.log('SCARICATO');
+                                console.dir(entry);
 
                                 entry.file(success => {
                                     const mimeType = success.type;
                                     // console.log('download complete: ' + entry.toURL());
                                     this.toastService.downloadCompletato();
 
-                                    this.inserisciAllegatoInDB(item.ALLEGATO_ID, item.AD_ID, mimeType, item.ESTENSIONE).then(
+                                    this.inserisciAllegatoInDB(item, mimeType).then(
                                         () => {
+                                            console.log('c');
                                             loading.dismiss();
                                             this.apriFile(item);
                                         },
                                         (err) => {
-                                            GlobalDataService.log(2, 'inserisciAllegato rejected', err);
+                                            GlobalDataService.log(4, 'inserisciAllegato rejected', err);
                                             loading.dismiss();
                                         }
                                     );
                                 }, error => {
                                     loading.dismiss();
-                                    GlobalDataService.log(2, 'entry.file fallito!', error);
+                                    GlobalDataService.log(4, 'entry.file fallito!', error);
                                     this.toastService.erroreAperturaFile();
                                 });
 
@@ -409,12 +411,12 @@ export class MaterialeDidatticoDbService {
                         ).catch(
                             (ex) => {
                                 loading.dismiss();
-                                GlobalDataService.log(2, 'Eccezione in download!', ex);
+                                GlobalDataService.log(4, 'Eccezione in download!', ex);
                                 this.toastService.erroreDownload();
                             }
                         );
                     }, (err) => {
-                        GlobalDataService.log(2, 'Loader fallito!', err);
+                        GlobalDataService.log(4, 'Loader fallito!', err);
                     });
                 } else {
                     const target = '_self';
@@ -466,7 +468,7 @@ export class MaterialeDidatticoDbService {
 
                     this.file.removeFile(downloadDir, fileName).then(
                         () => {
-                            this.removeAllegatoFromDB(item.ALLEGATO_ID);
+                            this.removeAllegatoFromDB(item.ALLEGATO_ID).then();
                             this.toastService.successoEliminazione();
                             return true;
                         },
