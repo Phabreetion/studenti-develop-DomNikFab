@@ -24,6 +24,8 @@ export class MaterialeDidatticoPage implements OnInit {
     //parametro passato dalla query string
     ad_id_corso: string;
 
+    nome_corso: string;
+
 
     //allegati
     allegati: Allegato[];
@@ -55,6 +57,7 @@ export class MaterialeDidatticoPage implements OnInit {
         this.http.checkConnection();
 
         this.ad_id_corso = this.route.snapshot.paramMap.get('id');
+        this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
 
         this.localdb.getAllegatiJson().then(allegati => {
             this.allegati = allegati;
