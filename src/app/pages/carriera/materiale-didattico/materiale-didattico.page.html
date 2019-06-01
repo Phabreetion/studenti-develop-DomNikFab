@@ -83,6 +83,12 @@
         </ion-item>
     </ion-list>
 
+    <ion-item *ngIf="allegatiTrovati?.length <= 0" text-center lines="none">
+        <ion-label text-wrap style="color:gray">
+            <div>Nessun Materiale didattico disponibile per questo insegnamento</div>
+        </ion-label>
+    </ion-item>
+
     <ion-list *ngIf="allegati?.length > 0">
         <ion-item-sliding *ngFor="let file of allegatiTrovati">
             <ion-item (click)="presentActionSheet(file)">
