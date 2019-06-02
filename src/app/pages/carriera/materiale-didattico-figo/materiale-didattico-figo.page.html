@@ -41,43 +41,47 @@
 
 <ion-content>
     <ion-list>
-        <ion-item-sliding *ngFor="let allegato of allegatiScaricati">
-            <ion-item (click)="presentActionSheet(allegato)">
-               <ion-grid>
-                   <ion-row>
-                       <ion-col size="2" align-self-center="true">
-                           <img src="assets/img/moodle/{{this.selezionaIcona(allegato)}}.png" />
-                       </ion-col>
-                      <ion-col>
-                          <ion-grid>
-                              <ion-row>
-                                  <ion-col>
-                                      <div>
-                                          <strong>{{allegato.filename}}</strong>
-                                      </div>
-                                  </ion-col>
-                              </ion-row>
-                              <ion-row>
-                                  <ion-col>
-                                      <strong>Id:</strong>{{allegato.id}}
-                                  </ion-col>
-                              </ion-row>
-                          </ion-grid>
-                      </ion-col>
-                   </ion-row>
+        <div *ngFor="let allegato of allegatiScaricatiTrovati">
+            <ion-item *ngIf="corsiMap">{{corsiMap.get(allegato.ad_id_corso.toString()).DESCRIZIONE}}</ion-item>
 
-               </ion-grid>
-            </ion-item>
+            <ion-item-sliding>
+                <ion-item (click)="presentActionSheet(allegato)">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col size="2" align-self-center="true">
+                                <img src="assets/img/moodle/{{this.selezionaIcona(allegato)}}.png" />
+                            </ion-col>
+                            <ion-col>
+                                <ion-grid>
+                                    <ion-row>
+                                        <ion-col>
+                                            <div>
+                                                <strong>{{allegato.filename}}</strong>
+                                            </div>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            <strong>Id:</strong>{{allegato.id}}
+                                        </ion-col>
+                                    </ion-row>
+                                </ion-grid>
+                            </ion-col>
+                        </ion-row>
 
-            <ion-item-options side="end">
-                <ion-item-option color="primary">
-                    Apri
-                </ion-item-option>
-                <ion-item-option color="danger">
-                    Elimina
-                </ion-item-option>
-            </ion-item-options>
-        </ion-item-sliding>
+                    </ion-grid>
+                </ion-item>
+
+                <ion-item-options side="end">
+                    <ion-item-option color="primary">
+                        Apri
+                    </ion-item-option>
+                    <ion-item-option color="danger">
+                        Elimina
+                    </ion-item-option>
+                </ion-item-options>
+            </ion-item-sliding>
+        </div>
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">

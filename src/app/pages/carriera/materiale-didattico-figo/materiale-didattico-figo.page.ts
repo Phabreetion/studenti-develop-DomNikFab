@@ -15,16 +15,21 @@ import {ToastsService} from '../../../services/toasts.service';
 })
 export class MaterialeDidatticoFigoPage implements OnInit {
 
+    //allegati array
     public allegatiScaricati: Array<any>;
-    allegatiScaricatiTrovati:  Array<any>;
+    allegatiScaricatiTrovati: Array<any>;
 
+    //corsi array
+    private corsi: Corso[];
+    private corsiMap: Map<number, Corso>;
 
     public MOCK_FILES = [
-        {id: 12, filename: 'iannolli.pdf', estenzione: 'pdf'},
-        {id: 13, filename: 'scroKING.zip',  estenzione: 'zip'},
-        {id: 14, filename: 'nella Fattispecie.pptx', estenzione: 'pptx'},
-        {id: 15, filename: 'Giovanni offre.pdf', estenzione: 'pdf'},
-        {id: 16, filename: 'Pesche deuticità.pdf', estenzione: 'pdf'},
+        {id: 12, ad_id_corso: 31305164, filename: 'iannolli.pdf', estensione: 'pdf'},
+        {id: 13, ad_id_corso: 31309477, filename: 'scroKING.zip', estensione: 'zip'},
+        {id: 14, ad_id_corso: 31305167, filename: 'nella Fattispecie.pptx', estensione: 'pptx'},
+        {id: 15, ad_id_corso: 31307059, filename: 'Giovanni offre.pdf', estensione: 'pdf'},
+        {id: 16, ad_id_corso: 31309477, filename: 'Pesche deuticità.pdf', estensione: 'pdf'},
+        {id: 16, ad_id_corso: 31309476, filename: 'Contadino_dell_informatica.pdf', estensione: 'pdf'},
     ];
 
 
@@ -32,7 +37,6 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     @ViewChild('searchbar') searchbar: any;
     isSearchbarOpened = false;
     searchKey: string;
-    private corsi: Corso[];
 
 
     constructor(
@@ -44,21 +48,27 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         public localdb: MaterialeDidatticoDbService,
         public toastsService: ToastsService,
         public alertController: AlertController,
-
     ) {
+        this.searchKey = '';
     }
 
     ngOnInit() {
         if (this.matDidatticoService.isPiattaformaSupportata()) {
             this.matDidatticoService.getTuttiAllegatiScaricatiFromDB().then((allegati) => {
                 this.allegatiScaricati = allegati;
+                this.search();
             });
         } else {
             this.allegatiScaricati = this.MOCK_FILES;
+            this.search();
         }
 
-        this.pianoDiStudioService.getCorsi().then( corsi => {
+        this.pianoDiStudioService.getCorsi().then(corsi => {
             this.corsi = corsi;
+        });
+
+        this.pianoDiStudioService.getCorsiAsMap().then(corsiMap => {
+            this.corsiMap = corsiMap;
         });
     }
 
@@ -87,13 +97,13 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     search() {
-      this.allegatiScaricatiTrovati = this.allegatiScaricati;
-
-        const searchKeyLowered = this.searchKey.toLowerCase();
-        this.allegatiScaricatiTrovati = this.allegatiScaricati.filter(allegato => allegato.filename.toLowerCase().search(searchKeyLowered) >= 0);
+        if (this.searchKey !== '') {
+            const searchKeyLowered = this.searchKey.toLowerCase();
+            this.allegatiScaricatiTrovati = this.allegatiScaricati.filter(allegato => allegato.filename.toLowerCase().search(searchKeyLowered) >= 0);
+        } else {
+            this.allegatiScaricatiTrovati = this.allegatiScaricati;
+        }
     }
-
-
 
     async presentActionSheet(allegato: Allegato) {
         let actionSheet;
@@ -103,19 +113,27 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 buttons: [{
                     text: 'Dettagli file',
                     icon: 'information-circle',
-                    handler: () => { this.goToDettagliFile(allegato); }
+                    handler: () => {
+                        this.goToDettagliFile(allegato);
+                    }
                 }, {
                     text: 'Apri',
                     icon: 'easel',
-                    handler: () => { this.apriFile(allegato); }
+                    handler: () => {
+                        this.apriFile(allegato);
+                    }
                 }, {
                     text: 'Elimina',
                     icon: 'trash',
-                    handler: () => { this.rimuoviFile(allegato).then(); }
+                    handler: () => {
+                        this.rimuoviFile(allegato).then();
+                    }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
-                    handler: () => { this.actionSheetController.dismiss().catch(); }
+                    handler: () => {
+                        this.actionSheetController.dismiss().catch();
+                    }
                 }]
             });
         } else {
@@ -124,15 +142,21 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 buttons: [{
                     text: 'Dettagli file',
                     icon: 'information-circle',
-                    handler: () => { this.goToDettagliFile(allegato); }
+                    handler: () => {
+                        this.goToDettagliFile(allegato);
+                    }
                 }, {
                     text: 'Download',
                     icon: 'download',
-                    handler: () => { this.download(allegato); }
+                    handler: () => {
+                        this.download(allegato);
+                    }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
-                    handler: () => { this.actionSheetController.dismiss().catch(); }
+                    handler: () => {
+                        this.actionSheetController.dismiss().catch();
+                    }
                 }]
             });
         }
@@ -198,7 +222,6 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
 
-
     async presentAlertConfermaRimozione(item) {
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Rimozione file',
@@ -223,7 +246,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     selezionaIcona(item) {
-        const estensione: string = item.estenzione.toLowerCase();
+        const estensione: string = item.estensione.toLowerCase();
         let nomeIcona = '';
         switch (estensione) {
             case 'pdf':
