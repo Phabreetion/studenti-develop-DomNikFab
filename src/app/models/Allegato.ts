@@ -41,11 +41,10 @@ export class Allegato {
      */
     public TITOLO: string;
 
-    public scaricato: boolean;
+    public SCARICATO: boolean;
 
 
     constructor( AD_ID?: number, ALLEGATO_ID?: number, AUTORE?: string, CLS_ID?: number, COMUNITA_ID?: number, DATA_INS?: string, ESTENSIONE?: string, FILENAME?: string, TESTO?: string, TITOLO?: string) {
-
         this.AD_ID = AD_ID ;
         this.ALLEGATO_ID = ALLEGATO_ID;
         this.AUTORE = AUTORE;
@@ -56,8 +55,6 @@ export class Allegato {
         this.FILENAME = FILENAME;
         this.TESTO = TESTO;
         this.TITOLO = TITOLO;
-
-        this.scaricato = false;
     }
 
     public static toObj(obj: Object): Allegato {

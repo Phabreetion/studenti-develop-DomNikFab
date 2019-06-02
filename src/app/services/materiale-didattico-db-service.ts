@@ -65,17 +65,19 @@ export class MaterialeDidatticoDbService {
             this.sqlite.create(this.dbOptions).then((db) => {
                 this.database = db;
 
-                db.executeSql('CREATE TABLE IF NOT EXISTS allegati (' +
-                    'id integer primary key, ' + //id dell'allegato
-                    'ad_id_corso varchar(50), ' + //id dell'corso
-                    'nome_corso varchar(50), ' + //nome del corso
-                    'autore varchar(50), ' + //prof che ha caricato il file
-                    'data_inseritmento varchar(30), ' + //data in cui il prof ha caricato il file
-                    'filename varchar(100), ' + //nome del file
-                    'estensione varchar(50), ' + //estenzione del file (utile per determinare l'icona)
-                    'titolo varchar(50), ' + //titolo assegnato dal prof al file
-                    'tipo varchar(50), ' + //utile per capire con che programma dovrà essere aperto il file
-                    'scaricato integer ' + //1 se scaricato --- 0 se non scaricato ancora
+                db.executeSql('CREATE TABLE IF NOT EXISTS allegatiScaricati (' +
+                    'ALLEGATO_ID integer primary key, ' + //id dell'allegato
+                    'AD_ID integer, ' + //id dell'corso
+                    'AUTORE varchar(50), ' + //prof che ha caricato il file
+                    'CLS_ID integer, ' + //non lo so a cosa serve
+                    'COMUNITA_ID integer, ' + //non lo so a cosa serve
+                    'DATA_INS varchar(30), ' + //data in cui il prof ha caricato il file
+                    'ESTENSIONE varchar(10), ' + //estenzione del file (utile per determinare l'icona)
+                    'FILENAME varchar(100), ' + //nome del file
+                    'TESTO varchar(100), ' + //note aggiunte dal prof
+                    'TITOLO varchar(100), ' + //titolo assegnato dal prof al file
+                    'TIPO varchar(50)' + //utile per capire con che programma dovrà essere aperto il file
+                    'SCARICATO integer' + //scaricato
                     ')', []).then(() => {
                     // console.log('Tabella allegati creata: ', op);
                 }, (err) => {
@@ -93,37 +95,10 @@ export class MaterialeDidatticoDbService {
 
 
     /* ----   ALLEGATI  ___ */
-    getTuttiAllegatiFromDB(): Promise<any> {
+    getTuttiAllegatScaricatiiFromDB(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
-                db.executeSql('SELECT * FROM allegati', []).then(
-                    (result) => {
-
-                        const files = [];
-                        if (result.rows.length > 0) {
-
-                            for (let i = 0; i < result.rows.length; ++i) {
-                                const item = result.rows.item(i);
-
-                                files.push(item);
-                            }
-
-                            resolve(files);
-                        } else {
-                            resolve(files);
-                        }
-                    }, (errore) => {
-                        console.dir(errore);
-                        reject();
-                    });
-            });
-        });
-    }
-
-    getTuttiAllegatiScaricatiFromDB(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
-                db.executeSql('SELECT * FROM allegati WHERE scaricato = 1 ORDER BY ad_id_corso', []).then(
+                db.executeSql('SELECT * FROM allegatiScaricati', []).then(
                     (result) => {
 
                         const files = [];
@@ -150,7 +125,7 @@ export class MaterialeDidatticoDbService {
     getAllegatoFromDB(id): Promise<any> {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db) => {
-                db.executeSql('SELECT * FROM allegati WHERE id = ?', [id]).then(
+                db.executeSql('SELECT * FROM allegatiScaricati WHERE id = ?', [id]).then(
                     (result) => {
 
                         if (result.rows.length > 0) {
@@ -176,24 +151,13 @@ export class MaterialeDidatticoDbService {
                 (db: SQLiteObject) => {
                     console.log('a');
 
-                    db.executeSql('select * from allegati where id = ?', [allegato.ALLEGATO_ID])
+                    db.executeSql('select * from allegatiScaricati where id = ?', [allegato.ALLEGATO_ID])
                         .then((esitoQuery) => {
                             console.log('b');
-                            if (esitoQuery.rows.length > 0) {
-                                db.executeSql('UPDATE allegati SET (ad_id_corso, nome_corso, autore, data_inseritmento, filename, estensione, tipo, titolo, scaricato) = (?, ?, ?, ?, ?, ?, ?, ?, ?) WHERE id = ?',
-                                    [allegato.AD_ID, 'nomecorso', allegato.AUTORE, allegato.DATA_INS, allegato.FILENAME, allegato.ESTENSIONE, tipo, allegato.TITOLO, 1, allegato.ALLEGATO_ID]).then(
-                                    () => {
-                                        console.log('Update tabella files Ok.');
-                                        resolve();
-                                    }, (erroreAggiornamentoTabellaFiles) => {
-                                        console.log('Errore update tabella files: ');
-                                        console.dir(erroreAggiornamentoTabellaFiles);
-                                        reject(erroreAggiornamentoTabellaFiles);
-                                    });
-                            } else {
+                            if (esitoQuery.rows.length <= 0) {
                                 db.executeSql(
-                                    'INSERT INTO allegati (id, ad_id_corso, nome_corso, autore, data_inseritmento, filename, estensione, tipo, titolo, scaricato) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                                    [allegato.ALLEGATO_ID, allegato.AD_ID, 'nomecorso', allegato.AUTORE, allegato.DATA_INS, allegato.FILENAME, allegato.ESTENSIONE, tipo, allegato.TITOLO, 1]).then(() => {
+                                    'INSERT INTO allegatiScaricati (ALLEGATO_ID, AD_ID, AUTORE, CLS_ID, COMUNITA_ID, DATA_INS, ESTENSIONE, FILENAME, TESTO, TITOLO, TIPO, SCARICATO) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                                    [allegato.ALLEGATO_ID, allegato.AD_ID, allegato.AUTORE, allegato.CLS_ID, allegato.COMUNITA_ID, allegato.DATA_INS, allegato.ESTENSIONE, allegato.FILENAME, allegato.TESTO, allegato.TITOLO, tipo, 1]).then(() => {
                                     console.log('Insert files Ok.');
                                     resolve();
                                 }, (erroreQuery) => {
@@ -219,23 +183,13 @@ export class MaterialeDidatticoDbService {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
                 (db: SQLiteObject) => {
-                    db.executeSql('select * from allegati where id = ?', [id])
+                    db.executeSql('DELETE FROM allegatiScaricati WHERE id = ?', [id])
                         .then((esitoQuery) => {
-                            if (esitoQuery.rows.length > 0) {
-                                db.executeSql('UPDATE allegati SET (scaricato) = 0 WHERE id = ?', [id]).then(
-                                    () => {
-                                        // console.log('Update tabella files Ok.');
-                                        resolve();
-                                    }, (erroreAggiornamentoTabellaFiles) => {
-                                        // console.log('Errore update tabella files: ');
-                                        console.dir(erroreAggiornamentoTabellaFiles);
-                                        reject(erroreAggiornamentoTabellaFiles);
-                                    });
-                            }
-                        }, (erroreSelect) => {
+                            resolve();
+                        }, (erroreDelete) => {
                             // console.log('Errore select * from allegati: ');
-                            console.dir(erroreSelect);
-                            reject(erroreSelect);
+                            console.dir(erroreDelete);
+                            reject(erroreDelete);
                         });
                 }, (error) => {
                     console.error('Impossibile aprire il database...');

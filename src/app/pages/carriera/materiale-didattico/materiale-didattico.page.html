@@ -106,8 +106,8 @@
                                     <ion-col>
                                         <div text-wrap>
                                             <strong>{{file.TITOLO}}</strong>
-                                            <div *ngIf="file.scaricato"><ion-icon class="overlayClass" name="download"></ion-icon></div>
-                                            <div *ngIf="!file.scaricato"><ion-icon class="overlayClass" name="close"></ion-icon></div>
+                                            <div *ngIf="file.SCARICATO"><ion-icon class="overlayClass" name="download"></ion-icon></div>
+                                            <div *ngIf="!file.SCARICATO"><ion-icon class="overlayClass" name="close"></ion-icon></div>
                                         </div>
                                     </ion-col>
                                 </ion-row>
@@ -136,17 +136,17 @@
                     Dettagli<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="!file.scaricato" color="primary" (click)="download(file)">
+                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="download(file)">
                     <ion-icon name="download"></ion-icon>
                     Download
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.scaricato" color="waring" (click)="apriFile(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="apriFile(file)">
                     <ion-icon name="easel"></ion-icon>
                     Apri<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.scaricato" color="danger" (click)="rimuoviFile(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="rimuoviFile(file)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi<br>file
                 </ion-item-option>

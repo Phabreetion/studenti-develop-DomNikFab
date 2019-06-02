@@ -16,25 +16,25 @@ import {ToastsService} from '../../../services/toasts.service';
 export class MaterialeDidatticoFigoPage implements OnInit {
 
     //allegati array
-    public allegatiScaricati: Array<any>;
-    allegatiScaricatiTrovati: Array<any>;
+    public allegatiScaricati: Allegato[];
+    allegatiScaricatiTrovati: Allegato[];
 
     //corsi array
     private corsi: Corso[];
     private corsiMap: Map<number, Corso>;
 
-    public MOCK_FILES = [
-        {id: 12, ad_id_corso: 31305164, filename: 'iannolli.pdf', estensione: 'pdf'},
+    public MOCK_FILES: Allegato[] = [
+        {ALLEGATO_ID: 12, AD_ID: 31305164, AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: '', SCARICATO: true},
 
-        {id: 13, ad_id_corso: 31309477, filename: 'scroKING.zip', estensione: 'zip'},
-        {id: 16, ad_id_corso: 31309477, filename: 'Pesche deuticità.pdf', estensione: 'pdf'},
+        {ALLEGATO_ID: 13, AD_ID: 31309477, AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: '', SCARICATO: true},
+        {ALLEGATO_ID: 16, AD_ID: 31309477, AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Pesche deuticità.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: '', SCARICATO: true},
 
-        {id: 14, ad_id_corso: 31305167, filename: 'nella Fattispecie.pptx', estensione: 'pptx'},
+        {ALLEGATO_ID: 14, AD_ID: 31305167, AUTORE: 'Tronky', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nella Fattispecie.pptx', ESTENSIONE: 'pptx', TESTO: '', TITOLO: '', SCARICATO: true},
 
-        {id: 15, ad_id_corso: 31307059, filename: 'Giovanni offre.pdf', estensione: 'pdf'},
+        {ALLEGATO_ID: 15, AD_ID: 31307059, AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Giovanni offre.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: '', SCARICATO: true},
 
-        {id: 16, ad_id_corso: 31309476, filename: 'Contadino_dell_informatica.pdf', estensione: 'pdf'},
-        {id: 18, ad_id_corso: 31309476, filename: 'nun è chiar.zip', estensione: 'zip'},
+        {ALLEGATO_ID: 16, AD_ID: 31309476, AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: '', SCARICATO: true},
+        {ALLEGATO_ID: 18, AD_ID: 31309476, AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nun è chiar.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: '', SCARICATO: true},
     ];
 
 
@@ -59,7 +59,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     ngOnInit() {
         if (this.matDidatticoService.isPiattaformaSupportata()) {
-            this.matDidatticoService.getTuttiAllegatiScaricatiFromDB().then((allegati) => {
+            this.matDidatticoService.getTuttiAllegatScaricatiiFromDB().then((allegati) => {
                 this.allegatiScaricati = allegati;
                 this.search();
             });
@@ -104,7 +104,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     search() {
         if (this.searchKey !== '') {
             const searchKeyLowered = this.searchKey.toLowerCase();
-            this.allegatiScaricatiTrovati = this.allegatiScaricati.filter(allegato => allegato.filename.toLowerCase().search(searchKeyLowered) >= 0);
+            this.allegatiScaricatiTrovati = this.allegatiScaricati.filter(allegato => allegato.FILENAME.toLowerCase().search(searchKeyLowered) >= 0);
         } else {
             this.allegatiScaricatiTrovati = this.allegatiScaricati;
         }
@@ -112,59 +112,35 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     async presentActionSheet(allegato: Allegato) {
         let actionSheet;
-        if (allegato.scaricato) {
-            actionSheet = await this.actionSheetController.create({
-                header: allegato.TITOLO,
-                buttons: [{
-                    text: 'Dettagli file',
-                    icon: 'information-circle',
-                    handler: () => {
-                        this.goToDettagliFile(allegato);
-                    }
-                }, {
-                    text: 'Apri',
-                    icon: 'easel',
-                    handler: () => {
-                        this.apriFile(allegato);
-                    }
-                }, {
-                    text: 'Elimina',
-                    icon: 'trash',
-                    handler: () => {
-                        this.rimuoviFile(allegato).then();
-                    }
-                }, {
-                    text: 'Chiudi',
-                    icon: 'close',
-                    handler: () => {
-                        this.actionSheetController.dismiss().catch();
-                    }
-                }]
-            });
-        } else {
-            actionSheet = await this.actionSheetController.create({
-                header: allegato.TITOLO,
-                buttons: [{
-                    text: 'Dettagli file',
-                    icon: 'information-circle',
-                    handler: () => {
-                        this.goToDettagliFile(allegato);
-                    }
-                }, {
-                    text: 'Download',
-                    icon: 'download',
-                    handler: () => {
-                        this.download(allegato);
-                    }
-                }, {
-                    text: 'Chiudi',
-                    icon: 'close',
-                    handler: () => {
-                        this.actionSheetController.dismiss().catch();
-                    }
-                }]
-            });
-        }
+        actionSheet = await this.actionSheetController.create({
+            header: allegato.TITOLO,
+            buttons: [{
+                text: 'Dettagli file',
+                icon: 'information-circle',
+                handler: () => {
+                    this.goToDettagliFile(allegato);
+                }
+            }, {
+                text: 'Apri',
+                icon: 'easel',
+                handler: () => {
+                    this.apriFile(allegato);
+                }
+            }, {
+                text: 'Elimina',
+                icon: 'trash',
+                handler: () => {
+                    this.rimuoviFile(allegato).then();
+                }
+            }, {
+                text: 'Chiudi',
+                icon: 'close',
+                handler: () => {
+                    this.actionSheetController.dismiss().catch();
+                }
+            }]
+        });
+
 
         await actionSheet.present();
     }
@@ -250,8 +226,8 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
-    selezionaIcona(item) {
-        const estensione: string = item.estensione.toLowerCase();
+    selezionaIcona(item: Allegato) {
+        const estensione: string = item.ESTENSIONE.toLowerCase();
         let nomeIcona = '';
         switch (estensione) {
             case 'pdf':

@@ -74,10 +74,10 @@ export class MaterialeDidatticoPage implements OnInit {
             this.allegatiFiltrati.forEach(file => {
                 this.localdb.isAllegatoScaricato(file).then(
                     () => {
-                        file.scaricato = true;
+                        file.SCARICATO = true;
                     },
                     () => {
-                        file.scaricato = false;
+                        file.SCARICATO = false;
                     }
                 );
             });
@@ -100,7 +100,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
     async presentActionSheet(allegato: Allegato) {
         let actionSheet;
-        if (allegato.scaricato) {
+        if (allegato.SCARICATO) {
             actionSheet = await this.actionSheetController.create({
                 header: allegato.TITOLO,
                 buttons: [{
