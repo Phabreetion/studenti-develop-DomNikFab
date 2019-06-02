@@ -16,16 +16,16 @@
                     </ion-title>
                     <ion-buttons slot="end">
                         <ion-back-button [style]="platform.is('android') ? 'padding-right: 1em;' : ''" text=""></ion-back-button>
-                        <ion-button icon-only (click)="toogleSearchbar()">
+                        <ion-button icon-only (click)="toogleSearchbar()" *ngIf="gestioneSearchbarMaterialeDidattico()">
                             <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
                         </ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-col>
         </ion-row>
-        <ion-row *ngIf='isSearchbarOpened'>
+        <ion-row *ngIf='isSearchbarOpened && gestioneSearchbarMaterialeDidattico()'>
             <ion-searchbar #searchbar
-                           *ngIf="isSearchbarOpened"
+                           *ngIf="isSearchbarOpened && gestioneSearchbarMaterialeDidattico()"
                            [(ngModel)]="searchKey"
                            placeholder="Cerca"
                            showCancelButton="true"
@@ -83,9 +83,9 @@
         </ion-item>
     </ion-list>
 
-    <ion-item *ngIf="allegatiTrovati?.length <= 0" text-center lines="none">
+    <ion-item *ngIf="allegatiFiltrati?.length <= 0" text-center lines="none">
         <ion-label text-wrap style="color:gray">
-            <div>Nessun Materiale didattico disponibile per questo insegnamento</div>
+            <div>{{nome_corso? 'Nessun Materiale didattico disponibile per l\'insegnamento di '  + nome_corso: ' Nessun Materiale didattico trovato. '}}</div>
         </ion-label>
     </ion-item>
 

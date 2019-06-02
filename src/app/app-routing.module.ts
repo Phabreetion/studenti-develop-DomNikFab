@@ -20,7 +20,7 @@ const routes: Routes = [
     {path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     {path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
     {path: 'materiale-didattico/', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
-    {path: 'materiale-didattico/:id', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
+    {path: 'materiale-didattico/:id/:nome_corso', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
     {path: 'medie', loadChildren: './pages/carriera/medie/medie.module#MediePageModule'},
     {path: 'news', loadChildren: './pages/news/news.module#NewsPageModule'},
     {path: 'notifiche', loadChildren: './pages/notifiche/notifiche.module#NotifichePageModule'},

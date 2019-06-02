@@ -314,4 +314,13 @@ export class MaterialeDidatticoPage implements OnInit {
         this.search();
     }
 
+    gestioneSearchbarMaterialeDidattico() {
+        if (this.allegatiFiltrati.length == 0) {
+            this.isSearchbarOpened = false;
+            return false;
+        }
+
+        return true;
+    }
+
 }

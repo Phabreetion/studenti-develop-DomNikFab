@@ -129,7 +129,7 @@ export class DettagliCorsoPage implements OnInit {
     }
 
     goToMaterialeDidattico() {
-        this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID], 'forward', false);
+        this.globalData.goTo(this, ['/materiale-didattico/', this.corso.AD_ID, this.corso.DESCRIZIONE], 'forward', false);
     }
 
     goToDettagliCorso(corso: Corso) {

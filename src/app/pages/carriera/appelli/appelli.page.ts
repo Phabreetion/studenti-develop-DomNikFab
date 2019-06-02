@@ -353,7 +353,7 @@ export class AppelliPage implements OnInit {
     }
 
     goToMaterialeDidattico(appello: AppelloDisponibile) {
-        this.globalData.goTo(this, ['/materiale-didattico/', appello.ad_id], 'forward', false);
+        this.globalData.goTo(this, ['/materiale-didattico/', appello.ad_id, this.corsiMap.get(appello.ad_id).DESCRIZIONE], 'forward', false);
     }
 
     async presentActionSheet(appello: AppelloDisponibile) {
