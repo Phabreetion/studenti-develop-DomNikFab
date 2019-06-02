@@ -227,7 +227,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
 
-    doRefresh($event) {
-
+    doRefresh(event) {
+        event.target.complete();
     }
 }
