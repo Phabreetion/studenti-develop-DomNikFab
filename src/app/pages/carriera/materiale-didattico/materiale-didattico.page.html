@@ -136,17 +136,17 @@
                     Dettagli<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="download(file)">
+                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="presentAlertConfermaDownload(file)">
                     <ion-icon name="download"></ion-icon>
                     Download
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="apriFile(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="presentAlertConfermaApertura(file)">
                     <ion-icon name="easel"></ion-icon>
                     Apri<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="rimuoviFile(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="presentAlertConfermaRimozione(file)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi<br>file
                 </ion-item-option>
@@ -161,17 +161,16 @@
 <ion-footer  no-padding>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <ion-spinner [hidden]="!isLoading() || !http.getConnected()" name="crescent"></ion-spinner>
-            <ion-icon [hidden]="isLoading() || !http.getConnected()"  name="checkmark"></ion-icon>
-            <ion-icon [hidden]="isLoading() || http.getConnected()"  name="close"></ion-icon>
+            <ion-icon [hidden]="!http.getConnected()"  name="checkmark"></ion-icon>
+            <ion-icon [hidden]="http.getConnected()"  name="close"></ion-icon>
         </ion-buttons>
 
         <div class="testo-footer">
             Aggiornato al: {{this.sync.getDataUltimoAggiornamento(18)}}
         </div>
 
-        <ion-buttons slot="end" no-padding>
-            <ion-icon slot="icon-only" src="assets/icon/blank.png"></ion-icon>
+        <ion-buttons slot="end">
+            <ion-spinner *ngIf="isLoading()" name="crescent"></ion-spinner>
         </ion-buttons>
     </ion-toolbar>
 </ion-footer>

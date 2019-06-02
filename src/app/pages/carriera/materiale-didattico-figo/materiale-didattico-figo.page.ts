@@ -59,7 +59,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     ngOnInit() {
         if (this.matDidatticoService.isPiattaformaSupportata()) {
-            this.matDidatticoService.getTuttiAllegatScaricatiiFromDB().then((allegati) => {
+            this.matDidatticoService.getAllegatScaricatiiFromDB().then((allegati) => {
                 this.allegatiScaricati = allegati;
                 this.search();
             });

@@ -11,6 +11,7 @@ import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {Allegato} from '../../../models/Allegato';
+import {All} from 'tslint/lib/rules/completedDocsRule';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -39,7 +40,6 @@ export class MaterialeDidatticoPage implements OnInit {
     searchKey: string;
 
     constructor(
-        private toastCtrl: ToastController,
         public route: ActivatedRoute,
         public alertController: AlertController,
         public sync: SyncService,
@@ -48,8 +48,7 @@ export class MaterialeDidatticoPage implements OnInit {
         public actionSheetController: ActionSheetController,
         public localdb: MaterialeDidatticoDbService,
         public toastsService: ToastsService,
-        public account: AccountService,
-        public platform: Platform) {
+        public account: AccountService) {
         this.searchKey = '';
     }
 
@@ -61,7 +60,6 @@ export class MaterialeDidatticoPage implements OnInit {
 
         this.localdb.getAllegatiJson().then(allegati => {
             this.allegati = allegati;
-            console.log(this.allegati);
 
             this.allegatiFiltrati = [];
             this.allegati.forEach(allegato => {
@@ -110,11 +108,11 @@ export class MaterialeDidatticoPage implements OnInit {
                 }, {
                     text: 'Apri',
                     icon: 'easel',
-                    handler: () => { this.apriFile(allegato); }
+                    handler: () => { this.presentAlertConfermaApertura(allegato); }
                 }, {
                     text: 'Elimina',
                     icon: 'trash',
-                    handler: () => { this.rimuoviFile(allegato).then(); }
+                    handler: () => { this.presentAlertConfermaRimozione(allegato).then(); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
@@ -131,7 +129,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 }, {
                     text: 'Download',
                     icon: 'download',
-                    handler: () => { this.download(allegato); }
+                    handler: () => { this.presentAlertConfermaDownload(allegato); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
@@ -141,43 +139,6 @@ export class MaterialeDidatticoPage implements OnInit {
         }
 
         await actionSheet.present();
-    }
-
-    isLoading() {
-        return this.sync.loading[18];
-    }
-
-    doRefresh(event) {
-        if (event) {
-            event.target.complete();
-        }
-
-        this.localdb.getAllegatiJsonAggiornato().then((allegatiAggiornati) => {
-            if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {
-                this.allegatiFiltrati = [];
-                this.allegati.forEach(allegato => {
-                    if (allegato.AD_ID == Number(this.ad_id_corso)) {
-                        this.allegatiFiltrati.push(allegato);
-                    }
-                });
-
-                //ordina in maniera alfabetica
-                this.allegati.sort(function (a, b) {
-                    return a.FILENAME.localeCompare(b.FILENAME);
-                });
-            }
-        });
-    }
-
-
-    goToDettagliFile(item) {
-        this.globalData.allegato = item;
-
-        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
-    }
-
-    download(item) {
-        this.localdb.download(item);
     }
 
     async presentAlertConfermaDownload(item) {
@@ -204,30 +165,28 @@ export class MaterialeDidatticoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
+    async presentAlertConfermaApertura(item) {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Apri file',
+            message: 'Sei sicuro di\' voler aprire il file?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.apriFile(item);
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => {
+                    }
+                }
+            ]
+        });
 
-    apriFile(item) {
-        if (this.localdb.isPiattaformaSupportata()) {
-
-            this.localdb.isAllegatoScaricato(item).then(
-                () => this.localdb.apriFile(item),
-                () => this.presentAlertConfermaDownload(item)
-            );
-        } else {
-            this.toastsService.piattaformaNonSupportata();
-        }
+        await alertConfermaRimozione.present();
     }
-
-    async rimuoviFile(item) {
-        if (this.localdb.isPiattaformaSupportata()) {
-            await this.localdb.isAllegatoScaricato(item).then(
-                () => this.presentAlertConfermaRimozione(item),
-                () => this.toastsService.fileNonScaricato()
-            );
-        } else {
-            this.toastsService.piattaformaNonSupportata();
-        }
-    }
-
 
     async presentAlertConfermaRimozione(item) {
         const alertConfermaRimozione = await this.alertController.create({
@@ -250,6 +209,92 @@ export class MaterialeDidatticoPage implements OnInit {
         });
 
         await alertConfermaRimozione.present();
+    }
+
+
+
+    isLoading() {
+        return this.sync.loading[18];
+    }
+
+    doRefresh(event) {
+        this.localdb.getAllegatiJsonAggiornato().then( (allegatiAggiornati) => {
+            if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {
+                this.allegatiFiltrati = [];
+                this.allegati.forEach(allegato => {
+                    if (allegato.AD_ID == Number(this.ad_id_corso)) {
+                        this.allegatiFiltrati.push(allegato);
+                    }
+                });
+
+                //ordina in maniera alfabetica
+                this.allegatiFiltrati.sort(function (a, b) {
+                    return a.FILENAME.localeCompare(b.FILENAME);
+                });
+            }
+
+
+            //controlla presenza nello storage di tutti i file
+            this.allegatiFiltrati.forEach(file => {
+                this.localdb.isAllegatoScaricato(file).then(
+                    () => {
+                        file.SCARICATO = true;
+                    },
+                    () => {
+                        file.SCARICATO = false;
+                    }
+                );
+            });
+
+
+            if (event) {
+                event.target.complete();
+            }
+        }, () => {
+            if (event) {
+                event.target.complete();
+            }
+        });
+    }
+
+    goToDettagliFile(item) {
+        this.globalData.allegato = item;
+
+        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
+    }
+
+    download(allegato: Allegato) {
+        this.localdb.download(allegato).then(() => {
+            this.doRefresh(null);
+            this.presentAlertConfermaApertura(allegato);
+        }, () => {
+            //non fare nulla
+        });
+    }
+
+
+
+    apriFile(item) {
+        if (this.localdb.isPiattaformaSupportata()) {
+
+            this.localdb.isAllegatoScaricato(item).then(
+                () => this.localdb.apriFile(item),
+                () => this.presentAlertConfermaDownload(item)
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
+    }
+
+    async rimuoviFile(item) {
+        if (this.localdb.isPiattaformaSupportata()) {
+            await this.localdb.isAllegatoScaricato(item).then(
+                () => this.presentAlertConfermaRimozione(item),
+                () => this.toastsService.fileNonScaricato()
+            );
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+        }
     }
 
 
@@ -296,7 +341,6 @@ export class MaterialeDidatticoPage implements OnInit {
         const searchKeyLowered = this.searchKey.toLowerCase();
         this.allegatiTrovati = this.allegatiFiltrati.filter(file => file.FILENAME.toLowerCase().search(searchKeyLowered) >= 0);
     }
-
 
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;

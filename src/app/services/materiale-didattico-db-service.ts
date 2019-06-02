@@ -23,7 +23,16 @@ export class MaterialeDidatticoDbService {
         location: 'default'
     };
 
-    urlAllegatoTest: string = this.globalData.baseurl + '/test_json/test.pdf';
+    urlAllegati = 'https://unimol.esse3.cineca.it/ewc/VisualizzaAllegato.do?ALL_ID='; // url dove scaricare gli allegati -- si deve aggiunge l'id del file
+    urlAllegatoTest = this.globalData.baseurl + '/test_json/test.pdf'; //verrà utilizzato solo se si effettua il login con l'utente test
+
+    headersDownlaod: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Credentials': 'true',
+        'Access-Control-Allow-Headers': 'true',
+        'Access-Control-Allow-Methods': 'Content-Type, Accept, X-Requested-With, remember-me'
+    };
+
     options: InAppBrowserOptions = {
         location: 'yes', // Or 'no'
         hidden: 'no', // Or  'yes'
@@ -41,6 +50,8 @@ export class MaterialeDidatticoDbService {
         presentationstyle: 'pagesheet', // iOS only
         fullscreen: 'yes', // Windows only
     };
+
+
     private browser: any;
 
     constructor(
@@ -50,7 +61,7 @@ export class MaterialeDidatticoDbService {
         public transfer: FileTransfer,
         public file: File,
         public toastService: ToastsService,
-        public loadingCtrl: LoadingController,
+        public loadingController: LoadingController,
         public alertCtrl: AlertController,
         public inAppBrowser: InAppBrowser,
         public permessi: AndroidPermissions,
@@ -93,9 +104,8 @@ export class MaterialeDidatticoDbService {
         }
     }
 
-
-    /* ----   ALLEGATI  ___ */
-    getTuttiAllegatScaricatiiFromDB(): Promise<any> {
+    /* ----   ALLEGATI SCARICATI ---- OPERAZIONI CRUD  ___ */
+    getAllegatScaricatiiFromDB(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
                 db.executeSql('SELECT * FROM allegatiScaricati', []).then(
@@ -199,46 +209,57 @@ export class MaterialeDidatticoDbService {
         });
     }
 
-    selezionaIcona(item: Allegato) {
-        const estensione: string = item.ESTENSIONE.toLowerCase();
-        let nomeIcona = '';
-        switch (estensione) {
+
+    /**
+     * Questa funzione restituisce l'url dell'icona da utilizzare per un allegato
+     *
+     * @param allegato: da avere l'url
+     */
+    getUrlIconaAllegato(allegato: Allegato) {
+        let nomeIcona = 'assets/img/moodle/';
+        switch (allegato.ESTENSIONE.toLowerCase()) {
             case 'pdf':
-                nomeIcona = 'pdf1';
+                nomeIcona += 'pdf1.png';
                 break;
             case 'zip':
-                nomeIcona = 'zip';
+                nomeIcona += 'zip.png';
                 break;
             case 'doc':
-                nomeIcona = 'doc';
+                nomeIcona += 'doc.png';
                 break;
             case 'docx':
-                nomeIcona = 'doc';
+                nomeIcona += 'doc.png';
                 break;
             case 'xls':
-                nomeIcona = 'xls';
+                nomeIcona += 'xls.png';
                 break;
             case 'xlsx':
-                nomeIcona = 'xls';
+                nomeIcona += 'xls.png';
                 break;
             case 'ppt':
-                nomeIcona = 'ppt';
+                nomeIcona += 'ppt.png';
                 break;
             case 'pptx':
-                nomeIcona = 'ppt';
+                nomeIcona += 'ppt.png';
                 break;
             default:
-                nomeIcona = 'file1';
+                nomeIcona += 'file1.png';
                 break;
         }
 
         return nomeIcona;
     }
 
+    /**
+     * Controlla il dispositivo sia abilitato al download dei file.
+     *
+     * @return: true se la piattaforma è abilitata per il download dei file, false altrimenti
+     */
     isPiattaformaSupportata(): boolean {
         return !this.platform.is('mobileweb') && (this.platform.is('android') ||
             this.platform.is('ios'));
     }
+
 
     /**
      * Controlla nella memoria del telefono se è presente l'allegato.
@@ -301,6 +322,23 @@ export class MaterialeDidatticoDbService {
         });
     }
 
+    getUriFile(allegato: Allegato) {
+        let urlFile: string;
+
+        if (this.globalData.utente_test) {
+            //l'utente di test
+            urlFile = this.urlAllegatoTest;
+        } else {
+            //utente normale
+            urlFile = this.urlAllegati + allegato.ALLEGATO_ID;
+        }
+
+        return encodeURI(urlFile);
+    }
+
+    getFilePathOnDevice(allegato: Allegato) {
+        return this.file.dataDirectory + allegato.ALLEGATO_ID + '.' + allegato.ESTENSIONE;
+    }
 
     hasPermission() {
         return new Promise((resolve, reject) => {
@@ -328,95 +366,76 @@ export class MaterialeDidatticoDbService {
         });
     }
 
-    download(item) {
-        this.hasPermission().then(
-            () => {
-                let filePath = 'https://unimol.esse3.cineca.it/ewc/VisualizzaAllegato.do?ALL_ID=' + item.ALLEGATO_ID;
+    async download(allegato: Allegato) {
+        const uriFile = this.getUriFile(allegato);
 
-                if (this.globalData.utente_test) {
-                    filePath = this.urlAllegatoTest;
-                }
+        const filePath = this.getFilePathOnDevice(allegato);
 
-                const uri = encodeURI(filePath);
+        let fileTransfer: FileTransferObject;
 
-                if (this.platform.is('android') || this.platform.is('ios')) {
-                    const fileTransfer: FileTransferObject = this.transfer.create();
-                    const downloadDir = this.file.dataDirectory;
-                    const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
+        let tipoFile: string;
 
 
-                    // console.log('Scarico ' + uri);
+        return new Promise(async (resolve, reject) => {
+            if (this.isPiattaformaSupportata()) {
 
-                    this.loadingCtrl.create({
-                            spinner: 'crescent',
-                            message: 'Download in corso...'
-                        }
-                    ).then(loading => {
-                        loading.present();
-                        fileTransfer.download(
-                            uri,
-                            downloadDir + fileName,
-                            true,
-                            {
-                                headers: {
-                                    'Access-Control-Allow-Origin': '*',
-                                    'Access-Control-Allow-Credentials': 'true',
-                                    'Access-Control-Allow-Headers': 'true',
-                                    'Access-Control-Allow-Methods': 'Content-Type, Accept, X-Requested-With, remember-me'
-                                }
-                            }
-                        ).then(
-                            (entry) => {
-                                console.log('SCARICATO');
-                                console.dir(entry);
+                this.hasPermission().then(async () => {
 
-                                entry.file(success => {
-                                    const mimeType = success.type;
-                                    // console.log('download complete: ' + entry.toURL());
-                                    this.toastService.downloadCompletato();
+                    fileTransfer = this.transfer.create();
 
-                                    this.inserisciAllegatoInDB(item, mimeType).then(
-                                        () => {
-                                            console.log('c');
-                                            loading.dismiss();
-                                            this.apriFile(item);
-                                        },
-                                        (err) => {
-                                            GlobalDataService.log(4, 'inserisciAllegato rejected', err);
-                                            loading.dismiss();
-                                        }
-                                    );
-                                }, error => {
-                                    loading.dismiss();
-                                    GlobalDataService.log(4, 'entry.file fallito!', error);
-                                    this.toastService.erroreAperturaFile();
-                                });
-
-                            }, (err) => {
-                                loading.dismiss();
-                                // console.log('ERR');
-                                console.dir(err);
-                                this.toastService.erroreDownload();
-                            }
-                        ).catch(
-                            (ex) => {
-                                loading.dismiss();
-                                GlobalDataService.log(4, 'Eccezione in download!', ex);
-                                this.toastService.erroreDownload();
-                            }
-                        );
-                    }, (err) => {
-                        GlobalDataService.log(4, 'Loader fallito!', err);
+                    const loading = await this.loadingController.create({
+                        spinner: 'crescent',
+                        message: 'Download in corso...'
                     });
-                } else {
-                    const target = '_self';
-                    this.browser = this.inAppBrowser.create(uri, target, this.options);
-                }
-            }, (err) => {
-                GlobalDataService.log(2, 'Errore permessi', err);
-                this.toastService.permessoNonAttivo();
+                    await loading.present();
+
+                    fileTransfer.download(uriFile, filePath, true, this.headersDownlaod).then((fileEntry) => {
+                        fileEntry.file(fileScaricato => {
+                            tipoFile = fileScaricato.type;
+                            // console.log('download complete: ' + entry.toURL());
+                            this.toastService.downloadCompletato();
+
+                            this.inserisciAllegatoInDB(allegato, tipoFile).then(() => {
+                                loading.dismiss();
+                                resolve();
+                                return;
+                            },
+                            (err) => {
+                                loading.dismiss();
+                                GlobalDataService.log(4, 'query inserimento fallita!', err);
+                                this.toastService.erroreAperturaFile();
+                                reject();
+                                return;
+                            });
+                        }, (err) => {
+                            loading.dismiss();
+                            GlobalDataService.log(4, 'entry.file fallito!', err);
+                            this.toastService.erroreAperturaFile();
+                            reject();
+                            return;
+                        });
+                    }, (err) => {
+                        loading.dismiss();
+                        GlobalDataService.log(2, 'Errore download', err);
+                        this.toastService.erroreDownload();
+                        reject();
+                        return;
+                    });
+                }, (err) => {
+                    GlobalDataService.log(2, 'Errore permessi', err);
+                    this.toastService.permessoNonAttivo();
+                    reject();
+                    return;
+                });
+            } else {
+                //prova a scaricare il file in un browser in app -> non viene memorizzato e crea danni
+                const target = '_self';
+                this.browser = this.inAppBrowser.create(uriFile, target, this.options);
+                this.toastService.piattaformaNonSupportata();
+                resolve();
+                return;
             }
-        );
+        });
     }
 
     apriFile(item) {
