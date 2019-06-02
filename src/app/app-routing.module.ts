@@ -33,7 +33,7 @@ const routes: Routes = [
     {path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule'},
     {path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule'},
     {path: 'piano-di-studio', loadChildren: './pages/carriera/piano-di-studio/piano-di-studio.module#PianoDiStudioPageModule'},
-    { path: 'materiale-didattico-figo', loadChildren: './pages/carriera/materiale-didattico-figo/materiale-didattico-figo.module#MaterialeDidatticoFigoPageModule' }
+    {path: 'materiale-didattico-figo', loadChildren: './pages/carriera/materiale-didattico-figo/materiale-didattico-figo.module#MaterialeDidatticoFigoPageModule'}
 ];
 
 @NgModule({

@@ -11,6 +11,15 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     public allegatiScaricati: Array<any>;
 
+    public MOCK_FILES = [
+        {id: 12, filename: 'iannolli.pdf', estenzione: 'pdf'},
+        {id: 13, filename: 'scroKING.zip',  estenzione: 'zip'},
+        {id: 14, filename: 'nella Fattispecie.pptx', estenzione: 'pptx'},
+        {id: 15, filename: 'Giovanni offre.pdf', estenzione: 'pdf'},
+        {id: 16, filename: 'Pesche deuticità.pdf', estenzione: 'pdf'},
+    ];
+
+
     //ricerca
     @ViewChild('searchbar') searchbar: any;
     isSearchbarOpened = false;
@@ -27,6 +36,8 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             this.matDidatticoService.getTuttiAllegatiScaricatiFromDB().then((allegati) => {
                 this.allegatiScaricati = allegati;
             });
+        } else {
+            this.allegatiScaricati = this.MOCK_FILES;
         }
     }
 
