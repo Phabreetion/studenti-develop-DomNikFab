@@ -76,7 +76,7 @@ export class MaterialeDidatticoDbService {
                     'FILENAME varchar(100), ' + //nome del file
                     'TESTO varchar(100), ' + //note aggiunte dal prof
                     'TITOLO varchar(100), ' + //titolo assegnato dal prof al file
-                    'TIPO varchar(50)' + //utile per capire con che programma dovrà essere aperto il file
+                    'TIPO varchar(50), ' + //utile per capire con che programma dovrà essere aperto il file
                     'SCARICATO integer' + //scaricato
                     ')', []).then(() => {
                     // console.log('Tabella allegati creata: ', op);
@@ -125,7 +125,7 @@ export class MaterialeDidatticoDbService {
     getAllegatoFromDB(id): Promise<any> {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db) => {
-                db.executeSql('SELECT * FROM allegatiScaricati WHERE id = ?', [id]).then(
+                db.executeSql('SELECT * FROM allegatiScaricati WHERE ALLEGATO_ID = ?', [id]).then(
                     (result) => {
 
                         if (result.rows.length > 0) {
@@ -151,7 +151,7 @@ export class MaterialeDidatticoDbService {
                 (db: SQLiteObject) => {
                     console.log('a');
 
-                    db.executeSql('select * from allegatiScaricati where id = ?', [allegato.ALLEGATO_ID])
+                    db.executeSql('select * from allegatiScaricati where ALLEGATO_ID = ?', [allegato.ALLEGATO_ID])
                         .then((esitoQuery) => {
                             console.log('b');
                             if (esitoQuery.rows.length <= 0) {
@@ -183,7 +183,7 @@ export class MaterialeDidatticoDbService {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then(
                 (db: SQLiteObject) => {
-                    db.executeSql('DELETE FROM allegatiScaricati WHERE id = ?', [id])
+                    db.executeSql('DELETE FROM allegatiScaricati WHERE ALLEGATO_ID = ?', [id])
                         .then((esitoQuery) => {
                             resolve();
                         }, (erroreDelete) => {
@@ -197,6 +197,42 @@ export class MaterialeDidatticoDbService {
                     reject(error);
                 }).catch(e => console.log(e)); // -- Sqlite
         });
+    }
+
+    selezionaIcona(item: Allegato) {
+        const estensione: string = item.ESTENSIONE.toLowerCase();
+        let nomeIcona = '';
+        switch (estensione) {
+            case 'pdf':
+                nomeIcona = 'pdf1';
+                break;
+            case 'zip':
+                nomeIcona = 'zip';
+                break;
+            case 'doc':
+                nomeIcona = 'doc';
+                break;
+            case 'docx':
+                nomeIcona = 'doc';
+                break;
+            case 'xls':
+                nomeIcona = 'xls';
+                break;
+            case 'xlsx':
+                nomeIcona = 'xls';
+                break;
+            case 'ppt':
+                nomeIcona = 'ppt';
+                break;
+            case 'pptx':
+                nomeIcona = 'ppt';
+                break;
+            default:
+                nomeIcona = 'file1';
+                break;
+        }
+
+        return nomeIcona;
     }
 
     isPiattaformaSupportata(): boolean {
@@ -391,7 +427,7 @@ export class MaterialeDidatticoDbService {
                     const downloadDir = this.file.dataDirectory;
                     const pathCompleto = downloadDir + fileName;
 
-                    this.fileOpener.open(pathCompleto, allegato.tipo)
+                    this.fileOpener.open(pathCompleto, allegato.TIPO)
                         .then(() => {
                             // console.log('File aperto!'));
                         }).catch(() => {

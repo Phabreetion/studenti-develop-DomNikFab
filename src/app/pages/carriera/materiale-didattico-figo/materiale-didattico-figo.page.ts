@@ -226,39 +226,5 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
-    selezionaIcona(item: Allegato) {
-        const estensione: string = item.ESTENSIONE.toLowerCase();
-        let nomeIcona = '';
-        switch (estensione) {
-            case 'pdf':
-                nomeIcona = 'pdf1';
-                break;
-            case 'zip':
-                nomeIcona = 'zip';
-                break;
-            case 'doc':
-                nomeIcona = 'doc';
-                break;
-            case 'docx':
-                nomeIcona = 'doc';
-                break;
-            case 'xls':
-                nomeIcona = 'xls';
-                break;
-            case 'xlsx':
-                nomeIcona = 'xls';
-                break;
-            case 'ppt':
-                nomeIcona = 'ppt';
-                break;
-            case 'pptx':
-                nomeIcona = 'ppt';
-                break;
-            default:
-                nomeIcona = 'file1';
-                break;
-        }
 
-        return nomeIcona;
-    }
 }
