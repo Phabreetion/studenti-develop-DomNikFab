@@ -73,9 +73,8 @@
 
     <ion-list>
         <div *ngFor="let allegato of allegatiScaricatiTrovati; let i = index">
-            <ion-item
-                    *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].AD_ID != allegatiScaricatiTrovati[i].AD_ID))">
-                <ion-title text-center style="font-size: 90%"><strong>{{corsiMap.get(allegato.AD_ID.toString()).DESCRIZIONE.toLocaleUpperCase()}}</strong></ion-title>
+            <ion-item *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].AD_ID != allegatiScaricatiTrovati[i].AD_ID))">
+                <strong class="insegnamento">{{corsiMap.get(allegato.AD_ID.toString()).DESCRIZIONE.toLocaleUpperCase()}}</strong>
             </ion-item>
 
             <ion-item-sliding>
@@ -88,15 +87,15 @@
                             <ion-col>
                                 <ion-grid>
                                     <ion-row>
-                                        <ion-col>
-                                            <div>
-                                                <strong>{{allegato.FILENAME}}</strong>
-                                            </div>
+                                        <ion-col size="12" >
+                                          <ion-row>
+                                            <strong  no-padding class="titolo">{{allegato.FILENAME}}</strong>
+                                          </ion-row>
                                         </ion-col>
                                     </ion-row>
                                     <ion-row>
                                         <ion-col>
-                                            <strong>Id:</strong>{{allegato.ALLEGATO_ID}}
+                                            <ion-icon name="person" class="icon"></ion-icon>{{allegato.AUTORE}}
                                         </ion-col>
                                     </ion-row>
                                 </ion-grid>

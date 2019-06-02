@@ -1,0 +1,20 @@
+.icon{
+  font-size: 1.3em;
+  position: relative;
+  top: 2px;
+}
+.titolo{
+  font-size: 90%;
+  @media screen and (max-width: 320px){
+    font-size: 0.7em;
+  }
+}
+
+.insegnamento{
+  justify-content: center;
+
+  @media screen and (max-width: 320px){
+    justify-content: flex-start;
+    font-size: 0.8em;
+  }
+}
