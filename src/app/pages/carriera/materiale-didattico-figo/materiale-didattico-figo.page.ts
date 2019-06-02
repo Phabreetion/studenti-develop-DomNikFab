@@ -64,6 +64,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 this.search();
             });
         } else {
+            this.toastsService.piattaformaNonSupportata();
             this.allegatiScaricati = this.MOCK_FILES;
             this.search();
         }
@@ -144,6 +145,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                     text: 'Si',
                     handler: () => {
                         this.localdb.eliminaFile(allegato);
+                        this.doRefresh(null);
                     }
                 },
                 {
@@ -169,7 +171,19 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
 
     doRefresh(event) {
-        event.target.complete();
+        if (this.matDidatticoService.isPiattaformaSupportata()) {
+            this.localdb.getAllegatScaricatiiFromDB().then( (allegatiAggiornati) => {
+                this.allegatiScaricati = allegatiAggiornati;
+                this.search();
+            });
+        } else {
+            setTimeout(() => {
+                if (event) {
+                    event.target.complete();
+                }
+            }, 2000);
+            this.toastsService.piattaformaNonSupportata();
+        }
     }
 
 
