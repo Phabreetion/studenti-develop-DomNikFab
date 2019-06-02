@@ -128,6 +128,8 @@
   .mic {
     max-width: 100px;
   }
+
+
 }
 
 @media(min-width:640px) {
@@ -145,6 +147,12 @@
     max-width: 350px;
   }
 
+}
+
+.nomePagina{
+  @media screen and (max-width: 320px){
+    font-size: 0.9em;
+  }
 }
 
 /*
