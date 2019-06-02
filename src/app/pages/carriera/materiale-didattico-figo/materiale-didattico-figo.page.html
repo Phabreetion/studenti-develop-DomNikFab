@@ -42,9 +42,31 @@
 <ion-content>
     <ion-list>
         <ion-item-sliding *ngFor="let allegato of allegatiScaricati">
-            <ion-item>
-                id: {{allegato.id}}<br>
-                filename: {{allegato.filename}}
+            <ion-item (click)="presentActionSheet(allegato)">
+               <ion-grid>
+                   <ion-row>
+                       <ion-col size="2" align-self-center="true">
+                           <img src="assets/img/moodle/{{this.selezionaIcona(allegato)}}.png" />
+                       </ion-col>
+                      <ion-col>
+                          <ion-grid>
+                              <ion-row>
+                                  <ion-col>
+                                      <div>
+                                          <strong>{{allegato.filename}}</strong>
+                                      </div>
+                                  </ion-col>
+                              </ion-row>
+                              <ion-row>
+                                  <ion-col>
+                                      <strong>Id:</strong>{{allegato.id}}
+                                  </ion-col>
+                              </ion-row>
+                          </ion-grid>
+                      </ion-col>
+                   </ion-row>
+
+               </ion-grid>
             </ion-item>
 
             <ion-item-options side="end">
