@@ -25,11 +25,16 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     public MOCK_FILES = [
         {id: 12, ad_id_corso: 31305164, filename: 'iannolli.pdf', estensione: 'pdf'},
+
         {id: 13, ad_id_corso: 31309477, filename: 'scroKING.zip', estensione: 'zip'},
-        {id: 14, ad_id_corso: 31305167, filename: 'nella Fattispecie.pptx', estensione: 'pptx'},
-        {id: 15, ad_id_corso: 31307059, filename: 'Giovanni offre.pdf', estensione: 'pdf'},
         {id: 16, ad_id_corso: 31309477, filename: 'Pesche deuticità.pdf', estensione: 'pdf'},
+
+        {id: 14, ad_id_corso: 31305167, filename: 'nella Fattispecie.pptx', estensione: 'pptx'},
+
+        {id: 15, ad_id_corso: 31307059, filename: 'Giovanni offre.pdf', estensione: 'pdf'},
+
         {id: 16, ad_id_corso: 31309476, filename: 'Contadino_dell_informatica.pdf', estensione: 'pdf'},
+        {id: 18, ad_id_corso: 31309476, filename: 'nun è chiar.zip', estensione: 'zip'},
     ];
 
 

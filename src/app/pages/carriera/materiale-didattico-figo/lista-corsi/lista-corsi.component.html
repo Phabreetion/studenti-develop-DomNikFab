@@ -1,26 +1,29 @@
-<div class="preferenze">
-    <div class="text">Corsi</div>
-    <ion-button class="exit" (click)="closeModal()" color="danger"><strong>X</strong></ion-button>
-</div>
+<ion-content>
+    <div class="preferenze">
+        <div class="text">Corsi</div>
+        <ion-button class="exit" (click)="closeModal()" color="danger"><strong>X</strong></ion-button>
+    </div>
 
-<ion-list *ngIf="corsi">
-    <ion-item *ngFor="let corso of corsi">
-        <ion-list>
-            <ion-grid>
-                <ion-row>
-                    <ion-col>
-                        <strong>{{corso.DESCRIZIONE}}</strong>
-                    </ion-col>
-                </ion-row>
-                <ion-row>
-                    <ion-col  *ngIf=" !corso.hasDueProfessori()" class="docente">
-                        {{corso.COGNOME}}
-                    </ion-col>
-                    <ion-col *ngIf=" corso.hasDueProfessori()" class="docente">
-                        {{corso.NOME}} e {{corso.COGNOME}}
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-list>
-    </ion-item>
-</ion-list>
+    <ion-list *ngIf="corsi">
+        <ion-item *ngFor="let corso of corsi" (click)="goToMaterialeDidattico(corso)">
+            <ion-list>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col>
+                            <strong>{{corso.DESCRIZIONE}}</strong>
+                        </ion-col>
+                    </ion-row>
+                    <ion-row>
+                        <ion-col  *ngIf=" !corso.hasDueProfessori()" class="docente">
+                            {{corso.COGNOME}}
+                        </ion-col>
+                        <ion-col *ngIf=" corso.hasDueProfessori()" class="docente">
+                            {{corso.NOME}} e {{corso.COGNOME}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-list>
+        </ion-item>
+    </ion-list>
+
+</ion-content>

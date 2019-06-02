@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
 import {Corso} from '../../../../models/Corso';
+import {GlobalDataService} from '../../../../services/global-data.service';
 
 @Component({
     selector: 'app-lista-corsi',
@@ -13,7 +14,8 @@ export class ListaCorsiComponent implements OnInit {
 
     constructor(
         public navParams: NavParams,
-        public modalController: ModalController
+        public modalController: ModalController,
+        public globalData: GlobalDataService
     ) {}
 
     ngOnInit() {
@@ -24,4 +26,8 @@ export class ListaCorsiComponent implements OnInit {
         this.modalController.dismiss();
     }
 
+    goToMaterialeDidattico(corso: Corso) {
+        this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID,  corso.DESCRIZIONE], 'forward', false);
+        this.modalController.dismiss();
+    }
 }

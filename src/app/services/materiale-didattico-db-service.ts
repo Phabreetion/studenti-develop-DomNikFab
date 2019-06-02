@@ -123,7 +123,7 @@ export class MaterialeDidatticoDbService {
     getTuttiAllegatiScaricatiFromDB(): Promise<any> {
         return new Promise((resolve, reject) => {
             this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
-                db.executeSql('SELECT * FROM allegati WHERE scaricato = 1', []).then(
+                db.executeSql('SELECT * FROM allegati WHERE scaricato = 1 ORDER BY ad_id_corso', []).then(
                     (result) => {
 
                         const files = [];

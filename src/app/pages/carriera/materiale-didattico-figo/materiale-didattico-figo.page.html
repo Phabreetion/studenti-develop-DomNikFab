@@ -41,10 +41,10 @@
 
 <ion-content>
     <ion-list>
-        <div *ngFor="let allegato of allegatiScaricatiTrovati">
-            <ion-item *ngIf="corsiMap">
-                <ion-title text-center style="font-size: 90% ">{{corsiMap.get(allegato.ad_id_corso.toString()).DESCRIZIONE}}</ion-title>
-
+        <div *ngFor="let allegato of allegatiScaricatiTrovati; let i = index">
+            <ion-item
+                    *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].ad_id_corso != allegatiScaricatiTrovati[i].ad_id_corso))">
+                <ion-title text-center style="font-size: 90%"><strong>{{corsiMap.get(allegato.ad_id_corso.toString()).DESCRIZIONE.toLocaleUpperCase()}}</strong></ion-title>
             </ion-item>
 
             <ion-item-sliding>
@@ -52,7 +52,7 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col size="2" align-self-center="true">
-                                <img src="assets/img/moodle/{{this.selezionaIcona(allegato)}}.png" />
+                                <img src="assets/img/moodle/{{this.selezionaIcona(allegato)}}.png"/>
                             </ion-col>
                             <ion-col>
                                 <ion-grid>
