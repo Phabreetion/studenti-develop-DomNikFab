@@ -1,29 +1,58 @@
-<ion-content>
-    <div class="preferenze">
-        <div class="text">Corsi</div>
-        <ion-button class="exit" (click)="closeModal()" color="danger"><strong>X</strong></ion-button>
-    </div>
+<ion-header>
+    <ion-grid no-padding>
+        <ion-row *ngIf="!globalData.landscape && globalData.iPhoneX">
+            <ion-col>
+                <ion-label></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row no-padding>
+            <ion-toolbar>
+                <ion-title>Corsi</ion-title>
 
+                <ion-buttons slot="end">
+                    <ion-button icon-only (click)="toogleSearchbar()">
+                        <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
+                    </ion-button>
+                    <ion-button icon-only (click)="closeModal()">
+                        <ion-icon name="close" color="danger" style="font-size: 1.5em"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-row>
+
+        <ion-row *ngIf='isSearchbarOpened'>
+            <ion-searchbar #searchbar
+                           *ngIf="isSearchbarOpened"
+                           [(ngModel)]="searchKey"
+                           placeholder="Cerca"
+                           showCancelButton="true"
+                           animated="true"
+                           (ionCancel)="toogleSearchbar()"
+                           (ngModelChange)="search()">
+            </ion-searchbar>
+        </ion-row>
+    </ion-grid>
+</ion-header>
+<ion-content>
     <ion-list *ngIf="corsi">
-        <ion-item *ngFor="let corso of corsi" (click)="goToMaterialeDidattico(corso)">
-            <ion-list>
-                <ion-grid>
-                    <ion-row>
-                        <ion-col>
-                            <strong>{{corso.DESCRIZIONE}}</strong>
-                        </ion-col>
-                    </ion-row>
-                    <ion-row>
-                        <ion-col  *ngIf=" !corso.hasDueProfessori()" class="docente">
-                            {{corso.COGNOME}}
-                        </ion-col>
-                        <ion-col *ngIf=" corso.hasDueProfessori()" class="docente">
-                            {{corso.NOME}} e {{corso.COGNOME}}
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-list>
-        </ion-item>
+        <div *ngFor="let corso of corsiTrovati; let i = index">
+            <ion-item
+                    *ngIf="i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0))">
+                <ion-title text-center style="font-size: 90% "> {{corso.DESCRIZIONE.charAt(0)}}</ion-title>
+            </ion-item>
+
+            <ion-item (click)="goToMaterialeDidattico(corso)">
+                <ion-label>
+                    <ion-label style="font-size: 1.2em"><strong>{{corso.DESCRIZIONE}}</strong></ion-label>
+
+                    <ion-label *ngIf=" !corso.hasDueProfessori()" class="docente">{{corso.COGNOME}}</ion-label>
+                    <ion-label *ngIf=" corso.hasDueProfessori()" class="docente">{{corso.NOME}}
+                        e {{corso.COGNOME}}</ion-label>
+                </ion-label>
+
+                <ion-icon slot="end" name="arrow-forward"></ion-icon>
+            </ion-item>
+        </div>
     </ion-list>
 
 </ion-content>

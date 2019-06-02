@@ -312,7 +312,7 @@ export class MaterialeDidatticoPage implements OnInit {
     }
 
     gestioneSearchbarMaterialeDidattico() {
-        if (this.allegatiFiltrati.length == 0) {
+        if (this.allegatiFiltrati && this.allegatiFiltrati.length == 0) {
             this.isSearchbarOpened = false;
             return false;
         }

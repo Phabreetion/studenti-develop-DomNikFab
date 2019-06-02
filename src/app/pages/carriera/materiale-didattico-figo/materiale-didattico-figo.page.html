@@ -15,7 +15,6 @@
                         Materiale Didattico
                     </ion-title>
                     <ion-buttons slot="end">
-
                         <ion-button icon-only (click)="toogleSearchbar()">
                             <ion-icon name="search" style="font-size: 1.5em"></ion-icon>
                         </ion-button>
@@ -40,6 +39,38 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
+    </ion-refresher>
+
+    <ion-grid *ngIf="allegatiScaricati.length <= 0" text-center>
+        <ion-row>
+            <ion-col>
+                <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-title><strong>Non è presente materiale didattico in memoria</strong></ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-label>Trova subito qualcosa da scaricare</ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-button (click)="presentModal()">Apri lista corsi</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
     <ion-list>
         <div *ngFor="let allegato of allegatiScaricatiTrovati; let i = index">
             <ion-item
