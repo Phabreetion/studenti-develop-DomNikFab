@@ -14,7 +14,6 @@ import {AppelliService} from '../../../services/appelli.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {AppelloPrenotato} from '../../../models/AppelloPrenotato';
 
-const PAGE_URL = '/appelli';
 
 @Component({
     selector: 'app-page-appelli',

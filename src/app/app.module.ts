@@ -61,7 +61,6 @@ import {FiltroInsegnamentiPageModule} from './pages/docente/insegnamenti-docente
         DettagliUtentePageModule,
         NotiziaPageModule,
         NgCalendarModule,
-        //EsamePageModule,
         HttpClientModule,
         FontAwesomeModule,
         FiltroPageModule,

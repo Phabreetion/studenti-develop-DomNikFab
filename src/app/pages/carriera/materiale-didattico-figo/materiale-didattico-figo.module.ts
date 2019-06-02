@@ -1,26 +1,30 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { MaterialeDidatticoFigoPage } from './materiale-didattico-figo.page';
+import {MaterialeDidatticoFigoPage} from './materiale-didattico-figo.page';
+import {ListaCorsiComponent} from './lista-corsi/lista-corsi.component';
+import {GestoreListaAppelliDisponbiliComponent} from '../appelli/gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
+
 
 const routes: Routes = [
-  {
-    path: '',
-    component: MaterialeDidatticoFigoPage
-  }
+    {
+        path: '',
+        component: MaterialeDidatticoFigoPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
-  declarations: [MaterialeDidatticoFigoPage]
+    entryComponents: [ListaCorsiComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes)
+    ],
+    declarations: [MaterialeDidatticoFigoPage, ListaCorsiComponent]
 })
 export class MaterialeDidatticoFigoPageModule {}

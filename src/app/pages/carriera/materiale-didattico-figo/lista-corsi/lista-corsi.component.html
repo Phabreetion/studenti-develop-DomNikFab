@@ -1,0 +1,9 @@
+<ion-button (click)="closeModal()">
+    Chiudi
+</ion-button>
+
+<ion-list *ngIf="corsi">
+    <ion-item *ngFor="let corso of corsi">
+        {{corso.DESCRIZIONE}}
+    </ion-item>
+</ion-list>

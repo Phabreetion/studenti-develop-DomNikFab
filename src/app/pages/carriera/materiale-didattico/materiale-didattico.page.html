@@ -66,12 +66,12 @@
         </ion-row>
     </ion-grid>
 
-    <ion-list *ngIf="!this.sync.isLoading(18) && allegati?.length == 0">
+    <ion-list *ngIf="!this.sync.isLoading(18) && allegatiFiltrati?.length <= 0">
         <ion-item text-center>
             <ion-grid>
                 <ion-row>
                     <ion-col>
-                        <h2>Non è presente materiale didattico per questo insegnamento</h2>
+                        <h2>Non è presente materiale didattico per l'insegnamento di {{nome_corso}}</h2>
                     </ion-col>
                 </ion-row>
                 <ion-row>
@@ -83,13 +83,16 @@
         </ion-item>
     </ion-list>
 
-    <ion-item *ngIf="allegatiFiltrati?.length <= 0" text-center lines="none">
-        <ion-label text-wrap style="color:gray">
-            <div>{{nome_corso? 'Nessun Materiale didattico disponibile per l\'insegnamento di '  + nome_corso: ' Nessun Materiale didattico trovato. '}}</div>
-        </ion-label>
-    </ion-item>
 
-    <ion-list *ngIf="allegati?.length > 0">
+
+    <ion-list *ngIf="allegatiFiltrati?.length > 0">
+
+        <ion-item *ngIf="allegatiTrovati?.length <= 0" text-center lines="none">
+            <ion-label text-wrap style="color:gray">
+                <div>Nessun materiale didattico trovato.</div>
+            </ion-label>
+        </ion-item>
+
         <ion-item-sliding *ngFor="let file of allegatiTrovati">
             <ion-item (click)="presentActionSheet(file)">
                 <ion-grid fixed no-padding>
