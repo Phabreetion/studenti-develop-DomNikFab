@@ -88,6 +88,91 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         await modal.present();
     }
 
+    async presentActionSheet(allegato: Allegato) {
+        const actionSheet  = await this.actionSheetController.create({
+            header: allegato.TITOLO,
+            buttons: [{
+                text: 'Dettagli file',
+                icon: 'information-circle',
+                handler: () => { this.goToDettagliFile(allegato); }
+            }, {
+                text: 'Apri',
+                icon: 'easel',
+                handler: () => { this.presentAlertConfermaApertura(allegato); }
+            }, {
+                text: 'Elimina',
+                icon: 'trash',
+                handler: () => { this.presentAlertConfermaRimozione(allegato).then(); }
+            }, {
+                text: 'Chiudi',
+                icon: 'close',
+                handler: () => { this.actionSheetController.dismiss().catch(); }
+            }]
+        });
+
+        await actionSheet.present();
+    }
+
+    async presentAlertConfermaApertura(allegato: Allegato) {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Apri file',
+            message: 'Sei sicuro di\' voler aprire il file?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.localdb.apriFile(allegato);
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => { }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
+    }
+
+    async presentAlertConfermaRimozione(allegato: Allegato) {
+        const alertConfermaRimozione = await this.alertController.create({
+            header: 'Rimozione file',
+            message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
+            buttons: [
+                {
+                    text: 'Si',
+                    handler: () => {
+                        this.localdb.eliminaFile(allegato);
+                    }
+                },
+                {
+                    text: 'No',
+                    role: 'cancel',
+                    handler: () => { }
+                }
+            ]
+        });
+
+        await alertConfermaRimozione.present();
+    }
+
+
+
+
+    goToDettagliFile(item) {
+        this.globalData.allegato = item;
+
+        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
+    }
+
+
+
+    doRefresh(event) {
+        event.target.complete();
+    }
+
+
     toogleSearchbar() {
         this.isSearchbarOpened = !this.isSearchbarOpened;
 
@@ -108,126 +193,5 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         } else {
             this.allegatiScaricatiTrovati = this.allegatiScaricati;
         }
-    }
-
-    async presentActionSheet(allegato: Allegato) {
-        let actionSheet;
-        actionSheet = await this.actionSheetController.create({
-            header: allegato.TITOLO,
-            buttons: [{
-                text: 'Dettagli file',
-                icon: 'information-circle',
-                handler: () => {
-                    this.goToDettagliFile(allegato);
-                }
-            }, {
-                text: 'Apri',
-                icon: 'easel',
-                handler: () => {
-                    this.apriFile(allegato);
-                }
-            }, {
-                text: 'Elimina',
-                icon: 'trash',
-                handler: () => {
-                    this.rimuoviFile(allegato).then();
-                }
-            }, {
-                text: 'Chiudi',
-                icon: 'close',
-                handler: () => {
-                    this.actionSheetController.dismiss().catch();
-                }
-            }]
-        });
-
-
-        await actionSheet.present();
-    }
-
-    apriFile(item) {
-        if (this.localdb.isPiattaformaSupportata()) {
-
-            this.localdb.isAllegatoScaricato(item).then(
-                () => this.localdb.apriFile(item),
-                () => this.presentAlertConfermaDownload(item)
-            );
-        } else {
-            this.toastsService.piattaformaNonSupportata();
-        }
-    }
-
-    async rimuoviFile(item) {
-        if (this.localdb.isPiattaformaSupportata()) {
-            await this.localdb.isAllegatoScaricato(item).then(
-                () => this.presentAlertConfermaRimozione(item),
-                () => this.toastsService.fileNonScaricato()
-            );
-        } else {
-            this.toastsService.piattaformaNonSupportata();
-        }
-    }
-
-    goToDettagliFile(item) {
-        this.globalData.allegato = item;
-
-        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
-    }
-
-    download(item) {
-        this.localdb.download(item);
-    }
-
-    async presentAlertConfermaDownload(item) {
-        const alertConfermaRimozione = await this.alertController.create({
-            header: 'Download file',
-            message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
-            buttons: [
-                {
-                    text: 'Si',
-                    handler: () => {
-                        this.download(item);
-
-                    }
-                },
-                {
-                    text: 'No',
-                    role: 'cancel',
-                    handler: () => {
-                    }
-                }
-            ]
-        });
-
-        await alertConfermaRimozione.present();
-    }
-
-
-    async presentAlertConfermaRimozione(item) {
-        const alertConfermaRimozione = await this.alertController.create({
-            header: 'Rimozione file',
-            message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
-            buttons: [
-                {
-                    text: 'Si',
-                    handler: () => {
-                        this.localdb.eliminaFile(item);
-                    }
-                },
-                {
-                    text: 'No',
-                    role: 'cancel',
-                    handler: () => {
-                    }
-                }
-            ]
-        });
-
-        await alertConfermaRimozione.present();
-    }
-
-
-    doRefresh(event) {
-        event.target.complete();
     }
 }

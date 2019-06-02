@@ -383,10 +383,7 @@ export class MaterialeDidatticoDbService {
 
                     fileTransfer = this.transfer.create();
 
-                    const loading = await this.loadingController.create({
-                        spinner: 'crescent',
-                        message: 'Download in corso...'
-                    });
+                    const loading = await this.toastService.caricamentoDownload();
                     await loading.present();
 
                     fileTransfer.download(uriFile, filePath, true, this.headersDownlaod).then((fileEntry) => {
