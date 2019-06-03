@@ -10,7 +10,10 @@
   }
 }
 
-
+ion-searchbar{
+  padding-left: 1em;
+  padding-right: 1em;
+}
 
 .insegnamento{
   justify-content: center;
@@ -18,5 +21,19 @@
   @media screen and (max-width: 320px){
     justify-content: flex-start;
     font-size: 0.8em;
+  }
+}
+
+.autore{
+
+  @media screen and (max-width: 320px){
+    font-size: 0.8em;
+
+    ion-icon{
+
+      font-size: 0.9em;
+      position: relative;
+      top: 0.9px;
+    }
   }
 }
