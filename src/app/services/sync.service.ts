@@ -207,7 +207,8 @@ export class SyncService {
 
         switch (this.globalData.userRole) {
             case 'student':
-                elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113];
+                elencoServizi = [1, 5, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113];//rimossi servizi non più utilizzati -> pulizzato tutto
+                //elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113];
                 break;
             case 'teacher':
                 elencoServizi = [7, 13, 14, 16, 19, 102];

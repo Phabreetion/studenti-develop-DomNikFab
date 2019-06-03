@@ -105,15 +105,13 @@
                                 <ion-row>
                                     <ion-col>
                                         <div text-wrap>
-                                            <strong>{{file.TITOLO}}</strong>
-                                            <div *ngIf="file.SCARICATO"><ion-icon class="overlayClass" name="download"></ion-icon></div>
-                                            <div *ngIf="!file.SCARICATO"><ion-icon class="overlayClass" name="close"></ion-icon></div>
+                                            <strong>{{file.FILENAME}}</strong>
                                         </div>
                                     </ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <div text-wrap>
-                                        {{file.FILENAME}}
+                                        <ion-icon name="contact"></ion-icon>{{file.AUTORE}}
                                     </div>
                                 </ion-row>
                                 <ion-row>
@@ -128,6 +126,8 @@
                     </ion-row>
                 </ion-grid>
 
+                <ion-badge *ngIf="file.SCARICATO" slot="end" color="primary"><ion-icon name="download"></ion-icon></ion-badge>
+                <ion-badge *ngIf="!file.SCARICATO" slot="end" color="danger"><ion-icon name="close"></ion-icon></ion-badge>
             </ion-item>
             <ion-item-options side="end">
 
