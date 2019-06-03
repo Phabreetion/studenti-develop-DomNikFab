@@ -110,7 +110,7 @@ export class MaterialeDidatticoDbService {
             this.sqlite.create(this.dbOptions).then((db: SQLiteObject) => {
                 db.executeSql('SELECT * FROM allegatiScaricati', []).then(
                     (result) => {
-
+                        console.log(result);
                         const files = [];
                         if (result.rows.length > 0) {
 

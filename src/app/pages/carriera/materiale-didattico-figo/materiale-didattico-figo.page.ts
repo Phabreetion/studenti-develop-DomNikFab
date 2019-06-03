@@ -87,7 +87,9 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     async presentModal() {
-        const corsi: Corso[] = [];
+        let corsi: Corso[];
+        corsi = [];
+
         this.corsiMap.forEach(value => {
             corsi.push(value);
         });

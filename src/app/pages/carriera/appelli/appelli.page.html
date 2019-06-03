@@ -19,7 +19,7 @@
                         <ion-icon src="../../../../assets/icon/filter_reset.svg"></ion-icon>
                     </ion-button>
 
-                    <ion-back-button *ngIf="ad_id_insegnamento != 0" style="padding-right: 1em;" text=""
+                    <ion-back-button *ngIf="ad_id_insegnamento" style="padding-right: 1em;" text=""
                                      icon="md-arrow-round-back"></ion-back-button>
 
                     <ion-button (click)="openFiltri()" *ngIf="mostraIcone()">
@@ -49,7 +49,7 @@
         <ion-segment [(ngModel)]="sezioni">
             <ion-segment-button value="disponibili">
                 Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
-            <ion-segment-button *ngIf="ad_id_insegnamento == 0" value="prenotati">
+            <ion-segment-button *ngIf="ad_id_insegnamento !== ''" value="prenotati">
                 Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
         </ion-segment>
 

@@ -166,7 +166,7 @@ export class AppelliPage implements OnInit {
     }
 
     mostraIcone() {
-        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && this.ad_id_insegnamento;
+        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && !this.ad_id_insegnamento;
     }
 
     async openFiltri() {
