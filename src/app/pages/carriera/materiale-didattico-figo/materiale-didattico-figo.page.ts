@@ -159,8 +159,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.eliminaFile(allegato);
-                        this.doRefresh(null);
+                        this.localdb.eliminaFile(allegato).then(() => {
+                            this.doRefresh(null);
+                        }, () => {
+                            //eliminazione impossibile
+                        });
                     }
                 },
                 {

@@ -241,6 +241,10 @@ export class Corso {
     }
 
 
+    getNomeDocenteMaiuscoalto(): string {
+
+        return '';
+    }
 
     hasDueProfessori() {
         return !!(this.COGNOME && this.NOME !== ' ' && this.NOME);
