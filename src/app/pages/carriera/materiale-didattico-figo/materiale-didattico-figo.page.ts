@@ -24,8 +24,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     //corsi array
     corsiMap: Map<string, Corso>;
 
-    public MOCK_FILES: Allegato[] = [];
-    public a = [
+    public MOCK_FILES: Allegato[] = [
         {ALLEGATO_ID: 12, AD_ID: '31305164', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'iannolli', SCARICATO: true},
 
         {ALLEGATO_ID: 13, AD_ID: '31309477', AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'scroKING', SCARICATO: true},
