@@ -190,6 +190,9 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             this.localdb.getAllegatScaricatiiFromDB().then( (allegatiAggiornati) => {
                 this.allegatiScaricati = allegatiAggiornati;
                 this.search();
+                if (event) {
+                    event.target.complete();
+                }
             });
         } else {
             setTimeout(() => {

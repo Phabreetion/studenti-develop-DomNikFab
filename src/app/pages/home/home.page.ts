@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Storage} from '@ionic/storage';
-import { Platform, ToastController, AlertController } from '@ionic/angular';
+import { Platform, ToastController } from '@ionic/angular';
 import {Chart} from 'chart.js';
 import {SyncService} from '../../services/sync.service';
 import {GlobalDataService} from '../../services/global-data.service';
@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
     currentPage = '/home';
     chart: any;
 
-    idServizio = 9;
+    //idServizio = 9;
     idServizioPds = 12; // Piano di studi
 
     lineChart: any;
@@ -243,7 +243,7 @@ export class HomePage implements OnInit {
     }
 
     aggiorna(interattivo: boolean, sync: boolean) {
-        if (this.sync.loading[this.idServizio]) {
+        if (this.sync.loading[this.idServizioPds]) {
             this.rinvioAggiornamento = true;
             this.dataAggiornamento = 'in corso';
             this.nrRinvii++;
@@ -299,7 +299,7 @@ export class HomePage implements OnInit {
         }
 
         // Se stiamo caricando dati dal server rimandiamo la verifica
-        if (this.sync.loading[this.idServizio]) {
+        if (this.sync.loading[this.idServizioPds]) {
             setTimeout(() => {
                 this.controllaAggiornamento();
             }, 1000);
@@ -310,7 +310,7 @@ export class HomePage implements OnInit {
     }
 
     isLoading() {
-        return this.sync.loading[this.idServizio];
+        return this.sync.loading[this.idServizioPds];
     }
 
     doRefresh(refresher) {
