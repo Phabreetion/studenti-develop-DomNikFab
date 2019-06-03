@@ -157,6 +157,8 @@ export class Corso {
      */
     public OBIETTIVI_FORMATIVI: string;
 
+    public numAllegati: number;
+
     /**
      * Questa funzione permette di effettuare la conversione da oggetto generico ad un istenza della classe Corso.
      *
@@ -221,6 +223,8 @@ export class Corso {
         this.VALUTAZIONE = VALUTAZIONE;
         this.VOTO = VOTO;
         this.OBIETTIVI_FORMATIVI = OBIETTIVI_FORMATIVI;
+
+        this.numAllegati = 0;
     }
 
     public getFormatedContenutiCorso() {

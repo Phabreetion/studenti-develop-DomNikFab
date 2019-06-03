@@ -40,6 +40,7 @@ export class MaterialeDidatticoPage implements OnInit {
     searchKey: string;
 
     constructor(
+        public platform: Platform,
         public route: ActivatedRoute,
         public alertController: AlertController,
         public sync: SyncService,
