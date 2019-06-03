@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {
     ActionSheetController, AlertController,
-    Platform, ToastController
+    Platform
 } from '@ionic/angular';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
@@ -11,7 +11,6 @@ import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
 import {ToastsService} from '../../../services/toasts.service';
 import {Allegato} from '../../../models/Allegato';
-import {All} from 'tslint/lib/rules/completedDocsRule';
 
 @Component({
     selector: 'app-materiale-didattico',
@@ -197,7 +196,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.eliminaFile(item);
+                        this.localdb.eliminaFile(item).then(value => {});
                     }
                 },
                 {
@@ -286,6 +285,7 @@ export class MaterialeDidatticoPage implements OnInit {
             this.toastsService.piattaformaNonSupportata();
         }
     }
+
 
     async rimuoviFile(item) {
         if (this.localdb.isPiattaformaSupportata()) {

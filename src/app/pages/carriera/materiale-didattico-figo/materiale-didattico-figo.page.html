@@ -48,36 +48,32 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <ion-grid *ngIf="allegatiScaricati.length <= 0" text-center>
+    <ion-grid *ngIf="allegatiScaricati?.length <= 0" text-center text-wrap>
         <ion-row>
             <ion-col>
                 <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
             </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col text-center>
-                <ion-title><strong>Non è presente materiale didattico in memoria</strong></ion-title>
+            <ion-col text-center text-wrap>
+                <ion-label text-wrap style="font-size: 1.2em"><strong>Non è presente materiale didattico in memoria</strong></ion-label>
             </ion-col>
         </ion-row>
         <ion-row>
             <ion-col text-center>
-                <ion-label>Trova subito qualcosa da scaricare</ion-label>
-            </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col text-center>
-                <ion-button (click)="presentModal()">Apri lista corsi</ion-button>
+                <ion-button (click)="presentModal()">Visualizza lista corsi</ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
 
-    <ion-list>
+    <ion-list *ngIf="allegatiScaricatiTrovati">
         <div *ngFor="let allegato of allegatiScaricatiTrovati; let i = index">
-            <ion-item *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].AD_ID != allegatiScaricatiTrovati[i].AD_ID))">
-                <strong class="insegnamento">{{corsiMap.get(allegato.AD_ID).DESCRIZIONE.toLocaleUpperCase()}}</strong>
+            <ion-item *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].AD_ID != allegatiScaricatiTrovati[i].AD_ID))" >
+                <ion-icon name="md-book" class="iconTag"></ion-icon>
+                <strong  class="insegnamento" >{{corsiMap.get(allegato.AD_ID).DESCRIZIONE.toLocaleUpperCase()}}</strong>
             </ion-item>
 
-            <ion-item-sliding>
+            <ion-item-sliding #ionItemSliding>
                 <ion-item (click)="presentActionSheet(allegato)">
                     <ion-grid>
                         <ion-row>
@@ -86,18 +82,28 @@
                             </ion-col>
                             <ion-col>
                                 <ion-grid>
+
                                     <ion-row>
                                         <ion-col size="12" >
                                           <ion-row>
-                                            <strong  no-padding class="titolo">{{allegato.FILENAME}}</strong>
+                                            <strong  no-padding class="titolo">{{allegato.TITOLO.toUpperCase()}}</strong>
                                           </ion-row>
                                         </ion-col>
                                     </ion-row>
+
                                     <ion-row>
-                                        <ion-col>
-                                            <ion-icon name="person" class="icon"></ion-icon>{{allegato.AUTORE}}
+                                        <ion-col class="testo">
+                                            <ion-icon name="person" class="icon"></ion-icon> <b>Docente</b><br>
+                                            <I>{{allegato.AUTORE}}</I>
                                         </ion-col>
                                     </ion-row>
+
+                                    <ion-row class="testo" style="color:gray">
+                                        <ion-col>
+                                            Inserito il: {{allegato.DATA_INS}}
+                                        </ion-col>
+                                    </ion-row>
+
                                 </ion-grid>
                             </ion-col>
                         </ion-row>
@@ -106,7 +112,7 @@
                 </ion-item>
 
                 <ion-item-options side="end">
-                    <ion-item-option color="primary" (click)="presentAlertConfermaApertura(allegato)">
+                    <ion-item-option color="primary" (click)="presentAlertConfermaApertura(allegato);">
                         Apri
                     </ion-item-option>
                     <ion-item-option color="danger" (click)="presentAlertConfermaRimozione(allegato)">
@@ -117,9 +123,15 @@
         </div>
     </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed" >
         <ion-fab-button (click)="presentModal()">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
+
+<ion-toolbar>
+    <ion-toolbar text-center>
+        allah
+    </ion-toolbar>
+</ion-toolbar>

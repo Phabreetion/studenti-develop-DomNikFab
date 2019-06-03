@@ -24,7 +24,8 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     private corsi: Corso[];
     private corsiMap: Map<string, Corso>;
 
-    public MOCK_FILES: Allegato[] = [
+    public MOCK_FILES: Allegato[] = [];
+    public a = [
         {ALLEGATO_ID: 12, AD_ID: '31305164', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'iannolli', SCARICATO: true},
 
         {ALLEGATO_ID: 13, AD_ID: '31309477', AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'scroKING', SCARICATO: true},
@@ -34,7 +35,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
         {ALLEGATO_ID: 15, AD_ID: '31307059', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Giovanni offre.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Giovanni offre', SCARICATO: true},
 
-        {ALLEGATO_ID: 16, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: '', SCARICATO: true},
+        {ALLEGATO_ID: 16, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: 'Contadino_dell_informatica', SCARICATO: true},
         {ALLEGATO_ID: 18, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nun è chiar.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'nun è chiar', SCARICATO: true},
     ];
 
@@ -58,16 +59,8 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     ngOnInit() {
-        if (this.matDidatticoService.isPiattaformaSupportata()) {
-            this.matDidatticoService.getAllegatScaricatiiFromDB().then((allegati) => {
-                this.allegatiScaricati = allegati;
-                this.search();
-            });
-        } else {
-            this.toastsService.piattaformaNonSupportata();
-            this.allegatiScaricati = this.MOCK_FILES;
-            this.search();
-        }
+        console.log('ng-on-init');
+        this.ionViewDidEnter();
 
         const corsiPrimise = this.pianoDiStudioService.getCorsiAsMap();
         const allegatiPromise = this.matDidatticoService.getAllegatiJson();
@@ -80,10 +73,19 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 this.corsiMap.get(this.allegati[i].AD_ID).numAllegati++;
             }
         });
+    }
 
-        /*this.pianoDiStudioService.getCorsiAsMap().then(corsiMap => {
-            this.corsiMap = corsiMap;
-        });*/
+    ionViewDidEnter() {
+        if (this.matDidatticoService.isPiattaformaSupportata()) {
+            this.matDidatticoService.getAllegatScaricatiiFromDB().then((allegati) => {
+                this.allegatiScaricati = allegati;
+                this.search();
+            });
+        } else {
+            this.toastsService.piattaformaNonSupportata();
+            this.allegatiScaricati = this.MOCK_FILES;
+            this.search();
+        }
     }
 
     async presentModal() {
@@ -159,8 +161,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.eliminaFile(allegato);
-                        this.doRefresh(null);
+                        this.localdb.eliminaFile(allegato).then(() => {
+                            this.doRefresh(null);
+                        }, () => {
+                            //eliminazione impossibile
+                        });
                     }
                 },
                 {

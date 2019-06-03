@@ -1,22 +1,70 @@
 .icon{
-  font-size: 1.3em;
+  font-size: 1em;
   position: relative;
-  top: 2px;
+  top: 1px;
+  padding-right: 0.2em;
 }
+
+.iconTag{
+  font-size: 1em;
+
+  top: 16px;
+  padding-left: 1em;
+}
+
+.testo{
+  font-size: 74%;
+}
+
 .titolo{
   font-size: 90%;
+  color: #383a36;
   @media screen and (max-width: 320px){
     font-size: 0.7em;
   }
 }
 
-
+ion-searchbar{
+  padding-left: 1em;
+  padding-right: 1em;
+}
 
 .insegnamento{
   justify-content: center;
+  align:center;
+  font-size: 0.8em;
+ padding-left: 5px;
 
   @media screen and (max-width: 320px){
-    justify-content: flex-start;
+    //justify-content: flex-start;
+    font-size: 0.65em;
+  }
+}
+
+.autore{
+
+  @media screen and (max-width: 320px){
     font-size: 0.8em;
+
+    ion-icon{
+
+      font-size: 0.9em;
+      position: relative;
+      top: 0.9px;
+    }
+  }
+}
+
+.data{
+
+  @media screen and (max-width: 320px){
+    font-size: 0.8em;
+
+    ion-icon{
+
+      font-size: 0.9em;
+      position: relative;
+      top: 0.9px;
+    }
   }
 }

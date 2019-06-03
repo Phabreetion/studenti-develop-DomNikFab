@@ -83,8 +83,8 @@
 <ion-footer no-padding>
     <ion-toolbar>
         <ion-buttons slot="start">
-            <fa-icon [hidden]="!http.getConnected()" [icon]="globalData.faLink"></fa-icon>
-            <fa-icon [hidden]="http.getConnected()" [icon]="globalData.faUnlink"></fa-icon>
+            <ion-icon [hidden]="!http.getConnected()"  name="checkmark"></ion-icon>
+            <ion-icon [hidden]="http.getConnected()"  name="close"></ion-icon>
         </ion-buttons>
 
         <div class="testo-footer">

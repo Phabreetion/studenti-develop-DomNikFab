@@ -9,3 +9,52 @@
   padding: 0px 3px;
   display: block;
 }
+
+.nome-allegato{
+
+  font-size: 1em;
+
+
+  @media screen and (max-width: 320px){
+
+    font-size: 0.7em;
+  }
+}
+
+.docente{
+
+  ion-icon{
+
+    font-size: 1.2em;
+    position: relative;
+    top: 2px;
+  }
+
+
+  @media screen and (max-width: 320px){
+    font-size: 0.7em;
+
+    ion-icon{
+
+      font-size: 0.8em;
+      position: relative;
+      top: 0.9px;
+    }
+  }
+}
+
+.data{
+
+  @media screen and (max-width: 320px){
+    font-size: 0.7em;
+
+    fa-icon{
+
+      font-size: 0.8em;
+      position: relative;
+      top: 0.9px;
+
+    }
+  }
+}
+

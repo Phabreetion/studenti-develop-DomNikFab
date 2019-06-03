@@ -32,7 +32,33 @@ ion-item {
   }
 }
 
-.docente{
-  font-size: 0.9em;
+ion-searchbar{
+  padding-left: 1em;
+  padding-right: 1em;
 }
 
+.docente {
+  font-size: 0.9em;
+
+  @media screen and (max-width: 320px) {
+    font-size: 0.7em;
+  }
+
+}
+
+.titolo-corso{
+
+  font-size: 1.2em;
+
+  @media screen and (max-width: 320px) {
+    font-size: 0.8em;
+  }
+}
+
+.ordinamento-alfabetico{
+  font-size: 90%;
+
+  @media screen and (max-width: 320px) {
+    font-size: 0.8em;
+  }
+}

@@ -172,8 +172,8 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-spinner [hidden]="!isLoading() || !http.getConnected()"></ion-spinner>
-            <fa-icon [hidden]="isLoading() || !http.getConnected()" [icon]="globalData.faLink"></fa-icon>
-            <fa-icon [hidden]="isLoading() || http.getConnected()" [icon]="globalData.faUnlink"></fa-icon>
+            <ion-icon [hidden]="isLoading() || !http.getConnected()"  name="checkmark"></ion-icon>
+            <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
         </ion-buttons>
 
         <div class="testo-footer">

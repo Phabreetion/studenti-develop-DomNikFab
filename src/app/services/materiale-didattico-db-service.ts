@@ -464,39 +464,42 @@ export class MaterialeDidatticoDbService {
     }
 
     eliminaFile(item) {
-        if (this.isPiattaformaSupportata()) {
-            const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
-            const downloadDir = this.file.dataDirectory;
+        return new Promise((resolve, reject) => {
+            if (this.isPiattaformaSupportata()) {
+                const fileName = item.ALLEGATO_ID + '.' + item.ESTENSIONE;
+                const downloadDir = this.file.dataDirectory;
 
-            this.file.checkFile(downloadDir, fileName).then(
-                (data) => {
+                this.file.checkFile(downloadDir, fileName).then(data => {
                     GlobalDataService.log(1, 'checkFile OK', data);
 
-                    this.file.removeFile(downloadDir, fileName).then(
-                        () => {
-                            this.removeAllegatoFromDB(item.ALLEGATO_ID).then();
+                    this.file.removeFile(downloadDir, fileName).then(() => {
+                        this.removeAllegatoFromDB(item.ALLEGATO_ID).then(() => {
                             this.toastService.successoEliminazione();
-                            return true;
-                        },
-                        (err) => {
+                            resolve();
+                            return;
+                        }, (err) => {
                             GlobalDataService.log(2, 'Impossibile eliminare l\'allegato', err);
                             this.toastService.fallimentoEliminazione();
-                            return false;
-                        }
-                    );
-                    return true;
-                },
-                (err) => {
+                            reject();
+                            return;
+                        });
+                    }, (err) => {
+                        GlobalDataService.log(2, 'Impossibile eliminare l\'allegato', err);
+                        this.toastService.fallimentoEliminazione();
+                        reject();
+                        return;
+                    });
+                }, (err) => {
                     this.toastService.fileNonScaricato();
                     GlobalDataService.log(1, 'Nulla da cancellare!', err);
-                    return true;
-                }
-            );
-
-        } else {
-            // console.log('Terminale Windows');
-            this.toastService.piattaformaNonSupportata();
-            return false;
-        }
+                    reject();
+                    return;
+                });
+            } else {
+                this.toastService.piattaformaNonSupportata();
+                reject();
+                return;
+            }
+        });
     }
 }
