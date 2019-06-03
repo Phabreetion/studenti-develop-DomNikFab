@@ -7,7 +7,6 @@ import {Corso} from '../../../models/Corso';
 import {AppelliService} from '../../../services/appelli.service';
 import {AppelloDisponibile} from '../../../models/AppelloDisponibile';
 import {SyncService} from '../../../services/sync.service';
-import {fileBufferToString} from '@angular-devkit/core/src/virtual-fs/host';
 
 @Component({
     selector: 'app-dettagli-corso',
@@ -17,12 +16,12 @@ import {fileBufferToString} from '@angular-devkit/core/src/virtual-fs/host';
 export class DettagliCorsoPage implements OnInit {
 
     //query string
-    ad_id_corso: number;
+    ad_id_corso: string;
     nome_corso: string;
 
     //corsi
     corso: Corso;
-    corsiMap: Map<number, Corso>;
+    corsiMap: Map<string, Corso>;
     corsiPropedeutici: Corso[];
 
     //appelli
@@ -53,7 +52,7 @@ export class DettagliCorsoPage implements OnInit {
         this.http.getConnected();
 
 
-        this.ad_id_corso = Number(this.route.snapshot.paramMap.get('ad_id'));
+        this.ad_id_corso = this.route.snapshot.paramMap.get('ad_id');
         if (this.globalData.corso) {
             this.corso = this.globalData.corso;
             console.log('a');
@@ -83,7 +82,7 @@ export class DettagliCorsoPage implements OnInit {
             const files = data[0];
 
             let i = 0;
-            while (i < files.length && files[i].AD_ID != this.ad_id_corso) {
+            while (i < files.length && files[i].AD_ID !== this.ad_id_corso) {
                 i++;
             }
 

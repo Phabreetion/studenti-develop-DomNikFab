@@ -3,7 +3,7 @@ export class Allegato {
     /**
      * Non ne ho la benchè minima idea, serve per passare a materiale didattico
      */
-    public AD_ID: number;
+    public AD_ID: string;
     /**
      * ID dell'allegato o file.
      */
@@ -44,7 +44,7 @@ export class Allegato {
     public SCARICATO: boolean;
 
 
-    constructor( AD_ID?: number, ALLEGATO_ID?: number, AUTORE?: string, CLS_ID?: number, COMUNITA_ID?: number, DATA_INS?: string, ESTENSIONE?: string, FILENAME?: string, TESTO?: string, TITOLO?: string) {
+    constructor( AD_ID?: string, ALLEGATO_ID?: number, AUTORE?: string, CLS_ID?: number, COMUNITA_ID?: number, DATA_INS?: string, ESTENSIONE?: string, FILENAME?: string, TESTO?: string, TITOLO?: string) {
         this.AD_ID = AD_ID ;
         this.ALLEGATO_ID = ALLEGATO_ID;
         this.AUTORE = AUTORE;

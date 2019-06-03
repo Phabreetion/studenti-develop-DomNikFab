@@ -25,7 +25,7 @@ export class AppelliPage implements OnInit {
 
 
     //verranno passate nella query string per determinare quali appelli visualizzare e il nome dell'corso
-    ad_id_insegnamento: number; //se 0 visualizza tutti
+    ad_id_insegnamento: string; //se 0 visualizza tutti
     nome_corso: string; //nome corso
 
     //sezione in cui si ci trova
@@ -41,7 +41,7 @@ export class AppelliPage implements OnInit {
     prenotazioni: AppelloPrenotato[];
 
     //corsi array
-    corsiMap: Map<number, Corso>;
+    corsiMap: Map<string, Corso>;
 
     //per filtri e ordinamento
     filtro: FiltroAppelliDisponibili;
@@ -72,7 +72,7 @@ export class AppelliPage implements OnInit {
     ngOnInit() {
         this.http.getConnected();
 
-        this.ad_id_insegnamento = Number(this.route.snapshot.paramMap.get('id'));
+        this.ad_id_insegnamento = this.route.snapshot.paramMap.get('id');
         this.nome_corso = this.route.snapshot.paramMap.get('nome_corso');
 
         this.pianoDiStudioService.getCorsiAsMap().then((corsiMap) => {
@@ -81,8 +81,8 @@ export class AppelliPage implements OnInit {
             this.appelliService.getAppelliDisponibili().then((appelli) => {
                 this.appelli = appelli;
 
-                if (this.ad_id_insegnamento != 0) {
-                    this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id == this.ad_id_insegnamento);
+                if (this.ad_id_insegnamento) {
+                    this.appelliTrovati = this.appelli.filter((appello) => appello.ad_id === this.ad_id_insegnamento);
                     this.appelliTrovati = this.filtro.ordina(this.appelliTrovati, this.corsiMap);
                 } else {
                     //carico i filtri dallo storage ed eseguo il filtraggio.
@@ -166,7 +166,7 @@ export class AppelliPage implements OnInit {
     }
 
     mostraIcone() {
-        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && this.ad_id_insegnamento === 0;
+        return this.sezioni == 'disponibili' && this.appelli && this.appelli.length !== 0 && this.ad_id_insegnamento;
     }
 
     async openFiltri() {

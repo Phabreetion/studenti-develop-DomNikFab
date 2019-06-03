@@ -23,7 +23,7 @@ export class AppelloPrenotato extends Appello  {
     prenotazioni: Array<any>;
 
 
-    constructor(ad_id?: number, adsce_id?: number, data_ora_app?: string, ad_cod?: number, ad_des?: string, adreg_id?: number, app_des?: string, app_id?: number, app_log_id?: number, applista_id?: number, cds_id?: number, gruppo?: string, mat_id?: number, nota_studente?: string, posiz?: number, presidente?: string, tipo_esa_cod?: string, tipo_iscr?: string, tipo_turno_cod?: string) {
+    constructor(ad_id?: string, adsce_id?: number, data_ora_app?: string, ad_cod?: number, ad_des?: string, adreg_id?: number, app_des?: string, app_id?: number, app_log_id?: number, applista_id?: number, cds_id?: number, gruppo?: string, mat_id?: number, nota_studente?: string, posiz?: number, presidente?: string, tipo_esa_cod?: string, tipo_iscr?: string, tipo_turno_cod?: string) {
         super(ad_id, adsce_id, data_ora_app);
 
         this.ad_cod = ad_cod;
@@ -53,7 +53,7 @@ export class AppelloPrenotato extends Appello  {
         return this.ad_des.replace(/\\r\\n|\\r|\\n/g, '').replace('?', '\'');
     }
 
-    isPrenotazioneSuperata(corsoMap: Map<number, Corso>): boolean {
+    isPrenotazioneSuperata(corsoMap: Map<string, Corso>): boolean {
         return corsoMap.get(this.ad_id).isSuperato();
     }
 

@@ -68,7 +68,7 @@ export class FiltroAppelliDisponibili {
         this.tipoOrdinamento = CRESCENTE;
     }
 
-    filtra(appelli: AppelloDisponibile[], corsi: Map<number, Corso>): AppelloDisponibile[] {
+    filtra(appelli: AppelloDisponibile[], corsi: Map<string, Corso>): AppelloDisponibile[] {
         if (this.isActive()) {
             if (this.filtroPerAnno > DISATTIVO && this.filtroPerAnno <= this.maxAnni) {
                 appelli = appelli.filter(appello => corsi.get(appello.ad_id).ANNO == this.filtroPerAnno);
@@ -93,7 +93,7 @@ export class FiltroAppelliDisponibili {
         return appelli;
     }
 
-    ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<number, Corso>): AppelloDisponibile[] {
+    ordina(appelli: AppelloDisponibile[], mappaCorsi: Map<string, Corso>): AppelloDisponibile[] {
 
         switch (this.idOrdinamento + this.tipoOrdinamento) {
 

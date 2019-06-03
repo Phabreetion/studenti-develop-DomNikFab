@@ -186,12 +186,12 @@ export class AppelliService {
         });
     }
 
-    public async hasAlmenoUnAppello(ad_id_corso: number): Promise<boolean> {
+    public async hasAlmenoUnAppello(ad_id_corso: string): Promise<boolean> {
         return new Promise<boolean>(resolve => {
             this.getAppelliDisponibili().then((appelli) => {
                 //cerco un appello con ad_id uguale a quello passato
                 let i = 0;
-                while (i < appelli.length && appelli[i].ad_id != ad_id_corso) {
+                while (i < appelli.length && appelli[i].ad_id !== ad_id_corso) {
                     i++;
                 }
 

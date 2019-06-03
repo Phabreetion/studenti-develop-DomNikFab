@@ -7,7 +7,6 @@ import {IonicModule} from '@ionic/angular';
 
 import {MaterialeDidatticoFigoPage} from './materiale-didattico-figo.page';
 import {ListaCorsiComponent} from './lista-corsi/lista-corsi.component';
-import {GestoreListaAppelliDisponbiliComponent} from '../appelli/gestore-lista-appelli-disponbili/gestore-lista-appelli-disponbili.component';
 
 
 const routes: Routes = [

@@ -23,7 +23,7 @@ export class AppelloDisponibile extends Appello  {
     tipo_iscr_des: string;
     tot_iscritti: number;
 
-    constructor(ad_id?: number, adsce_id?: number, data_ora_app?: string, codice?: number, descrizione?: string, doc_pres_id?: number, mat_id?: number, p10_app_ad_id?: number, p10_app_app_id?: number, p10_app_cds_id?: number, p10_app_data_fine_iscr?: string, p10_app_data_inizio_iscr?: string, p10_app_des?: string, p10_app_note?: string, p10_app_tipo_app_cod?: string, p10_app_tipo_iscr_cod?: string, p10_app_tipo_iscr_cod_prev?: string, prenotabile_flg?: string, stu_id?: number, tipo_iscr_cod?: string, tipo_iscr_des?: string, tot_iscritti?: number) {
+    constructor(ad_id?: string, adsce_id?: number, data_ora_app?: string, codice?: number, descrizione?: string, doc_pres_id?: number, mat_id?: number, p10_app_ad_id?: number, p10_app_app_id?: number, p10_app_cds_id?: number, p10_app_data_fine_iscr?: string, p10_app_data_inizio_iscr?: string, p10_app_des?: string, p10_app_note?: string, p10_app_tipo_app_cod?: string, p10_app_tipo_iscr_cod?: string, p10_app_tipo_iscr_cod_prev?: string, prenotabile_flg?: string, stu_id?: number, tipo_iscr_cod?: string, tipo_iscr_des?: string, tot_iscritti?: number) {
         super(ad_id, adsce_id, data_ora_app);
 
         this.codice = codice;

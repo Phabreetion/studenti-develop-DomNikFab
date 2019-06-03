@@ -22,20 +22,20 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     //corsi array
     private corsi: Corso[];
-    private corsiMap: Map<number, Corso>;
+    private corsiMap: Map<string, Corso>;
 
     public MOCK_FILES: Allegato[] = [
-        {ALLEGATO_ID: 12, AD_ID: 31305164, AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'iannolli', SCARICATO: true},
+        {ALLEGATO_ID: 12, AD_ID: '31305164', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'iannolli', SCARICATO: true},
 
-        {ALLEGATO_ID: 13, AD_ID: 31309477, AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'scroKING', SCARICATO: true},
-        {ALLEGATO_ID: 16, AD_ID: 31309477, AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Pesche deuticità.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Pesche deuticità', SCARICATO: true},
+        {ALLEGATO_ID: 13, AD_ID: '31309477', AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'scroKING', SCARICATO: true},
+        {ALLEGATO_ID: 16, AD_ID: '31309477', AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Pesche deuticità.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Pesche deuticità', SCARICATO: true},
 
-        {ALLEGATO_ID: 14, AD_ID: 31305167, AUTORE: 'Tronky', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nella Fattispecie.pptx', ESTENSIONE: 'pptx', TESTO: '', TITOLO: 'nella Fattispecie', SCARICATO: true},
+        {ALLEGATO_ID: 14, AD_ID: '31305167', AUTORE: 'Tronky', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nella Fattispecie.pptx', ESTENSIONE: 'pptx', TESTO: '', TITOLO: 'nella Fattispecie', SCARICATO: true},
 
-        {ALLEGATO_ID: 15, AD_ID: 31307059, AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Giovanni offre.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Giovanni offre', SCARICATO: true},
+        {ALLEGATO_ID: 15, AD_ID: '31307059', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Giovanni offre.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Giovanni offre', SCARICATO: true},
 
-        {ALLEGATO_ID: 16, AD_ID: 31309476, AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: '', SCARICATO: true},
-        {ALLEGATO_ID: 18, AD_ID: 31309476, AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nun è chiar.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'nun è chiar', SCARICATO: true},
+        {ALLEGATO_ID: 16, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: '', SCARICATO: true},
+        {ALLEGATO_ID: 18, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nun è chiar.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'nun è chiar', SCARICATO: true},
     ];
 
 
@@ -76,9 +76,9 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             this.corsiMap = data[0];
             this.allegati = data[1];
 
-            /*for (let i = 0; i < this.allegati.length; ++i) {
-                this.corsiMap.get(this.allegati[i].AD_ID.toString()).numAllegati++;
-            }*/
+            for (let i = 0; i < this.allegati.length; ++i) {
+                this.corsiMap.get(this.allegati[i].AD_ID).numAllegati++;
+            }
         });
 
         /*this.pianoDiStudioService.getCorsiAsMap().then(corsiMap => {
@@ -87,7 +87,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     }
 
     async presentModal() {
-        const corsi: Corso = [];
+        const corsi: Corso[] = [];
         this.corsiMap.forEach(value => {
             corsi.push(value);
         });

@@ -19,7 +19,7 @@ export class PianoDiStudioService {
     }
 
 
-    public async getPropedeuticita(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<any[]> {
+    public async getPropedeuticita(ad_id_corso: string, corsiMap: Map<string, Corso>): Promise<any[]> {
         return new Promise<any[]>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PROPEDEUTICITA, null, false).then(async (data) => {
                 const propedeuticita = data[0];
@@ -27,7 +27,7 @@ export class PianoDiStudioService {
                 corsiPropedeutici = [];
 
                 propedeuticita.forEach( prop => {
-                    if (prop.AD_ID == ad_id_corso && corsiMap.get(ad_id_corso).AA_OFF_ID === prop.AA_OFF_ID) {
+                    if (prop.AD_ID === ad_id_corso && corsiMap.get(ad_id_corso).AA_OFF_ID === prop.AA_OFF_ID) {
                         corsiPropedeutici.push(corsiMap.get(prop.AD_PROP_ID));
                     }
                 });
@@ -37,7 +37,7 @@ export class PianoDiStudioService {
         });
     }
 
-    public async getPropedeuticitaNonSuperate(ad_id_corso: number, corsiMap: Map<number, Corso>): Promise<Corso[]> {
+    public async getPropedeuticitaNonSuperate(ad_id_corso: string, corsiMap: Map<string, Corso>): Promise<Corso[]> {
         return new Promise<Corso[]>(resolve => {
             this.getPropedeuticita(ad_id_corso, corsiMap).then( corsiPropedeutici => {
                 let corsiNonsuperati: Corso[];
@@ -96,10 +96,10 @@ export class PianoDiStudioService {
     }
 
 
-    public async getCorsiAsMap(): Promise<Map<number, Corso>> {
-        return new Promise<Map<number, Corso>>(resolve => {
+    public async getCorsiAsMap(): Promise<Map<string, Corso>> {
+        return new Promise<Map<string, Corso>>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PIANO_DI_STUDIO, null, false).then((corsi) => {
-                const map = new Map<number, Corso>();
+                const map = new Map<string, Corso>();
 
                 for (let i = 0; i < corsi[0].length; i++) {
                     const corso = Corso.toObj(corsi[0][i]);
@@ -137,11 +137,11 @@ export class PianoDiStudioService {
         return this.sync.isLoading(ID_SERVIZIO_PIANO_DI_STUDIO);
     }
 
-    public async getCorso(ad_id_corso: number): Promise<Corso> {
+    public async getCorso(ad_id_corso: string): Promise<Corso> {
         return new Promise<Corso>((resolve, reject) => {
             this.getCorsi().then((corsi) => {
                 let i = 0;
-                while (i < corsi.length && corsi[i].AD_ID != ad_id_corso ) {
+                while (i < corsi.length && corsi[i].AD_ID !== ad_id_corso ) {
                     i++;
                 }
 

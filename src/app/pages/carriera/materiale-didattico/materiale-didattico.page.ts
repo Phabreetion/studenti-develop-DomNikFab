@@ -64,7 +64,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
             this.allegatiFiltrati = [];
             this.allegati.forEach(allegato => {
-                if (allegato.AD_ID == Number(this.ad_id_corso)) {
+                if (allegato.AD_ID === this.ad_id_corso) {
                     this.allegatiFiltrati.push(allegato);
                 }
             });
@@ -223,7 +223,7 @@ export class MaterialeDidatticoPage implements OnInit {
             if (this.sync.dataIsChanged(allegatiAggiornati, this.allegati)) {
                 this.allegatiFiltrati = [];
                 this.allegati.forEach(allegato => {
-                    if (allegato.AD_ID == Number(this.ad_id_corso)) {
+                    if (allegato.AD_ID === this.ad_id_corso) {
                         this.allegatiFiltrati.push(allegato);
                     }
                 });

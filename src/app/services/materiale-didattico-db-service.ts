@@ -78,7 +78,7 @@ export class MaterialeDidatticoDbService {
 
                 db.executeSql('CREATE TABLE IF NOT EXISTS allegatiScaricati (' +
                     'ALLEGATO_ID integer primary key, ' + //id dell'allegato
-                    'AD_ID integer, ' + //id dell'corso
+                    'AD_ID varchar(20), ' + //id dell'corso
                     'AUTORE varchar(50), ' + //prof che ha caricato il file
                     'CLS_ID integer, ' + //non lo so a cosa serve
                     'COMUNITA_ID integer, ' + //non lo so a cosa serve

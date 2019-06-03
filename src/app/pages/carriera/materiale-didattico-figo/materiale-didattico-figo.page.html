@@ -74,7 +74,7 @@
     <ion-list>
         <div *ngFor="let allegato of allegatiScaricatiTrovati; let i = index">
             <ion-item *ngIf="(corsiMap) && (i===0 || (allegatiScaricatiTrovati[i-1] && allegatiScaricatiTrovati[i-1].AD_ID != allegatiScaricatiTrovati[i].AD_ID))">
-                <strong class="insegnamento">{{corsiMap.get(allegato.AD_ID.toString()).DESCRIZIONE.toLocaleUpperCase()}}</strong>
+                <strong class="insegnamento">{{corsiMap.get(allegato.AD_ID).DESCRIZIONE.toLocaleUpperCase()}}</strong>
             </ion-item>
 
             <ion-item-sliding>
