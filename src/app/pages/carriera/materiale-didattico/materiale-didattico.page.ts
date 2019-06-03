@@ -108,11 +108,11 @@ export class MaterialeDidatticoPage implements OnInit {
                 }, {
                     text: 'Apri',
                     icon: 'easel',
-                    handler: () => { this.presentAlertConfermaApertura(allegato); }
+                    handler: () => { this.presentAlertConfermaApertura(allegato, null); }
                 }, {
                     text: 'Elimina',
                     icon: 'trash',
-                    handler: () => { this.presentAlertConfermaRimozione(allegato).then(); }
+                    handler: () => { this.presentAlertConfermaRimozione(allegato, null).then(); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
@@ -129,7 +129,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 }, {
                     text: 'Download',
                     icon: 'download',
-                    handler: () => { this.presentAlertConfermaDownload(allegato); }
+                    handler: () => { this.presentAlertConfermaDownload(allegato, null); }
                 }, {
                     text: 'Chiudi',
                     icon: 'close',
@@ -141,7 +141,11 @@ export class MaterialeDidatticoPage implements OnInit {
         await actionSheet.present();
     }
 
-    async presentAlertConfermaDownload(item) {
+    async presentAlertConfermaDownload(item, ionItemSliding) {
+        if (ionItemSliding) {
+           ionItemSliding.close();
+        }
+
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Download file',
             message: 'Sei sicuro di\' voler scaricare il file sul dispositivo?',
@@ -165,7 +169,11 @@ export class MaterialeDidatticoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
-    async presentAlertConfermaApertura(item) {
+    async presentAlertConfermaApertura(item, ionItemSliding) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Apri file',
             message: 'Sei sicuro di\' voler aprire il file?',
@@ -188,7 +196,11 @@ export class MaterialeDidatticoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
-    async presentAlertConfermaRimozione(item) {
+    async presentAlertConfermaRimozione(item, ionItemSliding) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Rimozione file',
             message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
@@ -196,7 +208,7 @@ export class MaterialeDidatticoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.eliminaFile(item).then(value => {});
+                        this.localdb.eliminaFile(item).then(() => {});
                     }
                 },
                 {
@@ -266,7 +278,7 @@ export class MaterialeDidatticoPage implements OnInit {
     download(allegato: Allegato) {
         this.localdb.download(allegato).then(() => {
             this.doRefresh(null);
-            this.presentAlertConfermaApertura(allegato);
+            this.presentAlertConfermaApertura(allegato, null);
         }, () => {
             //non fare nulla
         });
@@ -279,7 +291,7 @@ export class MaterialeDidatticoPage implements OnInit {
 
             this.localdb.isAllegatoScaricato(item).then(
                 () => this.localdb.apriFile(item),
-                () => this.presentAlertConfermaDownload(item)
+                () => this.presentAlertConfermaDownload(item, null)
             );
         } else {
             this.toastsService.piattaformaNonSupportata();
@@ -290,7 +302,7 @@ export class MaterialeDidatticoPage implements OnInit {
     async rimuoviFile(item) {
         if (this.localdb.isPiattaformaSupportata()) {
             await this.localdb.isAllegatoScaricato(item).then(
-                () => this.presentAlertConfermaRimozione(item),
+                () => this.presentAlertConfermaRimozione(item, null),
                 () => this.toastsService.fileNonScaricato()
             );
         } else {

@@ -93,7 +93,7 @@
             </ion-label>
         </ion-item>
 
-        <ion-item-sliding *ngFor="let file of allegatiTrovati">
+        <ion-item-sliding *ngFor="let file of allegatiTrovati" #ionItemSliding>
             <ion-item (click)="presentActionSheet(file)">
                 <ion-grid fixed no-padding>
                     <ion-row>
@@ -136,17 +136,17 @@
                     Dettagli<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="presentAlertConfermaDownload(file)">
+                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="presentAlertConfermaDownload(file, ionItemSliding)">
                     <ion-icon name="download"></ion-icon>
                     Download
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="presentAlertConfermaApertura(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="presentAlertConfermaApertura(file, ionItemSliding)">
                     <ion-icon name="easel"></ion-icon>
                     Apri<br>file
                 </ion-item-option>
 
-                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="presentAlertConfermaRimozione(file)">
+                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="presentAlertConfermaRimozione(file, ionItemSliding)">
                     <ion-icon name="trash"></ion-icon>
                     Rimuovi<br>file
                 </ion-item-option>

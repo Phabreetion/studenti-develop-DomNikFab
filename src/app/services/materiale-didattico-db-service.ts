@@ -322,6 +322,14 @@ export class MaterialeDidatticoDbService {
         });
     }
 
+    isLoading(): boolean {
+        return this.sync.isLoading(18);
+    }
+
+    getDataUltimoAggiornamentoString(): string {
+        return this.sync.getDataUltimoAggiornamento(18);
+    }
+
     getUriFile(allegato: Allegato) {
         let urlFile: string;
 

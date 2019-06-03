@@ -112,10 +112,10 @@
                 </ion-item>
 
                 <ion-item-options side="end">
-                    <ion-item-option color="primary" (click)="presentAlertConfermaApertura(allegato);">
+                    <ion-item-option color="primary" (click)="presentAlertConfermaApertura(allegato, ionItemSliding);">
                         Apri
                     </ion-item-option>
-                    <ion-item-option color="danger" (click)="presentAlertConfermaRimozione(allegato)">
+                    <ion-item-option color="danger" (click)="presentAlertConfermaRimozione(allegato, ionItemSliding)">
                         Elimina
                     </ion-item-option>
                 </ion-item-options>
@@ -130,8 +130,19 @@
     </ion-fab>
 </ion-content>
 
-<ion-toolbar>
+<ion-footer>
     <ion-toolbar text-center>
-        allah
+        <ion-buttons slot="start">
+            <ion-icon [hidden]="!http.getConnected()"  name="checkmark"></ion-icon>
+            <ion-icon [hidden]="http.getConnected()"  name="close"></ion-icon>
+        </ion-buttons>
+
+        <div class="testo-footer">
+            Aggiornato al: {{this.matDidatticoService.getDataUltimoAggiornamentoString()}}
+        </div>
+
+        <ion-buttons slot="end">
+            <ion-spinner *ngIf="this.matDidatticoService.isLoading()" name="crescent"></ion-spinner>
+        </ion-buttons>
     </ion-toolbar>
-</ion-toolbar>
+</ion-footer>
