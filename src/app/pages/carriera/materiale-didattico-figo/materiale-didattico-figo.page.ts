@@ -75,9 +75,9 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             this.corsiMap = data[0];
             this.allegati = data[1];
 
-            for (let i = 0; i < this.allegati.length; ++i) {
+            /*for (let i = 0; i < this.allegati.length; ++i) {
                 this.corsiMap.get(this.allegati[i].AD_ID.toString()).numAllegati++;
-            }
+            }*/
         });
 
         /*this.pianoDiStudioService.getCorsiAsMap().then(corsiMap => {
