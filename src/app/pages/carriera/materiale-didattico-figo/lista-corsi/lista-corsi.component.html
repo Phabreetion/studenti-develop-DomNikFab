@@ -38,12 +38,12 @@
         <div *ngFor="let corso of corsiTrovati; let i = index">
             <ion-item
                     *ngIf="i===0 || (corsiTrovati[i-1] && corsiTrovati[i].DESCRIZIONE.charAt(0) !== corsiTrovati[i-1].DESCRIZIONE.charAt(0))">
-                <ion-label text-center style="font-size: 90% "><strong>{{corso.DESCRIZIONE.charAt(0)}}</strong> </ion-label>
+                <ion-label text-center class="ordinamento-alfabetico"><strong>{{corso.DESCRIZIONE.charAt(0)}}</strong> </ion-label>
             </ion-item>
 
             <ion-item (click)="goToMaterialeDidattico(corso)">
                 <ion-label>
-                    <ion-label style="font-size: 1.2em"><strong>{{corso.DESCRIZIONE}}</strong></ion-label>
+                    <ion-label class="titolo-corso"><strong>{{corso.DESCRIZIONE}}</strong></ion-label>
 
                     <ion-label *ngIf=" !corso.hasDueProfessori()" class="docente">{{corso.COGNOME}}</ion-label>
                     <ion-label *ngIf=" corso.hasDueProfessori()" class="docente">{{corso.NOME}} e {{corso.COGNOME}}</ion-label>

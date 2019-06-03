@@ -34,7 +34,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
         {ALLEGATO_ID: 15, AD_ID: '31307059', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Giovanni offre.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'Giovanni offre', SCARICATO: true},
 
-        {ALLEGATO_ID: 16, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: '', SCARICATO: true},
+        {ALLEGATO_ID: 16, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'Contadino_dell_informatica.pdf', ESTENSIONE: 'pdf', TESTO: 'Contadino_dell_informatica', TITOLO: 'Contadino_dell_informatica', SCARICATO: true},
         {ALLEGATO_ID: 18, AD_ID: '31309476', AUTORE: 'G.Parato', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'nun è chiar.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'nun è chiar', SCARICATO: true},
     ];
 
