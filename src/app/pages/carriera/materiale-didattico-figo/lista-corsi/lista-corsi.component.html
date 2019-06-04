@@ -45,8 +45,8 @@
                 <ion-label>
                     <ion-label class="titolo-corso"><strong>{{corso.DESCRIZIONE}}</strong></ion-label>
 
-                    <ion-label *ngIf=" !corso.hasDueProfessori()" class="docente">{{corso.COGNOME}}</ion-label>
-                    <ion-label *ngIf=" corso.hasDueProfessori()" class="docente">{{corso.NOME}} e {{corso.COGNOME}}</ion-label>
+                    <ion-label *ngIf=" !corso.hasDueProfessori()" class="docente">{{corso.COGNOME.toUpperCase()}}</ion-label>
+                    <ion-label *ngIf=" corso.hasDueProfessori()" class="docente">{{corso.NOME.toUpperCase()}} e {{corso.COGNOME.toUpperCase()}}</ion-label>
                 </ion-label>
 
                 <ion-badge [color]="corso.numAllegati > 0? 'primary' : 'danger'">{{corso.numAllegati}}</ion-badge>
