@@ -59,6 +59,9 @@ export class SyncService {
     private tokenNotifiche = 'tokenNotifiche';
     private params: string[];
 
+    //queste sono variabili usate per la progrss bar => rinominare
+    initialSyncLenght: number;
+    doneInitial: number;
 
     loading = [];
 
@@ -218,6 +221,9 @@ export class SyncService {
                 elencoServizi = [7, 19];
         }
 
+        this.initialSyncLenght = elencoServizi.length;
+        this.doneInitial = 0;
+
 
         if (this.platform.is('ios') || (this.platform.is('android'))) {
             this.controllaVersione().then(
@@ -230,8 +236,9 @@ export class SyncService {
         }
 
         for (const i of elencoServizi) {
-            this.getJson(i, null, true).then(
+            this.getJsonAggiornato(i, null).then(
                 (data) => {
+                    this.doneInitial++;
                     GlobalDataService.log(0, 'Recuperato servizio ' + i, data);
                 },
                 (err) => {

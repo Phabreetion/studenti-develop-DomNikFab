@@ -46,19 +46,22 @@
             </ion-searchbar>
         </ion-row>
 
-        <ion-segment [(ngModel)]="sezioni">
-            <ion-segment-button value="disponibili">
-                Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
-            <ion-segment-button *ngIf="ad_id_insegnamento !== ''" value="prenotati">
-                Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
-        </ion-segment>
+        <!--<ion-row no-padding>
+            <ion-col no-padding>
+                <ion-button expand="full" fill="none" >Allah {{getNumAppelliDisponibiliAsString()}}</ion-button>
+            </ion-col>
+            <ion-col no-padding>
+                <ion-button expand="full" fill="none">Akbar {{getNumPrenotazioniAsString()}}</ion-button>
+            </ion-col>
+        </ion-row>-->
+
+       <!-- -->
 
     </ion-grid>
 </ion-header>
 
 
-<ion-content [ngSwitch]="sezioni">
-
+<ion-content>
     <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="ad_id_insegnamento == ''" slot="fixed">
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
@@ -68,7 +71,17 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <ion-list *ngSwitchCase="'disponibili'">
+    <ion-item class="tab">
+        <ion-segment [(ngModel)]="sezioni">
+            <ion-segment-button value="disponibili">
+                Disponibili </ion-segment-button>
+            <ion-segment-button *ngIf="ad_id_insegnamento !== ''" value="prenotati">
+                Prenotati </ion-segment-button>
+        </ion-segment>
+    </ion-item>
+
+
+    <ion-list *ngIf="sezioni === 'disponibili'">
         <ion-grid *ngIf="appelli?.length == 0 && !http.connected" text-center>
             <ion-row>
                 <ion-col>
@@ -232,7 +245,7 @@
     </ion-list>
 
 
-    <ion-list *ngSwitchCase="'prenotati'">
+    <ion-list *ngIf="sezioni === 'prenotati'">
 
 
         <ion-item *ngIf="prenotazioni?.length == 0 && !appelliService.isAppelliPrenotatiLoading()" text-center>
