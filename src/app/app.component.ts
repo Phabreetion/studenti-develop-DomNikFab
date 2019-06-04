@@ -61,7 +61,7 @@ export class AppComponent {
         },
         {
             title: 'Materiale didattico',
-            url: '/materiale-didattico-figo',
+            url: '/materiale-didattico-scaricato',
             icon: 'download',
             role: 'student'
         },

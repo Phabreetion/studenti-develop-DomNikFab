@@ -3,23 +3,23 @@ import {
     ActionSheetController, AlertController,
     Platform
 } from '@ionic/angular';
-import {SyncService} from '../../../services/sync.service';
-import {GlobalDataService} from '../../../services/global-data.service';
-import {MaterialeDidatticoDbService} from '../../../services/materiale-didattico-db-service';
+import {SyncService} from '../../../../services/sync.service';
+import {GlobalDataService} from '../../../../services/global-data.service';
+import {MaterialeDidatticoDbService} from '../../../../services/materiale-didattico-db-service';
 import {ActivatedRoute} from '@angular/router';
-import {AccountService} from '../../../services/account.service';
-import {HttpService} from '../../../services/http.service';
-import {ToastsService} from '../../../services/toasts.service';
-import {Allegato} from '../../../models/Allegato';
+import {AccountService} from '../../../../services/account.service';
+import {HttpService} from '../../../../services/http.service';
+import {ToastsService} from '../../../../services/toasts.service';
+import {Allegato} from '../../../../models/Allegato';
 
 @Component({
-    selector: 'app-materiale-didattico',
-    templateUrl: 'materiale-didattico.page.html',
-    styleUrls: ['./materiale-didattico.page.scss'],
+    selector: 'app-materiale-didattico-corso',
+    templateUrl: 'materiale-didattico-corso.page.html',
+    styleUrls: ['./materiale-didattico-corso.page.scss'],
 
 })
 
-export class MaterialeDidatticoPage implements OnInit {
+export class MaterialeDidatticoCorsoPage implements OnInit {
 
     //parametro passato dalla query string
     ad_id_corso: string;

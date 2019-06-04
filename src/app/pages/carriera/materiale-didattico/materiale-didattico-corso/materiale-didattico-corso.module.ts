@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { MaterialeDidatticoPage } from './materiale-didattico.page';
+import { MaterialeDidatticoCorsoPage } from './materiale-didattico-corso.page';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 @NgModule({
@@ -16,10 +16,10 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         RouterModule.forChild([
             {
                 path: '',
-                component: MaterialeDidatticoPage
+                component: MaterialeDidatticoCorsoPage
             }
         ])
     ],
-    declarations: [MaterialeDidatticoPage]
+    declarations: [MaterialeDidatticoCorsoPage]
 })
-export class MaterialeDidatticoPageModule {}
+export class MaterialeDidatticoCorsoPageModule {}

@@ -48,7 +48,25 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <ion-grid *ngIf="allegatiScaricati?.length <= 0" text-center text-wrap>
+    <ion-grid *ngIf="!localdb.isPiattaformaSupportata()" text-center text-wrap>
+        <ion-row>
+            <ion-col>
+                <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center text-wrap>
+                <ion-label text-wrap style="font-size: 1.2em"><strong>Il dispositivo non supporta questa funzionalità</strong></ion-label>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col text-center>
+                <ion-button (click)="presentModal()">Visualizza lista corsi</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <ion-grid *ngIf="localdb.isPiattaformaSupportata() && allegatiScaricati?.length <= 0" text-center text-wrap>
         <ion-row>
             <ion-col>
                 <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>

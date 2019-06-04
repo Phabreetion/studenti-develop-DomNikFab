@@ -1,20 +1,20 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {GlobalDataService} from '../../../services/global-data.service';
-import {MaterialeDidatticoDbService} from '../../../services/materiale-didattico-db-service';
+import {GlobalDataService} from '../../../../services/global-data.service';
+import {MaterialeDidatticoDbService} from '../../../../services/materiale-didattico-db-service';
 import {ActionSheetController, AlertController, ModalController} from '@ionic/angular';
 import {ListaCorsiComponent} from './lista-corsi/lista-corsi.component';
-import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
-import {Corso} from '../../../models/Corso';
-import {Allegato} from '../../../models/Allegato';
-import {ToastsService} from '../../../services/toasts.service';
-import {HttpService} from '../../../services/http.service';
+import {PianoDiStudioService} from '../../../../services/piano-di-studio.service';
+import {Corso} from '../../../../models/Corso';
+import {Allegato} from '../../../../models/Allegato';
+import {ToastsService} from '../../../../services/toasts.service';
+import {HttpService} from '../../../../services/http.service';
 
 @Component({
-    selector: 'app-materiale-didattico-figo',
-    templateUrl: './materiale-didattico-figo.page.html',
-    styleUrls: ['./materiale-didattico-figo.page.scss'],
+    selector: 'app-materiale-didattico-scaricato',
+    templateUrl: './materiale-didattico-scaricato.page.html',
+    styleUrls: ['./materiale-didattico-scaricato.page.scss'],
 })
-export class MaterialeDidatticoFigoPage implements OnInit {
+export class MaterialeDidatticoScaricatoPage implements OnInit {
 
     //allegati array
     allegati: Allegato[];
@@ -83,8 +83,8 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             });
         } else {
             this.toastsService.piattaformaNonSupportata();
-            this.allegatiScaricati = this.MOCK_FILES;
-            this.search();
+            //this.allegatiScaricati = this.MOCK_FILES;
+            //this.search();
         }
     }
 
@@ -193,7 +193,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     goToDettagliFile(item) {
         this.globalData.allegato = item;
 
-        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
+        this.globalData.goTo('/materiale-didattico', '/dettagli-allegato', 'forward', false);
     }
 
 

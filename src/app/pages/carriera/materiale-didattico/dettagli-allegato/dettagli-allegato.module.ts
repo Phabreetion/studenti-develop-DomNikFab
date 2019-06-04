@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { AllegatoPage } from './allegato';
+import { DettagliAllegatoPage } from './dettagli-allegato.page';
 
 @NgModule({
     imports: [
@@ -14,10 +14,10 @@ import { AllegatoPage } from './allegato';
         RouterModule.forChild([
             {
                 path: '',
-                component: AllegatoPage
+                component: DettagliAllegatoPage
             }
         ])
     ],
-    declarations: [AllegatoPage]
+    declarations: [DettagliAllegatoPage]
 })
-export class AllegatoPageModule {}
+export class DettagliAllegatoPageModule {}

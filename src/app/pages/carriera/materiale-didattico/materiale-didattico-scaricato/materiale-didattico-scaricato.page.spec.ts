@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MaterialeDidatticoFigoPage } from './materiale-didattico-figo.page';
+import { MaterialeDidatticoScaricatoPage } from './materiale-didattico-scaricato.page';
 
-describe('MaterialeDidatticoFigoPage', () => {
-  let component: MaterialeDidatticoFigoPage;
-  let fixture: ComponentFixture<MaterialeDidatticoFigoPage>;
+describe('MaterialeDidatticoScaricatoPage', () => {
+  let component: MaterialeDidatticoScaricatoPage;
+  let fixture: ComponentFixture<MaterialeDidatticoScaricatoPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MaterialeDidatticoFigoPage ],
+      declarations: [ MaterialeDidatticoScaricatoPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MaterialeDidatticoFigoPage);
+    fixture = TestBed.createComponent(MaterialeDidatticoScaricatoPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

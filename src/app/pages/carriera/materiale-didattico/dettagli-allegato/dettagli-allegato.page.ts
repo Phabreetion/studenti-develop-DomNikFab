@@ -6,11 +6,11 @@ import {ToastsService} from '../../../../services/toasts.service';
 
 
 @Component({
-    selector: 'app-page-allegato',
-    templateUrl: 'allegato.html'
+    selector: 'app-dettagli-allegato',
+    templateUrl: 'dettagli-allegato.page.html'
 })
 
-export class AllegatoPage implements OnInit {
+export class DettagliAllegatoPage implements OnInit {
 
     currentPage = '/allegato';
     allegato: any;

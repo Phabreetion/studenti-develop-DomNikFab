@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {ModalController, NavParams} from '@ionic/angular';
-import {Corso} from '../../../../models/Corso';
-import {GlobalDataService} from '../../../../services/global-data.service';
-import {FiltroPianoDiStudio} from '../../../../models/FiltroPianoDiStudio';
+import {Corso} from '../../../../../models/Corso';
+import {GlobalDataService} from '../../../../../services/global-data.service';
+import {FiltroPianoDiStudio} from '../../../../../models/FiltroPianoDiStudio';
 
 @Component({
     selector: 'app-lista-corsi',
@@ -44,7 +44,7 @@ export class ListaCorsiComponent implements OnInit {
     }
 
     goToMaterialeDidattico(corso: Corso) {
-        this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID,  corso.DESCRIZIONE], 'forward', false);
+        this.globalData.goTo(this, ['materiale-didattico/', corso.AD_ID,  corso.DESCRIZIONE], 'forward', false);
         this.modalController.dismiss();
     }
 

@@ -6,7 +6,7 @@ const routes: Routes = [
     {path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
     {path: 'home-docente', loadChildren: './pages/docente/home-docente/home-docente.module#HomeDocentePageModule'},
     {path: 'accounts', loadChildren: './pages/account/accounts/accounts.module#AccountsPageModule'},
-    {path: 'allegato', loadChildren: './pages/carriera/materiale-didattico/allegato/allegato.module#AllegatoPageModule'},
+    {path: 'dettagli-allegato', loadChildren: './pages/carriera/materiale-didattico/dettagli-allegato/dettagli-allegato.module#DettagliAllegatoPageModule'},
     {path: 'appelli', loadChildren: './pages/carriera/appelli/appelli.module#AppelliPageModule'},
     {path: 'appelli/:id/:nome_corso', loadChildren: './pages/carriera/appelli/appelli.module#AppelliPageModule'},
     {path: 'appelli-docente', loadChildren: './pages/docente/appelli/appelli-docente.module#AppelliDocentePageModule'},
@@ -19,8 +19,8 @@ const routes: Routes = [
     {path: 'dettagli-corso', loadChildren: './pages/carriera/dettagli-corso/dettagli-corso.module#DettagliCorsoPageModule'},
     {path: 'lock', loadChildren: './pages/account/lock/lock.module#LockPageModule'},
     {path: 'login', loadChildren: './pages/account/login/login.module#LoginPageModule'},
-    {path: 'materiale-didattico/', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
-    {path: 'materiale-didattico/:id/:nome_corso', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico.module#MaterialeDidatticoPageModule'},
+    {path: 'materiale-didattico/', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico-corso/materiale-didattico-corso.module#MaterialeDidatticoCorsoPageModule'},
+    {path: 'materiale-didattico/:id/:nome_corso', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico-corso/materiale-didattico-corso.module#MaterialeDidatticoCorsoPageModule'},
     {path: 'medie', loadChildren: './pages/carriera/medie/medie.module#MediePageModule'},
     {path: 'news', loadChildren: './pages/news/news.module#NewsPageModule'},
     {path: 'notifiche', loadChildren: './pages/notifiche/notifiche.module#NotifichePageModule'},
@@ -33,7 +33,7 @@ const routes: Routes = [
     {path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule'},
     {path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule'},
     {path: 'piano-di-studio', loadChildren: './pages/carriera/piano-di-studio/piano-di-studio.module#PianoDiStudioPageModule'},
-    {path: 'materiale-didattico-figo', loadChildren: './pages/carriera/materiale-didattico-figo/materiale-didattico-figo.module#MaterialeDidatticoFigoPageModule'}
+    {path: 'materiale-didattico-scaricato', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico-scaricato/materiale-didattico-scaricato.module#MaterialeDidatticoScaricatoPageModule'}
 ];
 
 @NgModule({

@@ -5,14 +5,14 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {IonicModule} from '@ionic/angular';
 
-import {MaterialeDidatticoFigoPage} from './materiale-didattico-figo.page';
+import {MaterialeDidatticoScaricatoPage} from './materiale-didattico-scaricato.page';
 import {ListaCorsiComponent} from './lista-corsi/lista-corsi.component';
 
 
 const routes: Routes = [
     {
         path: '',
-        component: MaterialeDidatticoFigoPage
+        component: MaterialeDidatticoScaricatoPage
     }
 ];
 
@@ -24,6 +24,6 @@ const routes: Routes = [
         IonicModule,
         RouterModule.forChild(routes)
     ],
-    declarations: [MaterialeDidatticoFigoPage, ListaCorsiComponent]
+    declarations: [MaterialeDidatticoScaricatoPage, ListaCorsiComponent]
 })
-export class MaterialeDidatticoFigoPageModule {}
+export class MaterialeDidatticoScaricatoPageModule {}
