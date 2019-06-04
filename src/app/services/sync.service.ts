@@ -447,7 +447,7 @@ export class SyncService {
                     parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
                 }*/
 
-                const password_cifrata = this.crypto.CryptoJSAesEncrypt(passphrase, password);Md5
+                const password_cifrata = this.crypto.CryptoJSAesEncrypt(passphrase, password);
 
 
                 /*const body = {
