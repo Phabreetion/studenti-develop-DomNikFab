@@ -6,6 +6,12 @@ import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
+import { ContattoPage } from './contatto/contatto';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { IonContent } from '@ionic/angular'; 
+import {ViewChild, ElementRef } from '@angular/core'; 
+import { MenuController } from '@ionic/angular'; 
+
 
 @Component({
     selector: 'app-page-rubrica',
@@ -23,12 +29,14 @@ import {HttpService} from '../../../services/http.service';
 })
 
 export class RubricaPage implements OnInit {
+    [x: string]: any;
 
     currentPage = '/rubrica';
     idServizio = 7;
 
     rubrica: Array<any> = [];
     rubricaFiltrata: Array<any> = [];
+
     dataAggiornamento: string;
     searchTerm = '';
 
@@ -40,7 +48,7 @@ export class RubricaPage implements OnInit {
     rinvioAggiornamento = false;
     nrRinvii = 0;
     maxNrRinvii = 5;
-
+     
     step = 10;
     mostraTutti = false;
     mostraPrimi = true;
@@ -48,8 +56,12 @@ export class RubricaPage implements OnInit {
     nrElementiFiltrati = 0;
     nrElementiDaMostrare = this.step;
     nrElementiNascosti = 0;
+   
+    @ViewChild(IonContent) ionContent: IonContent;
 
-
+    sezioni = 'indietro';// per lo switch dei bottoni.
+    
+   
     constructor(
         private toastCtrl: ToastController,
         public storage: Storage,
@@ -57,8 +69,19 @@ export class RubricaPage implements OnInit {
         public http: HttpService,
         public alertCtrl: AlertController,
         public globalData: GlobalDataService,
-        public account: AccountService) {
+        public account: AccountService,
+        private menu: MenuController) {
+           
     }
+
+    //ti porta alla fine ed anche all'inizio della lista dei contatti
+    scrollContent(scroll) {
+        if (scroll === 'top') {
+          this.ionContent.scrollToTop(300);
+        } else {
+          this.ionContent.scrollToBottom(300);
+        }
+      }
 
     ngOnInit() {
         this.globalData.srcPage = this.currentPage;
@@ -83,10 +106,13 @@ export class RubricaPage implements OnInit {
         );
     }
 
+<<<<<<< HEAD
     ionViewDidEnter() {
         this.showSearchBar = false;
         this.searchTerm = '';
     }
+=======
+>>>>>>> develop
 
 
     loadData(event) {
@@ -148,8 +174,15 @@ export class RubricaPage implements OnInit {
         this.setFiltro();
     }
 
+
+
     setFiltro() {
-        this.rubricaFiltrata = this.filtra(this.searchTerm);
+        this.rubricaFiltrata = this.filtra(this.searchTerm); 
+        //filtro per sezione 
+        if(this.sezioni != 'indietro'){
+        this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
+    }
+
         this.nrElementiFiltrati = this.rubricaFiltrata.length;
         this.nrElementiNascosti = this.nrElementiFiltrati - this.nrElementiDaMostrare;
         if (this.nrElementiNascosti < 0) {
@@ -159,10 +192,14 @@ export class RubricaPage implements OnInit {
             this.rubricaFiltrata = this.rubricaFiltrata.slice(0, this.nrElementiDaMostrare - 1);
             this.mostraTutti = false;
         }
-    }
+    
+    
+}
 
+    
+// qui vado a filtrare
     filtra(searchTerm) {
-        if (searchTerm == null || searchTerm === undefined) {
+        if (searchTerm == null || searchTerm === undefined || searchTerm == '') {
             return this.rubrica;
         }
 
@@ -171,10 +208,12 @@ export class RubricaPage implements OnInit {
                 return (item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.cognome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.email_utente.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
-                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)||
+                    (item.struttura.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
+                    (item.indirizzo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
             } catch (err) {
                 console.log(err);
-            }
+            }3
         });
     }
 
@@ -192,9 +231,10 @@ export class RubricaPage implements OnInit {
             this.nrRinvii++;
 
             // console.log('Rinvio ' + this.nrRinvii);
-
+            
             if (this.nrRinvii < this.maxNrRinvii) {
                 setTimeout(() => {
+                    console.log(this.rubrica);
                     this.aggiorna(interattivo, sync);
                 }, 2000);
                 return;
@@ -215,6 +255,7 @@ export class RubricaPage implements OnInit {
             (data) => {
                 if ( this.sync.dataIsChanged(this.rubrica, data[0]) ) {
                     this.rubrica = data[0];
+                    console.log(this.rubrica); //console json
                     if (this.rubrica) {
                         this.nrElementi = this.rubrica.length;
                     }
@@ -337,4 +378,5 @@ export class RubricaPage implements OnInit {
             setTimeout(() => { this.searchbar.setFocus(); }, 150);
         }
     }
+
 }
