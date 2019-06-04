@@ -74,9 +74,9 @@
     <ion-item class="tab">
         <ion-segment [(ngModel)]="sezioni">
             <ion-segment-button value="disponibili">
-                Disponibili </ion-segment-button>
+                Disponibili {{getNumAppelliDisponibiliAsString()}}</ion-segment-button>
             <ion-segment-button *ngIf="ad_id_insegnamento !== ''" value="prenotati">
-                Prenotati </ion-segment-button>
+                Prenotati {{getNumPrenotazioniAsString()}}</ion-segment-button>
         </ion-segment>
     </ion-item>
 
