@@ -285,14 +285,14 @@ export class SyncService {
      * @param params: da passare al servizio
      */
     getJsonAggiornato(id: number, params: string[]): Promise<any> {
-        console.log(this.loading);
-        console.log(this.numRinvii);
-        //console.log(this.dateUltimiAggiornamenti);
+        // console.log(this.loading);
+        // console.log(this.numRinvii);
+        // //console.log(this.dateUltimiAggiornamenti);
 
         return new Promise((resolve, reject) => {
             if (!this.isLoading(id)) {
                 //se il servizio non è occupato risolvi i dati aggiornati dal server
-                console.log('inizio a scaricare');
+                // console.log('inizio a scaricare');
                 this.updateJson(id, params).then(
                     (dati) => {
                         this.numRinvii[id] = 0;
@@ -346,7 +346,7 @@ export class SyncService {
 
             // se ci sono dati nella cache risolvi
             if ((!params) && (this.globalData.archive[id])) {
-                console.log(id + ' -> prelevo da cache');
+                // console.log(id + ' -> prelevo da cache');
                 resolve(this.globalData.archive[id]);
                 return;
             }
@@ -357,7 +357,7 @@ export class SyncService {
                 (data) => {
                     //se i dati sono avvalorati devono essere risolti
                     if (data && (data[0] || data['timestamp'])) {
-                        console.log(id + ' -> prelevo da storage');
+                        // console.log(id + ' -> prelevo da storage');
 
                         //salva nella cache i dati reperiti dallo storage se quest'ultimo è vuoto
                         if (!this.globalData.archive[id]) {
@@ -447,7 +447,7 @@ export class SyncService {
                     parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
                 }*/
 
-                const password_cifrata = this.crypto.CryptoJSAesEncrypt(passphrase, password);
+                // const password_cifrata = this.crypto.CryptoJSAesEncrypt(passphrase, password);
 
 
                 /*const body = {
@@ -457,20 +457,16 @@ export class SyncService {
                     parametri: parametri_cifrati
                 };*/
 
-                const body1 = {
+                const body = {
                     token: token,
                     uuid: uuid,
                     id_servizio : id,
-                    password: password
-                    //parametri: params
+                    password: password,
+                    params: params
                 };
 
 
-                console.log('[+]-->');
-                console.log(url);
-                console.log(body1);
-
-                this.http.getJSON(url, body1).then((dati) => {
+                this.http.getJSON(url, body).then((dati) => {
                     /*let dec = '';
                     try {
                         dec = this.crypto.CryptoJSAesDecrypt(passphrase, dati['cifrato']);
@@ -482,6 +478,9 @@ export class SyncService {
                     }
 
                     dec = JSON.parse(dec);*/
+
+
+                    // console.log(dati);
 
                     if (dati) {
                         this.globalData.archive[id] = dati;
@@ -496,8 +495,8 @@ export class SyncService {
                     //richiesta al server fallita
                     //esamino la risposta per trovare le cause del fallimento
 
-                    console.log('[-]rej-->');
-                    console.log(rej);
+                    // console.log('[-]rej-->');
+                    // console.log(rej);
 
                     //offline -> il dispositivo non è connesso ad internet
                     if (rej.status === 0) {
@@ -507,25 +506,37 @@ export class SyncService {
                         return;
                     }
 
-                    //il token non è più valido -> al momento il token scade dopo 10 min di inutilizzo
+                    //il token non è più valido  per la password (cambio password)
                     if ( (rej.status === 401) || (rej.error && rej.error.codice === -2) ) {
-                        GlobalDataService.log(4, 'Token scaduto', null);
 
-                        //aggiorna il token
-                        //se l'aggiornamento non va a buon fine viene segnalato all'utente
-                        //se l'aggiornamento va a buon fine viene ritentato updateJson
-                        this.refreshToken(token, passphrase).then(
-                            () => {
-                                this.updateJson(id, params).then(
-                                    (newData) => resolve(newData),
-                                    () => reject()
-                                );
+                        this.toastCtrl.create({
+                            message: rej.error.msg,
+                            duration: 3000
+                        }).then(
+                            (toast) => {
+                                toast.present();
                             },
-                            () => {
-                                this.toastService.impossibileAggiornareIlToken();
-                                reject();
-                            }
-                        );
+                            (errToast) => {
+                                GlobalDataService.log(2, 'Errore Toast', errToast);
+                            });
+
+                        // GlobalDataService.log(4, 'Token scaduto', null);
+                        //
+                        // //aggiorna il token
+                        // //se l'aggiornamento non va a buon fine viene segnalato all'utente
+                        // //se l'aggiornamento va a buon fine viene ritentato updateJson
+                        // this.refreshToken(token, passphrase).then(
+                        //     () => {
+                        //         this.updateJson(id, params).then(
+                        //             (newData) => resolve(newData),
+                        //             () => reject()
+                        //         );
+                        //     },
+                        //     () => {
+                        //         this.toastService.impossibileAggiornareIlToken();
+                        //         reject();
+                        //     }
+                        // );
                     } else {
                         this.loading[id] = false;
                     }

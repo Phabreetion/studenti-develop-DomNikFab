@@ -89,10 +89,10 @@ export class AccountService {
         this.globalData.userRole = userRole;
         this.globalData.logged = true;
 
-        console.log(this.globalData.passphrase_private_key);
-        console.log(carriera['nome'] + carriera['cognome']);
+        // console.log(this.globalData.passphrase_private_key);
+        // console.log(carriera['nome'] + carriera['cognome']);
 
-        const passCifrata = this.crypto.CryptoJSAesEncrypt(this.globalData.passphrase_private_key, password);
+        const passCifrata = this.crypto.CryptoJSAesEncrypt(passPhrase, password);
 
         const promiseLogged = this.storage.set('logged', true);
         const nome = GlobalDataService.toTitleCase(carriera['nome']);
