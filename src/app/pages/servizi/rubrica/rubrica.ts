@@ -1,16 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AlertController, ToastController} from '@ionic/angular';
-import {Storage } from '@ionic/storage';
-import {trigger, state, style, animate, transition} from '@angular/animations';
+import {AlertController, IonContent, MenuController, ToastController} from '@ionic/angular';
+import {Storage} from '@ionic/storage';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 import {SyncService} from '../../../services/sync.service';
 import {GlobalDataService} from '../../../services/global-data.service';
 import {AccountService} from '../../../services/account.service';
 import {HttpService} from '../../../services/http.service';
-import { ContattoPage } from './contatto/contatto';
-import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { IonContent } from '@ionic/angular'; 
-import {ViewChild, ElementRef } from '@angular/core'; 
-import { MenuController } from '@ionic/angular'; 
 
 
 @Component({
@@ -48,7 +43,7 @@ export class RubricaPage implements OnInit {
     rinvioAggiornamento = false;
     nrRinvii = 0;
     maxNrRinvii = 5;
-     
+
     step = 10;
     mostraTutti = false;
     mostraPrimi = true;
@@ -56,12 +51,12 @@ export class RubricaPage implements OnInit {
     nrElementiFiltrati = 0;
     nrElementiDaMostrare = this.step;
     nrElementiNascosti = 0;
-   
+
     @ViewChild(IonContent) ionContent: IonContent;
 
-    sezioni = 'indietro';// per lo switch dei bottoni.
-    
-   
+    sezioni = 'indietro'; // per lo switch dei bottoni.
+
+
     constructor(
         private toastCtrl: ToastController,
         public storage: Storage,
@@ -71,17 +66,17 @@ export class RubricaPage implements OnInit {
         public globalData: GlobalDataService,
         public account: AccountService,
         private menu: MenuController) {
-           
+
     }
 
     //ti porta alla fine ed anche all'inizio della lista dei contatti
     scrollContent(scroll) {
         if (scroll === 'top') {
-          this.ionContent.scrollToTop(300);
+            this.ionContent.scrollToTop(300);
         } else {
-          this.ionContent.scrollToBottom(300);
+            this.ionContent.scrollToBottom(300);
         }
-      }
+    }
 
     ngOnInit() {
         this.globalData.srcPage = this.currentPage;
@@ -106,13 +101,11 @@ export class RubricaPage implements OnInit {
         );
     }
 
-<<<<<<< HEAD
+
     ionViewDidEnter() {
         this.showSearchBar = false;
         this.searchTerm = '';
     }
-=======
->>>>>>> develop
 
 
     loadData(event) {
@@ -144,7 +137,7 @@ export class RubricaPage implements OnInit {
         if (this.troppi()) {
             this.alertCtrl.create({
                 header: 'Sei sicuro?',
-                message: 'Vuoi visualizzare tutti i ' +  this.rubricaFiltrata.length + ' contatti individuati?',
+                message: 'Vuoi visualizzare tutti i ' + this.rubricaFiltrata.length + ' contatti individuati?',
                 buttons: [
                     {
                         text: 'No',
@@ -175,13 +168,12 @@ export class RubricaPage implements OnInit {
     }
 
 
-
     setFiltro() {
-        this.rubricaFiltrata = this.filtra(this.searchTerm); 
+        this.rubricaFiltrata = this.filtra(this.searchTerm);
         //filtro per sezione 
-        if(this.sezioni != 'indietro'){
-        this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
-    }
+        if (this.sezioni != 'indietro') {
+            this.rubricaFiltrata = this.rubricaFiltrata.filter(contatto => contatto.citta === this.sezioni);
+        }
 
         this.nrElementiFiltrati = this.rubricaFiltrata.length;
         this.nrElementiNascosti = this.nrElementiFiltrati - this.nrElementiDaMostrare;
@@ -192,11 +184,11 @@ export class RubricaPage implements OnInit {
             this.rubricaFiltrata = this.rubricaFiltrata.slice(0, this.nrElementiDaMostrare - 1);
             this.mostraTutti = false;
         }
-    
-    
-}
 
-    
+
+    }
+
+
 // qui vado a filtrare
     filtra(searchTerm) {
         if (searchTerm == null || searchTerm === undefined || searchTerm == '') {
@@ -208,12 +200,12 @@ export class RubricaPage implements OnInit {
                 return (item.nome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.cognome.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.email_utente.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
-                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1)||
+                    (item.tel1.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.struttura.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) ||
                     (item.indirizzo.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
             } catch (err) {
                 console.log(err);
-            }3
+            }
         });
     }
 
@@ -231,7 +223,7 @@ export class RubricaPage implements OnInit {
             this.nrRinvii++;
 
             // console.log('Rinvio ' + this.nrRinvii);
-            
+
             if (this.nrRinvii < this.maxNrRinvii) {
                 setTimeout(() => {
                     console.log(this.rubrica);
@@ -244,7 +236,11 @@ export class RubricaPage implements OnInit {
                         message: 'La connessione è assente o troppo lenta. Riprova ad aggiornare i dati più tardi.',
                         duration: 3000,
                         position: 'bottom'
-                    }).then(toast => { toast.present(); }, (err) => { GlobalDataService.log(2, 'Toast fallito!', err); });
+                    }).then(toast => {
+                        toast.present();
+                    }, (err) => {
+                        GlobalDataService.log(2, 'Toast fallito!', err);
+                    });
                 }
             }
         }
@@ -253,7 +249,7 @@ export class RubricaPage implements OnInit {
 
         this.sync.getJson(this.idServizio, null, sync).then(
             (data) => {
-                if ( this.sync.dataIsChanged(this.rubrica, data[0]) ) {
+                if (this.sync.dataIsChanged(this.rubrica, data[0])) {
                     this.rubrica = data[0];
                     console.log(this.rubrica); //console json
                     if (this.rubrica) {
@@ -271,7 +267,7 @@ export class RubricaPage implements OnInit {
                             contatto.cognome = '';
                         }
 
-                        if ( (contatto.tel1 != null) && (contatto.tel1 !== '') ) {
+                        if ((contatto.tel1 != null) && (contatto.tel1 !== '')) {
                             if ((contatto.tel1.indexOf('+39') !== 0) && (contatto.tel1.indexOf('0') !== 0)) {
                                 contatto.tel1 = '+39 0874 404' + contatto.tel1.slice(1);
                             }
@@ -293,8 +289,12 @@ export class RubricaPage implements OnInit {
                         message: 'Non è stato possibile recuparate i dati dal server. Riprovare più tardi.',
                         duration: 3000
                     }).then(
-                        (toast) => {toast.present(); },
-                        (toastErr) => { GlobalDataService.log(2, 'Toast fallito!', toastErr); });
+                        (toast) => {
+                            toast.present();
+                        },
+                        (toastErr) => {
+                            GlobalDataService.log(2, 'Toast fallito!', toastErr);
+                        });
                 }
             }).catch(ex => {
                 GlobalDataService.log(2, 'Eccezione nella chiamata a getJson(' + this.idServizio + ',' + sync + ')', ex);
@@ -375,7 +375,9 @@ export class RubricaPage implements OnInit {
         this.showSearchBar = !this.showSearchBar;
 
         if (this.showSearchBar) {
-            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+            setTimeout(() => {
+                this.searchbar.setFocus();
+            }, 150);
         }
     }
 

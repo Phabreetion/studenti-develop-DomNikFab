@@ -52,7 +52,6 @@ export class MaterialeDidatticoScaricatoPage implements OnInit {
         public modalController: ModalController,
         public pianoDiStudioService: PianoDiStudioService,
         public actionSheetController: ActionSheetController,
-        public localdb: MaterialeDidatticoDbService,
         public toastsService: ToastsService,
         public alertController: AlertController) {
         this.searchKey = '';
@@ -143,7 +142,7 @@ export class MaterialeDidatticoScaricatoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.apriFile(allegato);
+                        this.matDidatticoService.apriFile(allegato);
                     }
                 },
                 {
@@ -169,7 +168,7 @@ export class MaterialeDidatticoScaricatoPage implements OnInit {
                 {
                     text: 'Si',
                     handler: () => {
-                        this.localdb.eliminaFile(allegato).then(() => {
+                        this.matDidatticoService.eliminaFile(allegato).then(() => {
                             this.doRefresh(null);
                         }, () => {
                             //eliminazione impossibile
@@ -200,12 +199,9 @@ export class MaterialeDidatticoScaricatoPage implements OnInit {
 
     doRefresh(event) {
         if (this.matDidatticoService.isPiattaformaSupportata()) {
-            this.localdb.getAllegatScaricatiiFromDB().then( (allegatiAggiornati) => {
+            this.matDidatticoService.getAllegatScaricatiiFromDB().then( (allegatiAggiornati) => {
                 this.allegatiScaricati = allegatiAggiornati;
                 this.search();
-                if (event) {
-                    event.target.complete();
-                }
             });
         } else {
             setTimeout(() => {
@@ -215,6 +211,14 @@ export class MaterialeDidatticoScaricatoPage implements OnInit {
             }, 2000);
             this.toastsService.piattaformaNonSupportata();
         }
+
+        this.matDidatticoService.getAllegatiJsonAggiornato().then((allegati) => {
+            this.allegati = allegati;
+
+            for (let i = 0; i < this.allegati.length; ++i) {
+                this.corsiMap.get(this.allegati[i].AD_ID).numAllegati++;
+            }
+        });
     }
 
 

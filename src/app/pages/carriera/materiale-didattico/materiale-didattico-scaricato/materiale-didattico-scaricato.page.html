@@ -48,7 +48,7 @@
         </ion-refresher-content>
     </ion-refresher>
 
-    <ion-grid *ngIf="!localdb.isPiattaformaSupportata()" text-center text-wrap>
+    <ion-grid *ngIf="!matDidatticoService.isPiattaformaSupportata()" text-center text-wrap>
         <ion-row>
             <ion-col>
                 <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
@@ -66,7 +66,7 @@
         </ion-row>
     </ion-grid>
 
-    <ion-grid *ngIf="localdb.isPiattaformaSupportata() && allegatiScaricati?.length <= 0" text-center text-wrap>
+    <ion-grid *ngIf="matDidatticoService.isPiattaformaSupportata() && allegatiScaricati?.length <= 0" text-center text-wrap>
         <ion-row>
             <ion-col>
                 <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
