@@ -233,23 +233,7 @@
 
 
     <ion-list *ngSwitchCase="'prenotati'">
-        <ion-grid *ngIf="prenotazioni?.length == 0  && appelliService.isAppelliPrenotatiLoading()" text-center>
-            <ion-row>
-                <ion-col>
-                    <img class="progress" src="assets/img/progress.gif"/>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <ion-title><strong>Aggiornamento in corso</strong></ion-title>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col text-center>
-                    <ion-label>Un attimo di pazienza</ion-label>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+
 
         <ion-item *ngIf="prenotazioni?.length == 0 && !appelliService.isAppelliPrenotatiLoading()" text-center>
             <ion-grid>
