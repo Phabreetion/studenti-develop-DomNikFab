@@ -43,21 +43,15 @@
         <ion-card-header>
             <ion-card-subtitle text-left><b>{{allegato.DATA_INS}}</b></ion-card-subtitle>
             <ion-card-title text-center text-wrap><strong><I>{{ pulisciAllegato(allegato.TITOLO) }}</I></strong></ion-card-title>
-            <ion-card-subtitle text-center text-wrap><strong>{{ pulisciAllegato(allegato.FILENAME) }}</strong></ion-card-subtitle>
             <ion-card-subtitle text-center text-wrap><I>{{ pulisciAllegato(allegato.AUTORE) }}</I></ion-card-subtitle>
-        </ion-card-header>
-
-
-    <ion-card-content text-wrap>
-
-
-            <ion-icon style="font-size: 4em" name="download" *ngIf="allegato.scaricato"></ion-icon>
-
+            <br>
             <ion-row>
                 <ion-col>
                     <b><I>Estensione: </I></b>{{pulisciAllegato(allegato.ESTENSIONE)}}
                 </ion-col>
             </ion-row>
+
+            <ion-icon style="font-size: 4em" name="download" *ngIf="allegato.scaricato"></ion-icon>
 
 
             <ion-row *ngIf="allegato.TESTO">
@@ -76,10 +70,14 @@
 
             <ion-row *ngIf="!allegato.TESTO">
                 <ion-col>
-                    <b style="color:#FF0000"><I>Non sono disponibili note per questo file.</I></b>
+                    <b style="color:#3274a2; font-size: 0.72em"><I>Non sono disponibili note per questo file.</I></b>
                 </ion-col>
             </ion-row>
-        </ion-card-content>
+
+        </ion-card-header>
+
+
+
 
 
         <ion-grid>
