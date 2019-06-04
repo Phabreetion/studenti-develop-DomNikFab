@@ -28,6 +28,7 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
     fingerprintOptions: FingerprintOptions;
     fingerprintResult = '';
     isTerminiAccettati: boolean;
+    private bloccato: boolean;
 
     constructor(
         public platform: Platform,
@@ -49,6 +50,15 @@ export class LoginPage implements OnInit, AfterViewInit, OnDestroy {
         // Prende la versione dell'app settata nel file config.xml
         this.appVersionProvider.getVersionNumber().then((value) => {
             this.appVersionNum = value;
+        });
+
+        this.storage.get('token').then((token) => {
+            if (token) {
+                this.isTerminiAccettati = true;
+                this.bloccato = true;
+            } else {
+                this.bloccato = false;
+            }
         });
 
         this.account.controllaAccount().then(

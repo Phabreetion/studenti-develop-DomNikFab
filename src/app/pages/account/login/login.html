@@ -46,14 +46,14 @@
                         </ion-item>
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
-                            <ion-checkbox [(ngModel)]="isTerminiAccettati" name="termini" expand="block"
+                            <ion-checkbox [(ngModel)]="isTerminiAccettati" [disabled]="bloccato" name="termini" expand="block"
                                           required></ion-checkbox>
                             Accetta i termini
                         </div>
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
                             <ion-button expand="block" (click)="login();"
-                                        [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) ">
+                                        [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) || (!f.touched) ">
                                 Login
                             </ion-button>
                         </div>

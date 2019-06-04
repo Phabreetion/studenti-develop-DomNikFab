@@ -185,7 +185,7 @@ export class AccountService {
             const storedIdDocentePromise = this.storage.get('id_docente');
             const storedNomePromise = this.storage.get('nome');
             const storedCognomePromise = this.storage.get('cognome');
-            const hashedPassword = Md5.hashStr(password).toString();
+            //const hashedPassword = Md5.hashStr(password).toString();
             Promise.all([
                 storedUsernamePromise,
                 storedPasswordPromise,
@@ -215,6 +215,9 @@ export class AccountService {
                             storedIdDocente = '';
                         }
 
+                        //console.log(storedPassword);
+                        //console.log(password);
+                        //
 
                         // Se è presente un utente, allora ha effettuato il Logout bloccando il dispositivo
                         if ((storedUsername) && (storedPassword)) {
@@ -232,12 +235,13 @@ export class AccountService {
                                         GlobalDataService.log(2, 'Toast fallito!', err);
                                         reject('Errore toast');
                                     });
-                            } else if (hashedPassword === storedPassword.toString() &&
+                            } else if ( (password === storedPassword.toString()) && (
                                 ((matricola === '' && storedMatricola.toString() === '')
                                     || (matricola = storedIdDocente.toString()))
                                 || (matricola === '' && storedIdDocente.toString() === '')
-                                || (matricola = storedIdDocente.toString())) {
+                                || (matricola = storedIdDocente.toString())) ) {
                                 // Utente e password coincidono con quelle dell'ultmo utente registrato
+                                console.log('a');
                                 this.storage.get('sesso').then(
                                     (sesso) => {
                                         if (sesso === 'F') {
