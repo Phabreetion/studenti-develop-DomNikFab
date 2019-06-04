@@ -272,7 +272,7 @@ export class MaterialeDidatticoCorsoPage implements OnInit {
     goToDettagliFile(item) {
         this.globalData.allegato = item;
 
-        this.globalData.goTo('/materiale-didattico', '/allegato', 'forward', false);
+        this.globalData.goTo('/materiale-didattico', '/dettagli-allegato', 'forward', false);
     }
 
     download(allegato: Allegato) {
