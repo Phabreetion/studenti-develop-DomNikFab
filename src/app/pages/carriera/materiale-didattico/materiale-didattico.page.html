@@ -131,20 +131,20 @@
             </ion-item>
             <ion-item-options side="end">
 
-                <ion-item-option *ngIf="file.SCARICATO" color="waring" (click)="presentAlertConfermaApertura(file, ionItemSliding)">
+                <ion-item-option *ngIf="file.SCARICATO" class="swipeApri" (click)="presentAlertConfermaApertura(file, ionItemSliding)">
                     <ion-label text-center>Apri</ion-label>
                 </ion-item-option>
 
-                <ion-item-option color="secondary" (click)="goToDettagliFile(file)" text-center="">
+                <ion-item-option class="swipeDettagliFile" (click)="goToDettagliFile(file)" text-center="">
                     <ion-label text-center>Dettagli file</ion-label>
                 </ion-item-option>
 
-                <ion-item-option *ngIf="!file.SCARICATO" color="primary" (click)="presentAlertConfermaDownload(file, ionItemSliding)">
+                <ion-item-option *ngIf="!file.SCARICATO" class="swipeDownload" (click)="presentAlertConfermaDownload(file, ionItemSliding)">
                    <ion-label text-center>Download</ion-label>
                 </ion-item-option>
 
 
-                <ion-item-option *ngIf="file.SCARICATO" color="danger" (click)="presentAlertConfermaRimozione(file, ionItemSliding)">
+                <ion-item-option *ngIf="file.SCARICATO" class="swipeRimuovi" (click)="presentAlertConfermaRimozione(file, ionItemSliding)">
                     <ion-label text-center>Rimuovi</ion-label>
                 </ion-item-option>
 
