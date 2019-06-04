@@ -7,6 +7,7 @@ import {PianoDiStudioService} from '../../../services/piano-di-studio.service';
 import {Corso} from '../../../models/Corso';
 import {Allegato} from '../../../models/Allegato';
 import {ToastsService} from '../../../services/toasts.service';
+import {HttpService} from '../../../services/http.service';
 
 @Component({
     selector: 'app-materiale-didattico-figo',
@@ -21,11 +22,9 @@ export class MaterialeDidatticoFigoPage implements OnInit {
     allegatiScaricatiTrovati: Allegato[];
 
     //corsi array
-    private corsi: Corso[];
-    private corsiMap: Map<string, Corso>;
+    corsiMap: Map<string, Corso>;
 
-    public MOCK_FILES: Allegato[] = [];
-    public a = [
+    public MOCK_FILES: Allegato[] = [
         {ALLEGATO_ID: 12, AD_ID: '31305164', AUTORE: 'F.Mercaldo', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'iannolli.pdf', ESTENSIONE: 'pdf', TESTO: '', TITOLO: 'iannolli', SCARICATO: true},
 
         {ALLEGATO_ID: 13, AD_ID: '31309477', AUTORE: 'Fasano', CLS_ID: 1, COMUNITA_ID: 1, DATA_INS: '1 maggio', FILENAME: 'scroKING.zip', ESTENSIONE: 'zip', TESTO: '', TITOLO: 'scroKING', SCARICATO: true},
@@ -48,6 +47,7 @@ export class MaterialeDidatticoFigoPage implements OnInit {
 
     constructor(
         public globalData: GlobalDataService,
+        public http: HttpService,
         public matDidatticoService: MaterialeDidatticoDbService,
         public modalController: ModalController,
         public pianoDiStudioService: PianoDiStudioService,
@@ -116,11 +116,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
             }, {
                 text: 'Apri',
                 icon: 'easel',
-                handler: () => { this.presentAlertConfermaApertura(allegato); }
+                handler: () => { this.presentAlertConfermaApertura(allegato, null); }
             }, {
                 text: 'Elimina',
                 icon: 'trash',
-                handler: () => { this.presentAlertConfermaRimozione(allegato).then(); }
+                handler: () => { this.presentAlertConfermaRimozione(allegato, null).then(); }
             }, {
                 text: 'Chiudi',
                 icon: 'close',
@@ -131,7 +131,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         await actionSheet.present();
     }
 
-    async presentAlertConfermaApertura(allegato: Allegato) {
+    async presentAlertConfermaApertura(allegato: Allegato, ionItemSliding) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Apri file',
             message: 'Sei sicuro di\' voler aprire il file?',
@@ -153,7 +157,11 @@ export class MaterialeDidatticoFigoPage implements OnInit {
         await alertConfermaRimozione.present();
     }
 
-    async presentAlertConfermaRimozione(allegato: Allegato) {
+    async presentAlertConfermaRimozione(allegato: Allegato, ionItemSliding) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
         const alertConfermaRimozione = await this.alertController.create({
             header: 'Rimozione file',
             message: 'Sei sicuro di\ voler eliminare il file sul dispositivo?',
