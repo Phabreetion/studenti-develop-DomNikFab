@@ -482,8 +482,7 @@ export class SyncService {
                     }
 
                     dec = JSON.parse(dec);*/
-                    console.log(dati);
-                    dati = JSON.parse(dati);
+
                     if (dati) {
                         this.globalData.archive[id] = dati;
                         this.salvaJSon(id, dati);

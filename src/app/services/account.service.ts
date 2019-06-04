@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { GlobalDataService } from './global-data.service';
-import { Md5 } from 'ts-md5';
 import { LoadingController, ToastController, AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { NotificheService } from './notifiche.service';

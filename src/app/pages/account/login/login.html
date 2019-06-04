@@ -53,7 +53,7 @@
                         <br/>
                         <div *ngIf="!fingerprintIsAvbailable">
                             <ion-button expand="block" (click)="login();"
-                                        [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) || (!f.touched) ">
+                                        [disabled]="(!f.valid || !isTerminiAccettati) || (f.valid && !isTerminiAccettati) || (f.untouched) ">
                                 Login
                             </ion-button>
                         </div>
