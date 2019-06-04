@@ -59,7 +59,7 @@
 
 <ion-content [ngSwitch]="sezioni">
 
-    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="ad_id_insegnamento != 0" slot="fixed">
+    <ion-refresher (ionRefresh)="doRefresh($event)" [disabled]="ad_id_insegnamento == ''" slot="fixed">
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
