@@ -12,6 +12,7 @@ import { NotificheService } from './notifiche.service';
 import { HttpService } from './http.service';
 import { CryptoService } from './crypto.service';
 import {ToastsService} from './toasts.service';
+import {Md5} from 'ts-md5';
 // import {timeout} from 'rxjs/operators';
 
 /*
@@ -207,7 +208,7 @@ export class SyncService {
 
         switch (this.globalData.userRole) {
             case 'student':
-                elencoServizi = [1, 5, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113];//rimossi servizi non più utilizzati -> pulizzato tutto
+                elencoServizi = [1, 5, 7, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113]; //rimossi servizi non più utilizzati -> pulizzato tutto
                 //elencoServizi = [1, 2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 113];
                 break;
             case 'teacher':
@@ -403,11 +404,13 @@ export class SyncService {
             const pToken = this.storage.get('token');
             const pUuid = this.storage.get('uuid');
             const pPassPhrase = this.storage.get('passphrase_key');
+            const pPassword = this.storage.get('password');
 
-            Promise.all([pToken, pUuid, pPassPhrase]).then((data) => {
+            Promise.all([pToken, pUuid, pPassPhrase, pPassword]).then((data) => {
                 const token = data[0];
                 const uuid = data[1];
                 const passphrase = data[2];
+                const password = data[3];
 
                 // Nessun token -> La richiesta verrà respina sicuramente
                 // Comunica all'utente di rieffettuare la login
@@ -432,7 +435,7 @@ export class SyncService {
                                 id.toString() + ' - ' +
                                 this.params);
 
-                console.log('token' + token);
+                /*console.log('token' + token);
                 console.log('passphrase' + passphrase);
                 const token_cifrato = this.crypto.CryptoJSAesEncrypt(passphrase, token);
                 const uuid_cifrato = this.crypto.CryptoJSAesEncrypt(passphrase, uuid);
@@ -442,74 +445,91 @@ export class SyncService {
                     parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
                 } else {
                     parametri_cifrati = this.crypto.CryptoJSAesEncrypt(passphrase, this.params);
-                }
+                }*/
+
+                const password_cifrata = this.crypto.CryptoJSAesEncrypt(passphrase, password);
 
 
-                const body = {
+                /*const body = {
                     token: token_cifrato,
                     uuid: uuid_cifrato,
                     id_servizio: id_servizio_cifrato,
                     parametri: parametri_cifrati
+                };*/
+
+                const body1 = {
+                    token: token,
+                    uuid: uuid,
+                    id_servizio : id,
+                    password: password
+                    //parametri: params
                 };
 
 
                 console.log('[+]-->');
                 console.log(url);
-                console.log(body);
+                console.log(body1);
 
-                this.http.getJSON(url, body).then(
-                    (dati) => {
-                        let dec = this.crypto.CryptoJSAesDecrypt(passphrase, dati['cifrato']);
-                        dec = JSON.parse(dec);
-
-                        if (dec) {
-                            this.globalData.archive[id] = dec;
-                            this.salvaJSon(id, dec as JSON);
-                        }
-
-                        this.dateUltimiAggiornamenti[id] = dec['timestamp'];
+                this.http.getJSON(url, body1).then((dati) => {
+                    /*let dec = '';
+                    try {
+                        dec = this.crypto.CryptoJSAesDecrypt(passphrase, dati['cifrato']);
+                    } catch (e) {
+                        this.toastService.toastGenerico('Errore nella decriptazione del json.');
                         this.loading[id] = false;
-                        resolve(dec);
-                    }, (rej) => {
-                        this.loading[id] = false;
-                        //richiesta al server fallita
-                        //esamino la risposta per trovare le cause del fallimento
-
-                        console.log('[-]rej-->');
-                        console.log(rej);
-
-                        //offline -> il dispositivo non è connesso ad internet
-                        if (rej.status === 0) {
-                            //mostra all'utente un messaggio di errore
-                            this.toastService.connessioneOff();
-                            reject('Connessione assente');
-                            return;
-                        }
-
-                        //il token non è più valido -> al momento il token scade dopo 10 min di inutilizzo
-                        if ( (rej.status === 401) || (rej.error && rej.error.codice === -2) ) {
-                            GlobalDataService.log(4, 'Token scaduto', null);
-
-                            //aggiorna il token
-                            //se l'aggiornamento non va a buon fine viene segnalato all'utente
-                            //se l'aggiornamento va a buon fine viene ritentato updateJson
-                            this.refreshToken(token, passphrase).then(
-                                () => {
-                                    this.updateJson(id, params).then(
-                                        (newData) => resolve(newData),
-                                        () => reject()
-                                    );
-                                },
-                                () => {
-                                    this.toastService.impossibileAggiornareIlToken();
-                                    reject();
-                                }
-                            );
-                        } else {
-                            this.loading[id] = false;
-                        }
+                        reject();
+                        return;
                     }
-                );
+
+                    dec = JSON.parse(dec);*/
+
+                    if (dati) {
+                        this.globalData.archive[id] = dati;
+                        this.salvaJSon(id, dati);
+                    }
+
+                    this.dateUltimiAggiornamenti[id] = dati['timestamp'];
+                    this.loading[id] = false;
+                    resolve(dati);
+                }, (rej) => {
+                    this.loading[id] = false;
+                    //richiesta al server fallita
+                    //esamino la risposta per trovare le cause del fallimento
+
+                    console.log('[-]rej-->');
+                    console.log(rej);
+
+                    //offline -> il dispositivo non è connesso ad internet
+                    if (rej.status === 0) {
+                        //mostra all'utente un messaggio di errore
+                        this.toastService.connessioneOff();
+                        reject('Connessione assente');
+                        return;
+                    }
+
+                    //il token non è più valido -> al momento il token scade dopo 10 min di inutilizzo
+                    if ( (rej.status === 401) || (rej.error && rej.error.codice === -2) ) {
+                        GlobalDataService.log(4, 'Token scaduto', null);
+
+                        //aggiorna il token
+                        //se l'aggiornamento non va a buon fine viene segnalato all'utente
+                        //se l'aggiornamento va a buon fine viene ritentato updateJson
+                        this.refreshToken(token, passphrase).then(
+                            () => {
+                                this.updateJson(id, params).then(
+                                    (newData) => resolve(newData),
+                                    () => reject()
+                                );
+                            },
+                            () => {
+                                this.toastService.impossibileAggiornareIlToken();
+                                reject();
+                            }
+                        );
+                    } else {
+                        this.loading[id] = false;
+                    }
+                });
             });
         });
     }
@@ -521,7 +541,7 @@ export class SyncService {
      * @param id: id del servizio, posizione nello storage dove verrà salvato il JSON
      * @param json: JSON fa salvare nello Storage
      */
-    private salvaJSon(id: number, json: JSON) {
+    private salvaJSon(id: number, json: any) {
         this.storage.set(id.toString(), json).then(
             () => {
             }, (storageErr) => {

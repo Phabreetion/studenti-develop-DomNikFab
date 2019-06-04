@@ -8,7 +8,6 @@ import {Appello} from '../models/Appello';
 import {GlobalDataService} from './global-data.service';
 import {HttpService} from './http.service';
 import {FiltroAppelliDisponibili} from '../models/FiltroAppelliDisponibili';
-import {FiltroPianoDiStudio} from '../models/FiltroPianoDiStudio';
 
 const ID_SERVIZIO_APPELLI_DISPONIBILI = 1;
 const ID_SERVIZIO_APPELLI_PRENOTATI = 10;
@@ -122,9 +121,10 @@ export class AppelliService {
 
                 //console.log(appelliDisponibili);
                 resolve(appelliDisponibili);
-            }).catch((err) => {
+            }, () => {
                 //console.log(err);
-                reject(err);
+                resolve([]);
+                //reject(err);
             });
         });
     }
@@ -141,9 +141,9 @@ export class AppelliService {
 
                 //console.log(appelliDisponibili);
                 resolve(appelliDisponibili);
-            }).catch((err) => {
-                //console.log(err);
-                reject(err);
+            }, () => {
+                resolve([]);
+                //reject(err);
             });
         });
     }
@@ -160,9 +160,10 @@ export class AppelliService {
 
                 //console.log(appelliPrenotati);
                 resolve(appelliPrenotati);
-            }).catch((err) => {
+            }, () => {
                 //console.log(err);
-                reject(err);
+                resolve([]);
+                //reject(err);
             });
         });
     }
@@ -179,9 +180,10 @@ export class AppelliService {
 
                 //console.log(appelliPrenotati);
                 resolve(appelliPrenotati);
-            }).catch((err) => {
+            }, () => {
                 //console.log(err);
-                reject(err);
+                resolve([]);
+                //reject(err);
             });
         });
     }
