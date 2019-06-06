@@ -19,8 +19,8 @@ export class StatisticheVotiEsamePage implements OnInit {
     currentPage = '/statistiche-voti-esame';
 
     public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
-    public doughnutChartData: number[] = [20, 45, 10, 15];
-    public doughnutChartType = 'doughnut';
+    public doughnutChartData: number[] = [800, 1024, 60, 100];
+    public doughnutChartType = 'pie';
 
     public barChartOptions: any = {
         scales: {
@@ -127,13 +127,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     // }
 
     // events
-    public chartClicked(e: any): void {
-        console.log(e);
-    }
-
-    public chartHovered(e: any): void {
-        console.log(e);
-    }
 
     async openActionShett() {
         const actionSheet = await this.actionSheetController.create({
@@ -209,9 +202,9 @@ export class StatisticheVotiEsamePage implements OnInit {
             chartType: 'PieChart',
             dataTable: [
                 ['Languages', 'Percent'],
-                ['1°Anno', 10],
+                ['1°Anno', 20],
                 ['2°Anno', 20],
-                ['3°Anno', 50],
+                ['3°Anno', 20],
                 ['Fuori corso', 20]
             ],
             options: {
