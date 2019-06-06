@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
+import {max} from 'rxjs/operators';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -39,23 +40,36 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
 
     public barChartOptions: any = {
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                        return previousValue + currentValue;
+                    });
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var precentage = ((currentValue / total) * 100).toFixed(1);
+                    return precentage + '%';
+                }
+            }
+        },
         label: '%',
-            scales: {
-                yAxes: [{
-                    display: true,
-                    ticks: {
-                        stepSize: 20,
-                        min: 0,
-                        max: 100
-                    }
-                }]
-            },
-            legend: {
-                display: false
-            },
-            scaleShowVerticalLines: false,
-            responsive: true
-        };
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    stepSize: 20,
+                    min: 0,
+                    max: 100
+                }
+            }]
+        },
+        legend: {
+            display: false
+        },
+        scaleShowVerticalLines: false,
+        responsive: true
+    };
     public lineChartLegend = true;
     public lineChartType = 'line';
     public barChartLabels: string[] = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
@@ -63,7 +77,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartLegend = true;
 
     public barChartData: any[] = [
-        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6], label: 'Percentuale voto'},
+        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6, 8], label: 'Percentuale voto'},
     ];
 
 
