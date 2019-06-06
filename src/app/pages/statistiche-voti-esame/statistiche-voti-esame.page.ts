@@ -20,18 +20,18 @@ export class StatisticheVotiEsamePage implements OnInit {
     value: 25;
 
     public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
-    public doughnutChartData: number[] = [300, 50, 60, 21];
+    public doughnutChartData: number[] = [302, 57, 450, 111];
     public doughnutChartType = 'pie';
-    public Options: any = {
+    public doughnutChartOptions: any = {
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                     var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
                         return previousValue + currentValue;
                     });
                     var currentValue = dataset.data[tooltipItem.index];
-                    var precentage = ((currentValue / total) * 100).toFixed(2);
+                    var precentage = ((currentValue / total) * 100).toFixed(1);
                     return precentage + '%';
                 }
             }
@@ -39,22 +39,23 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
 
     public barChartOptions: any = {
-        scales: {
-            yAxes: [{
-                display: true,
-                ticks: {
-                    stepSize: 20,
-                    min: 0,
-                    max: 100
-                }
-            }]
-        },
-        legend: {
-            display: false
-        },
-        scaleShowVerticalLines: false,
-        responsive: true
-    };
+        label: '%',
+            scales: {
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        stepSize: 20,
+                        min: 0,
+                        max: 100
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            scaleShowVerticalLines: false,
+            responsive: true
+        };
     public lineChartLegend = true;
     public lineChartType = 'line';
     public barChartLabels: string[] = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
@@ -62,7 +63,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartLegend = true;
 
     public barChartData: any[] = [
-        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6], label: 'Distribuzione voto'},
+        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6], label: 'Percentuale voto'},
     ];
 
 
