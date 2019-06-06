@@ -121,7 +121,13 @@ export class PianoDiStudioPage implements OnInit {
         if (corso.isSuperato()) {
             actionSheet = await this.actionSheetController.create({
                 header: corso.DESCRIZIONE,
-                buttons: [{
+                buttons:  [{
+                    text: 'Difficolta Esame',
+                    icon: 'flame',
+                    handler: () => {
+                        this.goToStatisticheEsame(corso);
+                    }
+                }, {
                     text: 'Materiale didattico',
                     icon: 'archive',
                     handler: () => {
@@ -175,17 +181,7 @@ export class PianoDiStudioPage implements OnInit {
         await actionSheet.present();
     }
 
-    async openFiltri() {
-        const modal = await this.modalController.create({
-            component: GestoreListaCorsiComponent,
-            cssClass: 'gestore-lista-piano-di-studio-css',
-            componentProps: {
-                'page': this
-            }
-        });
 
-        return await modal.present();
-    }
 
 
 
@@ -274,6 +270,16 @@ export class PianoDiStudioPage implements OnInit {
         }
 
         this.globalData.goTo(this, ['/materiale-didattico/', corso.AD_ID, corso.DESCRIZIONE], 'forward', false);
+    }
+
+
+    goToStatisticheEsame(corso: Corso, ionItemSliding?) {
+        if (ionItemSliding) {
+            ionItemSliding.close();
+        }
+
+        this.globalData.corso = corso;
+        this.globalData.goTo(this, '/statistiche-voti-esame', 'forward', false);
     }
 
 }

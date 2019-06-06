@@ -33,7 +33,9 @@ const routes: Routes = [
     {path: 'tutorial', loadChildren: './pages/account/tutorial/tutorial.module#TutorialPageModule'},
     {path: 'orario', loadChildren: './pages/orario/orario.module#OrarioPageModule'},
     {path: 'piano-di-studio', loadChildren: './pages/carriera/piano-di-studio/piano-di-studio.module#PianoDiStudioPageModule'},
-    {path: 'materiale-didattico-scaricato', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico-scaricato/materiale-didattico-scaricato.module#MaterialeDidatticoScaricatoPageModule'}
+    {path: 'materiale-didattico-scaricato', loadChildren: './pages/carriera/materiale-didattico/materiale-didattico-scaricato/materiale-didattico-scaricato.module#MaterialeDidatticoScaricatoPageModule'},
+  { path: 'statistiche-voti-esame', loadChildren: './pages/statistiche-voti-esame/statistiche-voti-esame.module#StatisticheVotiEsamePageModule' }
+
 ];
 
 @NgModule({

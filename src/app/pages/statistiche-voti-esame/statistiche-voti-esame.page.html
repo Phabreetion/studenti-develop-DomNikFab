@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Statistiche Esame</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<!--<ion-row>-->
+<!--<ion-item>-->
+<!--<ion-label text-center>Difficoltà esame</ion-label>-->
+<!--</ion-item>-->
+<!--<ion-progress-bar color="primary" value="0.9"></ion-progress-bar>-->
+<!--</ion-row>-->
+
+<ion-content>
+
+  <ion-item-divider>
+    <ion-label text-center>Voto medio della materia nel corso degli anni</ion-label>
+  </ion-item-divider>
+
+  <div class="row" padding-top>
+    <div class="col-md-6">
+      <div>
+        <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <ion-item-divider>
+  </ion-item-divider>
+  <ion-item-divider>
+    <ion-label text-center>Percentuale di superamento dell' esame negli anni</ion-label>
+  </ion-item-divider>
+
+  <div style="display: block">
+    <canvas baseChart
+            [data]="doughnutChartData"
+            [labels]="doughnutChartLabels"
+            [chartType]="doughnutChartType"
+            (chartHover)="chartHoveredG($event)"
+            (chartClick)="chartClickedG($event)"></canvas>
+  </div>
+
+  <ion-item-divider>
+  </ion-item-divider>
+  <ion-item-divider>
+    <ion-label text-center>Distribuzione dei voti nell'anno</ion-label>
+  </ion-item-divider>
+
+  <div text-center padding-top>
+    <ion-button ion-button color="medium" class="button-outline" (click)="openActionShett()">{{dataButton}}</ion-button>
+  </div>
+
+  <div>
+    <div style="display: block">
+      <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+              [datasets]="barChartData"
+              [labels]="barChartLabels"
+              [options]="barChartOptions"
+              [legend]="barChartLegend"
+              [chartType]="barChartType"
+              (chartHover)="chartHovered($event)"
+              (chartClick)="chartClicked($event)"></canvas>
+    </div>
+  </div>
+
+
+
+</ion-content>
