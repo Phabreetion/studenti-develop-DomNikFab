@@ -9,7 +9,7 @@ import {ActionSheetController} from '@ionic/angular';
 })
 export class StatisticheVotiEsamePage implements OnInit {
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, ) {
+    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,) {
         this.dataButton = 2011;
     }
 
@@ -17,10 +17,26 @@ export class StatisticheVotiEsamePage implements OnInit {
     pieChartData;
     dataButton: any;
     currentPage = '/statistiche-voti-esame';
+    value: 25;
 
     public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
-    public doughnutChartData: number[] = [800, 1024, 60, 100];
+    public doughnutChartData: number[] = [300, 50, 60, 21];
     public doughnutChartType = 'pie';
+    public Options: any = {
+        tooltips: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                        return previousValue + currentValue;
+                    });
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var precentage = ((currentValue / total) * 100).toFixed(2);
+                    return precentage + '%';
+                }
+            }
+        }
+    };
 
     public barChartOptions: any = {
         scales: {
@@ -115,6 +131,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     public chartHoveredG(e: any): void {
         console.log(e);
     }
+
     // public randomize(): void {
     //     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
     //     for (let i = 0; i < this.lineChartData.length; i++) {
@@ -194,24 +211,24 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     ngOnInit() {
         this.srcPage = this.globalData.srcPage;
-        this.useAngularLibrary();
+        // this.useAngularLibrary();
     }
 
-    useAngularLibrary() {
-        this.pieChartData = {
-            chartType: 'PieChart',
-            dataTable: [
-                ['Languages', 'Percent'],
-                ['1°Anno', 20],
-                ['2°Anno', 20],
-                ['3°Anno', 20],
-                ['Fuori corso', 20]
-            ],
-            options: {
-                'width': 450,
-                'height': 230
-            }
-        };
-    }
+    // useAngularLibrary() {
+    //     this.pieChartData = {
+    //         chartType: 'PieChart',
+    //         dataTable: [
+    //             ['Languages', 'Percent'],
+    //             ['1°Anno', 20],
+    //             ['2°Anno', 20],
+    //             ['3°Anno', 20],
+    //             ['Fuori corso', 20]
+    //         ],
+    //         options: {
+    //             'width': 450,
+    //             'height': 230
+    //         }
+    //     };
+    // }
 
 }
