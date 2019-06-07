@@ -85,12 +85,12 @@
     "jsencrypt": "^3.0.0-rc.1",
     "karma": "^4.1.0",
     "ng2-charts": "^2.2.3",
+    "ng2-google-charts": "latest",
     "rxjs": "6.3.3",
     "rxjs-compat": "^6.5.2",
     "sourcemapped-stacktrace": "^1.1.9",
     "ts-md5": "^1.2.4",
-    "zone.js": "^0.8.29",
-    "ng2-google-charts": "latest"
+    "zone.js": "^0.8.29"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.13.9",

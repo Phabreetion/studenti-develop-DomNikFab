@@ -122,7 +122,7 @@ export class PianoDiStudioPage implements OnInit {
             actionSheet = await this.actionSheetController.create({
                 header: corso.DESCRIZIONE,
                 buttons:  [{
-                    text: 'Difficolta Esame',
+                    text: 'Difficoltà Esame',
                     icon: 'flame',
                     handler: () => {
                         this.goToStatisticheEsame(corso);
