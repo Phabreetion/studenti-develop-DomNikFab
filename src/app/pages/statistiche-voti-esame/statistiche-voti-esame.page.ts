@@ -97,6 +97,7 @@ export class StatisticheVotiEsamePage implements OnInit {
             display: false
         },
         responsive: true
+        
     };
     public lineChartColors: Array<any> = [
         {
