@@ -53,14 +53,18 @@ export class PianoDiStudioPage implements OnInit {
     ngOnInit() {
         //controllo l'account, se non verificato rimanda alla pagina di login
         this.account.controllaAccount().then(
-            () => {this.http.getConnected(); },
-            () => {this.globalData.goTo(PAGE_URL, '/login', 'root', false); }
+            () => {
+                this.http.getConnected();
+            },
+            () => {
+                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
+            }
         );
 
         this.isSearchbarOpened = false;
         this.searchKey = '';
 
-        this.pianoDiStudioService.getCorsi().then( data => {
+        this.pianoDiStudioService.getCorsi().then(data => {
             this.corsi = data;
 
             this.corsiFiltrati = this.corsi;
@@ -71,7 +75,7 @@ export class PianoDiStudioPage implements OnInit {
             this.pianoDiStudioService.loadFiltriFromStorage().then(filtro => {
                 this.filtro = filtro;
 
-                this.pianoDiStudioService.getMaxAnni().then( value => {
+                this.pianoDiStudioService.getMaxAnni().then(value => {
                     this.filtro.setMaxAnni(value);
                     this.updateFiltri();
                 });
@@ -87,10 +91,8 @@ export class PianoDiStudioPage implements OnInit {
     }
 
 
-
-
     doRefresh(event) {
-        this.pianoDiStudioService.getCorsiAggiornati().then( (corsiAggiornati) => {
+        this.pianoDiStudioService.getCorsiAggiornati().then((corsiAggiornati) => {
             if (this.pianoDiStudioService.areCorsiChanged(corsiAggiornati, this.corsi)) {
                 console.log('i corsi sono stati aggiornati');
 
@@ -99,7 +101,7 @@ export class PianoDiStudioPage implements OnInit {
             }
 
             event.target.complete();
-        }).catch( () => {
+        }).catch(() => {
             event.target.complete();
         });
     }
@@ -108,7 +110,9 @@ export class PianoDiStudioPage implements OnInit {
         this.isSearchbarOpened = !this.isSearchbarOpened;
 
         if (this.isSearchbarOpened) {
-            setTimeout(() => { this.searchbar.setFocus(); }, 150);
+            setTimeout(() => {
+                this.searchbar.setFocus();
+            }, 150);
         }
 
         this.searchKey = '';
@@ -121,7 +125,7 @@ export class PianoDiStudioPage implements OnInit {
         if (corso.isSuperato()) {
             actionSheet = await this.actionSheetController.create({
                 header: corso.DESCRIZIONE,
-                buttons:  [{
+                buttons: [{
                     text: 'Difficolta Esame',
                     icon: 'flame',
                     handler: () => {
@@ -151,6 +155,12 @@ export class PianoDiStudioPage implements OnInit {
             actionSheet = await this.actionSheetController.create({
                 header: corso.DESCRIZIONE,
                 buttons: [{
+                    text: 'Difficolta Esame',
+                    icon: 'flame',
+                    handler: () => {
+                        this.goToStatisticheEsame(corso);
+                    }
+                }, {
                     text: 'Appelli',
                     icon: 'book',
                     handler: () => {
@@ -180,10 +190,6 @@ export class PianoDiStudioPage implements OnInit {
 
         await actionSheet.present();
     }
-
-
-
-
 
 
     /**
@@ -244,7 +250,6 @@ export class PianoDiStudioPage implements OnInit {
     memorizzaFiltri() {
         this.pianoDiStudioService.memorizzaFiltri(this.filtro);
     }
-
 
 
     goToDettagliCorso(corso: Corso, ionItemSliding?) {

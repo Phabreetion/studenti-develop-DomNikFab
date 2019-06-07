@@ -263,4 +263,26 @@ export class StatisticheVotiEsamePage implements OnInit {
     //         event.target.complete();
     //     });
     // }
+
+    // public async loadFiltriFromStorage(): Promise<FiltroPianoDiStudio> {
+    //     return new Promise<FiltroPianoDiStudio>((resolve) => {
+    //         this.storage.get('filtroPianoDiStudio').then(
+    //             filtro => {
+    //                 if (!filtro) {
+    //                     filtro = new FiltroPianoDiStudio();
+    //                 }
+    //                 resolve(FiltroPianoDiStudio.toObj(filtro));
+    //             }
+    //         );
+    //     });
+    // }
+
+    doRefresh(event) {
+        console.log('Begin async operation');
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 2000);
+    }
 }
