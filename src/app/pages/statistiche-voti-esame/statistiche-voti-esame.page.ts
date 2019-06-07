@@ -20,7 +20,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     pieChartData;
     dataButton: any;
     currentPage = '/statistiche-voti-esame';
-    value: 25;
 
     public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
     public doughnutChartData: number[] = [302, 57, 450, 111];
@@ -58,14 +57,14 @@ export class StatisticheVotiEsamePage implements OnInit {
         label: '%',
         scales: {
             yAxes: [{
-                display: true,
+                display: false,
             }]
         },
         legend: {
             display: false
         },
         scaleShowVerticalLines: false,
-        responsive: true
+        responsive: true,
     };
     public lineChartLegend = true;
     public lineChartType = 'line';
@@ -83,6 +82,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     ];
     public lineChartLabels: Array<any> = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
     public lineChartOptions: any = {
+
         scales: {
             yAxes: [{
                 display: true,
@@ -242,7 +242,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     //         }
     //     };
     // }
-
 
 
     // public memorizzaStatistiche(statistica: StatisticaEsame) {
