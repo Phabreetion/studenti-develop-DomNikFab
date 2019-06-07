@@ -43,6 +43,9 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartOptions: any = {
         tooltips: {
             callbacks: {
+                title: function() {
+                    return '';
+                },
                 label: function (tooltipItem, data) {
                     var dataset = data.datasets[tooltipItem.datasetIndex];
                     var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
@@ -97,7 +100,7 @@ export class StatisticheVotiEsamePage implements OnInit {
             display: false
         },
         responsive: true
-        
+
     };
     public lineChartColors: Array<any> = [
         {
