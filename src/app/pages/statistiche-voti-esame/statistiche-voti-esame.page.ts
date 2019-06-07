@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
 import {max} from 'rxjs/operators';
+import {FiltroPianoDiStudio} from '../../models/FiltroPianoDiStudio';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -10,7 +12,7 @@ import {max} from 'rxjs/operators';
 })
 export class StatisticheVotiEsamePage implements OnInit {
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,) {
+    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, public storage: Storage) {
         this.dataButton = 2011;
     }
 
@@ -57,11 +59,6 @@ export class StatisticheVotiEsamePage implements OnInit {
         scales: {
             yAxes: [{
                 display: true,
-                ticks: {
-                    stepSize: 20,
-                    min: 0,
-                    max: 100
-                }
             }]
         },
         legend: {
@@ -246,4 +243,24 @@ export class StatisticheVotiEsamePage implements OnInit {
     //     };
     // }
 
+
+
+    // public memorizzaStatistiche(statistica: StatisticaEsame) {
+    //     this.storage.set('StatisticaEsame', statistica).then();
+    // }
+    //
+    // doRefresh(event) {
+    //     this.pianoDiStudioService.getCorsiAggiornati().then( (corsiAggiornati) => {
+    //         if (this.pianoDiStudioService.areCorsiChanged(corsiAggiornati, this.corsi)) {
+    //             console.log('le statistiche sono state aggiornate');
+    //
+    //             this.corsi = corsiAggiornati;
+    //             this.updateFiltri();
+    //         }
+    //
+    //         event.target.complete();
+    //     }).catch( () => {
+    //         event.target.complete();
+    //     });
+    // }
 }
