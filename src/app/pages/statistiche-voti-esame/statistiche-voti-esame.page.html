@@ -28,15 +28,13 @@
     </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card-title text-center padding-top="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></ion-card-title>
+  <h1 text-center class="titolo" padding-horizontal="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></h1>
 
-  <ion-item-divider>
-  </ion-item-divider>
-  <ion-item-divider>
-    <ion-label text-center>Voto medio della materia nel corso degli anni</ion-label>
-  </ion-item-divider>
 
-  <div class="row" padding-top>
+  <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b></ion-card-title>
+
+
+  <div class="row">
     <div class="col-md-6">
       <div>
         <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
@@ -53,11 +51,8 @@
   </div>
 
 
-  <ion-item-divider>
-  </ion-item-divider>
-  <ion-item-divider>
-    <ion-label text-center>Percentuale di superamento dell' esame negli anni</ion-label>
-  </ion-item-divider>
+    <ion-card-title text-center color="medium" padding-top="22"><b><I>Puntualità di superamento</I></b></ion-card-title>
+
 
   <div style="display: block">
     <canvas baseChart
@@ -69,15 +64,21 @@
             (chartClick)="chartClickedG($event)"></canvas>
   </div>
 
-  <ion-item-divider>
-  </ion-item-divider>
-  <ion-item-divider>
-    <ion-label text-center>Distribuzione dei voti nell'anno</ion-label>
-  </ion-item-divider>
 
-  <div text-center padding-top>
+  <div padding-top="30"></div>
+  <ion-card-title text-center color="medium" padding-top="35"><b><I>Distribuzione voti</I></b></ion-card-title>
+
+
+  <div text-center>
     <ion-button ion-button color="medium" class="button-outline" (click)="openActionSheet()">{{dataButton}}</ion-button>
   </div>
+
+  <div text-center>
+    <!-- contenuto della label definito nel corrispondente file .ts -->
+    <ion-label id="nEsamiAnno" color="medium"></ion-label>
+  </div>
+
+
 
   <div>
     <div style="display: block" *ngIf="oddUpdate">
@@ -101,8 +102,6 @@
               (chartHover)="chartHovered($event)"
               (chartClick)="chartClicked($event)"></canvas>
     </div>
-
-
   </div>
 
 

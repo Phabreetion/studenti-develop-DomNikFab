@@ -265,6 +265,7 @@ export class StatisticheVotiEsamePage implements OnInit {
                 return Math.max(a, b);
             });
             this.dataButton = ultimoAnnoDiCorso;
+            document.getElementById('nEsamiAnno').innerText = 'Numero esami dell\'anno: ' + this.datiAnnui[this.dataButton]['numeroEsami'];
 
 
             let temp = [];
@@ -323,6 +324,9 @@ export class StatisticheVotiEsamePage implements OnInit {
         }
 
         this.oddUpdate = !this.oddUpdate;
+
+        document.getElementById('nEsamiAnno').innerText = 'Numero esami passati dell\'anno: ' + this.datiAnnui[annoSelezionato]['numeroEsami'];
+
     }
 
     doRefresh(event) {
