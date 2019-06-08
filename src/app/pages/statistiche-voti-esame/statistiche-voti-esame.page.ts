@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
 import {max} from 'rxjs/operators';
-import {FiltroPianoDiStudio} from '../../models/FiltroPianoDiStudio';
-import {Storage} from '@ionic/storage';
+import {SyncService} from '../../services/sync.service';
+import {forEach} from '@angular-devkit/schematics';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -11,19 +12,24 @@ import {Storage} from '@ionic/storage';
     styleUrls: ['./statistiche-voti-esame.page.scss'],
 })
 export class StatisticheVotiEsamePage implements OnInit {
+    @ViewChild(BaseChartDirective)
+    public chart: BaseChartDirective;
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, public storage: Storage) {
-        this.dataButton = 2011;
+    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, private sync: SyncService) {
     }
 
+    oddUpdate = false;
     srcPage: string;
-    pieChartData;
+    pieChartData = [];
     dataButton: any;
     currentPage = '/statistiche-voti-esame';
     value: 25;
+    votiEsamiSuperati = [];
+    datiAnnui = [];
 
-    public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
-    public doughnutChartData: number[] = [302, 57, 450, 111];
+
+    public doughnutChartLabels: string[] = ['Anno di frequentazione', 'Dopo 1 anno', 'Dopo 2 anni', 'Oltre 2 anni'];
+    public doughnutChartData: number[] = [0, 0, 0, 0];
     public doughnutChartType = 'pie';
     public doughnutChartOptions: any = {
         tooltips: {
@@ -42,25 +48,44 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
 
     public barChartOptions: any = {
+
         tooltips: {
             callbacks: {
+                title: function() {
+                    return '';
+                },
                 label: function (tooltipItem, data) {
                     var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                    var total = dataset.data.reduce(function (previousValue, currentValue) {
                         return previousValue + currentValue;
                     });
                     var currentValue = dataset.data[tooltipItem.index];
                     var precentage = ((currentValue / total) * 100).toFixed(1);
                     return precentage + '%';
                 }
+
             }
         },
         label: '%',
         scales: {
             yAxes: [{
                 display: true,
+                ticks: {
+                    stepSize: 20,
+                    min: 0,
+                    max: 100,
+                    callback: value => value + '%'
+                }
+            }],
+            xAxes: [{
+                display: true,
+                ticks: {
+                    //"trucco" per visualizzare tutte le label
+                    callback: value => ' ' + value
+                }
             }]
         },
+
         legend: {
             display: false
         },
@@ -69,19 +94,19 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
     public lineChartLegend = true;
     public lineChartType = 'line';
-    public barChartLabels: string[] = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
+    public barChartLabels = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
     public barChartType = 'bar';
     public barChartLegend = true;
 
-    public barChartData: any[] = [
-        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6, 8], label: 'Percentuale voto'},
+    public barChartData = [
+        {data: [], label: 'Percentuale voto'},
     ];
 
 
     public lineChartData: Array<any> = [
-        {data: [25, 26, 25, 24, 23, 24, 26], label: 'Voto medio'},
+        {data: [], label: 'Voto medio'},
     ];
-    public lineChartLabels: Array<any> = ['2012', '2013', '2014', '2015', '2016', '2017', '2018'];
+    public lineChartLabels: Array<any> = [];
     public lineChartOptions: any = {
         scales: {
             yAxes: [{
@@ -137,11 +162,15 @@ export class StatisticheVotiEsamePage implements OnInit {
 
 // events
     public chartClickedG(e: any): void {
-        console.log(e);
     }
 
     public chartHoveredG(e: any): void {
-        console.log(e);
+    }
+
+    public chartClicked(e: any): void {
+    }
+
+    public chartHovered(e: any): void {
     }
 
     // public randomize(): void {
@@ -157,66 +186,28 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     // events
 
-    async openActionShett() {
+    async openActionSheet() {
+
+        let pulsantiAnni = [];
+        let pulsanteCorrente;
+
+        for (let anno of this.lineChartLabels) {
+            pulsanteCorrente = {
+                text: anno,
+                icon: 'ios-arrow-forward',
+                handler: () => {
+                    this.dataButton = anno;
+                    this.configuraGraficoABarre(anno);
+                }
+            };
+
+            pulsantiAnni.push(pulsanteCorrente);
+        }
+
+        console.log(pulsantiAnni);
         const actionSheet = await this.actionSheetController.create({
             header: 'Selezione dell\'anno',
-            buttons: [{
-                text: '2011',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2011;
-                    console.log('Delete clicked');
-                }
-            }, {
-                text: '2012',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2012;
-                    console.log('Share clicked');
-                }
-            }, {
-                text: '2013',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2013;
-                    console.log('Play clicked');
-                }
-            }, {
-                text: '2014',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2014;
-                    console.log('Favorite clicked');
-                }
-            }, {
-                text: '2015',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2015;
-                    console.log('Cancel clicked');
-                }
-            }, {
-                text: '2016',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2016;
-                    console.log('Favorite clicked');
-                }
-            }, {
-                text: '2017',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2017;
-                    console.log('Favorite clicked');
-                }
-            }, {
-                text: '2018',
-                icon: 'ios-arrow-forward',
-                handler: () => {
-                    this.dataButton = 2018;
-                    console.log('Favorite clicked');
-                }
-            }]
+            buttons: pulsantiAnni
         });
         await actionSheet.present();
     }
@@ -224,58 +215,121 @@ export class StatisticheVotiEsamePage implements OnInit {
     ngOnInit() {
         this.srcPage = this.globalData.srcPage;
         // this.useAngularLibrary();
+
+
+        this.sync.getJson(130, null, true).then((data) => {
+
+            //voti positivi dell'esame corrente
+            this.votiEsamiSuperati = data[0].filter(singoloDato => {
+                return (singoloDato['AD_COD'] == this.globalData.corso.CODICE
+                    && (singoloDato['VOTO'] >= 18 && singoloDato['VOTO'] <= 31)
+                    && singoloDato['AA_SES_ID'] != null);
+            });
+
+            console.log(this.votiEsamiSuperati);
+
+            this.datiAnnui = [];
+
+            for (let singoloDato of this.votiEsamiSuperati) {
+                let anno = singoloDato['AA_SES_ID'];
+
+                if (!(anno in this.datiAnnui)) {
+                    this.datiAnnui[anno] = [];
+                    this.datiAnnui[anno]['sommaVoti'] = singoloDato['NR'] * singoloDato['VOTO'];
+                    this.datiAnnui[anno]['numeroEsami'] = parseInt(singoloDato['NR'], 10);
+                } else {
+                    this.datiAnnui[anno]['sommaVoti'] += singoloDato['NR'] * singoloDato['VOTO'];
+                    this.datiAnnui[anno]['numeroEsami'] += parseInt(singoloDato['NR'], 10);
+                }
+
+                if (singoloDato['VOTO'] == 31)
+                    this.datiAnnui[anno]['sommaVoti'] -= singoloDato['NR'];
+            }
+
+
+            console.log(this.datiAnnui);
+
+            let medie = [];
+
+            for (let anno in this.datiAnnui) {
+                medie[anno] = (this.datiAnnui[anno]['sommaVoti'] / this.datiAnnui[anno]['numeroEsami']).toFixed(2);
+            }
+
+            for (let key in medie) {
+                this.lineChartLabels.push(key);
+                this.lineChartData[0].data.push(medie[key]);
+            }
+
+            console.log(medie);
+
+
+            this.doughnutChartData = [0, 0, 0, 0];
+
+
+
+            let ultimoAnnoDiCorso = this.lineChartLabels.reduce((a, b) => {
+                return Math.max(a, b);
+            });
+            this.dataButton = ultimoAnnoDiCorso;
+
+
+            let temp = [];
+
+            for (let i = 0; i < this.barChartLabels.length; i++ ) {
+                temp.push(0);
+            }
+
+
+            this.votiEsamiSuperati.map(singoloDato => {
+                singoloDato['VOTO'] = parseInt(singoloDato['VOTO'], 10);
+                singoloDato['NR'] = parseInt(singoloDato['NR'], 10);
+
+                if (singoloDato['RITARDO'] >= 0 && singoloDato['RITARDO'] <= 2) {
+                    this.doughnutChartData[singoloDato['RITARDO']] += singoloDato['NR'];
+                } else {
+                    this.doughnutChartData[3] += singoloDato['NR'];
+                }
+
+                if (singoloDato['AA_SES_ID'] == ultimoAnnoDiCorso) {
+                    temp[singoloDato['VOTO'] - 18] += singoloDato['NR'];
+                }
+            });
+
+
+
+            //trasformiamo i dati del barChart in percentuali
+            for (let i in temp) {
+                this.barChartData[0].data[i] = temp [i] * 100 / this.datiAnnui[ultimoAnnoDiCorso]['numeroEsami'];
+            }
+
+
+            console.log(this.barChartData[0].data);
+
+        });
     }
 
-    // useAngularLibrary() {
-    //     this.pieChartData = {
-    //         chartType: 'PieChart',
-    //         dataTable: [
-    //             ['Languages', 'Percent'],
-    //             ['1°Anno', 20],
-    //             ['2°Anno', 20],
-    //             ['3°Anno', 20],
-    //             ['Fuori corso', 20]
-    //         ],
-    //         options: {
-    //             'width': 450,
-    //             'height': 230
-    //         }
-    //     };
-    // }
+    configuraGraficoABarre(annoSelezionato) {
 
+        let votiAnnoSelezionato = this.votiEsamiSuperati.filter( (singoloDato) => {
+            return singoloDato['AA_SES_ID'] == annoSelezionato;
+        });
 
+        let temp = [];
 
-    // public memorizzaStatistiche(statistica: StatisticaEsame) {
-    //     this.storage.set('StatisticaEsame', statistica).then();
-    // }
-    //
-    // doRefresh(event) {
-    //     this.pianoDiStudioService.getCorsiAggiornati().then( (corsiAggiornati) => {
-    //         if (this.pianoDiStudioService.areCorsiChanged(corsiAggiornati, this.corsi)) {
-    //             console.log('le statistiche sono state aggiornate');
-    //
-    //             this.corsi = corsiAggiornati;
-    //             this.updateFiltri();
-    //         }
-    //
-    //         event.target.complete();
-    //     }).catch( () => {
-    //         event.target.complete();
-    //     });
-    // }
+        for (let i = 0; i < this.barChartLabels.length; i++ ) {
+            temp.push(0);
+        }
 
-    // public async loadFiltriFromStorage(): Promise<FiltroPianoDiStudio> {
-    //     return new Promise<FiltroPianoDiStudio>((resolve) => {
-    //         this.storage.get('filtroPianoDiStudio').then(
-    //             filtro => {
-    //                 if (!filtro) {
-    //                     filtro = new FiltroPianoDiStudio();
-    //                 }
-    //                 resolve(FiltroPianoDiStudio.toObj(filtro));
-    //             }
-    //         );
-    //     });
-    // }
+        for (let singoloDato of votiAnnoSelezionato)
+            temp[singoloDato['VOTO'] - 18] += singoloDato['NR'];
+
+        //trasformiamo i dati del barChart in percentuali
+        for (let i in temp) {
+            this.barChartData[0].data[i] = temp [i] * 100 / this.datiAnnui[annoSelezionato]['numeroEsami'];
+        }
+
+        this.oddUpdate = !this.oddUpdate;
+    }
 
     doRefresh(event) {
         console.log('Begin async operation');
@@ -285,4 +339,5 @@ export class StatisticheVotiEsamePage implements OnInit {
             event.target.complete();
         }, 2000);
     }
+
 }
