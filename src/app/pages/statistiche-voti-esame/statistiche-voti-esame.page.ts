@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
+import {max} from 'rxjs/operators';
+import {FiltroPianoDiStudio} from '../../models/FiltroPianoDiStudio';
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -9,7 +12,7 @@ import {ActionSheetController} from '@ionic/angular';
 })
 export class StatisticheVotiEsamePage implements OnInit {
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,) {
+    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, public storage: Storage) {
         this.dataButton = 2011;
     }
 
@@ -20,18 +23,18 @@ export class StatisticheVotiEsamePage implements OnInit {
     value: 25;
 
     public doughnutChartLabels: string[] = ['1°Anno', '2°Anno', '3°Anno', 'Fuori corso'];
-    public doughnutChartData: number[] = [300, 50, 60, 21];
+    public doughnutChartData: number[] = [302, 57, 450, 111];
     public doughnutChartType = 'pie';
-    public Options: any = {
+    public doughnutChartOptions: any = {
         tooltips: {
             callbacks: {
-                label: function(tooltipItem, data) {
+                label: function (tooltipItem, data) {
                     var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce(function(previousValue, currentValue, currentIndex, array) {
+                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
                         return previousValue + currentValue;
                     });
                     var currentValue = dataset.data[tooltipItem.index];
-                    var precentage = ((currentValue / total) * 100).toFixed(2);
+                    var precentage = ((currentValue / total) * 100).toFixed(1);
                     return precentage + '%';
                 }
             }
@@ -39,14 +42,23 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
 
     public barChartOptions: any = {
+        tooltips: {
+            callbacks: {
+                label: function (tooltipItem, data) {
+                    var dataset = data.datasets[tooltipItem.datasetIndex];
+                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                        return previousValue + currentValue;
+                    });
+                    var currentValue = dataset.data[tooltipItem.index];
+                    var precentage = ((currentValue / total) * 100).toFixed(1);
+                    return precentage + '%';
+                }
+            }
+        },
+        label: '%',
         scales: {
             yAxes: [{
                 display: true,
-                ticks: {
-                    stepSize: 20,
-                    min: 0,
-                    max: 100
-                }
             }]
         },
         legend: {
@@ -62,7 +74,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartLegend = true;
 
     public barChartData: any[] = [
-        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6], label: 'Distribuzione voto'},
+        {data: [20, 24, 22, 30, 27, 19, 26, 11, 25, 11, 28, 5, 6, 8], label: 'Percentuale voto'},
     ];
 
 
@@ -231,4 +243,46 @@ export class StatisticheVotiEsamePage implements OnInit {
     //     };
     // }
 
+
+
+    // public memorizzaStatistiche(statistica: StatisticaEsame) {
+    //     this.storage.set('StatisticaEsame', statistica).then();
+    // }
+    //
+    // doRefresh(event) {
+    //     this.pianoDiStudioService.getCorsiAggiornati().then( (corsiAggiornati) => {
+    //         if (this.pianoDiStudioService.areCorsiChanged(corsiAggiornati, this.corsi)) {
+    //             console.log('le statistiche sono state aggiornate');
+    //
+    //             this.corsi = corsiAggiornati;
+    //             this.updateFiltri();
+    //         }
+    //
+    //         event.target.complete();
+    //     }).catch( () => {
+    //         event.target.complete();
+    //     });
+    // }
+
+    // public async loadFiltriFromStorage(): Promise<FiltroPianoDiStudio> {
+    //     return new Promise<FiltroPianoDiStudio>((resolve) => {
+    //         this.storage.get('filtroPianoDiStudio').then(
+    //             filtro => {
+    //                 if (!filtro) {
+    //                     filtro = new FiltroPianoDiStudio();
+    //                 }
+    //                 resolve(FiltroPianoDiStudio.toObj(filtro));
+    //             }
+    //         );
+    //     });
+    // }
+
+    doRefresh(event) {
+        console.log('Begin async operation');
+
+        setTimeout(() => {
+            console.log('Async operation has ended');
+            event.target.complete();
+        }, 2000);
+    }
 }

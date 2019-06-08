@@ -18,7 +18,6 @@ export class PianoDiStudioService {
                 public storage: Storage) {
     }
 
-
     public async getPropedeuticita(ad_id_corso: string, corsiMap: Map<string, Corso>): Promise<any[]> {
         return new Promise<any[]>(resolve => {
             this.sync.getJson(ID_SERVIZIO_PROPEDEUTICITA, null, false).then(async (data) => {
