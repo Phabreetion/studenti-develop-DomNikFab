@@ -28,6 +28,10 @@
         </ion-refresher-content>
     </ion-refresher>
 
+    <ion-card-title text-center padding-top="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></ion-card-title>
+
+    <ion-item-divider>
+    </ion-item-divider>
     <ion-item-divider>
         <ion-label text-center>Voto medio della materia nel corso degli anni</ion-label>
     </ion-item-divider>
@@ -35,8 +39,7 @@
     <div class="row" padding-top>
         <div class="col-md-6">
             <div>
-                <canvas baseChart
-                        style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
                         [datasets]="lineChartData"
                         [labels]="lineChartLabels"
                         [options]="lineChartOptions"
@@ -48,6 +51,7 @@
             </div>
         </div>
     </div>
+
 
     <ion-item-divider>
     </ion-item-divider>
@@ -72,12 +76,11 @@
     </ion-item-divider>
 
     <div text-center padding-top>
-        <ion-button ion-button color="medium" class="button-outline" (click)="openActionShett()">{{dataButton}}
-        </ion-button>
+        <ion-button ion-button color="medium" class="button-outline" (click)="openActionSheet()">{{dataButton}}</ion-button>
     </div>
 
     <div>
-        <div style="display: block">
+        <div style="display: block" *ngIf="oddUpdate">
             <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
                     [datasets]="barChartData"
                     [labels]="barChartLabels"
@@ -87,7 +90,21 @@
                     (chartHover)="chartHovered($event)"
                     (chartClick)="chartClicked($event)"></canvas>
         </div>
+
+        <div style="display: block" *ngIf="!oddUpdate">
+            <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType"
+                    (chartHover)="chartHovered($event)"
+                    (chartClick)="chartClicked($event)"></canvas>
+        </div>
+
+
     </div>
+
 
 
 </ion-content>
