@@ -4,7 +4,7 @@ import {ActionSheetController} from '@ionic/angular';
 import {max} from 'rxjs/operators';
 import {SyncService} from '../../services/sync.service';
 import {forEach} from '@angular-devkit/schematics';
-import { BaseChartDirective } from 'ng2-charts';
+import {BaseChartDirective} from 'ng2-charts';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -51,7 +51,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
         tooltips: {
             callbacks: {
-                title: function() {
+                title: function () {
                     return '';
                 },
                 label: function (tooltipItem, data) {
@@ -71,9 +71,6 @@ export class StatisticheVotiEsamePage implements OnInit {
             yAxes: [{
                 display: true,
                 ticks: {
-                    stepSize: 20,
-                    min: 0,
-                    max: 100,
                     callback: value => value + '%'
                 }
             }],
@@ -239,8 +236,9 @@ export class StatisticheVotiEsamePage implements OnInit {
                     this.datiAnnui[anno]['numeroEsami'] += parseInt(singoloDato['NR'], 10);
                 }
 
-                if (singoloDato['VOTO'] == 31)
+                if (singoloDato['VOTO'] == 31) {
                     this.datiAnnui[anno]['sommaVoti'] -= singoloDato['NR'];
+                }
             }
 
 
@@ -263,7 +261,6 @@ export class StatisticheVotiEsamePage implements OnInit {
             this.doughnutChartData = [0, 0, 0, 0];
 
 
-
             let ultimoAnnoDiCorso = this.lineChartLabels.reduce((a, b) => {
                 return Math.max(a, b);
             });
@@ -272,7 +269,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
             let temp = [];
 
-            for (let i = 0; i < this.barChartLabels.length; i++ ) {
+            for (let i = 0; i < this.barChartLabels.length; i++) {
                 temp.push(0);
             }
 
@@ -293,7 +290,6 @@ export class StatisticheVotiEsamePage implements OnInit {
             });
 
 
-
             //trasformiamo i dati del barChart in percentuali
             for (let i in temp) {
                 this.barChartData[0].data[i] = temp [i] * 100 / this.datiAnnui[ultimoAnnoDiCorso]['numeroEsami'];
@@ -307,18 +303,19 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     configuraGraficoABarre(annoSelezionato) {
 
-        let votiAnnoSelezionato = this.votiEsamiSuperati.filter( (singoloDato) => {
+        let votiAnnoSelezionato = this.votiEsamiSuperati.filter((singoloDato) => {
             return singoloDato['AA_SES_ID'] == annoSelezionato;
         });
 
         let temp = [];
 
-        for (let i = 0; i < this.barChartLabels.length; i++ ) {
+        for (let i = 0; i < this.barChartLabels.length; i++) {
             temp.push(0);
         }
 
-        for (let singoloDato of votiAnnoSelezionato)
+        for (let singoloDato of votiAnnoSelezionato) {
             temp[singoloDato['VOTO'] - 18] += singoloDato['NR'];
+        }
 
         //trasformiamo i dati del barChart in percentuali
         for (let i in temp) {
