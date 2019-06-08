@@ -101,8 +101,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartData = [
         {data: [], label: 'Percentuale voto'},
     ];
-
-
     public lineChartData: Array<any> = [
         {data: [], label: 'Voto medio'},
     ];
@@ -232,7 +230,6 @@ export class StatisticheVotiEsamePage implements OnInit {
 
             for (let singoloDato of this.votiEsamiSuperati) {
                 let anno = singoloDato['AA_SES_ID'];
-
                 if (!(anno in this.datiAnnui)) {
                     this.datiAnnui[anno] = [];
                     this.datiAnnui[anno]['sommaVoti'] = singoloDato['NR'] * singoloDato['VOTO'];
