@@ -167,18 +167,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     public chartHovered(e: any): void {
     }
-
-    // public randomize(): void {
-    //     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    //     for (let i = 0; i < this.lineChartData.length; i++) {
-    //         _lineChartData[i] = {dataButton: new Array(this.lineChartData[i].dataButton.length), label: this.lineChartData[i].label};
-    //         for (let j = 0; j < this.lineChartData[i].dataButton.length; j++) {
-    //             _lineChartData[i].dataButton[j] = Math.floor((Math.random() * 100) + 1);
-    //         }
-    //     }
-    //     this.lineChartData = _lineChartData;
-    // }
-
+    
     // events
 
     async openActionSheet() {
