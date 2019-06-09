@@ -1,10 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
-import {max} from 'rxjs/operators';
 import {SyncService} from '../../services/sync.service';
-import {forEach} from '@angular-devkit/schematics';
 import {BaseChartDirective} from 'ng2-charts';
+import {InfoAnno} from './classe-infoanno';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -15,32 +14,32 @@ export class StatisticheVotiEsamePage implements OnInit {
     @ViewChild(BaseChartDirective)
     public chart: BaseChartDirective;
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController, private sync: SyncService) {
-    }
-
     oddUpdate = false;
     srcPage: string;
-    pieChartData = [];
-    dataButton: any;
+    annoSelezionato: any;
     currentPage = '/statistiche-voti-esame';
     value: 25;
-    votiEsamiSuperati = [];
-    datiAnnui = [];
+
+    idServizioStatistiche = 130;
+
+    gruppiEsamiSupCorso = [];
+
+    infoAnni: InfoAnno[];
 
 
-    public doughnutChartLabels: string[] = ['Anno di frequentazione', 'Dopo 1 anno', 'Dopo 2 anni', 'Oltre 2 anni'];
-    public doughnutChartData: number[] = [0, 0, 0, 0];
-    public doughnutChartType = 'pie';
-    public doughnutChartOptions: any = {
+    public pieChartLabels: string[] = ['Anno di frequentazione', 'Dopo 1 anno', 'Dopo 2 anni', 'Oltre 2 anni dopo'];
+    public pieChartData: number[] = [0, 0, 0, 0];
+    public pieChartType = 'pie';
+    public pieChartOptions: any = {
         tooltips: {
             callbacks: {
                 label: function (tooltipItem, data) {
-                    var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce(function (previousValue, currentValue, currentIndex, array) {
+                    const dataset = data.datasets[tooltipItem.datasetIndex];
+                    const total = dataset.data.reduce(function (previousValue, currentValue) {
                         return previousValue + currentValue;
                     });
-                    var currentValue = dataset.data[tooltipItem.index];
-                    var precentage = ((currentValue / total) * 100).toFixed(1);
+                    const currentValue = dataset.data[tooltipItem.index];
+                    const precentage = ((currentValue / total) * 100).toFixed(1);
                     return precentage + '%';
                 }
             }
@@ -55,12 +54,12 @@ export class StatisticheVotiEsamePage implements OnInit {
                     return '';
                 },
                 label: function (tooltipItem, data) {
-                    var dataset = data.datasets[tooltipItem.datasetIndex];
-                    var total = dataset.data.reduce(function (previousValue, currentValue) {
+                    const dataset = data.datasets[tooltipItem.datasetIndex];
+                    const total = dataset.data.reduce(function (previousValue, currentValue) {
                         return previousValue + currentValue;
                     });
-                    var currentValue = dataset.data[tooltipItem.index];
-                    var precentage = ((currentValue / total) * 100).toFixed(1);
+                    const currentValue = dataset.data[tooltipItem.index];
+                    const precentage = ((currentValue / total) * 100).toFixed(1);
                     return precentage + '%';
                 }
 
@@ -96,7 +95,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     public barChartLegend = true;
 
     public barChartData = [
-        {data: [], label: 'Percentuale voto'},
+        {data: Array(31 - 17), label: 'Percentuale voto'},
     ];
     public lineChartData: Array<any> = [
         {data: [], label: 'Voto medio'},
@@ -155,6 +154,10 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     ];
 
+    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
+                private sync: SyncService) {
+    }
+
 // events
     public chartClickedG(e: any): void {
     }
@@ -171,9 +174,9 @@ export class StatisticheVotiEsamePage implements OnInit {
     // public randomize(): void {
     //     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
     //     for (let i = 0; i < this.lineChartData.length; i++) {
-    //         _lineChartData[i] = {dataButton: new Array(this.lineChartData[i].dataButton.length), label: this.lineChartData[i].label};
-    //         for (let j = 0; j < this.lineChartData[i].dataButton.length; j++) {
-    //             _lineChartData[i].dataButton[j] = Math.floor((Math.random() * 100) + 1);
+    //         _lineChartData[i] = {annoSelezionato: new Array(this.lineChartData[i].annoSelezionato.length), label: this.lineChartData[i].label};
+    //         for (let j = 0; j < this.lineChartData[i].annoSelezionato.length; j++) {
+    //             _lineChartData[i].annoSelezionato[j] = Math.floor((Math.random() * 100) + 1);
     //         }
     //     }
     //     this.lineChartData = _lineChartData;
@@ -183,20 +186,20 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     async openActionSheet() {
 
-        let pulsantiAnni = [];
-        let pulsanteCorrente;
+        const pulsantiAnni = [];
+        let pulsanteAnno;
 
-        for (let anno of this.lineChartLabels) {
-            pulsanteCorrente = {
+        for (const anno in this.infoAnni) {
+            pulsanteAnno = {
                 text: anno,
                 icon: 'ios-arrow-forward',
                 handler: () => {
-                    this.dataButton = anno;
-                    this.configuraGraficoABarre(anno);
+                    this.annoSelezionato = anno;
+                    this.disegnaBarChart();
                 }
             };
 
-            pulsantiAnni.push(pulsanteCorrente);
+            pulsantiAnni.push(pulsanteAnno);
         }
 
         console.log(pulsantiAnni);
@@ -209,125 +212,129 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     ngOnInit() {
         this.srcPage = this.globalData.srcPage;
-        // this.useAngularLibrary();
+
+        this.sync.getJson(this.idServizioStatistiche, null, true).then((data) => {
+            this.calcolaInfoAnni(data);
+
+            this.disegnaLineChart();
+            this.disegnaPieChart();
+
+            //impostiamo il valore del pulsante degli anni all'ultimo anno del corso
+            this.configuraPulsanteAnni();
 
 
-        this.sync.getJson(130, null, true).then((data) => {
-
-            //voti positivi dell'esame corrente
-            this.votiEsamiSuperati = data[0].filter(singoloDato => {
-                return (singoloDato['AD_COD'] == this.globalData.corso.CODICE
-                    && (singoloDato['VOTO'] >= 18 && singoloDato['VOTO'] <= 31)
-                    && singoloDato['AA_SES_ID'] != null);
-            });
-
-            console.log(this.votiEsamiSuperati);
-
-            this.datiAnnui = [];
-
-            for (let singoloDato of this.votiEsamiSuperati) {
-                let anno = singoloDato['AA_SES_ID'];
-                if (!(anno in this.datiAnnui)) {
-                    this.datiAnnui[anno] = [];
-                    this.datiAnnui[anno]['sommaVoti'] = singoloDato['NR'] * singoloDato['VOTO'];
-                    this.datiAnnui[anno]['numeroEsami'] = parseInt(singoloDato['NR'], 10);
-                } else {
-                    this.datiAnnui[anno]['sommaVoti'] += singoloDato['NR'] * singoloDato['VOTO'];
-                    this.datiAnnui[anno]['numeroEsami'] += parseInt(singoloDato['NR'], 10);
-                }
-
-                if (singoloDato['VOTO'] == 31) {
-                    this.datiAnnui[anno]['sommaVoti'] -= singoloDato['NR'];
-                }
-            }
-
-
-            console.log(this.datiAnnui);
-
-            let medie = [];
-
-            for (let anno in this.datiAnnui) {
-                medie[anno] = (this.datiAnnui[anno]['sommaVoti'] / this.datiAnnui[anno]['numeroEsami']).toFixed(2);
-            }
-
-            for (let key in medie) {
-                this.lineChartLabels.push(key);
-                this.lineChartData[0].data.push(medie[key]);
-            }
-
-            console.log(medie);
-
-
-            this.doughnutChartData = [0, 0, 0, 0];
-
-
-            let ultimoAnnoDiCorso = this.lineChartLabels.reduce((a, b) => {
-                return Math.max(a, b);
-            });
-            this.dataButton = ultimoAnnoDiCorso;
-            document.getElementById('nEsamiAnno').innerText = 'Numero esami dell\'anno: ' + this.datiAnnui[this.dataButton]['numeroEsami'];
-
-
-            let temp = [];
-
-            for (let i = 0; i < this.barChartLabels.length; i++) {
-                temp.push(0);
-            }
-
-
-            this.votiEsamiSuperati.map(singoloDato => {
-                singoloDato['VOTO'] = parseInt(singoloDato['VOTO'], 10);
-                singoloDato['NR'] = parseInt(singoloDato['NR'], 10);
-
-                if (singoloDato['RITARDO'] >= 0 && singoloDato['RITARDO'] <= 2) {
-                    this.doughnutChartData[singoloDato['RITARDO']] += singoloDato['NR'];
-                } else {
-                    this.doughnutChartData[3] += singoloDato['NR'];
-                }
-
-                if (singoloDato['AA_SES_ID'] == ultimoAnnoDiCorso) {
-                    temp[singoloDato['VOTO'] - 18] += singoloDato['NR'];
-                }
-            });
-
-
-            //trasformiamo i dati del barChart in percentuali
-            for (let i in temp) {
-                this.barChartData[0].data[i] = temp [i] * 100 / this.datiAnnui[ultimoAnnoDiCorso]['numeroEsami'];
-            }
-
-
-            console.log(this.barChartData[0].data);
-
+            this.disegnaBarChart();
         });
     }
 
-    configuraGraficoABarre(annoSelezionato) {
 
-        let votiAnnoSelezionato = this.votiEsamiSuperati.filter((singoloDato) => {
-            return singoloDato['AA_SES_ID'] == annoSelezionato;
+    calcolaInfoAnni(data) {
+
+        console.log(data);
+
+        const COD_CORSO = 'AD_COD';
+        const ANNO_ACCADEMICO = 'AA_SES_ID';
+        const VOTO = 'VOTO';
+        const NUM_VOTI = 'NR';
+        const ANNI_RITARDO = 'RITARDO';
+
+
+        //gruppi di dati relativi agli esami superati del corso selezionato
+        this.gruppiEsamiSupCorso = data[0].filter(gruppoEsami => {
+            return (gruppoEsami[COD_CORSO] == this.globalData.corso.CODICE
+                && (gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
+                && gruppoEsami[ANNO_ACCADEMICO] != null);
         });
 
-        let temp = [];
+        console.log(this.gruppiEsamiSupCorso);
 
-        for (let i = 0; i < this.barChartLabels.length; i++) {
-            temp.push(0);
+        let anno: any;
+        this.infoAnni = [];
+
+        for (const gruppoEsamiSupCorso of this.gruppiEsamiSupCorso) {
+
+            anno = gruppoEsamiSupCorso[ANNO_ACCADEMICO];
+            if (!(anno in this.infoAnni)) {
+                //numEsamiSuperati, gli elementi di occorrenzeVoti e sommaVoti inizializzati a 0 dal costruttore
+                this.infoAnni[anno] = new InfoAnno();
+            }
+
+
+            this.infoAnni[anno].numEsamiSuperati += parseInt(gruppoEsamiSupCorso[NUM_VOTI], 10);
+
+            this.infoAnni[anno].sommaVoti += gruppoEsamiSupCorso[NUM_VOTI] * gruppoEsamiSupCorso[VOTO];
+            //il 30 e lode (31) viene considerato come 30 ai fini della media, quindi...
+            if (gruppoEsamiSupCorso[VOTO] == 31) {
+                this.infoAnni[anno].sommaVoti -= gruppoEsamiSupCorso[NUM_VOTI];
+            }
+
+            this.infoAnni[anno].occorrenzeVoti[gruppoEsamiSupCorso[VOTO] - 18] +=
+                parseInt(gruppoEsamiSupCorso[NUM_VOTI], 10);
+
+            // 0, 1 o 2 anni di ritardo rappresentati nel grafico a torta con lo stesso significato
+            // 3 equivale a oltre 2 anni di ritardo
+            if (gruppoEsamiSupCorso[ANNI_RITARDO] < 3) {
+                this.infoAnni[anno].puntualitaSup[gruppoEsamiSupCorso[ANNI_RITARDO]] +=
+                    parseInt(gruppoEsamiSupCorso[NUM_VOTI], 10);
+            } else {
+                this.infoAnni[anno].puntualitaSup[3] +=
+                    parseInt(gruppoEsamiSupCorso[NUM_VOTI], 10);
+            }
         }
 
-        for (let singoloDato of votiAnnoSelezionato) {
-            temp[singoloDato['VOTO'] - 18] += singoloDato['NR'];
+        for (const anno in this.infoAnni) {
+            this.infoAnni[anno].media = (this.infoAnni[anno].sommaVoti / this.infoAnni[anno].numEsamiSuperati);
+        }
+    }
+
+
+    disegnaLineChart() {
+        for (const anno in this.infoAnni) {
+            this.lineChartLabels.push(anno);
+            this.lineChartData[0].data.push(this.infoAnni[anno].media.toFixed(2));
         }
 
-        //trasformiamo i dati del barChart in percentuali
-        for (let i in temp) {
-            this.barChartData[0].data[i] = temp [i] * 100 / this.datiAnnui[annoSelezionato]['numeroEsami'];
+    }
+
+    disegnaPieChart() {
+
+        this.pieChartData = [0, 0, 0, 0];
+
+        for (const anno in this.infoAnni) {
+            for (const i in this.pieChartData) {
+                this.pieChartData[i] += this.infoAnni[anno].puntualitaSup[i];
+            }
         }
+    }
+
+    configuraPulsanteAnni() {
+
+        const anniDiCorso = [];
+        for (const anno in this.infoAnni) {
+            anniDiCorso.push(anno);
+        }
+
+        const ultimoAnnoDiCorso = anniDiCorso.reduce((a, b) => {
+            return Math.max(a, b);
+        });
+
+        this.annoSelezionato = ultimoAnnoDiCorso;
+    }
+
+    disegnaBarChart() {
+
+
+        for (let i = 0; i < 31 - 17; i++) {
+            this.barChartData[0].data[i] = (this.infoAnni[this.annoSelezionato].occorrenzeVoti[i]
+                * 100 / this.infoAnni[this.annoSelezionato].numEsamiSuperati);
+        }
+
+        document.getElementById('nEsamiAnno').innerText = 'Numero esami passati dell\'anno: ' +
+            this.infoAnni[this.annoSelezionato].numEsamiSuperati;
 
         this.oddUpdate = !this.oddUpdate;
-
-        document.getElementById('nEsamiAnno').innerText = 'Numero esami passati dell\'anno: ' + this.datiAnnui[annoSelezionato]['numeroEsami'];
-
     }
+
 
     doRefresh(event) {
         console.log('Begin async operation');
