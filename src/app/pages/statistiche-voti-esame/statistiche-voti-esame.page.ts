@@ -2,7 +2,6 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
-import {BaseChartDirective} from 'ng2-charts';
 import {InfoAnno} from './classe-infoanno';
 
 @Component({
@@ -11,26 +10,56 @@ import {InfoAnno} from './classe-infoanno';
     styleUrls: ['./statistiche-voti-esame.page.scss'],
 })
 export class StatisticheVotiEsamePage implements OnInit {
-    @ViewChild(BaseChartDirective)
-    public chart: BaseChartDirective;
 
-    oddUpdate = false;
-    srcPage: string;
-    annoSelezionato: any;
     currentPage = '/statistiche-voti-esame';
-    value: 25;
-
+    srcPage: string;
     idServizioStatistiche = 130;
 
+    annoSelezionato: any;
     gruppiEsamiSupCorso = [];
-
     infoAnni: InfoAnno[];
 
+    oddUpdate = false;
 
-    public pieChartLabels: string[] = ['Anno di frequentazione', 'Dopo 1 anno', 'Dopo 2 anni', 'Oltre 2 anni dopo'];
-    public pieChartData: number[] = [0, 0, 0, 0];
-    public pieChartType = 'pie';
-    public pieChartOptions: any = {
+    lineChartType = 'line';
+    lineChartLabels = [];
+    lineChartData: Array<any> = [
+        {data: [], label: 'Voto medio'},
+    ];
+    lineChartLegend = true;
+
+    pieChartType = 'pie';
+    pieChartLabels = ['Anno di frequentazione', 'Dopo 1 anno', 'Dopo 2 anni', 'Oltre 2 anni dopo'];
+    pieChartData = [0, 0, 0, 0];
+
+
+    barChartLegend = true;
+    barChartData = [
+        {data: Array(31 - 17), label: 'Percentuale voto'},
+    ];
+    barChartLabels = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
+    barChartType = 'bar';
+
+
+    lineChartOptions: any = {
+        scales: {
+            yAxes: [{
+                display: true,
+                ticks: {
+                    stepSize: 2,
+                    min: 18,
+                    max: 30
+                }
+            }]
+        },
+        legend: {
+            display: false
+        },
+        responsive: true
+    };
+
+
+    pieChartOptions: any = {
         tooltips: {
             callbacks: {
                 label: function (tooltipItem, data) {
@@ -46,7 +75,7 @@ export class StatisticheVotiEsamePage implements OnInit {
         }
     };
 
-    public barChartOptions: any = {
+    barChartOptions: any = {
 
         tooltips: {
             callbacks: {
@@ -88,36 +117,12 @@ export class StatisticheVotiEsamePage implements OnInit {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public lineChartLegend = true;
-    public lineChartType = 'line';
-    public barChartLabels = ['18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '30L'];
-    public barChartType = 'bar';
-    public barChartLegend = true;
 
-    public barChartData = [
-        {data: Array(31 - 17), label: 'Percentuale voto'},
-    ];
-    public lineChartData: Array<any> = [
-        {data: [], label: 'Voto medio'},
-    ];
-    public lineChartLabels: Array<any> = [];
-    public lineChartOptions: any = {
-        scales: {
-            yAxes: [{
-                display: true,
-                ticks: {
-                    stepSize: 2,
-                    min: 18,
-                    max: 30
-                }
-            }]
-        },
-        legend: {
-            display: false
-        },
-        responsive: true
-    };
-    public lineChartColors: Array<any> = [
+
+
+
+
+    lineChartColors = [
         {
             backgroundColor: 'rgba(77, 148, 255, 0.4)',
             borderColor: 'rgba(51, 133, 255, 1)',
@@ -150,39 +155,11 @@ export class StatisticheVotiEsamePage implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: 'rgba(148,159,177,0.8)'
         },
-
-
     ];
 
     constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
                 private sync: SyncService) {
     }
-
-// events
-    public chartClickedG(e: any): void {
-    }
-
-    public chartHoveredG(e: any): void {
-    }
-
-    public chartClicked(e: any): void {
-    }
-
-    public chartHovered(e: any): void {
-    }
-
-    // public randomize(): void {
-    //     let _lineChartData: Array<any> = new Array(this.lineChartData.length);
-    //     for (let i = 0; i < this.lineChartData.length; i++) {
-    //         _lineChartData[i] = {annoSelezionato: new Array(this.lineChartData[i].annoSelezionato.length), label: this.lineChartData[i].label};
-    //         for (let j = 0; j < this.lineChartData[i].annoSelezionato.length; j++) {
-    //             _lineChartData[i].annoSelezionato[j] = Math.floor((Math.random() * 100) + 1);
-    //         }
-    //     }
-    //     this.lineChartData = _lineChartData;
-    // }
-
-    // events
 
     async openActionSheet() {
 
@@ -322,7 +299,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     }
 
     disegnaBarChart() {
-
 
         for (let i = 0; i < 31 - 17; i++) {
             this.barChartData[0].data[i] = (this.infoAnni[this.annoSelezionato].occorrenzeVoti[i]

@@ -1,104 +1,97 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>Statistiche Esame</ion-title>
-    <ion-buttons slot="end">
-      <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}"></ion-back-button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>Statistiche Esame</ion-title>
+        <ion-buttons slot="end">
+            <ion-back-button *ngIf="srcPage" defaultHref="{{srcPage}}"></ion-back-button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
-
-<!--<ion-row>-->
-<!--<ion-item>-->
-<!--<ion-label text-center>Difficoltà esame</ion-label>-->
-<!--</ion-item>-->
-<!--<ion-progress-bar color="primary" value="0.9"></ion-progress-bar>-->
-<!--</ion-row>-->
 
 <ion-content>
 
-  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
-    <ion-refresher-content
-            pullingIcon="arrow-round-down"
-            pullingText="Rilascia per aggiornare"
-            refreshingSpinner="crescent"
-            refreshingText="Aggiornamento...">
-    </ion-refresher-content>
-  </ion-refresher>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+                pullingIcon="arrow-round-down"
+                pullingText="Rilascia per aggiornare"
+                refreshingSpinner="crescent"
+                refreshingText="Aggiornamento...">
+        </ion-refresher-content>
+    </ion-refresher>
 
-  <h1 text-center class="titolo" padding-horizontal="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></h1>
+    <h1 text-center class="titolo" padding-horizontal="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></h1>
 
-  <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b></ion-card-title>
+    <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b></ion-card-title>
 
-  <div class="row">
-    <div class="col-md-6">
-      <div>
-        <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                [datasets]="lineChartData"
-                [labels]="lineChartLabels"
-                [options]="lineChartOptions"
-                [colors]="lineChartColors"
-                [legend]="lineChartLegend"
-                [chartType]="lineChartType"
-                (chartHover)="chartHovered($event)"
-                (chartClick)="chartClicked($event)"></canvas>
-      </div>
-    </div>
-  </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div>
+                <canvas baseChart
+                        style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [options]="lineChartOptions"
+                        [colors]="lineChartColors"
+                        [legend]="lineChartLegend"
+                        [chartType]="lineChartType">
 
-
-  <ion-card-title text-center color="medium" padding-top="8"><b><I>Puntualità superamento</I></b></ion-card-title>
-
-
-  <div style="display: block">
-    <canvas baseChart
-            [data]="pieChartData"
-            [labels]="pieChartLabels"
-            [chartType]="pieChartType"
-            [options]="pieChartOptions"
-            (chartHover)="chartHoveredG($event)"
-            (chartClick)="chartClickedG($event)"></canvas>
-  </div>
-
-  <div padding-top="30"></div>
-  <ion-card-title text-center color="medium" padding-top="35"><b><I>Distribuzione voti</I></b></ion-card-title>
-
-  <div text-center>
-    <!-- contenuto della label definito nel corrispondente file .ts -->
-    <ion-label id="nEsamiAnno" color="medium"></ion-label>
-  </div>
-
-  <div text-center>
-    <ion-button ion-button color="medium" class="button-outline" (click)="openActionSheet()">{{annoSelezionato}}</ion-button>
-  </div>
-
-  <div>
-    <div style="display: block" *ngIf="oddUpdate">
-      <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
-    </div>
-
-    <div style="display: block" *ngIf="!oddUpdate">
-      <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-              [datasets]="barChartData"
-              [labels]="barChartLabels"
-              [options]="barChartOptions"
-              [legend]="barChartLegend"
-              [chartType]="barChartType"
-              (chartHover)="chartHovered($event)"
-              (chartClick)="chartClicked($event)"></canvas>
+                </canvas>
+            </div>
+        </div>
     </div>
 
 
-  </div>
+    <ion-card-title text-center color="medium" padding-top="8"><b><I>Puntualità superamento</I></b></ion-card-title>
+
+
+    <div style="display: block">
+        <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions">
+        </canvas>
+    </div>
+
+    <div padding-top="30"></div>
+    <ion-card-title text-center color="medium" padding-top="35"><b><I>Distribuzione voti</I></b></ion-card-title>
+
+    <div text-center>
+        <!-- contenuto della label definito nel corrispondente file .ts -->
+        <ion-label id="nEsamiAnno" color="medium"></ion-label>
+    </div>
+
+    <div text-center>
+        <ion-button ion-button color="medium" class="button-outline" (click)="openActionSheet()">{{annoSelezionato}}
+        </ion-button>
+    </div>
+
+    <div>
+        <div style="display: block" *ngIf="oddUpdate">
+            <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+            </canvas>
+        </div>
+
+        <div style="display: block" *ngIf="!oddUpdate">
+            <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                    [datasets]="barChartData"
+                    [labels]="barChartLabels"
+                    [options]="barChartOptions"
+                    [legend]="barChartLegend"
+                    [chartType]="barChartType">
+
+            </canvas>
+        </div>
+
+
+    </div>
 
 
 </ion-content>
