@@ -23,75 +23,98 @@
 
     <h1 text-center class="titolo" padding-horizontal="10"><b>{{this.globalData.corso.DESCRIZIONE}}</b></h1>
 
-    <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b></ion-card-title>
+    <div *ngIf="valutazioniPresenti;else other_content">
 
-    <div class="row">
-        <div class="col-md-6">
-            <div>
-                <canvas baseChart
-                        style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                        [datasets]="lineChartData"
-                        [labels]="lineChartLabels"
-                        [options]="lineChartOptions"
-                        [colors]="lineChartColors"
-                        [legend]="lineChartLegend"
-                        [chartType]="lineChartType">
+        <div *ngIf="!esameConGiudizio">
+            <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b>
+            </ion-card-title>
 
-                </canvas>
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <canvas baseChart
+                                style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                                [datasets]="lineChartData"
+                                [labels]="lineChartLabels"
+                                [options]="lineChartOptions"
+                                [colors]="lineChartColors"
+                                [legend]="lineChartLegend"
+                                [chartType]="lineChartType">
+
+                        </canvas>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+
+        <ion-card-title text-center color="medium" padding-top="8"><b><I>
+            Puntualità superamento
+        </I></b></ion-card-title>
 
 
-    <ion-card-title text-center color="medium" padding-top="8"><b><I>Puntualità superamento</I></b></ion-card-title>
-
-
-    <div style="display: block">
-        <canvas baseChart
-                [data]="pieChartData"
-                [labels]="pieChartLabels"
-                [chartType]="pieChartType"
-                [options]="pieChartOptions">
-        </canvas>
-    </div>
-
-    <div padding-top="30"></div>
-    <ion-card-title text-center color="medium" padding-top="35"><b><I>Distribuzione voti</I></b></ion-card-title>
-
-    <div text-center>
-        <!-- contenuto della label definito nel corrispondente file .ts -->
-        <ion-label id="nEsamiAnno" color="medium"></ion-label>
-    </div>
-
-    <div text-center>
-        <ion-button ion-button color="medium" class="button-outline" (click)="openActionSheet()">{{annoSelezionato}}
-        </ion-button>
-    </div>
-
-    <div>
-        <div style="display: block" *ngIf="oddUpdate">
-            <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
+        <div style="display: block">
+            <canvas baseChart
+                    [data]="pieChartData"
+                    [labels]="pieChartLabels"
+                    [chartType]="pieChartType"
+                    [options]="pieChartOptions">
             </canvas>
         </div>
 
-        <div style="display: block" *ngIf="!oddUpdate">
-            <canvas baseChart style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                    [datasets]="barChartData"
-                    [labels]="barChartLabels"
-                    [options]="barChartOptions"
-                    [legend]="barChartLegend"
-                    [chartType]="barChartType">
+        <div *ngIf="!esameConGiudizio">
+            <div padding-top="30"></div>
+            <ion-card-title text-center color="medium" padding-top="35"><b><I>Distribuzione voti</I></b>
+            </ion-card-title>
 
-            </canvas>
+            <div text-center>
+                <!-- contenuto della label definito nel corrispondente file .ts -->
+                <ion-label id="nEsamiAnno" color="medium"></ion-label>
+            </div>
+
+            <div text-center>
+                <ion-button ion-button color="medium" class="button-outline"
+                            (click)="openActionSheet()">{{annoSelezionato}}
+                </ion-button>
+            </div>
+
+            <div>
+                <div style="display: block">
+                    <canvas baseChart
+                            style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                            *ngIf="oddUpdate"
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                    </canvas>
+                </div>
+
+                <div style="display: block">
+                    <canvas baseChart
+                            style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
+                            *ngIf="!oddUpdate"
+
+                            [datasets]="barChartData"
+                            [labels]="barChartLabels"
+                            [options]="barChartOptions"
+                            [legend]="barChartLegend"
+                            [chartType]="barChartType">
+                    </canvas>
+                </div>
+            </div>
         </div>
 
+        <ion-textarea padding-top color = "medium" *ngIf="esameConGiudizio" padding-horizontal text-center>
+            L'esame è un'idoneità, <br>pertanto non prevede voti.
+        </ion-textarea>
 
     </div>
 
 
+    <ng-template #other_content>
+        <ion-textarea padding-horizontal color = "medium" text-center>
+            Non sono presenti statistiche <br>per questa attività didattica.
+        </ion-textarea>
+    </ng-template>
 </ion-content>

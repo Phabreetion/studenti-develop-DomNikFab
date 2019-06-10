@@ -1,20 +1,27 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
 import {InfoAnno} from './classe-infoanno';
+
 
 @Component({
     selector: 'app-statistiche-voti-esame',
     templateUrl: './statistiche-voti-esame.page.html',
     styleUrls: ['./statistiche-voti-esame.page.scss'],
 })
+
 export class StatisticheVotiEsamePage implements OnInit {
+
 
     currentPage = '/statistiche-voti-esame';
     srcPage: string;
     idServizioStatistiche = 130;
 
+    valutazioniPresenti: boolean;
+    esameConGiudizio: boolean;
+
+    //valore del pulsante degli anni
     annoSelezionato: any;
     gruppiEsamiSupCorso = [];
     infoAnni: InfoAnno[];
@@ -23,7 +30,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     lineChartType = 'line';
     lineChartLabels = [];
-    lineChartData: Array<any> = [
+    lineChartData = [
         {data: [], label: 'Voto medio'},
     ];
     lineChartLegend = true;
@@ -119,9 +126,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     };
 
 
-
-
-
     lineChartColors = [
         {
             backgroundColor: 'rgba(77, 148, 255, 0.4)',
@@ -159,6 +163,8 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
                 private sync: SyncService) {
+        this.esameConGiudizio = false;
+        this.valutazioniPresenti = true;
     }
 
     async openActionSheet() {
@@ -179,7 +185,6 @@ export class StatisticheVotiEsamePage implements OnInit {
             pulsantiAnni.push(pulsanteAnno);
         }
 
-        console.log(pulsantiAnni);
         const actionSheet = await this.actionSheetController.create({
             header: 'Selezione dell\'anno',
             buttons: pulsantiAnni
@@ -189,18 +194,28 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     ngOnInit() {
         this.srcPage = this.globalData.srcPage;
+        console.log(this.globalData.corso.VALUTAZIONE);
 
         this.sync.getJson(this.idServizioStatistiche, null, true).then((data) => {
             this.calcolaInfoAnni(data);
 
-            this.disegnaLineChart();
-            this.disegnaPieChart();
+            if (this.valutazioniPresenti) {
+                if (!this.esameConGiudizio) {
+                    console.log(this.esameConGiudizio);
+                    this.disegnaLineChart();
+                    console.log('linechart');
+                }
 
-            //impostiamo il valore del pulsante degli anni all'ultimo anno del corso
-            this.configuraPulsanteAnni();
+                if (this.valutazioniPresenti) {
+                    this.disegnaPieChart();
+                }
 
-
-            this.disegnaBarChart();
+                //impostiamo il valore del pulsante degli anni all'ultimo anno del corso
+                if (this.valutazioniPresenti && !this.esameConGiudizio) {
+                    this.configuraPulsanteAnni();
+                    this.disegnaBarChart();
+                }
+            }
         });
     }
 
@@ -219,9 +234,27 @@ export class StatisticheVotiEsamePage implements OnInit {
         //gruppi di dati relativi agli esami superati del corso selezionato
         this.gruppiEsamiSupCorso = data[0].filter(gruppoEsami => {
             return (gruppoEsami[COD_CORSO] == this.globalData.corso.CODICE
-                && (gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
+                && ((gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
+                    //esami di idoneità:
+                    || gruppoEsami[VOTO] == 999)
                 && gruppoEsami[ANNO_ACCADEMICO] != null);
         });
+
+        if (this.gruppiEsamiSupCorso.length == 0) {
+            this.valutazioniPresenti = false;
+        } else {
+            this.valutazioniPresenti = true;
+        }
+
+        if (this.globalData.corso.VALUTAZIONE == 'V') {
+            this.esameConGiudizio = false;
+            console.log('voto');
+        } else {/*Se è G*/
+            this.esameConGiudizio = true;
+            console.log('Idoneità');
+        }
+
+        console.log(this.valutazioniPresenti);
 
         console.log(this.gruppiEsamiSupCorso);
 
@@ -242,7 +275,7 @@ export class StatisticheVotiEsamePage implements OnInit {
             this.infoAnni[anno].sommaVoti += gruppoEsamiSupCorso[NUM_VOTI] * gruppoEsamiSupCorso[VOTO];
             //il 30 e lode (31) viene considerato come 30 ai fini della media, quindi...
             if (gruppoEsamiSupCorso[VOTO] == 31) {
-                this.infoAnni[anno].sommaVoti -= gruppoEsamiSupCorso[NUM_VOTI];
+                this.infoAnni[anno].sommaVoti -= gruppoEsamiSupCorso[NUM_VOTI] * 1;
             }
 
             this.infoAnni[anno].occorrenzeVoti[gruppoEsamiSupCorso[VOTO] - 18] +=
