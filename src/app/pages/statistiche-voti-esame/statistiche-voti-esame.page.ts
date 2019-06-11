@@ -198,7 +198,8 @@ export class StatisticheVotiEsamePage implements OnInit {
 
         this.sync.getJson(this.idServizioStatistiche, null, true).then((data) => {
             this.calcolaInfoAnni(data);
-
+            this.setData(data);
+            
             if (this.valutazioniPresenti) {
                 if (!this.esameConGiudizio) {
                     console.log(this.esameConGiudizio);
@@ -354,4 +355,13 @@ export class StatisticheVotiEsamePage implements OnInit {
         }, 2000);
     }
 
+     setData(data) {
+        this.storage.set('esami', data[0]);
+    }
+
+    getData() {
+        this.storage.get('esami').then((data) => {
+            console.log(data);
+        });
+    }
 }
