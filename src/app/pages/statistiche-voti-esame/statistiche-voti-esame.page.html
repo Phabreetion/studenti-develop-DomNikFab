@@ -12,7 +12,7 @@
 
 <ion-content>
 
-    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher slot="fixed" [disabled]="false" (ionRefresh)="caricaDatiEPagina($event)">
         <ion-refresher-content
                 pullingIcon="arrow-round-down"
                 pullingText="Rilascia per aggiornare"
@@ -25,11 +25,10 @@
 
     <div *ngIf="valutazioniPresenti;else other_content">
 
-        <div *ngIf="!esameConGiudizio">
-            <ion-card-title text-center color="medium" padding-top="8"><b><I>Voto medio per anno</I></b>
-            </ion-card-title>
+        <ion-card-title text-center color="medium" padding-top><b><I>Voto medio per anno</I></b></ion-card-title>
 
-            <div class="row">
+        <div *ngIf="!esameConGiudizio && !solo1Anno">
+            <div class="row" padding-bottom>
                 <div class="col-md-6">
                     <div>
                         <canvas baseChart
@@ -47,10 +46,20 @@
             </div>
         </div>
 
-        <ion-card-title text-center color="medium" padding-top="8"><b><I>
+        <div *ngIf="solo1Anno && !esameConGiudizio" text-center padding-bottom="">
+            <ion-label style="font-size: 1.1em">
+                <strong>
+                    {{anni[0]}}:
+                </strong>
+                {{infoAnni[anni[0]].media.toFixed(2)}}
+            </ion-label>
+
+        </div>
+
+
+        <ion-card-title text-center color="medium" no-padding><b><I>
             Puntualità superamento
         </I></b></ion-card-title>
-
 
         <div style="display: block">
             <canvas baseChart
@@ -81,7 +90,7 @@
                 <div style="display: block">
                     <canvas baseChart
                             style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                            *ngIf="oddUpdate"
+                            *ngIf="aggiornamentoDispari"
                             [datasets]="barChartData"
                             [labels]="barChartLabels"
                             [options]="barChartOptions"
@@ -93,7 +102,7 @@
                 <div style="display: block">
                     <canvas baseChart
                             style="max-height:100%;height:auto;width:100%;max-width:100%;margin:auto;display:inline;"
-                            *ngIf="!oddUpdate"
+                            *ngIf="!aggiornamentoDispari"
 
                             [datasets]="barChartData"
                             [labels]="barChartLabels"
@@ -105,7 +114,7 @@
             </div>
         </div>
 
-        <ion-textarea padding-top color = "medium" *ngIf="esameConGiudizio" padding-horizontal text-center>
+        <ion-textarea padding-top color="medium" *ngIf="esameConGiudizio" padding-horizontal text-center>
             L'esame è un'idoneità, <br>pertanto non prevede voti.
         </ion-textarea>
 
@@ -113,8 +122,29 @@
 
 
     <ng-template #other_content>
-        <ion-textarea padding-horizontal color = "medium" text-center>
-            Non sono presenti statistiche <br>per questa attività didattica.
-        </ion-textarea>
+        <div text-center>
+            <ion-icon name="warning" color="warning" style="font-size: 5em; margin-top: 1em"></ion-icon>
+            <ion-textarea text-wrap style="font-size: 1.2em">
+                <strong>
+                    Non sono presenti statistiche<br>per questa attività didattica.
+                </strong>
+            </ion-textarea>
+        </div>
+
     </ng-template>
 </ion-content>
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-spinner [hidden]="!isLoading() || !http.getConnected()"
+                         name="crescent"></ion-spinner>
+            <ion-icon [hidden]="isLoading() || !http.getConnected()" name="checkmark"></ion-icon>
+            <ion-icon [hidden]="isLoading() || http.getConnected()" name="close"></ion-icon>
+        </ion-buttons>
+
+        <div class="testo-footer" text-center>
+            Aggiornato al: {{getDataUltimoAggiornamentoGruppiEsami()}}
+        </div>
+    </ion-toolbar>
+</ion-footer>

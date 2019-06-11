@@ -4,6 +4,18 @@ import {ActionSheetController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
 import {InfoAnno} from './classe-infoanno';
 import {Storage} from '@ionic/storage';
+import {HttpService} from '../../services/http.service';
+import {AccountService} from '../../services/account.service';
+
+const PAGE_URL = '/statistiche-voti-esame';
+
+const ID_SERVIZIO_STATISTICHE = 130;
+
+const COD_CORSO = 'AD_COD';
+const ANNO_ACCADEMICO = 'AA_SES_ID';
+const VOTO = 'VOTO';
+const NUM_VOTI = 'NR';
+const ANNI_RITARDO = 'RITARDO';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -13,10 +25,8 @@ import {Storage} from '@ionic/storage';
 
 export class StatisticheVotiEsamePage implements OnInit {
 
-
     currentPage = '/statistiche-voti-esame';
     srcPage: string;
-    idServizioStatistiche = 130;
 
     valutazioniPresenti: boolean;
     esameConGiudizio: boolean;
@@ -26,12 +36,15 @@ export class StatisticheVotiEsamePage implements OnInit {
     gruppiEsamiSupCorso = [];
     infoAnni: InfoAnno[];
 
-    oddUpdate = false;
+    aggiornamentoDispari = false;
+
+    solo1Anno = false;
+    anni = [];
 
     lineChartType = 'line';
     lineChartLabels = [];
     lineChartData = [
-        {data: [], label: 'Voto medio'},
+        {data: [], label: 'Voto medio', pointRadius: 6, pointHoverRadius: 8},
     ];
     lineChartLegend = true;
 
@@ -62,7 +75,7 @@ export class StatisticheVotiEsamePage implements OnInit {
         legend: {
             display: false
         },
-        responsive: true
+        responsive: true,
     };
 
 
@@ -130,39 +143,15 @@ export class StatisticheVotiEsamePage implements OnInit {
         {
             backgroundColor: 'rgba(77, 148, 255, 0.4)',
             borderColor: 'rgba(51, 133, 255, 1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+            pointBackgroundColor: 'rgba(51, 133, 255, 1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
-        {
-            backgroundColor: 'rgba(219,255,4,0.4)',
-            borderColor: 'rgb(228,255,40)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
-        },
-        {
-            backgroundColor: 'rgba(255,10,60,0.4)',
-            borderColor: 'rgb(255,0,10)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
-        {
-            backgroundColor: 'rgba(255,14,223,0.4)',
-            borderColor: 'rgb(255,0,211)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-        },
+            pointHoverBorderColor: 'rgba(51, 133, 255, 1)'
+        }
     ];
 
     constructor(public storage: Storage, public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
-                private sync: SyncService) {
+                private sync: SyncService, public http: HttpService, public account: AccountService) {
         this.esameConGiudizio = false;
         this.valutazioniPresenti = true;
     }
@@ -193,54 +182,53 @@ export class StatisticheVotiEsamePage implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.storage.keys());
+        this.account.controllaAccount().then(
+            () => {
+                this.http.getConnected();
+            },
+            () => {
+                this.globalData.goTo(PAGE_URL, '/login', 'root', false);
+            }
+        );
         this.srcPage = this.globalData.srcPage;
-        console.log(this.globalData.corso.VALUTAZIONE);
 
-        this.sync.getJson(this.idServizioStatistiche, null, true).then((data) => {
-            this.calcolaInfoAnni(data);
-            this.setData(data);
-            
+        this.sync.getJson(ID_SERVIZIO_STATISTICHE, null, true).then((data) => {
+            this.gruppiEsamiSupCorso = data[0].filter(gruppoEsami => {
+                return (
+                    gruppoEsami[COD_CORSO] == this.globalData.corso.CODICE
+                    && ((gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
+                        //esami di idoneità: superato è indicato con 999
+                        || gruppoEsami[VOTO] == 999)
+                    && gruppoEsami[ANNO_ACCADEMICO] != null);
+
+            });
+
+            this.calcolaInfoAnni();
+
             if (this.valutazioniPresenti) {
-                if (!this.esameConGiudizio) {
-                    console.log(this.esameConGiudizio);
+                if (!this.esameConGiudizio && !this.solo1Anno) {
                     this.disegnaLineChart();
-                    console.log('linechart');
                 }
 
-                if (this.valutazioniPresenti) {
-                    this.disegnaPieChart();
-                }
+                this.disegnaPieChart();
 
                 //impostiamo il valore del pulsante degli anni all'ultimo anno del corso
-                if (this.valutazioniPresenti && !this.esameConGiudizio) {
+                if (!this.esameConGiudizio) {
                     this.configuraPulsanteAnni();
                     this.disegnaBarChart();
                 }
+
             }
+        }, () => {
+            this.valutazioniPresenti = false;
+            this.esameConGiudizio = null;
         });
+
     }
 
 
-    calcolaInfoAnni(data) {
-
-        console.log(data);
-
-        const COD_CORSO = 'AD_COD';
-        const ANNO_ACCADEMICO = 'AA_SES_ID';
-        const VOTO = 'VOTO';
-        const NUM_VOTI = 'NR';
-        const ANNI_RITARDO = 'RITARDO';
-
-
-        //gruppi di dati relativi agli esami superati del corso selezionato
-        this.gruppiEsamiSupCorso = data[0].filter(gruppoEsami => {
-            return (gruppoEsami[COD_CORSO] == this.globalData.corso.CODICE
-                && ((gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
-                    //esami di idoneità:
-                    || gruppoEsami[VOTO] == 999)
-                && gruppoEsami[ANNO_ACCADEMICO] != null);
-        });
-
+    calcolaInfoAnni() {
         if (this.gruppiEsamiSupCorso.length == 0) {
             this.valutazioniPresenti = false;
         } else {
@@ -249,15 +237,9 @@ export class StatisticheVotiEsamePage implements OnInit {
 
         if (this.globalData.corso.VALUTAZIONE == 'V') {
             this.esameConGiudizio = false;
-            console.log('voto');
         } else {/*Se è G*/
             this.esameConGiudizio = true;
-            console.log('Idoneità');
         }
-
-        console.log(this.valutazioniPresenti);
-
-        console.log(this.gruppiEsamiSupCorso);
 
         let anno: any;
         this.infoAnni = [];
@@ -295,6 +277,11 @@ export class StatisticheVotiEsamePage implements OnInit {
 
         for (const anno in this.infoAnni) {
             this.infoAnni[anno].media = (this.infoAnni[anno].sommaVoti / this.infoAnni[anno].numEsamiSuperati);
+            this.anni.push(anno);
+        }
+
+        if (this.anni.length == 1) {
+            this.solo1Anno = true;
         }
     }
 
@@ -342,26 +329,71 @@ export class StatisticheVotiEsamePage implements OnInit {
         document.getElementById('nEsamiAnno').innerText = 'Numero esami passati dell\'anno: ' +
             this.infoAnni[this.annoSelezionato].numEsamiSuperati;
 
-        this.oddUpdate = !this.oddUpdate;
+        this.aggiornamentoDispari = !this.aggiornamentoDispari;
     }
 
+    caricaDatiEPagina(event) {
+        this.getGruppiEsamiAggiornati().then((gruppiEsamiAggiornati) => {
+            if (this.areGruppiEsamiChanged(gruppiEsamiAggiornati, this.gruppiEsamiSupCorso)) {
+                console.log('i gruppi di esami sono stati aggiornati');
 
-    doRefresh(event) {
-        console.log('Begin async operation');
+                this.gruppiEsamiSupCorso = gruppiEsamiAggiornati;
 
-        setTimeout(() => {
-            console.log('Async operation has ended');
+                this.calcolaInfoAnni();
+                if (this.valutazioniPresenti) {
+
+                    if (!this.esameConGiudizio) {
+                        this.disegnaLineChart();
+                    }
+
+                    this.disegnaPieChart();
+
+                    //impostiamo il valore del pulsante degli anni all'ultimo anno del corso
+                    if (!this.esameConGiudizio) {
+                        this.configuraPulsanteAnni();
+                        this.disegnaBarChart();
+                    }
+                }
+            }
             event.target.complete();
-        }, 2000);
-    }
 
-     setData(data) {
-        this.storage.set('esami', data[0]);
-    }
-
-    getData() {
-        this.storage.get('esami').then((data) => {
-            console.log(data);
+        }).catch(() => {
+            event.target.complete();
         });
     }
+
+
+    async getGruppiEsamiAggiornati(): Promise<any> {
+
+        return new Promise<any>((resolve, reject) => {
+            return this.sync.getJsonAggiornato(ID_SERVIZIO_STATISTICHE, null).then((data) => {
+                //gruppi di dati relativi agli esami superati del corso selezionato
+                const gruppiEsamiSupCorso = data[0].filter(gruppoEsami => {
+                    return (gruppoEsami[COD_CORSO] == this.globalData.corso.CODICE
+                        && ((gruppoEsami[VOTO] >= 18 && gruppoEsami[VOTO] <= 31)
+                            //esami di idoneità:
+                            || gruppoEsami[VOTO] == 999)
+                        && gruppoEsami[ANNO_ACCADEMICO] != null);
+                });
+
+                resolve(gruppiEsamiSupCorso);
+            }).catch((err) => {
+                reject(err);
+            });
+        });
+    }
+
+
+    areGruppiEsamiChanged(newGruppiEsame, oldGruppiEsame) {
+        return this.sync.dataIsChanged(newGruppiEsame, oldGruppiEsame);
+    }
+
+    isLoading(): boolean {
+        return this.sync.isLoading(ID_SERVIZIO_STATISTICHE);
+    }
+
+    getDataUltimoAggiornamentoGruppiEsami(): string {
+        return this.sync.getDataUltimoAggiornamento(ID_SERVIZIO_STATISTICHE);
+    }
+
 }
