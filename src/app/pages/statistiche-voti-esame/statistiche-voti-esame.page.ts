@@ -3,7 +3,7 @@ import {GlobalDataService} from '../../services/global-data.service';
 import {ActionSheetController} from '@ionic/angular';
 import {SyncService} from '../../services/sync.service';
 import {InfoAnno} from './classe-infoanno';
-
+import {Storage} from '@ionic/storage';
 
 @Component({
     selector: 'app-statistiche-voti-esame',
@@ -161,7 +161,7 @@ export class StatisticheVotiEsamePage implements OnInit {
         },
     ];
 
-    constructor(public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
+    constructor(public storage: Storage, public globalData: GlobalDataService, private actionSheetController: ActionSheetController,
                 private sync: SyncService) {
         this.esameConGiudizio = false;
         this.valutazioniPresenti = true;
