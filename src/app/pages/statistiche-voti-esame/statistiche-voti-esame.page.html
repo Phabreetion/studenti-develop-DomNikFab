@@ -25,9 +25,8 @@
 
     <div *ngIf="valutazioniPresenti;else other_content">
 
-        <ion-card-title text-center color="medium" padding-top><b><I>Voto medio per anno</I></b></ion-card-title>
-
         <div *ngIf="!esameConGiudizio && !solo1Anno">
+            <ion-card-title text-center color="medium" padding-top><b><I>Voto medio per anno</I></b></ion-card-title>
             <div class="row" padding-bottom>
                 <div class="col-md-6">
                     <div>
@@ -46,7 +45,8 @@
             </div>
         </div>
 
-        <div *ngIf="solo1Anno && !esameConGiudizio" text-center padding-bottom="">
+        <div *ngIf="solo1Anno && !esameConGiudizio" text-center padding-bottom>
+            <ion-card-title text-center color="medium" padding-top><b><I>Voto medio per anno</I></b></ion-card-title>
             <ion-label style="font-size: 1.1em">
                 <strong>
                     {{anni[0]}}:
