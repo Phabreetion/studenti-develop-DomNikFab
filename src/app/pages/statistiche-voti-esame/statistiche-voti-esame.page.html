@@ -27,7 +27,7 @@
 
         <div *ngIf="!esameConGiudizio && !solo1Anno">
             <ion-card-title text-center color="medium" padding-top><b><I>Voto medio per anno</I></b></ion-card-title>
-            <div class="row" padding-bottom>
+            <div class="row">
                 <div class="col-md-6">
                     <div>
                         <canvas baseChart
@@ -56,8 +56,9 @@
 
         </div>
 
+        <ion-item-divider [hidden]="esameConGiudizio"></ion-item-divider>
 
-        <ion-card-title text-center color="medium" no-padding><b><I>
+        <ion-card-title text-center color="medium" padding-top><b><I>
             Puntualità superamento
         </I></b></ion-card-title>
 
@@ -69,6 +70,8 @@
                     [options]="pieChartOptions">
             </canvas>
         </div>
+
+        <ion-item-divider [hidden]="esameConGiudizio"></ion-item-divider>
 
         <div *ngIf="!esameConGiudizio">
             <div padding-top="30"></div>
