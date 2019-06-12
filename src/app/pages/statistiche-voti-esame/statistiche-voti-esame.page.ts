@@ -186,7 +186,6 @@ export class StatisticheVotiEsamePage implements OnInit {
     }
 
     ngOnInit() {
-        console.log(this.storage.keys());
         this.account.controllaAccount().then(
             () => {
                 this.http.getConnected();
