@@ -1,9 +1,15 @@
+/**
+ * Classe relativa alle statistiche di un esame per singolo anno.
+ */
+
 export class InfoAnno {
     numEsamiSuperati: number;
     media: number;
     occorrenzeVoti:  Array<number>;
-    puntualitaSup: Array<number>;
 
+    //ovvero dopo quanti anni dalla frequentazione del corso
+    //è stato passato l'esame
+    puntualitaSup: Array<number>;
     sommaVoti: number;
 
 

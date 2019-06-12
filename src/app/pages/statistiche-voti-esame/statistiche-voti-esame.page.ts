@@ -29,6 +29,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     srcPage: string;
 
     valutazioniPresenti: boolean;
+    //idoneità:
     esameConGiudizio: boolean;
 
     //valore del pulsante degli anni
@@ -38,6 +39,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
     aggiornamentoDispari = false;
 
+    //l'insegnamento presenta  o meno dati relativi ad un solo anno accademico.
     solo1Anno = false;
     anni = [];
 
@@ -75,10 +77,12 @@ export class StatisticheVotiEsamePage implements OnInit {
         legend: {
             display: false
         },
+        //label sull'asse y che si aggiornano dinamicamente in base al
+        //valore della barra più alta
         responsive: true,
     };
 
-
+    //pieChart con percentuali
     pieChartOptions: any = {
         tooltips: {
             callbacks: {
@@ -156,8 +160,8 @@ export class StatisticheVotiEsamePage implements OnInit {
         this.valutazioniPresenti = true;
     }
 
+    //menu a tendina che si apre quando si clicca sul pulsante degli anni
     async openActionSheet() {
-
         const pulsantiAnni = [];
         let pulsanteAnno;
 
@@ -229,6 +233,7 @@ export class StatisticheVotiEsamePage implements OnInit {
 
 
     calcolaInfoAnni() {
+
         if (this.gruppiEsamiSupCorso.length == 0) {
             this.valutazioniPresenti = false;
         } else {
@@ -261,6 +266,7 @@ export class StatisticheVotiEsamePage implements OnInit {
                 this.infoAnni[anno].sommaVoti -= gruppoEsamiSupCorso[NUM_VOTI] * 1;
             }
 
+            //dati da inserire nel barchart
             this.infoAnni[anno].occorrenzeVoti[gruppoEsamiSupCorso[VOTO] - 18] +=
                 parseInt(gruppoEsamiSupCorso[NUM_VOTI], 10);
 
@@ -275,6 +281,7 @@ export class StatisticheVotiEsamePage implements OnInit {
             }
         }
 
+        //calcolo della media
         for (const anno in this.infoAnni) {
             this.infoAnni[anno].media = (this.infoAnni[anno].sommaVoti / this.infoAnni[anno].numEsamiSuperati);
             this.anni.push(anno);
