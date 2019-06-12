@@ -44,7 +44,7 @@ export class StatisticheVotiEsamePage implements OnInit {
     lineChartType = 'line';
     lineChartLabels = [];
     lineChartData = [
-        {data: [], label: 'Voto medio', pointRadius: 6, pointHoverRadius: 8},
+        {data: [], label: 'Voto medio', pointRadius: 6, pointHoverRadius: 8, pointHitRadius: 13},
     ];
     lineChartLegend = true;
 
