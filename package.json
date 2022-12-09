@@ -54,7 +54,7 @@
     "angular-chart.js": "^1.1.1",
     "chart.js": "^2.8.0",
     "cordova-android": "7.1.4",
-    "cordova-browser": "5.0.4",
+    "cordova-browser": "6.0.0",
     "cordova-ios": "4.5.5",
     "cordova-plugin-add-swift-support": "^2.0.2",
     "cordova-plugin-advanced-http": "^2.0.9",
